@@ -899,6 +899,8 @@
     width: 100%;
     /* max-width: 900px; */
     margin: 50px auto 0;
+    margin-bottom: 30px;
+    
 }
 
 /* =========================================================
@@ -2001,5 +2003,1220 @@ html, body {
     .about-play-btn:hover,
     .mission-card:hover {
         transform: none;
+    }
+}
+
+/* =========================================================
+   ABOUT PAGE — PREMIUM / RICH ANIMATION LAYER
+   Add AFTER the existing About Page CSS.
+   Existing HTML/classes are preserved.
+========================================================= */
+
+/* ---------- GLOBAL REVEAL FOUNDATION ---------- */
+
+.about-breadcrumb-bar,
+.about-hero,
+.about-story,
+.about-stats,
+.about-values,
+.about-team,
+.about-cta {
+    position: relative;
+}
+
+/* ---------- BREADCRUMB ---------- */
+
+.about-breadcrumb-bar {
+    animation: aboutBarIn .6s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-breadcrumb-container a {
+    position: relative;
+    transition:
+        color .3s ease,
+        transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+.about-breadcrumb-container a:hover {
+    transform: translateY(-1px);
+}
+
+.about-breadcrumb-container a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: #1724c9;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.about-breadcrumb-container a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@keyframes aboutBarIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   HERO — CINEMATIC PREMIUM INTRO
+========================================================= */
+
+.about-hero {
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 30%,
+            rgba(108,79,245,.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(23,36,201,.08),
+            transparent 34%
+        ),
+        #f5f3ff;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -170px;
+    top: -220px;
+
+    border-radius: 50%;
+    background: rgba(108,79,245,.08);
+
+    filter: blur(2px);
+    pointer-events: none;
+
+    animation: aboutHeroOrb 8s ease-in-out infinite alternate;
+}
+
+.about-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 20%,
+            rgba(255,255,255,.55) 50%,
+            transparent 78%
+        );
+
+    background-size: 220% 100%;
+    pointer-events: none;
+
+    animation: aboutHeroSweep 8s ease-in-out 1.2s infinite;
+}
+
+.about-hero-container {
+    position: relative;
+    z-index: 2;
+}
+
+.about-hero-content {
+    animation:
+        aboutHeroContentIn .95s cubic-bezier(.16,1,.3,1) .08s both;
+}
+
+.about-hero-content .about-label {
+    animation:
+        aboutFadeUp .65s cubic-bezier(.16,1,.3,1) .15s both;
+}
+
+.about-hero-content h1 {
+    animation:
+        aboutTitleIn .9s cubic-bezier(.16,1,.3,1) .25s both;
+}
+
+.about-hero-content p {
+    animation:
+        aboutFadeUp .75s cubic-bezier(.16,1,.3,1) .42s both;
+}
+
+.about-hero-content .about-btn {
+    animation:
+        aboutFadeUp .75s cubic-bezier(.16,1,.3,1) .58s both;
+}
+
+.about-hero-image {
+    position: relative;
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 55px rgba(18,21,61,.14),
+        0 3px 12px rgba(18,21,61,.08);
+
+    transform-origin: center;
+    animation:
+        aboutHeroImageIn 1s cubic-bezier(.16,1,.3,1) .18s both,
+        aboutImageFloat 7s ease-in-out 1.5s infinite;
+}
+
+.about-hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(255,255,255,.35) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.about-hero-image:hover::after {
+    animation: aboutImageShine .85s ease forwards;
+}
+
+.about-hero-image img {
+    transition:
+        transform .9s cubic-bezier(.16,1,.3,1),
+        filter .6s ease;
+}
+
+.about-hero-image:hover img {
+    transform: scale(1.055);
+    filter: saturate(1.08) contrast(1.02);
+}
+
+@keyframes aboutHeroContentIn {
+    from {
+        opacity: 0;
+        transform: translateX(-45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes aboutHeroImageIn {
+    from {
+        opacity: 0;
+        transform: translateX(45px) scale(.96);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes aboutImageFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes aboutHeroOrb {
+    from {
+        transform: translate3d(0,0,0) scale(.92);
+        opacity: .55;
+    }
+    to {
+        transform: translate3d(-35px,30px,0) scale(1.08);
+        opacity: .9;
+    }
+}
+
+@keyframes aboutHeroSweep {
+    0%, 48% {
+        background-position: -120% 0;
+        opacity: 0;
+    }
+    60% {
+        opacity: .55;
+    }
+    78%, 100% {
+        background-position: 120% 0;
+        opacity: 0;
+    }
+}
+
+@keyframes aboutTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(.97);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes aboutFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- PREMIUM BUTTONS ---------- */
+
+.about-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .4s ease,
+        background .35s ease,
+        color .35s ease;
+}
+
+.about-btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: -80%;
+    left: -45%;
+
+    width: 32%;
+    height: 260%;
+
+    background: rgba(255,255,255,.42);
+    transform: rotate(24deg);
+    pointer-events: none;
+}
+
+.about-btn:hover {
+    transform: translateY(-4px) scale(1.015);
+}
+
+.about-btn:hover::before {
+    animation: aboutButtonShine .7s ease forwards;
+}
+
+.about-btn-primary {
+    background:
+        linear-gradient(
+            110deg,
+            #1724c9,
+            #5636e0,
+            #1724c9
+        );
+    background-size: 220% 100%;
+
+    animation: aboutButtonGradient 6s ease-in-out infinite;
+}
+
+.about-btn-primary:hover {
+    box-shadow:
+        0 16px 30px rgba(23,36,201,.28),
+        0 0 0 4px rgba(23,36,201,.06);
+}
+
+.about-btn-white:hover {
+    box-shadow:
+        0 12px 26px rgba(0,0,0,.15);
+}
+
+@keyframes aboutButtonShine {
+    to {
+        left: 135%;
+    }
+}
+
+@keyframes aboutButtonGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* =========================================================
+   STORY SECTION
+========================================================= */
+
+.about-story-container {
+    position: relative;
+}
+
+.about-story-content {
+    animation: aboutStoryLeft .85s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-story-content .about-label {
+    animation: aboutFadeUp .6s cubic-bezier(.16,1,.3,1) .1s both;
+}
+
+.about-story-content h2 {
+    animation: aboutFadeUp .7s cubic-bezier(.16,1,.3,1) .18s both;
+}
+
+.about-story-content p {
+    animation: aboutFadeUp .7s cubic-bezier(.16,1,.3,1) .28s both;
+}
+
+.about-story-list li {
+    opacity: 0;
+    animation: aboutListIn .55s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.about-story-list li:nth-child(1) { animation-delay: .38s; }
+.about-story-list li:nth-child(2) { animation-delay: .46s; }
+.about-story-list li:nth-child(3) { animation-delay: .54s; }
+.about-story-list li:nth-child(4) { animation-delay: .62s; }
+.about-story-list li:nth-child(5) { animation-delay: .70s; }
+
+.about-check {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease;
+}
+
+.about-story-list li:hover .about-check {
+    transform: scale(1.13) rotate(8deg);
+    box-shadow: 0 6px 15px rgba(23,36,201,.22);
+}
+
+.about-story-media {
+    box-shadow:
+        0 18px 45px rgba(18,21,61,.11);
+    animation:
+        aboutStoryRight .9s cubic-bezier(.16,1,.3,1) .12s both;
+}
+
+.about-story-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 20%,
+            rgba(255,255,255,.32) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.about-story-media:hover::after {
+    animation: aboutImageShine .8s ease forwards;
+}
+
+.about-story-media img {
+    transition:
+        transform .85s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.about-story-media:hover img {
+    transform: scale(1.055);
+    filter: saturate(1.07);
+}
+
+.about-play-btn {
+    position: absolute;
+    z-index: 3;
+
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .4s ease,
+        background .35s ease;
+}
+
+.about-play-btn::before,
+.about-play-btn::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 50%;
+
+    animation: aboutPlayRing 2.5s ease-out infinite;
+}
+
+.about-play-btn::after {
+    animation-delay: 1.25s;
+}
+
+.about-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.12);
+    box-shadow:
+        0 14px 32px rgba(23,36,201,.28),
+        0 0 0 6px rgba(255,255,255,.14);
+}
+
+@keyframes aboutStoryLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes aboutStoryRight {
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes aboutListIn {
+    from {
+        opacity: 0;
+        transform: translateX(-14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes aboutPlayRing {
+    0% {
+        opacity: .75;
+        transform: scale(.85);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.55);
+    }
+}
+
+@keyframes aboutImageShine {
+    to {
+        transform: translateX(130%);
+    }
+}
+
+/* =========================================================
+   STATS — PREMIUM COUNTER STYLE
+========================================================= */
+
+.about-stats {
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.about-stats::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(108,79,245,.08),
+            transparent 55%
+        );
+
+    animation: aboutStatsGlow 7s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.about-stats-container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-stat {
+    position: relative;
+
+    padding: 12px 8px;
+
+    border-radius: 14px;
+
+    opacity: 0;
+    animation: aboutStatIn .65s cubic-bezier(.16,1,.3,1) forwards;
+
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        box-shadow .35s ease;
+}
+
+.about-stat:nth-child(1) { animation-delay: .08s; }
+.about-stat:nth-child(2) { animation-delay: .16s; }
+.about-stat:nth-child(3) { animation-delay: .24s; }
+.about-stat:nth-child(4) { animation-delay: .32s; }
+
+.about-stat:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,.72);
+    box-shadow: 0 14px 28px rgba(18,21,61,.08);
+}
+
+.about-stat-icon {
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.about-stat:hover .about-stat-icon {
+    transform: scale(1.10) rotate(-5deg);
+    background: #1724c9;
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(23,36,201,.20);
+}
+
+.about-stat-body strong {
+    display: inline-block;
+    transform-origin: left center;
+    animation: aboutNumberPop .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-stat:nth-child(1) .about-stat-body strong { animation-delay: .35s; }
+.about-stat:nth-child(2) .about-stat-body strong { animation-delay: .43s; }
+.about-stat:nth-child(3) .about-stat-body strong { animation-delay: .51s; }
+.about-stat:nth-child(4) .about-stat-body strong { animation-delay: .59s; }
+
+@keyframes aboutStatIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes aboutNumberPop {
+    from {
+        opacity: 0;
+        transform: scale(.75);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes aboutStatsGlow {
+    from {
+        transform: scale(.95);
+        opacity: .55;
+    }
+    to {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   VALUES — LUXURY CARDS
+========================================================= */
+
+.about-values-header {
+    animation: aboutFadeUp .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-values-grid {
+    perspective: 1200px;
+}
+
+.about-value-card {
+    position: relative;
+    overflow: hidden;
+
+    opacity: 0;
+    animation: aboutValueIn .7s cubic-bezier(.16,1,.3,1) forwards;
+
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+}
+
+.about-value-card:nth-child(1) { animation-delay: .08s; }
+.about-value-card:nth-child(2) { animation-delay: .16s; }
+.about-value-card:nth-child(3) { animation-delay: .24s; }
+.about-value-card:nth-child(4) { animation-delay: .32s; }
+
+.about-value-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(255,255,255,.70) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.about-value-card:hover {
+    transform: translateY(-9px) rotateX(1deg) scale(1.012);
+
+    border-color: #bcb0f6;
+
+    box-shadow:
+        0 20px 40px rgba(18,21,61,.12),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.about-value-card:hover::before {
+    animation: aboutImageShine .8s ease forwards;
+}
+
+.about-value-icon {
+    position: relative;
+    z-index: 1;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.about-value-card:hover .about-value-icon {
+    transform: translateY(-4px) scale(1.10) rotate(-5deg);
+    background: #1724c9;
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(23,36,201,.20);
+}
+
+.about-value-card h3,
+.about-value-card p {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes aboutValueIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   TEAM — PREMIUM PHOTO INTERACTION
+========================================================= */
+
+.about-team-header {
+    animation: aboutFadeUp .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-team-grid {
+    perspective: 1200px;
+}
+
+.about-team-card {
+    position: relative;
+    overflow: hidden;
+
+    opacity: 0;
+    animation: aboutTeamIn .7s cubic-bezier(.16,1,.3,1) forwards;
+
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+}
+
+.about-team-card:nth-child(1) { animation-delay: .08s; }
+.about-team-card:nth-child(2) { animation-delay: .16s; }
+.about-team-card:nth-child(3) { animation-delay: .24s; }
+.about-team-card:nth-child(4) { animation-delay: .32s; }
+
+.about-team-card:hover {
+    transform: translateY(-9px) scale(1.012);
+    border-color: #c9c0f4;
+
+    box-shadow:
+        0 20px 40px rgba(18,21,61,.14),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.about-team-photo {
+    position: relative;
+}
+
+.about-team-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(255,255,255,.30) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+
+.about-team-card:hover .about-team-photo::after {
+    animation: aboutImageShine .8s ease forwards;
+}
+
+.about-team-photo img {
+    transition:
+        transform .8s cubic-bezier(.16,1,.3,1),
+        filter .55s ease;
+}
+
+.about-team-card:hover .about-team-photo img {
+    transform: scale(1.08);
+    filter: saturate(1.08) contrast(1.02);
+}
+
+.about-team-info {
+    position: relative;
+    z-index: 2;
+}
+
+.about-team-social {
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.about-team-card:hover .about-team-social {
+    transform: translateY(-3px) scale(1.10);
+    box-shadow: 0 7px 16px rgba(23,36,201,.18);
+}
+
+@keyframes aboutTeamIn {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   MISSION / VISION — RICH PREMIUM CARDS
+========================================================= */
+
+.section-heading {
+    animation: aboutFadeUp .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.section-heading .eyebrow {
+    position: relative;
+    display: inline-block;
+}
+
+.section-heading .eyebrow::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+
+    width: 0;
+    height: 2px;
+
+    background: #1724c9;
+    transform: translateX(-50%);
+
+    animation: aboutHeadingLine .65s cubic-bezier(.16,1,.3,1) .25s forwards;
+}
+
+.mission-grid {
+    perspective: 1400px;
+}
+
+.mission-card {
+    position: relative;
+    overflow: hidden;
+
+    opacity: 0;
+    animation: aboutMissionIn .8s cubic-bezier(.16,1,.3,1) forwards;
+
+    transition:
+        transform .55s cubic-bezier(.16,1,.3,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+}
+
+.mission-card:nth-child(1) {
+    animation-delay: .12s;
+}
+
+.mission-card:nth-child(2) {
+    animation-delay: .24s;
+}
+
+.mission-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 18%,
+            rgba(255,255,255,.75) 50%,
+            transparent 82%
+        );
+
+    transform: translateX(-135%);
+    pointer-events: none;
+}
+
+.mission-card:hover {
+    transform: translateY(-10px) scale(1.012);
+    border-color: #1724c9;
+
+    box-shadow:
+        0 22px 50px rgba(23,36,201,.15),
+        0 0 0 5px rgba(23,36,201,.035);
+}
+
+.mission-card:hover::after {
+    animation: aboutImageShine .85s ease forwards;
+}
+
+.mission-card::before {
+    transition:
+        transform .7s cubic-bezier(.16,1,.3,1),
+        background .5s ease;
+}
+
+.mission-card:hover::before {
+    transform: scale(1.3);
+    background: rgba(23,36,201,.085);
+}
+
+.mission-icon {
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        background .4s ease,
+        color .4s ease,
+        box-shadow .4s ease;
+}
+
+.mission-card:hover .mission-icon {
+    transform: translateY(-5px) scale(1.10) rotate(-5deg);
+    background: #1724c9;
+    color: #fff;
+
+    box-shadow:
+        0 12px 25px rgba(23,36,201,.22);
+}
+
+@keyframes aboutMissionIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotateX(3deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+@keyframes aboutHeadingLine {
+    from {
+        width: 0;
+        opacity: .2;
+    }
+    to {
+        width: 42px;
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   CTA — LUXURY GLOW / SHIMMER
+========================================================= */
+
+.about-cta {
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            110deg,
+            #1724c9,
+            #5636e0,
+            #1724c9
+        );
+
+    background-size: 220% 100%;
+
+    animation: aboutCtaGradient 8s ease-in-out infinite;
+}
+
+.about-cta::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(255,255,255,.15),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(255,255,255,.10),
+            transparent 25%
+        );
+
+    animation: aboutCtaGlow 7s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.about-cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 55%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.16),
+            transparent
+        );
+
+    transform: skewX(-18deg);
+    animation: aboutCtaShine 7s ease-in-out 1.5s infinite;
+    pointer-events: none;
+}
+
+.about-cta-container {
+    position: relative;
+    z-index: 2;
+}
+
+.about-cta-icon {
+    animation: aboutCtaIcon 4s ease-in-out infinite;
+
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease;
+}
+
+.about-cta-container:hover .about-cta-icon {
+    transform: scale(1.10) rotate(-6deg);
+    box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+
+.about-cta-text {
+    animation: aboutFadeUp .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.about-cta .about-btn-white {
+    animation: aboutFadeUp .75s cubic-bezier(.16,1,.3,1) .12s both;
+}
+
+@keyframes aboutCtaGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes aboutCtaGlow {
+    from {
+        transform: scale(.9) rotate(0deg);
+        opacity: .65;
+    }
+    to {
+        transform: scale(1.08) rotate(4deg);
+        opacity: 1;
+    }
+}
+
+@keyframes aboutCtaShine {
+    0%, 55% {
+        left: -120%;
+    }
+    78%, 100% {
+        left: 135%;
+    }
+}
+
+@keyframes aboutCtaIcon {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-3px) scale(1.06);
+    }
+}
+
+/* =========================================================
+   MOUSE / TOUCH FRIENDLY
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .about-hero-image:hover img,
+    .about-story-media:hover img,
+    .about-team-card:hover .about-team-photo img {
+        transform: none;
+    }
+
+    .about-value-card:hover,
+    .about-team-card:hover,
+    .mission-card:hover,
+    .about-stat:hover {
+        transform: none;
+    }
+
+    .about-image-shine,
+    .about-value-card::before,
+    .mission-card::after,
+    .about-team-photo::after {
+        animation: none;
+    }
+}
+
+/* =========================================================
+   MOBILE — KEEP ANIMATIONS LIGHT & PREMIUM
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .about-hero::before {
+        width: 280px;
+        height: 280px;
+        right: -150px;
+        top: -130px;
+    }
+
+    .about-hero-image,
+    .about-story-media {
+        animation-duration: .75s;
+    }
+
+    .about-hero-image:hover img,
+    .about-story-media:hover img {
+        transform: scale(1.025);
+    }
+
+    .about-value-card:hover,
+    .about-team-card:hover,
+    .mission-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .about-stat {
+        animation-duration: .55s;
+    }
+}
+
+/* =========================================================
+   ACCESSIBILITY — REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-breadcrumb-bar,
+    .about-hero::before,
+    .about-hero::after,
+    .about-hero-content,
+    .about-hero-content .about-label,
+    .about-hero-content h1,
+    .about-hero-content p,
+    .about-hero-content .about-btn,
+    .about-hero-image,
+    .about-hero-image::after,
+    .about-story-content,
+    .about-story-content .about-label,
+    .about-story-content h2,
+    .about-story-content p,
+    .about-story-list li,
+    .about-story-media,
+    .about-story-media::after,
+    .about-play-btn::before,
+    .about-play-btn::after,
+    .about-stat,
+    .about-stat-body strong,
+    .about-stats::before,
+    .about-values-header,
+    .about-value-card,
+    .about-team-header,
+    .about-team-card,
+    .section-heading,
+    .section-heading .eyebrow::after,
+    .mission-card,
+    .about-cta,
+    .about-cta::before,
+    .about-cta::after,
+    .about-cta-icon,
+    .about-cta-text,
+    .about-cta .about-btn-white {
+        animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
     }
 }

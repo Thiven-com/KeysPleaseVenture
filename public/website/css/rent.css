@@ -3179,3 +3179,1159 @@ body.enquiry-modal-open {
         border-radius: 17px !important;
     }
 }
+
+
+/* =========================================================
+   RENT PAGE — PREMIUM & RICH ANIMATION LAYER
+   IMPORTANT:
+   - Existing layout is preserved.
+   - Existing class names are preserved.
+   - Existing responsive breakpoints are preserved.
+   - No content/functionality changes.
+   - This section is appended only.
+========================================================= */
+
+:root {
+    --rent-premium-blue: var(--blue, #1724c9);
+    --rent-premium-blue-dark: var(--blue-dark, #0d188f);
+    --rent-premium-glow: rgba(23, 36, 201, .16);
+}
+
+/* ---------- GLOBAL PAGE ENTRANCE ---------- */
+
+.search-area {
+    animation: rentFadeDown .75s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.content {
+    animation: rentContentIn .8s cubic-bezier(.16, 1, .3, 1) .08s both;
+}
+
+/* ---------- SEARCH PANEL ---------- */
+
+.search-panel {
+    position: relative;
+    isolation: isolate;
+    transition:
+        transform .45s cubic-bezier(.16, 1, .3, 1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.search-panel::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        linear-gradient(
+            110deg,
+            transparent 15%,
+            rgba(23,36,201,.08) 45%,
+            transparent 75%
+        );
+    transition: opacity .4s ease;
+}
+
+.search-panel:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 16px 38px rgba(17,27,69,.10),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.search-panel:hover::after {
+    opacity: 1;
+}
+
+/* ---------- SEARCH FIELDS ---------- */
+
+.search-panel .field {
+    opacity: 0;
+    animation: rentFieldReveal .65s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.search-panel .field:nth-child(1) { animation-delay: .08s; }
+.search-panel .field:nth-child(2) { animation-delay: .14s; }
+.search-panel .field:nth-child(3) { animation-delay: .20s; }
+.search-panel .field:nth-child(4) { animation-delay: .26s; }
+.search-panel .field:nth-child(5) { animation-delay: .32s; }
+.search-panel .field:nth-child(6) { animation-delay: .38s; }
+
+/* ---------- LABEL ---------- */
+
+.field label {
+    transition:
+        color .3s ease,
+        transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+.field:focus-within label {
+    color: var(--rent-premium-blue);
+    transform: translateX(2px);
+}
+
+/* ---------- CONTROLS ---------- */
+
+.control {
+    position: relative;
+    overflow: hidden;
+    transition:
+        border-color .3s ease,
+        box-shadow .35s ease,
+        background .35s ease,
+        transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.control::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--rent-premium-blue),
+            #7152e8
+        );
+    transition: width .45s cubic-bezier(.16,1,.3,1);
+}
+
+.control:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(17,27,69,.055);
+}
+
+.control:focus-within::before {
+    width: 100%;
+}
+
+.control > i {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        color .3s ease;
+}
+
+.control:hover > i,
+.control:focus-within > i {
+    transform: scale(1.12);
+    color: var(--rent-premium-blue-dark);
+}
+
+.control .arrow {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        color .3s ease;
+}
+
+/* ---------- CLEAR BUTTON ---------- */
+
+.control-icon-btn {
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+.control-icon-btn:hover {
+    transform: rotate(90deg) scale(1.08);
+}
+
+/* ---------- DROPDOWNS ---------- */
+
+.location-suggestions.show,
+.select-menu.show {
+    animation: rentDropdownIn .3s cubic-bezier(.16,1,.3,1) both;
+}
+
+.location-suggestions button,
+.select-menu button {
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s cubic-bezier(.16,1,.3,1),
+        padding-left .25s ease;
+}
+
+.location-suggestions button:hover,
+.select-menu button:hover {
+    transform: translateX(4px);
+    padding-left: 15px;
+}
+
+/* ---------- SEARCH / FILTER BUTTONS ---------- */
+
+.search-action,
+.filter-action {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease,
+        background .3s ease,
+        border-color .3s ease;
+}
+
+.search-action::before,
+.filter-action::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -65%;
+    width: 32%;
+    height: 300%;
+    background: rgba(255,255,255,.35);
+    transform: rotate(24deg);
+    pointer-events: none;
+}
+
+.search-action:hover {
+    transform: translateY(-3px) scale(1.012);
+    box-shadow: 0 12px 26px rgba(23,36,201,.23);
+}
+
+.search-action:hover::before {
+    animation: rentButtonShine .75s ease forwards;
+}
+
+.filter-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 19px rgba(23,36,201,.09);
+}
+
+.filter-action.active {
+    box-shadow: 0 7px 18px rgba(23,36,201,.08);
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar {
+    animation: rentSidebarReveal .75s cubic-bezier(.16,1,.3,1) .18s both;
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .4s ease;
+}
+
+.sidebar:hover {
+    box-shadow: 0 16px 38px rgba(17,27,69,.09);
+}
+
+.filter-head {
+    transition: background .3s ease;
+}
+
+.filter-head:hover {
+    background: #fafbff;
+}
+
+.reset {
+    transition:
+        color .25s ease,
+        transform .3s ease;
+}
+
+.reset:hover {
+    transform: translateX(-2px);
+}
+
+/* ---------- FILTER SECTIONS ---------- */
+
+.filter-section {
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.filter-section:hover {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(23,36,201,.012),
+            transparent
+        );
+}
+
+.filter-title i {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        color .25s ease;
+}
+
+.filter-title:hover i {
+    color: var(--rent-premium-blue);
+}
+
+/* ---------- FILTER ROWS ---------- */
+
+.tree-row,
+.filter-checkbox-row,
+.property-type-filters button {
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .3s cubic-bezier(.16,1,.3,1),
+        padding-left .3s cubic-bezier(.16,1,.3,1);
+}
+
+.tree-row:hover {
+    transform: translateX(2px);
+}
+
+.tree-row.child:hover {
+    padding-left: 36px;
+}
+
+.filter-checkbox-row:hover,
+.property-type-filters button:hover {
+    transform: translateX(3px);
+}
+
+.checkbox {
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        transform .3s cubic-bezier(.16,1,.3,1),
+        box-shadow .3s ease;
+}
+
+.filter-checkbox-row:hover .checkbox,
+.property-type-filters button:hover .checkbox,
+.tree-row:hover .checkbox {
+    transform: scale(1.08);
+}
+
+.checkbox.checked {
+    box-shadow: 0 4px 13px rgba(23,36,201,.18);
+}
+
+.checkbox.checked i {
+    animation: rentCheckPop .3s cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- RANGE ---------- */
+
+.range-progress {
+    transform-origin: left center;
+    animation: rentRangeReveal .8s cubic-bezier(.16,1,.3,1) .35s both;
+}
+
+.range::before,
+.range::after,
+.range-thumb {
+    transition:
+        transform .3s cubic-bezier(.16,1,.3,1),
+        box-shadow .3s ease;
+}
+
+.range:hover::before,
+.range:hover::after,
+.range:hover .range-thumb {
+    box-shadow:
+        0 0 0 5px rgba(23,36,201,.07),
+        0 0 0 1px rgba(23,36,201,.18);
+}
+
+.range:hover::before,
+.range:hover::after {
+    transform: translateY(-50%) scale(1.12);
+}
+
+/* ---------- RESULTS TOOLBAR ---------- */
+
+.result-toolbar {
+    animation: rentToolbarReveal .7s cubic-bezier(.16,1,.3,1) .25s both;
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease;
+}
+
+.result-toolbar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(17,27,69,.07);
+}
+
+.showing strong {
+    display: inline-block;
+    animation: rentNumberPop .6s cubic-bezier(.16,1,.3,1) .45s both;
+}
+
+/* ---------- SORT / VIEW ---------- */
+
+.sort-select {
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        transform .3s ease;
+}
+
+.sort-select:hover {
+    transform: translateY(-1px);
+}
+
+.view-toggle button {
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .25s cubic-bezier(.16,1,.3,1);
+}
+
+.view-toggle button:hover {
+    transform: translateY(-1px);
+}
+
+/* ---------- PROPERTY CARDS ---------- */
+
+.result-card {
+    animation: rentCardReveal .72s cubic-bezier(.16,1,.3,1) both;
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.result-card:nth-child(1) { animation-delay: .08s; }
+.result-card:nth-child(2) { animation-delay: .15s; }
+.result-card:nth-child(3) { animation-delay: .22s; }
+.result-card:nth-child(4) { animation-delay: .29s; }
+.result-card:nth-child(5) { animation-delay: .36s; }
+.result-card:nth-child(6) { animation-delay: .43s; }
+
+.result-card:hover {
+    transform: translateY(-6px) scale(1.006);
+    box-shadow:
+        0 18px 42px rgba(17,27,69,.12),
+        0 0 0 4px rgba(23,36,201,.018);
+}
+
+/* ---------- GALLERY ---------- */
+
+.gallery {
+    position: relative;
+}
+
+.gallery::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            115deg,
+            transparent 20%,
+            rgba(255,255,255,.23) 48%,
+            transparent 76%
+        );
+    transform: translateX(-130%);
+}
+
+.result-card:hover .gallery::after {
+    animation: rentImageSweep .85s ease forwards;
+}
+
+.gallery img {
+    transition:
+        transform .75s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.result-card:hover .gallery img {
+    transform: scale(1.055);
+    filter: saturate(1.04) contrast(1.015);
+}
+
+/* ---------- BADGES ---------- */
+
+.featured {
+    animation: rentBadgeReveal .55s cubic-bezier(.16,1,.3,1) .3s both;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.result-card:hover .featured {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 17px rgba(23,36,201,.22);
+}
+
+.photo-count {
+    transition:
+        transform .3s cubic-bezier(.16,1,.3,1),
+        background .3s ease;
+}
+
+.result-card:hover .photo-count {
+    transform: translateY(-3px);
+    background: rgba(15,15,15,.82);
+}
+
+.new {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .3s ease;
+}
+
+.result-card:hover .new {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(8,98,207,.12);
+}
+
+/* ---------- HEART ---------- */
+
+.heart {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        color .25s ease,
+        background .25s ease,
+        box-shadow .35s ease;
+}
+
+.heart:hover {
+    transform: scale(1.12);
+    box-shadow: 0 8px 19px rgba(0,0,0,.15);
+}
+
+.heart.active {
+    box-shadow: 0 7px 19px rgba(230,57,70,.16);
+}
+
+.heart.active i {
+    animation: rentHeartPop .45s cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- PROPERTY DETAILS ---------- */
+
+.property-title {
+    transition:
+        color .3s ease,
+        transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.result-card:hover .property-title {
+    color: var(--rent-premium-blue);
+    transform: translateX(2px);
+}
+
+.location i,
+.meta span i {
+    transition:
+        transform .3s cubic-bezier(.16,1,.3,1),
+        color .3s ease;
+}
+
+.result-card:hover .location i,
+.result-card:hover .meta span i {
+    transform: scale(1.12);
+}
+
+.price {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        text-shadow .3s ease;
+}
+
+.result-card:hover .price {
+    transform: translateX(3px);
+    text-shadow: 0 5px 18px rgba(23,36,201,.12);
+}
+
+.verified {
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.result-card:hover .verified {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 13px rgba(34,166,101,.13);
+}
+
+/* ---------- BROKER ---------- */
+
+.broker-avatar {
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease;
+}
+
+.result-card:hover .broker-avatar {
+    transform: scale(1.08) rotate(-4deg);
+    box-shadow: 0 8px 19px rgba(16,22,45,.18);
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+
+.action-btn,
+.phone {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease,
+        background .3s ease,
+        color .3s ease;
+}
+
+.action-btn::before,
+.phone::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -65%;
+    width: 32%;
+    height: 300%;
+    background: rgba(255,255,255,.35);
+    transform: rotate(24deg);
+    pointer-events: none;
+}
+
+.action-btn:hover,
+.phone:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 20px rgba(23,36,201,.12);
+}
+
+.action-btn:hover::before,
+.phone:hover::before {
+    animation: rentButtonShine .7s ease forwards;
+}
+
+.action-btn.primary:hover {
+    box-shadow: 0 11px 24px rgba(23,36,201,.23);
+}
+
+/* ---------- NO RESULTS ---------- */
+
+.no-results {
+    animation: rentEmptyReveal .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.no-results > i {
+    animation: rentEmptyFloat 2.5s ease-in-out infinite;
+}
+
+/* ---------- ENQUIRY MODAL ---------- */
+
+.enquiry-overlay {
+    transition:
+        background .35s ease,
+        backdrop-filter .35s ease;
+}
+
+.enquiry-box {
+    transform:
+        translateY(28px)
+        scale(.94)
+        rotateX(2deg);
+    opacity: 0;
+    transition:
+        transform .55s cubic-bezier(.16,1,.3,1),
+        opacity .35s ease;
+}
+
+.enquiry-modal.show .enquiry-box {
+    transform:
+        translateY(0)
+        scale(1)
+        rotateX(0);
+    opacity: 1;
+    animation: rentModalGlow 1.1s ease-out .1s both;
+}
+
+.enquiry-close {
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        background .25s ease,
+        color .25s ease;
+}
+
+.enquiry-close:hover {
+    transform: rotate(90deg) scale(1.08);
+}
+
+.enquiry-icon {
+    animation: rentModalIcon .65s cubic-bezier(.16,1,.3,1) .12s both;
+}
+
+.enquiry-field {
+    animation: rentModalField .5s cubic-bezier(.16,1,.3,1) both;
+}
+
+.enquiry-field:nth-of-type(1) { animation-delay: .12s; }
+.enquiry-field:nth-of-type(2) { animation-delay: .19s; }
+.enquiry-field:nth-of-type(3) { animation-delay: .26s; }
+.enquiry-field:nth-of-type(4) { animation-delay: .33s; }
+
+.enquiry-field input,
+.enquiry-field textarea {
+    transition:
+        border-color .3s ease,
+        box-shadow .35s ease,
+        transform .3s ease;
+}
+
+.enquiry-field input:focus,
+.enquiry-field textarea:focus {
+    transform: translateY(-1px);
+    box-shadow:
+        0 7px 22px rgba(23,36,201,.08),
+        0 0 0 3px rgba(23,36,201,.055);
+}
+
+.enquiry-field > div > i {
+    transition:
+        color .3s ease,
+        transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.enquiry-field:focus-within > div > i {
+    color: var(--rent-premium-blue);
+    transform: scale(1.1);
+}
+
+.enquiry-submit {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease,
+        background .3s ease;
+}
+
+.enquiry-submit::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -65%;
+    width: 32%;
+    height: 300%;
+    background: rgba(255,255,255,.38);
+    transform: rotate(24deg);
+}
+
+.enquiry-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 27px rgba(23,36,201,.25);
+}
+
+.enquiry-submit:hover::before {
+    animation: rentButtonShine .7s ease forwards;
+}
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes rentFadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rentContentIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rentFieldReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rentDropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes rentButtonShine {
+    to {
+        left: 135%;
+    }
+}
+
+@keyframes rentSidebarReveal {
+    from {
+        opacity: 0;
+        transform: translateX(-22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes rentCheckPop {
+    0% {
+        opacity: 0;
+        transform: scale(.55);
+    }
+    65% {
+        opacity: 1;
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes rentRangeReveal {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes rentToolbarReveal {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rentNumberPop {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes rentCardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.98);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes rentImageSweep {
+    to {
+        transform: translateX(130%);
+    }
+}
+
+@keyframes rentBadgeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(-7px) scale(.85);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes rentHeartPop {
+    0% {
+        transform: scale(.65);
+    }
+    40% {
+        transform: scale(1.35);
+    }
+    70% {
+        transform: scale(.92);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes rentEmptyReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rentEmptyFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes rentModalGlow {
+    from {
+        box-shadow:
+            0 20px 55px rgba(0,0,0,.15),
+            0 0 0 rgba(23,36,201,0);
+    }
+    to {
+        box-shadow:
+            0 30px 90px rgba(0,0,0,.22),
+            0 0 30px rgba(23,36,201,.05);
+    }
+}
+
+@keyframes rentModalIcon {
+    from {
+        opacity: 0;
+        transform: scale(.65) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes rentModalField {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   MOBILE — PRESERVE EXISTING LAYOUT
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .search-panel:hover,
+    .sidebar:hover,
+    .result-toolbar:hover {
+        transform: none;
+    }
+
+    .result-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .result-card:hover .gallery img {
+        transform: scale(1.035);
+    }
+
+    .action-btn:hover,
+    .phone:hover,
+    .search-action:hover,
+    .filter-action:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .search-area,
+    .content,
+    .search-panel .field,
+    .sidebar,
+    .result-toolbar,
+    .result-card,
+    .featured,
+    .no-results,
+    .no-results > i,
+    .enquiry-icon,
+    .enquiry-field,
+    .enquiry-modal.show .enquiry-box {
+        animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL STACKING / DROPDOWN FIX
+   ---------------------------------------------------------
+   Keeps the existing design, layout, responsive breakpoints,
+   class names and functionality unchanged.
+   Fixes location/select dropdowns appearing behind cards.
+========================================================= */
+
+/* Search area must sit above the results section */
+.search-area {
+    position: relative !important;
+    z-index: 1000 !important;
+    overflow: visible !important;
+}
+
+/* Search panel creates the correct stacking context */
+.search-panel {
+    position: relative !important;
+    z-index: 1001 !important;
+    overflow: visible !important;
+}
+
+/* Every search field stays above result cards */
+.search-panel .field {
+    position: relative !important;
+    z-index: 1002 !important;
+}
+
+/* Location field gets the highest local layer */
+.search-panel .field:first-child,
+.location-control {
+    position: relative !important;
+    z-index: 1010 !important;
+}
+
+/* Location suggestions must be above the complete results area */
+.location-suggestions {
+    position: absolute !important;
+    z-index: 999999 !important;
+}
+
+/* Custom select menus must also stay above result cards */
+.custom-select {
+    position: relative !important;
+    z-index: 1005 !important;
+}
+
+.select-menu {
+    position: absolute !important;
+    z-index: 999999 !important;
+}
+
+/* Results stay below the search controls */
+.content,
+.results {
+    position: relative;
+    z-index: 1;
+}
+
+/* Result cards must never create a competing high layer */
+.result-card {
+    position: relative;
+    z-index: 1 !important;
+}
+
+/* Gallery elements remain inside their cards */
+.gallery {
+    position: relative;
+    z-index: 1;
+}
+
+/* Card overlays stay inside the card stacking context */
+.featured,
+.photo-count,
+.heart {
+    z-index: 4;
+}
+
+/* Dropdowns must remain clickable */
+.location-suggestions,
+.select-menu {
+    pointer-events: auto;
+}
+
+/* Make sure no parent clips the dropdown */
+.search-area,
+.search-panel,
+.search-panel .field,
+.location-control,
+.custom-select {
+    overflow: visible !important;
+}
+
+/* =========================================================
+   PREMIUM ANIMATION STACKING SAFETY
+   ---------------------------------------------------------
+   Transform animations can create stacking contexts.
+   The following keeps them visually below the search dropdown.
+========================================================= */
+
+.result-card {
+    isolation: isolate;
+}
+
+.search-area {
+    isolation: isolate;
+}
+
+/* On tablet/mobile the search area remains above results */
+@media (max-width: 1199px) {
+    .search-area {
+        z-index: 1000 !important;
+    }
+
+    .search-panel {
+        z-index: 1001 !important;
+    }
+
+    .content {
+        z-index: 1;
+    }
+}
+
+/* Mobile dropdown width follows the existing field width */
+@media (max-width: 575px) {
+    .location-suggestions,
+    .select-menu {
+        z-index: 999999 !important;
+    }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .location-suggestions,
+    .select-menu {
+        transition: none !important;
+    }
+}

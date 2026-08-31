@@ -71,7 +71,7 @@
 }
 
 .hero {
-    min-height: 500px;
+    min-height: 550px !important;
     position: relative;
     overflow: hidden;
 
@@ -5903,5 +5903,1186 @@ iframe {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================================
+   HOME PAGE — PREMIUM / RICH ANIMATION LAYER
+   Add AFTER the existing home-page CSS.
+   Existing HTML/classes are preserved.
+========================================================= */
+
+/* ---------- HERO: cinematic entrance ---------- */
+
+.hero {
+    isolation: isolate;
+    background-position: center center;
+    animation: hpHeroImageReveal 1.35s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    z-index: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle at 18% 50%, rgba(255,255,255,.72), transparent 32%),
+        radial-gradient(circle at 80% 25%, rgba(68,83,220,.10), transparent 30%);
+
+    animation: hpHeroGlow 7s ease-in-out infinite alternate;
+}
+
+.hero::after {
+    z-index: 3;
+}
+
+@keyframes hpHeroImageReveal {
+    from {
+        opacity: .82;
+        background-position: 53% center;
+        transform: scale(1.025);
+    }
+    to {
+        opacity: 1;
+        background-position: center center;
+        transform: scale(1);
+    }
+}
+
+@keyframes hpHeroGlow {
+    from {
+        transform: translate3d(-1%, 0, 0) scale(.96);
+        opacity: .55;
+    }
+    to {
+        transform: translate3d(2%, -1%, 0) scale(1.05);
+        opacity: .9;
+    }
+}
+
+/* ---------- HERO COPY ---------- */
+
+.hero-copy {
+    position: relative;
+    z-index: 2;
+    animation: hpHeroCopyIn .9s cubic-bezier(.16,1,.3,1) .12s both;
+}
+
+.eyebrow {
+    opacity: 0;
+    animation: hpFadeUp .65s cubic-bezier(.16,1,.3,1) .22s forwards;
+}
+
+.hero h1 {
+    opacity: 0;
+    animation: hpHeroTitle .9s cubic-bezier(.16,1,.3,1) .32s forwards;
+}
+
+.hero h1 strong {
+    display: inline-block;
+    position: relative;
+    animation: hpTitleGlow 4s ease-in-out 1.3s infinite;
+}
+
+.hero p {
+    opacity: 0;
+    animation: hpFadeUp .75s cubic-bezier(.16,1,.3,1) .52s forwards;
+}
+
+@keyframes hpHeroCopyIn {
+    from {
+        opacity: 0;
+        transform: translateX(-45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes hpHeroTitle {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes hpFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hpTitleGlow {
+    0%, 100% {
+        text-shadow: 0 0 0 rgba(23,36,201,0);
+    }
+    50% {
+        text-shadow: 0 4px 22px rgba(23,36,201,.16);
+    }
+}
+
+/* ---------- SEARCH CARD: premium floating glass ---------- */
+
+.search-card {
+    position: relative;
+    z-index: 5;
+
+    animation:
+        hpSearchIn .95s cubic-bezier(.16,1,.3,1) .28s both,
+        hpSearchFloat 6s ease-in-out 1.5s infinite;
+
+    box-shadow:
+        0 18px 55px rgba(20,31,75,.18),
+        0 3px 12px rgba(20,31,75,.08);
+}
+
+.search-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 15%,
+            rgba(255,255,255,.9) 50%,
+            transparent 85%
+        );
+
+    background-size: 220% 100%;
+    opacity: 0;
+    animation: hpCardShine 5.5s ease-in-out 2s infinite;
+}
+
+.search-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 0 0 1px rgba(255,255,255,.35);
+}
+
+@keyframes hpSearchIn {
+    from {
+        opacity: 0;
+        transform: translateX(45px) translateY(18px) scale(.97);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes hpSearchFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes hpCardShine {
+    0%, 55% {
+        opacity: 0;
+        background-position: -120% 0;
+    }
+    68% {
+        opacity: .75;
+    }
+    82%, 100% {
+        opacity: 0;
+        background-position: 120% 0;
+    }
+}
+
+/* ---------- SEARCH TABS ---------- */
+
+.search-tabs {
+    position: relative;
+    z-index: 2;
+}
+
+.tab {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.tab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 20%,
+            rgba(255,255,255,.45) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+    transition: transform .65s ease;
+}
+
+.tab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16,25,167,.10);
+}
+
+.tab:hover::before {
+    transform: translateX(130%);
+}
+
+.tab.active {
+    box-shadow:
+        0 7px 18px rgba(16,25,167,.22),
+        0 0 0 3px rgba(23,36,201,.06);
+}
+
+/* ---------- SEARCH CONTROLS ---------- */
+
+.field {
+    animation: hpFieldIn .55s cubic-bezier(.16,1,.3,1) both;
+}
+
+.form-grid .field:nth-child(1) { animation-delay: .62s; }
+.form-grid .field:nth-child(2) { animation-delay: .68s; }
+.form-grid .field:nth-child(3) { animation-delay: .74s; }
+.form-grid .field:nth-child(4) { animation-delay: .80s; }
+.form-grid .field:nth-child(5) { animation-delay: .86s; }
+
+.control {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .3s cubic-bezier(.16,1,.3,1),
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.control::after {
+    content: "";
+    position: absolute;
+    left: -80%;
+    top: 0;
+
+    width: 45%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+
+    transform: skewX(-18deg);
+    pointer-events: none;
+}
+
+.control:hover {
+    transform: translateY(-2px);
+    border-color: rgba(23,36,201,.5);
+    box-shadow:
+        0 7px 18px rgba(16,25,167,.10),
+        0 0 0 3px rgba(23,36,201,.035);
+}
+
+.control:hover::after {
+    animation: hpControlShine .65s ease forwards;
+}
+
+@keyframes hpFieldIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hpControlShine {
+    to {
+        left: 135%;
+    }
+}
+
+/* ---------- SEARCH BUTTON ---------- */
+
+.search-btn {
+    position: relative;
+    isolation: isolate;
+
+    background:
+        linear-gradient(
+            110deg,
+            var(--blue),
+            #2c3bd7,
+            #1724c9,
+            #4a59e5,
+            var(--blue)
+        );
+
+    background-size: 260% 100%;
+
+    box-shadow:
+        0 8px 22px rgba(16,25,167,.20);
+
+    animation:
+        hpSearchButtonIn .7s cubic-bezier(.16,1,.3,1) .92s both,
+        hpButtonGradient 6s ease-in-out 2s infinite;
+}
+
+.search-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent 25%,
+            rgba(255,255,255,.32) 50%,
+            transparent 75%
+        );
+
+    transform: translateX(-130%);
+}
+
+.search-btn:hover::before {
+    animation: hpButtonShine .7s ease forwards;
+}
+
+.search-btn:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow:
+        0 14px 30px rgba(16,25,167,.30),
+        0 0 25px rgba(23,36,201,.12);
+}
+
+@keyframes hpSearchButtonIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes hpButtonGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes hpButtonShine {
+    to {
+        transform: translateX(130%);
+    }
+}
+
+/* ---------- TRUST STRIP ---------- */
+
+.trust {
+    position: relative;
+    overflow: hidden;
+
+    animation:
+        hpTrustIn .8s cubic-bezier(.16,1,.3,1) .65s both;
+
+    box-shadow:
+        0 10px 30px rgba(16,24,168,.20),
+        0 2px 7px rgba(16,24,168,.10);
+}
+
+.trust::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent 15%,
+            rgba(255,255,255,.13) 48%,
+            transparent 72%
+        );
+
+    background-size: 220% 100%;
+    animation: hpTrustShine 7s ease-in-out 2s infinite;
+    pointer-events: none;
+}
+
+.trust-item {
+    position: relative;
+
+    transition:
+        background .35s ease,
+        transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.trust-item:hover {
+    background: rgba(255,255,255,.10);
+    transform: translateY(-2px);
+}
+
+.trust-icon {
+    animation: hpTrustIcon 4s ease-in-out infinite;
+}
+
+.trust-item:nth-child(2) .trust-icon { animation-delay: .4s; }
+.trust-item:nth-child(3) .trust-icon { animation-delay: .8s; }
+.trust-item:nth-child(4) .trust-icon { animation-delay: 1.2s; }
+
+@keyframes hpTrustIn {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes hpTrustShine {
+    0%, 50% {
+        background-position: -120% 0;
+    }
+    75%, 100% {
+        background-position: 120% 0;
+    }
+}
+
+@keyframes hpTrustIcon {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-2px) scale(1.07);
+    }
+}
+
+/* =========================================================
+   SCROLL-REVEAL SECTIONS
+========================================================= */
+
+section {
+    position: relative;
+}
+
+section.reveal,
+section.reveal-left {
+    will-change: opacity, transform;
+}
+
+/* Existing .stagger classes become richer */
+
+.locality-grid.stagger > .locality,
+.property-grid.stagger > .card,
+.type-grid.stagger > .type,
+.why-grid.stagger > .why {
+    will-change: transform, opacity;
+}
+
+/* ---------- LOCALITY ---------- */
+
+.locality {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.locality::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(255,255,255,.5) 50%,
+            transparent 80%
+        );
+
+    transform: translateX(-130%);
+}
+
+.locality:hover {
+    transform: translateY(-8px) scale(1.015);
+    border-color: rgba(23,36,201,.22);
+
+    box-shadow:
+        0 16px 34px rgba(25,34,65,.14),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.locality:hover::after {
+    animation: hpCardShineSweep .75s ease forwards;
+}
+
+.locality img {
+    transition:
+        transform .75s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.locality:hover img {
+    transform: scale(1.09);
+    filter: saturate(1.06);
+}
+
+@keyframes hpCardShineSweep {
+    to {
+        transform: translateX(130%);
+    }
+}
+
+/* ---------- PROPERTY CARDS ---------- */
+
+.card {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            125deg,
+            transparent 22%,
+            rgba(255,255,255,.30) 50%,
+            transparent 78%
+        );
+
+    transform: translateX(-130%);
+}
+
+.card:hover {
+    transform: translateY(-9px) scale(1.012);
+    border-color: rgba(23,36,201,.22);
+
+    box-shadow:
+        0 18px 38px rgba(21,31,67,.16),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.card:hover::before {
+    animation: hpCardShineSweep .8s ease forwards;
+}
+
+.card-image img {
+    transition:
+        transform .8s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.085);
+    filter: saturate(1.07) contrast(1.02);
+}
+
+/* ---------- BADGE ---------- */
+
+.badge {
+    transform-origin: left top;
+    animation: hpBadgeIn .65s cubic-bezier(.16,1,.3,1) both;
+}
+
+.card:nth-child(2) .badge { animation-delay: .08s; }
+.card:nth-child(3) .badge { animation-delay: .16s; }
+.card:nth-child(4) .badge { animation-delay: .24s; }
+
+@keyframes hpBadgeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(.85);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- HEART ---------- */
+
+.heart {
+    position: absolute;
+    z-index: 5;
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.heart:hover {
+    transform: scale(1.16) rotate(-6deg);
+    color: #e52e5f;
+    background: #fff5f8;
+
+    box-shadow:
+        0 8px 20px rgba(229,46,95,.16);
+}
+
+.heart:active {
+    transform: scale(.88);
+}
+
+/* ---------- PROPERTY META ---------- */
+
+.price {
+    transition:
+        color .3s ease,
+        transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+.card:hover .price {
+    color: var(--blue);
+    transform: translateX(2px);
+}
+
+.title {
+    transition: color .3s ease;
+}
+
+.card:hover .title {
+    color: var(--blue);
+}
+
+/* =========================================================
+   PROPERTY TYPE CARDS
+========================================================= */
+
+.type {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.type::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(23,36,201,.10),
+            transparent 55%
+        );
+
+    opacity: 0;
+    transform: scale(.7);
+    transition:
+        opacity .45s ease,
+        transform .55s cubic-bezier(.16,1,.3,1);
+}
+
+.type:hover {
+    transform: translateY(-8px) scale(1.018);
+    border-color: rgba(23,36,201,.28);
+
+    box-shadow:
+        0 16px 34px rgba(25,34,65,.14),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.type:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.type-icon {
+    position: relative;
+    z-index: 1;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.type:hover .type-icon {
+    transform: translateY(-4px) scale(1.11) rotate(-4deg);
+    background: var(--blue);
+    color: #fff;
+
+    box-shadow:
+        0 10px 22px rgba(23,36,201,.22);
+}
+
+.type-name,
+.type-count {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================================
+   WHY CHOOSE US
+========================================================= */
+
+.why {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.why::after {
+    content: "";
+    position: absolute;
+    left: -120%;
+    top: 0;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent,
+            rgba(255,255,255,.65),
+            transparent
+        );
+
+    transform: skewX(-16deg);
+    pointer-events: none;
+}
+
+.why:hover {
+    transform: translateY(-8px);
+    border-color: rgba(23,36,201,.24);
+
+    box-shadow:
+        0 16px 34px rgba(25,34,65,.14),
+        0 0 0 4px rgba(23,36,201,.025);
+}
+
+.why:hover::after {
+    animation: hpWhyShine .75s ease forwards;
+}
+
+.why-icon {
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.why:hover .why-icon {
+    transform: translateY(-5px) scale(1.10) rotate(-5deg);
+    background: var(--blue);
+    color: #fff;
+
+    box-shadow:
+        0 10px 22px rgba(23,36,201,.22);
+}
+
+@keyframes hpWhyShine {
+    to {
+        left: 135%;
+    }
+}
+
+/* =========================================================
+   POLICY + CTA
+========================================================= */
+
+.policy {
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.policy:hover {
+    transform: translateY(-7px);
+    border-color: rgba(23,36,201,.22);
+
+    box-shadow:
+        0 16px 34px rgba(25,34,65,.12);
+}
+
+.policy-icon {
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
+}
+
+.policy:hover .policy-icon {
+    transform: scale(1.10) rotate(-5deg);
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(23,36,201,.20);
+}
+
+/* ---------- CTA banner ---------- */
+
+.cta {
+    isolation: isolate;
+
+    background-size: 105% auto, 48% auto;
+
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        box-shadow .5s ease,
+        background-size .8s cubic-bezier(.16,1,.3,1);
+}
+
+.cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent 20%,
+            rgba(255,255,255,.10) 50%,
+            transparent 75%
+        );
+
+    background-size: 220% 100%;
+    animation: hpCtaSweep 8s ease-in-out 2s infinite;
+    pointer-events: none;
+}
+
+.cta:hover {
+    transform: translateY(-7px);
+    background-size: 110% auto, 51% auto;
+
+    box-shadow:
+        0 18px 38px rgba(16,25,167,.25);
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta h2 {
+    animation: hpCtaTextIn .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.cta button {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.cta button::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -40%;
+
+    width: 35%;
+    height: 300%;
+
+    transform: rotate(24deg);
+    background: rgba(255,255,255,.5);
+}
+
+.cta button:hover {
+    transform: translateY(-3px) scale(1.025);
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.18);
+}
+
+.cta button:hover::before {
+    animation: hpButtonShine .65s ease forwards;
+}
+
+@keyframes hpCtaSweep {
+    0%, 50% {
+        background-position: -120% 0;
+    }
+    75%, 100% {
+        background-position: 120% 0;
+    }
+}
+
+@keyframes hpCtaTextIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.newsletter {
+    position: relative;
+    overflow: hidden;
+}
+
+.newsletter::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 10% 50%,
+            rgba(255,255,255,.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 50%,
+            rgba(255,255,255,.08),
+            transparent 28%
+        );
+
+    animation: hpNewsletterGlow 6s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.news-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.news-title {
+    animation: hpFadeUp .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.news-sub {
+    animation: hpFadeUp .7s cubic-bezier(.16,1,.3,1) .12s both;
+}
+
+.subscribe {
+    transition:
+        transform .4s cubic-bezier(.16,1,.3,1),
+        box-shadow .4s ease;
+}
+
+.subscribe:focus-within {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.16),
+        0 0 0 4px rgba(255,255,255,.12);
+}
+
+.subscribe button {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.subscribe button:hover {
+    transform: translateY(-2px) scale(1.025);
+    box-shadow: 0 8px 18px rgba(16,25,167,.28);
+}
+
+@keyframes hpNewsletterGlow {
+    from {
+        transform: scale(.95);
+        opacity: .65;
+    }
+    to {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   EXISTING SCROLL REVEALS — ENHANCED
+========================================================= */
+
+.reveal {
+    transition:
+        opacity .85s ease,
+        transform .85s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal-left {
+    transition:
+        opacity .85s ease,
+        transform .85s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.visible .section-head h2::after {
+    animation: hpSectionLine .6s cubic-bezier(.16,1,.3,1) .15s both;
+}
+
+@keyframes hpSectionLine {
+    from {
+        width: 0;
+        opacity: .2;
+    }
+    to {
+        width: 42px;
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+        animation-duration: 1s;
+    }
+
+    .search-card {
+        animation:
+            hpSearchIn .75s cubic-bezier(.16,1,.3,1) .2s both;
+    }
+
+    .search-card:hover {
+        transform: none;
+    }
+
+    .locality:hover,
+    .card:hover,
+    .type:hover,
+    .why:hover,
+    .policy:hover,
+    .cta:hover {
+        transform: translateY(-3px);
+    }
+
+    .card:hover .card-image img,
+    .locality:hover img {
+        transform: scale(1.04);
+    }
+
+    .cta {
+        background-size: cover !important;
+    }
+}
+
+/* =========================================================
+   TOUCH + ACCESSIBILITY
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .locality:hover,
+    .card:hover,
+    .type:hover,
+    .why:hover,
+    .policy:hover,
+    .cta:hover {
+        transform: none;
+    }
+
+    .locality:hover::after,
+    .card:hover::before,
+    .why:hover::after,
+    .search-btn:hover::before {
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero,
+    .hero::before,
+    .hero-copy,
+    .eyebrow,
+    .hero h1,
+    .hero h1 strong,
+    .hero p,
+    .search-card,
+    .search-card::before,
+    .field,
+    .search-btn,
+    .trust,
+    .trust::before,
+    .trust-icon,
+    .badge,
+    .cta::before,
+    .cta h2,
+    .newsletter::before {
+        animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
     }
 }

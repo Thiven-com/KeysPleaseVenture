@@ -22,7 +22,7 @@
          LOGIN / REGISTER OVERLAY
     ====================================================== -->
 
-    <div class="login-overlay" id="loginOverlay">
+    <div class="login-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Login and registration">
 
         <div class="login-modal">
 
@@ -231,9 +231,7 @@
                             autocomplete="current-password">
 
                         <button type="button" class="eye" id="loginPasswordEye" aria-label="Show password">
-
-                            ◉
-
+                            <i class="fa-solid fa-eye"></i>
                         </button>
 
                     </div>
@@ -421,9 +419,7 @@
                                 autocomplete="new-password" required>
 
                             <button class="eye" type="button" aria-label="Show password">
-
-                                ◉
-
+                                <i class="fa-solid fa-eye"></i>
                             </button>
 
                         </div>
@@ -445,9 +441,7 @@
                                 placeholder="Confirm your password" autocomplete="new-password" required>
 
                             <button class="eye" type="button" aria-label="Show password">
-
-                                ◉
-
+                                <i class="fa-solid fa-eye"></i>
                             </button>
 
                         </div>
@@ -568,6 +562,15 @@
 
             function setLoginMethod(type) {
 
+                if (
+                    !mobileTab ||
+                    !emailTab ||
+                    !mobileForm ||
+                    !emailForm
+                ) {
+                    return;
+                }
+
                 if (type === 'email') {
 
                     emailTab.classList.add('active');
@@ -605,62 +608,82 @@
             }
 
 
-            mobileTab.addEventListener(
-                'click',
-                function () {
+            if (mobileTab) {
+                mobileTab.addEventListener(
+                    'click',
+                    function () {
+                        setLoginMethod('mobile');
+                    }
+                );
+            }
 
-                    setLoginMethod('mobile');
 
-                }
-            );
-
-
-            emailTab.addEventListener(
-                'click',
-                function () {
-
-                    setLoginMethod('email');
-
-                }
-            );
+            if (emailTab) {
+                emailTab.addEventListener(
+                    'click',
+                    function () {
+                        setLoginMethod('email');
+                    }
+                );
+            }
 
 
             /* =================================================
                SHOW REGISTER
             ================================================= */
 
-            showRegister.addEventListener(
-                'click',
-                function () {
+            if (showRegister) {
+                showRegister.addEventListener(
+                    'click',
+                    function () {
 
-                    modal.classList.add(
-                        'register-active'
-                    );
+                        if (!modal) return;
 
-                    if (registerPanel) {
-                        registerPanel.scrollTop = 0;
+                        modal.classList.add('register-active');
+
+                        if (registerPanel) {
+                            registerPanel.scrollTop = 0;
+                        }
+
+                        const firstField =
+                            document.getElementById('registerName');
+
+                        if (firstField) {
+                            setTimeout(function () {
+                                firstField.focus({ preventScroll: true });
+                            }, 180);
+                        }
                     }
-
-                }
-            );
+                );
+            }
 
 
             /* =================================================
                SHOW LOGIN
             ================================================= */
 
-            showLogin.addEventListener(
-                'click',
-                function () {
+            if (showLogin) {
+                showLogin.addEventListener(
+                    'click',
+                    function () {
 
-                    modal.classList.remove(
-                        'register-active'
-                    );
+                        if (!modal) return;
 
-                    setLoginMethod('mobile');
+                        modal.classList.remove('register-active');
 
-                }
-            );
+                        setLoginMethod('mobile');
+
+                        const mobileField =
+                            document.getElementById('loginMobile');
+
+                        if (mobileField) {
+                            setTimeout(function () {
+                                mobileField.focus({ preventScroll: true });
+                            }, 180);
+                        }
+                    }
+                );
+            }
 
 
             /* =================================================
@@ -725,29 +748,35 @@
                             }
 
 
-                            if (
-                                input.type ===
-                                'password'
-                            ) {
+                            const icon = this.querySelector('i');
 
-                                input.type =
-                                    'text';
+                            if (input.type === 'password') {
+
+                                input.type = 'text';
 
                                 this.setAttribute(
                                     'aria-label',
                                     'Hide password'
                                 );
 
+                                if (icon) {
+                                    icon.classList.remove('fa-eye');
+                                    icon.classList.add('fa-eye-slash');
+                                }
+
                             } else {
 
-                                input.type =
-                                    'password';
+                                input.type = 'password';
 
                                 this.setAttribute(
                                     'aria-label',
                                     'Show password'
                                 );
 
+                                if (icon) {
+                                    icon.classList.remove('fa-eye-slash');
+                                    icon.classList.add('fa-eye');
+                                }
                             }
 
                         }
@@ -815,9 +844,10 @@
                 );
 
 
-            loginSubmit.addEventListener(
-                'click',
-                function () {
+            if (loginSubmit) {
+                loginSubmit.addEventListener(
+                    'click',
+                    function () {
 
                     const password =
                         document.getElementById(
@@ -927,8 +957,9 @@
                         'Login details validated successfully.'
                     );
 
-                }
-            );
+                    }
+                );
+            }
 
 
             /* =================================================
@@ -941,9 +972,10 @@
                 );
 
 
-            registerForm.addEventListener(
-                'submit',
-                function (event) {
+            if (registerForm) {
+                registerForm.addEventListener(
+                    'submit',
+                    function (event) {
 
                     event.preventDefault();
 
@@ -1070,8 +1102,9 @@
                         'Registration submitted successfully.'
                     );
 
-                }
-            );
+                    }
+                );
+            }
 
 
             /* =================================================
@@ -1085,6 +1118,7 @@
                         'toast'
                     );
 
+                if (!toast) return;
 
                 toast.textContent =
                     message;
@@ -1115,6 +1149,32 @@
 
 
             /* =================================================
+               MODAL SCROLL / BODY LOCK
+            ================================================= */
+
+            function setBodyLock(locked) {
+                document.documentElement.classList.toggle(
+                    'login-modal-open',
+                    locked
+                );
+                document.body.classList.toggle(
+                    'login-modal-open',
+                    locked
+                );
+            }
+
+            setBodyLock(true);
+
+            if (overlay) {
+                overlay.addEventListener('click', function (event) {
+                    if (event.target === overlay) {
+                        window.location.href =
+                            "{{ route('home') }}";
+                    }
+                });
+            }
+
+            /* =================================================
                ESCAPE KEY
             ================================================= */
 
@@ -1127,11 +1187,7 @@
                     ) {
 
                         if (modal) {
-
-                            modal.classList.remove(
-                                'register-active'
-                            );
-
+                            modal.classList.remove('register-active');
                         }
 
                     }

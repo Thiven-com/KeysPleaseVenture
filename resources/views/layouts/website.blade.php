@@ -5,13 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Keys Please Venture — Rental Search</title>
+  <!-- =========================================================
+     SEO META TAGS
+========================================================= -->
 
+  <title>Rental Properties in Bangalore | Keys Please Venture</title>
+
+  <meta name="description"
+    content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with Keys Please Venture.">
+
+  <meta name="keywords"
+    content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, Keys Please Venture">
+
+  <meta name="author" content="Keys Please Venture">
+
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="{{ url()->current() }}">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+  <!-- Website CSS -->
   <link rel="stylesheet" href="{{ asset('website/css/website.css') }}">
   <link rel="stylesheet" href="{{ asset('website/css/home.css') }}">
   <link rel="stylesheet" href="{{ asset('website/css/about.css') }}">
@@ -19,54 +39,53 @@
   <link rel="stylesheet" href="{{ asset('website/css/rent.css') }}">
   <link rel="stylesheet" href="{{ asset('website/css/propertydetails.css') }}">
 
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/venlogo.png') }}">
 
-
-
-
-<style>
-/* =========================================================
+  <style>
+    /* =========================================================
    LIST YOUR PROPERTY - MODAL SCROLL FIX
 ========================================================= */
 
-html.lpf-modal-open,
-body.lpf-modal-open {
-    overflow: hidden !important;
-    height: 100%;
-}
+    html.lpf-modal-open,
+    body.lpf-modal-open {
+      overflow: hidden !important;
+      height: 100%;
+    }
 
-.lpf-overlay {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden !important;
-    z-index: 99999;
-}
-
-.lpf-modal {
-    width: min(760px, calc(100vw - 40px));
-    max-height: calc(100dvh - 40px);
-
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-}
-
-@media (max-width: 767px) {
     .lpf-overlay {
-        align-items: flex-start;
-        padding: 12px !important;
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden !important;
+      z-index: 99999;
     }
 
     .lpf-modal {
+      width: min(760px, calc(100vw - 40px));
+      max-height: calc(100dvh - 40px);
+
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    @media (max-width: 767px) {
+      .lpf-overlay {
+        align-items: flex-start;
+        padding: 12px !important;
+      }
+
+      .lpf-modal {
         width: 100% !important;
         max-width: 100% !important;
 
@@ -77,15 +96,15 @@ body.lpf-modal-open {
         overflow-y: auto !important;
 
         -webkit-overflow-scrolling: touch;
-    }
+      }
 
-    .mobile-sidebar-btn .btn-icon {
+      .mobile-sidebar-btn .btn-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+      }
     }
-}
-</style>
+  </style>
 
 </head>
 
@@ -512,12 +531,12 @@ body.lpf-modal-open {
         <h4>Quick Links</h4>
 
         <a href="{{ route('home') }}">Home</a>
-        <a href="#">Search Properties</a>
-        <a href="#">Localities</a>
-        <a href="#">Property Types</a>
-        <a href="#">Brokers</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
+        <a href="{{ route('rent') }}">Search Properties</a>
+        <!-- <a href="#">Localities</a>
+        <a href="#">Property Types</a> -->
+        <!-- <a href="#">Brokers</a> -->
+        <a href="{{ route('about') }}">About Us</a>
+        <a href="{{ route('contact') }}">Contact Us</a>
 
       </div>
 
@@ -594,7 +613,8 @@ body.lpf-modal-open {
     <div class="container copyright">
 
       <span>
-        © 2025 Keys Please Venture. All Rights Reserved.
+        © 2026 Keys Please Venture. All Rights Reserved.Developed By <a href="https://www.thiven.com/" target="_blank"
+                style="text-decoration: none;color: #000;">ThiVen</a>
       </span>
 
       <span>

@@ -1243,81 +1243,71 @@ a {
 
 
 /* =========================================================
-   DESKTOP
+   RESPONSIVE LAYOUT
 ========================================================= */
 
-@media (min-width: 1200px) {
+/* Prevent the page behind the login overlay from moving */
+html.login-modal-open,
+body.login-modal-open {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+}
+
+/* Desktop / Laptop */
+@media (min-width: 901px) {
+
+    .login-overlay {
+        min-height: 100dvh;
+        padding: 24px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 
     .login-modal {
-        width: 950px;
-        min-height: 600px;
+        width: min(950px, 100%);
+        min-height: 580px;
+        max-height: calc(100dvh - 48px);
     }
 
     .brand-panel {
-        min-height: 600px;
-
-        padding:
-            52px 45px 40px;
+        min-height: 580px;
     }
 
     .form-panel,
     .register-panel {
-        padding:
-            45px 48px 32px;
+        min-height: 580px;
     }
-
-    .brand-title {
-        font-size: 31px;
-    }
-
 }
 
-
-/* =========================================================
-   LAPTOP
-========================================================= */
-
-@media (max-width: 1199px) and (min-width: 901px) {
-
-    .login-modal {
-        width: 900px;
-    }
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
+/* Tablet */
+@media (max-width: 900px) and (min-width: 701px) {
 
     .login-overlay {
+        min-height: 100dvh;
         padding: 20px;
+        overflow: auto;
+        align-items: center;
     }
 
     .login-modal {
         width: min(760px, 100%);
-
-        grid-template-columns:
-            43% 57%;
-
+        max-height: calc(100dvh - 40px);
+        grid-template-columns: 43% 57%;
         min-height: 550px;
     }
 
     .brand-panel {
         min-height: 550px;
-
-        padding:
-            38px 28px 30px;
+        padding: 38px 28px 30px;
     }
 
     .brand-title {
-        font-size: 24px;
+        font-size: 25px;
     }
 
     .brand-subtitle {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .feature-list {
@@ -1326,45 +1316,65 @@ a {
     }
 
     .feature {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .form-panel,
     .register-panel {
-        padding:
-            35px 30px 26px;
-    }
-
-    .form-title {
-        font-size: 21px;
-    }
-
-    .login-modal.register-active {
-        grid-template-columns:
-            43% 57%;
-
+        padding: 35px 30px 28px;
         min-height: 550px;
     }
 
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
-
-    body {
-        min-height: 100vh;
+    .form-title {
+        font-size: 22px;
     }
 
+    .form-description {
+        font-size: 13px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-panel input,
+    .register-panel input,
+    .mobile-row select {
+        font-size: 13px;
+        height: 44px;
+    }
+
+    .login-method,
+    .register-tab {
+        font-size: 12px;
+    }
+
+    .login-submit,
+    .register-submit {
+        height: 46px;
+        font-size: 13px;
+    }
+
+    .login-modal.register-active {
+        min-height: 550px;
+        grid-template-columns: 43% 57%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
     .login-overlay {
-        padding: 12px;
+        width: 100vw;
+        min-height: 100dvh;
+        height: 100dvh;
+
+        padding: 10px;
 
         align-items: flex-start;
+        justify-content: center;
 
-        overflow-y: auto;
+        overflow: hidden;
     }
 
     .login-modal {
@@ -1373,17 +1383,20 @@ a {
         width: 100%;
         max-width: 470px;
 
-        min-height: auto;
+        height: calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
 
-        max-height:
-            calc(100vh - 24px);
+        min-height: 0;
 
-        margin: auto;
+        margin: 0 auto;
 
         border-radius: 14px;
 
-        overflow-y: auto;
         overflow-x: hidden;
+        overflow-y: auto;
+
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
 
     .brand-panel {
@@ -1393,35 +1406,82 @@ a {
     .form-panel,
     .register-panel {
         width: 100%;
+        min-height: 0;
 
-        min-height: auto;
-
-        padding:
-            38px 25px 28px;
+        padding: 38px 25px 28px;
     }
 
     .form-title {
-        font-size: 21px;
-
+        font-size: 22px;
         padding-right: 35px;
     }
 
     .form-description {
-        font-size: 11px;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .login-method,
+    .register-tab {
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-panel input,
+    .register-panel input {
+        height: 46px;
+        font-size: 13px;
+    }
+
+    .mobile-row {
+        grid-template-columns: 68px 1fr;
+    }
+
+    .mobile-row select {
+        height: 46px;
+        font-size: 12px;
+    }
+
+    .login-submit,
+    .register-submit {
+        height: 47px;
+        font-size: 13px;
+    }
+
+    .continue {
+        font-size: 12px;
+    }
+
+    .social {
+        height: 43px;
+        font-size: 17px;
+    }
+
+    .register,
+    .already-account {
+        font-size: 12px;
+    }
+
+    .terms {
+        font-size: 10px !important;
     }
 
     .login-modal.register-active {
         display: block;
 
         width: 100%;
-
         max-width: 470px;
 
-        min-height: auto;
+        height: calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
 
-        max-height:
-            calc(100vh - 24px);
+        min-height: 0;
 
+        overflow-x: hidden;
         overflow-y: auto;
     }
 
@@ -1431,70 +1491,58 @@ a {
 
     .login-modal.register-active .register-panel {
         display: block;
-
         width: 100%;
-
-        padding:
-            38px 25px 28px;
+        min-height: 0;
+        padding: 38px 25px 28px;
     }
 
     .close {
         top: 12px;
         right: 12px;
-
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
     }
-
 }
 
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
+/* Small mobile */
 @media (max-width: 480px) {
 
     .login-overlay {
-        padding: 8px;
+        padding: 7px;
     }
 
     .login-modal {
-        max-height:
-            calc(100vh - 16px);
-
+        height: calc(100dvh - 14px);
+        max-height: calc(100dvh - 14px);
         border-radius: 12px;
     }
 
     .form-panel,
     .register-panel,
     .login-modal.register-active .register-panel {
-        padding:
-            34px 18px 24px;
+        padding: 34px 18px 24px;
     }
 
     .form-title,
     .register-panel .form-title {
-        font-size: 19px;
+        font-size: 20px;
     }
 
     .form-description,
     .register-panel .form-description {
-        font-size: 10.5px;
-
-        margin-bottom: 17px;
+        font-size: 11px;
+        margin-bottom: 18px;
     }
 
     .login-method-tabs,
     .register-tabs {
-        margin-bottom: 17px;
+        margin-bottom: 18px;
     }
 
     .login-method,
     .register-tab {
-        height: 38px;
-
-        font-size: 10px;
+        height: 40px;
+        font-size: 11px;
     }
 
     .form-group {
@@ -1502,182 +1550,897 @@ a {
     }
 
     .form-group label {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .mobile-row {
-        grid-template-columns:
-            58px 1fr;
+        grid-template-columns: 62px 1fr;
     }
 
     .mobile-row select,
     .form-panel input,
     .register-panel input {
-        height: 40px;
+        height: 44px;
+        font-size: 12px;
     }
 
     .login-submit,
     .register-submit {
-        height: 42px;
-
-        font-size: 11px;
+        height: 45px;
+        font-size: 12px;
     }
 
     .social {
-        height: 39px;
+        height: 41px;
     }
 
     .register,
     .already-account {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .terms {
-        font-size: 8.5px !important;
+        font-size: 9.5px !important;
     }
-
 }
 
-
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 360px) {
-
-    .login-overlay {
-        padding: 5px;
-    }
-
-    .login-modal {
-        max-height:
-            calc(100vh - 10px);
-
-        border-radius: 10px;
-    }
-
-    .form-panel,
-    .register-panel,
-    .login-modal.register-active .register-panel {
-        padding:
-            31px 14px 20px;
-    }
-
-    .form-title,
-    .register-panel .form-title {
-        font-size: 18px;
-    }
-
-    .form-description {
-        font-size: 10px;
-    }
-
-    .login-method-tabs,
-    .register-tabs {
-        gap: 3px;
-    }
-
-    .login-method,
-    .register-tab {
-        height: 36px;
-
-        font-size: 9.5px;
-    }
-
-    .mobile-row {
-        grid-template-columns:
-            55px 1fr;
-    }
-
-    .mobile-row select,
-    .form-panel input,
-    .register-panel input {
-        height: 39px;
-
-        font-size: 10px;
-    }
-
-    .login-submit,
-    .register-submit {
-        height: 40px;
-
-        font-size: 10px;
-    }
-
-    .socials {
-        gap: 6px;
-    }
-
-    .social {
-        height: 38px;
-    }
-
-    .close {
-        width: 31px;
-        height: 31px;
-
-        font-size: 18px;
-    }
-
-    .toast {
-        bottom: 15px;
-
-        font-size: 10px;
-
-        padding:
-            10px 13px;
-    }
-
-}
-
-
-/* =========================================================
-   LANDSCAPE MOBILE
-========================================================= */
-
+/* Landscape mobile */
 @media (max-width: 700px) and (orientation: landscape) {
 
     .login-overlay {
         align-items: flex-start;
-
-        padding: 8px;
+        padding: 7px;
     }
 
-    .login-modal {
-        max-height:
-            calc(100vh - 16px);
+    .login-modal,
+    .login-modal.register-active {
+        height: calc(100dvh - 14px);
+        max-height: calc(100dvh - 14px);
     }
 
     .form-panel,
     .register-panel,
     .login-modal.register-active .register-panel {
-        padding:
-            28px 22px 20px;
+        padding: 25px 22px 20px;
     }
-
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-        animation-duration:
-            .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
 
-        animation-iteration-count:
-            1 !important;
 
-        transition-duration:
-            .01ms !important;
+/* =========================================================
+   FINAL FORM / TOUCH SAFETY
+========================================================= */
 
-        scroll-behavior:
-            auto !important;
+.form-panel input,
+.register-panel input,
+.mobile-row select,
+.login-method,
+.register-tab,
+.login-submit,
+.register-submit,
+.eye,
+.social,
+.close {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.form-panel input,
+.register-panel input,
+.mobile-row select,
+.form-panel textarea,
+.register-panel textarea {
+    max-width: 100%;
+}
+
+@media (hover: none) {
+    .login-method:hover,
+    .register-tab:hover,
+    .social:hover,
+    .login-submit:hover,
+    .register-submit:hover,
+    .close:hover {
+        transform: none;
+    }
+}
+
+/* =========================================================
+   PREMIUM / RICH LOGIN ANIMATIONS
+   Add-on layer — preserves existing class names
+========================================================= */
+
+:root {
+    --premium-glow: rgba(74, 105, 255, .42);
+    --premium-glow-soft: rgba(93, 124, 255, .18);
+    --premium-white: rgba(255, 255, 255, .92);
+}
+
+/* ---------- Overlay atmosphere ---------- */
+
+.login-overlay {
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(57, 87, 210, .16), transparent 32%),
+        radial-gradient(circle at 80% 75%, rgba(84, 111, 255, .14), transparent 35%),
+        rgba(8, 16, 48, .58);
+    animation: premiumOverlayIn .75s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.login-overlay::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(102, 130, 255, .16), transparent 20%),
+        radial-gradient(circle at 70% 60%, rgba(44, 76, 220, .13), transparent 22%);
+    filter: blur(25px);
+    animation: premiumAura 9s ease-in-out infinite alternate;
+}
+
+@keyframes premiumOverlayIn {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+@keyframes premiumAura {
+    0% {
+        transform: translate3d(-3%, -2%, 0) scale(1);
+    }
+    100% {
+        transform: translate3d(3%, 2%, 0) scale(1.08);
+    }
+}
+
+/* ---------- Main glass / luxury card ---------- */
+
+.login-modal {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, .55);
+    box-shadow:
+        0 35px 90px rgba(3, 12, 55, .32),
+        0 8px 28px rgba(8, 24, 95, .18),
+        0 0 0 1px rgba(255, 255, 255, .12) inset;
+    animation:
+        premiumModalIn .85s cubic-bezier(.16, 1, .3, 1) both,
+        premiumFloat 7s ease-in-out 1s infinite;
+}
+
+.login-modal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255, 255, 255, .22),
+            transparent 25%,
+            transparent 70%,
+            rgba(255, 255, 255, .08)
+        );
+    opacity: .65;
+}
+
+@keyframes premiumModalIn {
+    0% {
+        opacity: 0;
+        transform: translateY(55px) scale(.92) rotateX(3deg);
+        filter: blur(7px);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.01) rotateX(0);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes premiumFloat {
+    0%, 100% {
+        box-shadow:
+            0 35px 90px rgba(3, 12, 55, .32),
+            0 8px 28px rgba(8, 24, 95, .18),
+            0 0 0 1px rgba(255, 255, 255, .12) inset;
+    }
+    50% {
+        box-shadow:
+            0 42px 105px rgba(3, 12, 55, .36),
+            0 12px 35px rgba(8, 24, 95, .22),
+            0 0 34px rgba(68, 98, 255, .10),
+            0 0 0 1px rgba(255, 255, 255, .18) inset;
+    }
+}
+
+/* ---------- Left brand panel ---------- */
+
+.brand-panel {
+    position: relative;
+    overflow: hidden;
+    background-position: center;
+    transition: background-position 1.2s cubic-bezier(.16, 1, .3, 1);
+}
+
+.brand-panel::before {
+    animation: premiumOrbit 11s linear infinite;
+    transform-origin: center;
+}
+
+.brand-panel::after {
+    animation: premiumOrbitReverse 8s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes premiumOrbit {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+    to {
+        transform: rotate(360deg) scale(1.04);
+    }
+}
+
+@keyframes premiumOrbitReverse {
+    from {
+        transform: rotate(360deg) scale(1);
+    }
+    to {
+        transform: rotate(0deg) scale(1.06);
+    }
+}
+
+/* Moving luxury light sweep */
+.brand-panel .brand-content::before {
+    content: "";
+    position: absolute;
+    left: -160%;
+    top: -80px;
+    width: 70%;
+    height: 130%;
+    pointer-events: none;
+    transform: rotate(18deg);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, .10),
+        transparent
+    );
+    animation: premiumLightSweep 6s ease-in-out 1.2s infinite;
+}
+
+@keyframes premiumLightSweep {
+    0%, 55% {
+        left: -160%;
+    }
+    78%, 100% {
+        left: 180%;
+    }
+}
+
+/* ---------- Brand text ---------- */
+
+.brand-title {
+    animation:
+        premiumTitleIn .9s cubic-bezier(.16, 1, .3, 1) .2s both;
+}
+
+.brand-subtitle {
+    animation:
+        premiumTextIn .8s cubic-bezier(.16, 1, .3, 1) .42s both;
+}
+
+@keyframes premiumTitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(24px);
+        letter-spacing: 4px;
+        filter: blur(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: -.7px;
+        filter: blur(0);
+    }
+}
+
+@keyframes premiumTextIn {
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ---------- Buildings / city ---------- */
+
+.buildings {
+    animation: cityReveal 1.2s cubic-bezier(.16, 1, .3, 1) .45s both;
+}
+
+.building {
+    animation: buildingGlow 4s ease-in-out infinite alternate;
+}
+
+.b1 { animation-delay: .2s; }
+.b2 { animation-delay: .55s; }
+.b3 { animation-delay: .85s; }
+.b4 { animation-delay: 1.1s; }
+.b5 { animation-delay: .4s; }
+
+@keyframes cityReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(45px) scale(.96);
+    }
+    100% {
+        opacity: .95;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes buildingGlow {
+    0% {
+        filter: brightness(.88);
+    }
+    100% {
+        filter: brightness(1.12);
+    }
+}
+
+/* ---------- Features ---------- */
+
+.feature {
+    animation:
+        premiumFeatureIn .7s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+
+.feature:nth-child(1) { animation-delay: .75s; }
+.feature:nth-child(2) { animation-delay: .92s; }
+.feature:nth-child(3) { animation-delay: 1.09s; }
+
+.feature-icon {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.feature-icon::after {
+    content: "";
+    position: absolute;
+    inset: -70%;
+    background: linear-gradient(
+        110deg,
+        transparent 42%,
+        rgba(255, 255, 255, .8) 50%,
+        transparent 58%
+    );
+    transform: translateX(-80%) rotate(15deg);
+    animation: iconShine 4.5s ease-in-out 1.5s infinite;
+}
+
+.feature:hover .feature-icon {
+    transform: translateY(-3px) scale(1.08);
+    background: rgba(255, 255, 255, .10);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .16);
+}
+
+@keyframes premiumFeatureIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-28px);
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes iconShine {
+    0%, 55% {
+        transform: translateX(-80%) rotate(15deg);
+    }
+    78%, 100% {
+        transform: translateX(80%) rotate(15deg);
+    }
+}
+
+/* ---------- Form panel entrance ---------- */
+
+.form-panel {
+    animation: premiumPanelIn .75s cubic-bezier(.16, 1, .3, 1) .18s both;
+}
+
+@keyframes premiumPanelIn {
+    from {
+        opacity: 0;
+        transform: translateX(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.form-title {
+    animation:
+        premiumFormTitle .7s cubic-bezier(.16, 1, .3, 1) .3s both;
+}
+
+.form-description {
+    animation:
+        premiumTextIn .65s cubic-bezier(.16, 1, .3, 1) .4s both;
+}
+
+@keyframes premiumFormTitle {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ---------- Tabs ---------- */
+
+.login-method-tabs,
+.register-tabs {
+    animation: premiumTabsIn .65s cubic-bezier(.16, 1, .3, 1) .48s both;
+}
+
+.login-method,
+.register-tab {
+    position: relative;
+    overflow: hidden;
+}
+
+.login-method::after,
+.register-tab::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--blue), #5b73ff);
+    transform: translateX(-50%);
+    transition: width .35s cubic-bezier(.16, 1, .3, 1);
+}
+
+.login-method.active::after,
+.register-tab.active::after {
+    width: 70%;
+}
+
+.login-method:hover,
+.register-tab:hover {
+    transform: translateY(-1px);
+}
+
+@keyframes premiumTabsIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- Form fields ---------- */
+
+.form-group {
+    animation: fieldReveal .55s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.login-method-form .form-group:nth-child(1) {
+    animation-delay: .52s;
+}
+
+.form-panel > .form-group {
+    animation-delay: .62s;
+}
+
+.form-panel input,
+.register-panel input,
+.mobile-row select {
+    position: relative;
+    transition:
+        border-color .3s ease,
+        box-shadow .35s ease,
+        transform .3s ease,
+        background .3s ease;
+}
+
+.form-panel input:hover,
+.register-panel input:hover,
+.mobile-row select:hover {
+    border-color: #aeb9dc;
+    background: #fcfdff;
+}
+
+.form-panel input:focus,
+.register-panel input:focus,
+.mobile-row select:focus {
+    transform: translateY(-1px);
+    border-color: #5269df;
+    box-shadow:
+        0 0 0 4px rgba(7, 27, 157, .08),
+        0 8px 25px rgba(7, 27, 157, .08);
+}
+
+@keyframes fieldReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Password eye ---------- */
+
+.eye {
+    border-radius: 50%;
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+.eye:hover {
+    background: rgba(7, 27, 157, .07);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.eye:active {
+    transform: translateY(-50%) scale(.92);
+}
+
+/* ---------- Premium primary buttons ---------- */
+
+.login-submit,
+.register-submit {
+    isolation: isolate;
+    position: relative;
+    background:
+        linear-gradient(
+            110deg,
+            #061580 0%,
+            #071b9d 35%,
+            #0b28b9 68%,
+            #4c63e8 100%
+        );
+    background-size: 220% 100%;
+    box-shadow:
+        0 10px 28px rgba(7, 27, 157, .25),
+        0 0 0 1px rgba(255, 255, 255, .12) inset;
+    animation:
+        premiumButtonIn .7s cubic-bezier(.16, 1, .3, 1) .72s both,
+        premiumButtonGradient 5s ease-in-out 1.5s infinite;
+}
+
+.login-submit::before,
+.register-submit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(255, 255, 255, .28) 45%,
+        transparent 65%
+    );
+    transform: translateX(-130%);
+    animation: buttonShine 4s ease-in-out 2s infinite;
+}
+
+.login-submit::after,
+.register-submit::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, .12);
+    pointer-events: none;
+}
+
+.login-submit:hover,
+.register-submit:hover {
+    transform: translateY(-3px) scale(1.008);
+    box-shadow:
+        0 16px 35px rgba(7, 27, 157, .34),
+        0 0 28px rgba(65, 91, 220, .18);
+}
+
+.login-submit:active,
+.register-submit:active {
+    transform: translateY(0) scale(.99);
+}
+
+@keyframes premiumButtonIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes premiumButtonGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes buttonShine {
+    0%, 55% {
+        transform: translateX(-130%);
+    }
+    75%, 100% {
+        transform: translateX(130%);
+    }
+}
+
+/* ---------- Social buttons ---------- */
+
+.continue {
+    animation: premiumTextIn .6s ease .85s both;
+}
+
+.social {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .3s cubic-bezier(.16, 1, .3, 1),
+        box-shadow .3s ease,
+        border-color .3s ease;
+    animation: socialIn .55s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.social:nth-child(1) { animation-delay: .9s; }
+.social:nth-child(2) { animation-delay: 1s; }
+.social:nth-child(3) { animation-delay: 1.1s; }
+
+.social::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -45%;
+    width: 35%;
+    height: 300%;
+    transform: rotate(25deg);
+    background: rgba(255, 255, 255, .65);
+    transition: left .65s ease;
+}
+
+.social:hover::before {
+    left: 130%;
+}
+
+.social:hover {
+    transform: translateY(-4px) scale(1.025);
+    box-shadow:
+        0 12px 25px rgba(20, 30, 75, .13);
+}
+
+@keyframes socialIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- Register / Login switch ---------- */
+
+.login-modal.register-active .register-panel {
+    animation:
+        premiumRegisterIn .7s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes premiumRegisterIn {
+    from {
+        opacity: 0;
+        transform: translateX(38px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+/* ---------- Register link ---------- */
+
+.register,
+.already-account {
+    animation: premiumTextIn .6s ease 1.15s both;
+}
+
+.register button,
+.already-account button {
+    position: relative;
+    transition:
+        color .25s ease,
+        letter-spacing .25s ease;
+}
+
+.register button:hover,
+.already-account button:hover {
+    letter-spacing: .15px;
+}
+
+/* ---------- Close button ---------- */
+
+.close {
+    transition:
+        transform .45s cubic-bezier(.16, 1, .3, 1),
+        background .3s ease,
+        color .3s ease,
+        box-shadow .3s ease;
+}
+
+.close:hover {
+    transform: rotate(90deg) scale(1.08);
+    background: #eef2ff;
+    color: var(--blue);
+    box-shadow: 0 7px 18px rgba(7, 27, 157, .13);
+}
+
+/* ---------- Toast ---------- */
+
+.toast.show {
+    animation: premiumToast .45s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes premiumToast {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 18px) scale(.92);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -2px) scale(1.015);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+/* ---------- Mobile polish ---------- */
+
+@media (max-width: 700px) {
+
+    .login-modal {
+        animation:
+            premiumMobileModalIn .7s cubic-bezier(.16, 1, .3, 1) both;
     }
 
+    .form-panel,
+    .register-panel {
+        animation: premiumMobilePanelIn .65s cubic-bezier(.16, 1, .3, 1) .12s both;
+    }
+
+    .login-submit,
+    .register-submit {
+        min-height: 47px;
+    }
+
+    .social:hover {
+        transform: translateY(-2px);
+    }
+
+    .form-panel input:focus,
+    .register-panel input:focus,
+    .mobile-row select:focus {
+        transform: none;
+    }
+}
+
+@keyframes premiumMobileModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.96);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes premiumMobilePanelIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .login-overlay,
+    .login-modal,
+    .brand-panel::before,
+    .brand-panel::after,
+    .brand-panel .brand-content::before,
+    .buildings,
+    .building,
+    .feature,
+    .form-panel,
+    .form-title,
+    .form-description,
+    .login-method-tabs,
+    .register-tabs,
+    .form-group,
+    .login-submit,
+    .register-submit,
+    .social,
+    .register,
+    .already-account,
+    .login-modal.register-active .register-panel,
+    .toast.show {
+        animation: none !important;
+        transition: none !important;
+    }
 }
