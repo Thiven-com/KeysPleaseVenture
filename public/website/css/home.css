@@ -417,7 +417,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
-    background: var(--blue);
+    background: #00068a;
     color: #ffffff;
 
     border-radius: 7px;
@@ -4232,6 +4232,8 @@ header.scrolled {
 
         line-height:
             1.25;
+
+            margin-right: 30px;
     }
 
     .view {
@@ -4598,7 +4600,7 @@ header.scrolled {
             center;
 
         font-size:
-            7px;
+            11px;
     }
 
     .back-top {
@@ -5621,6 +5623,7 @@ iframe {
 
     .section-head h2 {
         font-size: 20px;
+        margin-right: 30px;
     }
 
     .view {

@@ -4323,6 +4323,10 @@ body.enquiry-modal-open {
     .select-menu {
         z-index: 999999 !important;
     }
+
+    .search-area {
+    position: relative !important;
+    }
 }
 
 /* =========================================================

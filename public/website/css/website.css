@@ -160,7 +160,7 @@ header.scrolled {
     width: 90%;
     height: 80%;
     object-fit: contain;
-    border-radius: 25px;
+    /* border-radius: 25px; */
 }
 
 .logo:hover {

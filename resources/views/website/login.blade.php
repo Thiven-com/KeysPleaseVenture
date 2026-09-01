@@ -5,7 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Keys Please Venture - Login</title>
+    <title>Rental Properties in Bangalore | Keys Please Venture</title>
+
+    <meta name="description"
+        content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with Keys Please Venture.">
+
+    <meta name="keywords"
+        content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, Keys Please Venture">
+
+    <meta name="author" content="Keys Please Venture">
+
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +26,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('website/css/login.css') }}">
+
+    
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/venlogo.png') }}">
 </head>
 
 <body>
@@ -849,113 +865,113 @@
                     'click',
                     function () {
 
-                    const password =
-                        document.getElementById(
-                            'loginPassword'
-                        );
-
-
-                    /* Email Login */
-
-                    if (
-                        emailForm.classList.contains(
-                            'active'
-                        )
-                    ) {
-
-                        const email =
+                        const password =
                             document.getElementById(
-                                'loginEmail'
+                                'loginPassword'
                             );
 
 
-                        if (
-                            !email.value.trim()
-                        ) {
-
-                            showMessage(
-                                'Please enter your email address.'
-                            );
-
-                            email.focus();
-
-                            return;
-
-                        }
-
-
-                        const emailPattern =
-                            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+                        /* Email Login */
 
                         if (
-                            !emailPattern.test(
-                                email.value.trim()
+                            emailForm.classList.contains(
+                                'active'
                             )
                         ) {
 
-                            showMessage(
-                                'Please enter a valid email address.'
-                            );
+                            const email =
+                                document.getElementById(
+                                    'loginEmail'
+                                );
 
-                            email.focus();
 
-                            return;
+                            if (
+                                !email.value.trim()
+                            ) {
+
+                                showMessage(
+                                    'Please enter your email address.'
+                                );
+
+                                email.focus();
+
+                                return;
+
+                            }
+
+
+                            const emailPattern =
+                                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                            if (
+                                !emailPattern.test(
+                                    email.value.trim()
+                                )
+                            ) {
+
+                                showMessage(
+                                    'Please enter a valid email address.'
+                                );
+
+                                email.focus();
+
+                                return;
+
+                            }
 
                         }
 
-                    }
+
+                        /* Mobile Login */
+
+                        else {
+
+                            const mobile =
+                                document.getElementById(
+                                    'loginMobile'
+                                );
 
 
-                    /* Mobile Login */
+                            if (
+                                !/^[0-9]{10}$/.test(
+                                    mobile.value.trim()
+                                )
+                            ) {
 
-                    else {
+                                showMessage(
+                                    'Please enter a valid 10-digit mobile number.'
+                                );
 
-                        const mobile =
-                            document.getElementById(
-                                'loginMobile'
-                            );
+                                mobile.focus();
 
+                                return;
+
+                            }
+
+                        }
+
+
+                        /* Password */
 
                         if (
-                            !/^[0-9]{10}$/.test(
-                                mobile.value.trim()
-                            )
+                            !password.value
                         ) {
 
                             showMessage(
-                                'Please enter a valid 10-digit mobile number.'
+                                'Please enter your password.'
                             );
 
-                            mobile.focus();
+                            password.focus();
 
                             return;
 
                         }
 
-                    }
-
-
-                    /* Password */
-
-                    if (
-                        !password.value
-                    ) {
 
                         showMessage(
-                            'Please enter your password.'
+                            'Login details validated successfully.'
                         );
-
-                        password.focus();
-
-                        return;
-
-                    }
-
-
-                    showMessage(
-                        'Login details validated successfully.'
-                    );
 
                     }
                 );
@@ -977,130 +993,130 @@
                     'submit',
                     function (event) {
 
-                    event.preventDefault();
+                        event.preventDefault();
 
 
-                    const name =
-                        document.getElementById(
-                            'registerName'
-                        );
+                        const name =
+                            document.getElementById(
+                                'registerName'
+                            );
 
-                    const email =
-                        document.getElementById(
-                            'registerEmail'
-                        );
+                        const email =
+                            document.getElementById(
+                                'registerEmail'
+                            );
 
-                    const mobile =
-                        document.getElementById(
-                            'registerMobile'
-                        );
+                        const mobile =
+                            document.getElementById(
+                                'registerMobile'
+                            );
 
-                    const password =
-                        document.getElementById(
-                            'registerPassword'
-                        );
+                        const password =
+                            document.getElementById(
+                                'registerPassword'
+                            );
 
-                    const confirmPassword =
-                        document.getElementById(
-                            'confirmPassword'
-                        );
-
-
-                    if (!name.value.trim()) {
-
-                        showMessage(
-                            'Please enter your full name.'
-                        );
-
-                        name.focus();
-
-                        return;
-
-                    }
+                        const confirmPassword =
+                            document.getElementById(
+                                'confirmPassword'
+                            );
 
 
-                    if (!email.value.trim()) {
+                        if (!name.value.trim()) {
 
-                        showMessage(
-                            'Please enter your email address.'
-                        );
+                            showMessage(
+                                'Please enter your full name.'
+                            );
 
-                        email.focus();
+                            name.focus();
 
-                        return;
+                            return;
 
-                    }
+                        }
 
 
-                    if (
-                        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                            .test(
-                                email.value.trim()
+                        if (!email.value.trim()) {
+
+                            showMessage(
+                                'Please enter your email address.'
+                            );
+
+                            email.focus();
+
+                            return;
+
+                        }
+
+
+                        if (
+                            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                                .test(
+                                    email.value.trim()
+                                )
+                        ) {
+
+                            showMessage(
+                                'Please enter a valid email address.'
+                            );
+
+                            email.focus();
+
+                            return;
+
+                        }
+
+
+                        if (
+                            !/^[0-9]{10}$/.test(
+                                mobile.value.trim()
                             )
-                    ) {
+                        ) {
+
+                            showMessage(
+                                'Please enter a valid 10-digit mobile number.'
+                            );
+
+                            mobile.focus();
+
+                            return;
+
+                        }
+
+
+                        if (
+                            password.value.length < 6
+                        ) {
+
+                            showMessage(
+                                'Password must be at least 6 characters.'
+                            );
+
+                            password.focus();
+
+                            return;
+
+                        }
+
+
+                        if (
+                            password.value !==
+                            confirmPassword.value
+                        ) {
+
+                            showMessage(
+                                'Passwords do not match.'
+                            );
+
+                            confirmPassword.focus();
+
+                            return;
+
+                        }
+
 
                         showMessage(
-                            'Please enter a valid email address.'
+                            'Registration submitted successfully.'
                         );
-
-                        email.focus();
-
-                        return;
-
-                    }
-
-
-                    if (
-                        !/^[0-9]{10}$/.test(
-                            mobile.value.trim()
-                        )
-                    ) {
-
-                        showMessage(
-                            'Please enter a valid 10-digit mobile number.'
-                        );
-
-                        mobile.focus();
-
-                        return;
-
-                    }
-
-
-                    if (
-                        password.value.length < 6
-                    ) {
-
-                        showMessage(
-                            'Password must be at least 6 characters.'
-                        );
-
-                        password.focus();
-
-                        return;
-
-                    }
-
-
-                    if (
-                        password.value !==
-                        confirmPassword.value
-                    ) {
-
-                        showMessage(
-                            'Passwords do not match.'
-                        );
-
-                        confirmPassword.focus();
-
-                        return;
-
-                    }
-
-
-                    showMessage(
-                        'Registration submitted successfully.'
-                    );
 
                     }
                 );

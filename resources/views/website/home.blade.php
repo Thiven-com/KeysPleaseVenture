@@ -149,7 +149,7 @@
 
 
     <div class="container">
-        <div class="trust">
+        <div class="trust" >
 
             <div class="trust-item">
                 <div class="trust-icon"><i class="fa-solid fa-circle-check"></i></div>
@@ -1000,3 +1000,962 @@
     </script>
 
 @endsection
+
+
+<style id="keys-please-responsive-final">
+/* =========================================================
+   KEYS PLEASE — FINAL RESPONSIVE SYSTEM
+   Existing HTML, routes, JS, API calls and business logic
+   are intentionally untouched.
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+}
+
+img,
+svg,
+video,
+iframe,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+}
+
+.container {
+    width: min(100% - 40px, 1600px);
+    margin-inline: auto;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    width: 100%;
+    min-height: clamp(460px, 42vw, 550px);
+    overflow: hidden;
+}
+
+.hero-inner {
+    width: 100%;
+    max-width: 1600px;
+    min-width: 0;
+}
+
+.hero-copy,
+.search-card,
+.rpf-search-card {
+    min-width: 0;
+}
+
+.hero h1,
+.hero p,
+.eyebrow {
+    max-width: 100%;
+}
+
+.hero p br {
+    display: none;
+}
+
+/* ---------- SEARCH ---------- */
+
+.search-card,
+.rpf-search-card {
+    max-width: 100%;
+}
+
+.search-tabs,
+.rpf-tabs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-grid,
+.rpf-form-grid {
+    min-width: 0;
+}
+
+.field,
+.rpf-field {
+    min-width: 0;
+}
+
+.control,
+.rpf-control {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.control input,
+.rpf-control input {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.control-dropdown,
+.rpf-dropdown {
+    max-width: 100%;
+    z-index: 1000;
+}
+
+.search-btn,
+.rpf-search-btn {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ---------- TRUST ---------- */
+
+.trust {
+    width: 100%;
+    min-width: 0;
+}
+
+.trust-item,
+.trust-content {
+    min-width: 0;
+}
+
+.trust-title,
+.trust-sub {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- SECTIONS ---------- */
+
+section {
+    width: 100%;
+    min-width: 0;
+}
+
+.section-head {
+    min-width: 0;
+    gap: 16px;
+}
+
+.section-head h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.view {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ---------- GRIDS ---------- */
+
+.locality-grid,
+.property-grid,
+.type-grid,
+.why-grid {
+    width: 100%;
+    min-width: 0;
+}
+
+.locality,
+.card,
+.type,
+.why {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.locality img,
+.card-image,
+.card-image img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.card-image img,
+.locality img {
+    object-fit: cover;
+}
+
+.card-body,
+.broker,
+.broker-info {
+    min-width: 0;
+}
+
+.place,
+.broker-name,
+.type-name {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* Keep metadata usable on narrow cards */
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.meta span {
+    max-width: 100%;
+    white-space: normal;
+}
+
+/* ---------- CTA / NEWSLETTER ---------- */
+
+.cta-row {
+    width: 100%;
+    min-width: 0;
+}
+
+.policy,
+.cta,
+.policy-content,
+.cta-content,
+.news-inner,
+.news-content,
+.subscribe {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.cta p,
+.policy p,
+.news-sub {
+    overflow-wrap: anywhere;
+}
+
+.subscribe {
+    display: flex;
+}
+
+.subscribe input {
+    min-width: 0;
+    width: 100%;
+}
+
+.subscribe button {
+    flex: 0 0 auto;
+}
+
+/* =========================================================
+   LARGE DESKTOP — 1441px+
+========================================================= */
+
+@media (min-width: 1441px) {
+    .container {
+        width: min(100% - 64px, 1600px);
+    }
+
+    .hero-inner {
+        gap: 56px;
+    }
+
+    .hero-copy {
+        width: min(52%, 680px);
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 3vw, 48px);
+    }
+
+    .search-card,
+    .rpf-search-card {
+        width: min(480px, 42vw);
+    }
+
+    .locality-grid {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+
+    .property-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   DESKTOP — 1025px–1440px
+========================================================= */
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        width: calc(100% - 48px);
+        max-width: 1360px;
+    }
+
+    .hero-inner {
+        gap: clamp(24px, 3vw, 42px);
+    }
+
+    .hero-copy {
+        width: min(50%, 620px);
+    }
+
+    .hero h1 {
+        font-size: clamp(34px, 3vw, 42px);
+    }
+
+    .search-card,
+    .rpf-search-card {
+        width: min(450px, 44vw);
+    }
+
+    .locality-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .property-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   SMALL LAPTOP — 769px–1024px
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: calc(100% - 32px);
+        max-width: 960px;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        min-height: 0;
+        padding: 40px 0 55px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+        gap: 28px;
+        align-items: center;
+    }
+
+    .hero-copy {
+        width: auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(32px, 4vw, 40px);
+    }
+
+    .hero p {
+        max-width: 420px;
+    }
+
+    .search-card,
+    .rpf-search-card {
+        width: 100%;
+    }
+
+    .locality-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .property-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .cta-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .news-inner {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .subscribe {
+        width: min(100%, 440px);
+    }
+}
+
+/* =========================================================
+   TABLET — 481px–768px
+========================================================= */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: calc(100% - 28px);
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        min-height: 0;
+        padding: 34px 0 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .hero-copy {
+        width: 100%;
+        text-align: center;
+        padding-top: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(30px, 7vw, 38px);
+        line-height: 1.12;
+        letter-spacing: -1px;
+    }
+
+    .hero p {
+        max-width: 600px;
+        margin-inline: auto;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .search-card,
+    .rpf-search-card {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .form-grid,
+    .rpf-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field.full,
+    .rpf-field.full {
+        grid-column: 1 / -1;
+    }
+
+    .locality-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .property-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .cta-row {
+        grid-template-columns: 1fr;
+    }
+
+    .news-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 24px 0;
+    }
+
+    .subscribe {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   MOBILE — 320px–480px
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        width: calc(100% - 20px);
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        min-height: 0;
+        padding: 28px 0 42px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero-copy {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+
+    .eyebrow {
+        font-size: clamp(10px, 3vw, 13px);
+        line-height: 1.35;
+        margin-bottom: 9px;
+    }
+
+    .hero h1 {
+        font-size: clamp(27px, 8vw, 34px);
+        line-height: 1.12;
+        letter-spacing: -.8px;
+    }
+
+    .hero p {
+        max-width: 100%;
+        margin-top: 11px;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    .search-card,
+    .rpf-search-card {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    .search-tabs,
+    .rpf-tabs {
+        gap: 7px;
+    }
+
+    .tab,
+    .rpf-tab {
+        flex: 1 1 0;
+        min-width: 0;
+        padding-inline: 8px;
+    }
+
+    .form-grid,
+    .rpf-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .field.full,
+    .rpf-field.full {
+        grid-column: auto;
+    }
+
+    .control,
+    .rpf-control {
+        min-height: 40px;
+        height: auto;
+    }
+
+    .control input,
+    .rpf-control input {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .control-dropdown,
+    .rpf-dropdown {
+        width: 100%;
+        min-width: 0;
+        max-height: 240px;
+        overflow-y: auto;
+    }
+
+    .search-btn,
+    .rpf-search-btn {
+        min-height: 42px;
+        height: auto;
+    }
+
+    .trust {
+        grid-template-columns: 1fr 1fr;
+        margin-top: -18px;
+    }
+
+    .trust-item {
+        padding: 12px 10px;
+        gap: 8px;
+        border-right: 1px solid rgba(255,255,255,.18);
+        border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+
+    .trust-item:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .trust-item:nth-last-child(-n + 2) {
+        border-bottom: 0;
+    }
+
+    .trust-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+    }
+
+    .trust-title {
+        font-size: 11px;
+        line-height: 1.25;
+    }
+
+    .trust-sub {
+        font-size: 9px;
+        line-height: 1.35;
+    }
+
+    section {
+        padding-top: 28px;
+    }
+
+    .section-head {
+        align-items: flex-end;
+        margin-bottom: 14px;
+        gap: 8px;
+    }
+
+    .section-head h2 {
+        font-size: clamp(17px, 5vw, 21px);
+        line-height: 1.2;
+    }
+
+    .view {
+        font-size: 9px;
+    }
+
+    .locality-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .locality img {
+        height: clamp(90px, 25vw, 120px);
+    }
+
+    .locality .name {
+        font-size: 11px;
+        white-space: normal;
+        line-height: 1.3;
+    }
+
+    .locality .count {
+        font-size: 8px;
+        white-space: normal;
+    }
+
+    .property-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .card-image {
+        height: clamp(190px, 58vw, 260px);
+    }
+
+    .card-body {
+        padding: 13px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    .title {
+        font-size: 13px;
+    }
+
+    .place {
+        font-size: 10px;
+        white-space: normal;
+    }
+
+    .meta {
+        gap: 10px;
+        row-gap: 7px;
+        font-size: 9px;
+    }
+
+    .tag {
+        font-size: 8px;
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .type {
+        height: 125px;
+        padding: 12px 7px;
+    }
+
+    .type-icon {
+        width: 43px;
+        height: 43px;
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .type-name {
+        font-size: 10px;
+        white-space: normal;
+        line-height: 1.3;
+    }
+
+    .type-count {
+        font-size: 8px;
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .why {
+        min-height: 0;
+        padding: 18px 15px;
+    }
+
+    .why h3 {
+        font-size: 13px;
+    }
+
+    .why p {
+        max-width: 100%;
+        font-size: 10px;
+    }
+
+    .cta-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 22px;
+    }
+
+    .policy,
+    .cta {
+        min-height: 0;
+        padding: 18px 15px;
+    }
+
+    .policy-content,
+    .cta-content {
+        min-width: 0;
+    }
+
+    .policy h3,
+    .cta h2 {
+        font-size: 18px;
+        line-height: 1.25;
+    }
+
+    .policy p,
+    .cta p {
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+    .cta button {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .news-inner {
+        min-height: auto;
+        padding: 22px 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .news-title {
+        font-size: 19px;
+    }
+
+    .news-sub {
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .subscribe {
+        width: 100%;
+        height: auto;
+        min-height: 44px;
+    }
+
+    .subscribe input {
+        min-width: 0;
+        font-size: 11px;
+    }
+
+    .subscribe button {
+        width: 88px;
+        min-width: 78px;
+        height: 36px;
+        font-size: 10px;
+    }
+
+    /* Any modal/dropdown that is wider than the viewport is contained */
+    .modal,
+    .overlay,
+    .dialog,
+    [role="dialog"] {
+        max-width: calc(100vw - 16px);
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a,
+    span,
+    label,
+    button,
+    td,
+    th {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* =========================================================
+   BELOW 320px — overflow safety only
+========================================================= */
+
+@media (max-width: 319px) {
+    .container {
+        width: calc(100% - 14px);
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .search-card,
+    .rpf-search-card {
+        padding: 11px;
+    }
+
+    .locality-grid,
+    .type-grid {
+        gap: 8px;
+    }
+
+    .property-grid {
+        gap: 12px;
+    }
+
+    .trust {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-item,
+    .trust-item:nth-child(2n),
+    .trust-item:nth-last-child(-n + 2) {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+
+    .trust-item:last-child {
+        border-bottom: 0;
+    }
+
+    .subscribe button {
+        width: 78px;
+    }
+}
+
+/* ---------- touch devices ---------- */
+
+@media (hover: none) and (pointer: coarse) {
+    .locality:hover,
+    .card:hover,
+    .type:hover,
+    .why:hover,
+    .policy:hover,
+    .cta:hover,
+    .search-card:hover,
+    .rpf-search-card:hover {
+        transform: none;
+    }
+
+    .locality:hover img,
+    .card:hover .card-image img,
+    .type:hover .type-icon {
+        transform: none;
+    }
+
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* ---------- accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+

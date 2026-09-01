@@ -1400,3 +1400,573 @@
 </body>
 
 </html>
+
+<style>
+
+/* =========================================================
+   KEYS PLEASE VENTURE — COMPLETE RESPONSIVE OVERRIDE
+   ---------------------------------------------------------
+   Existing functionality/content/routes/business logic remain
+   untouched. This block only improves responsive presentation.
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+}
+
+.container {
+    width: min(100% - 40px, 1600px);
+}
+
+/* =========================================================
+   LARGE DESKTOP — 1441px+
+========================================================= */
+
+@media (min-width: 1441px) {
+    .container {
+        width: min(100% - 64px, 1600px);
+    }
+
+    .footer-main {
+        grid-template-columns: 1.25fr 1fr 1fr 1fr 1.1fr;
+    }
+}
+
+/* =========================================================
+   DESKTOP — 1025px–1440px
+========================================================= */
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        width: calc(100% - 48px);
+        max-width: 1360px;
+    }
+
+    .nav {
+        gap: 18px;
+    }
+
+    .menu {
+        gap: clamp(18px, 2vw, 32px);
+        margin-left: clamp(18px, 3vw, 48px);
+    }
+
+    .nav-actions {
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .nav-btn {
+        padding-inline: 14px;
+    }
+
+    .nav-btn.primary {
+        min-width: 145px;
+    }
+
+    .footer-main {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .copyright {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================================
+   SMALL LAPTOP — 769px–1024px
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: calc(100% - 32px);
+    }
+
+    header,
+    .nav {
+        height: 74px;
+    }
+
+    .nav {
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .logo {
+        width: 116px;
+        height: 74px;
+        flex: 0 0 auto;
+    }
+
+    .city {
+        width: 120px;
+        margin-left: 0;
+        padding-inline: 10px;
+        flex: 0 0 auto;
+    }
+
+    .menu {
+        gap: 14px;
+        margin-left: 0;
+        font-size: 12px;
+        min-width: 0;
+    }
+
+    .menu a {
+        white-space: nowrap;
+    }
+
+    .nav-actions {
+        gap: 6px;
+        margin-left: 0;
+        flex: 0 0 auto;
+    }
+
+    .nav-btn {
+        height: 38px;
+        padding-inline: 9px;
+        font-size: 10px;
+    }
+
+    .nav-btn.primary {
+        min-width: 112px;
+    }
+
+    .footer-main {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 20px;
+    }
+
+    .footer-company {
+        grid-column: 1 / -1;
+    }
+
+    .copyright {
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================================
+   TABLET — 481px–768px
+========================================================= */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: calc(100% - 28px);
+    }
+
+    header,
+    .nav {
+        height: 70px;
+    }
+
+    .nav {
+        justify-content: space-between;
+    }
+
+    .logo {
+        width: 116px;
+        height: 70px;
+    }
+
+    .city,
+    .menu,
+    .nav-actions {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+    }
+
+    .footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 20px;
+    }
+
+    .footer-company {
+        grid-column: 1 / -1;
+    }
+
+    .footer-copy {
+        max-width: 100%;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .footer-col h4 {
+        font-size: 13px;
+    }
+
+    .footer-col a,
+    .contact a {
+        font-size: 11px;
+    }
+
+    .copyright {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+        line-height: 1.5;
+    }
+
+    /* Modal */
+    .lpf-overlay {
+        padding: 16px;
+    }
+
+    .lpf-modal {
+        width: min(100%, 680px);
+        max-height: calc(100dvh - 32px);
+    }
+
+    .lpf-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   MOBILE — 320px–480px
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        width: calc(100% - 20px);
+    }
+
+    header,
+    .nav {
+        height: 65px;
+    }
+
+    .nav {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 108px;
+        height: 65px;
+        flex: 0 0 auto;
+    }
+
+    .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .city,
+    .menu,
+    .nav-actions {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+    }
+
+    /* Footer */
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 0 18px;
+    }
+
+    .footer-company {
+        grid-column: auto;
+    }
+
+    .footer-copy {
+        max-width: 100%;
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .footer-col h4 {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .footer-col a,
+    .contact a {
+        font-size: 10px;
+        line-height: 1.45;
+        margin: 7px 0;
+    }
+
+    .apps {
+        flex-wrap: wrap;
+    }
+
+    .app {
+        min-height: 30px;
+        height: auto;
+        padding: 7px 10px;
+        white-space: normal;
+    }
+
+    .copyright {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+        line-height: 1.55;
+        padding: 10px 0;
+        font-size: 9px;
+    }
+
+    .copyright span {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    /* Mobile sidebar */
+    .mobile-sidebar {
+        width: min(88vw, 360px);
+        max-width: 100%;
+    }
+
+    .mobile-sidebar-content {
+        width: 100%;
+    }
+
+    .mobile-sidebar-actions {
+        width: 100%;
+    }
+
+    .mobile-sidebar-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    /* List-your-property modal */
+    .lpf-overlay {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .lpf-modal {
+        width: 100%;
+        max-width: 100%;
+        height: calc(100dvh - 24px);
+        max-height: calc(100dvh - 24px);
+        border-radius: 14px;
+    }
+
+    .lpf-modal-header {
+        gap: 10px;
+    }
+
+    .lpf-modal-title {
+        font-size: clamp(17px, 5vw, 21px);
+        line-height: 1.25;
+    }
+
+    .lpf-stepper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .lpf-stepper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .lpf-step-label {
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .lpf-modal-body {
+        min-width: 0;
+    }
+
+    .lpf-panel {
+        min-width: 0;
+    }
+
+    .lpf-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .lpf-pill-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .lpf-pill {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .lpf-input,
+    .lpf-select,
+    .lpf-textarea {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .lpf-amenities {
+        grid-template-columns: 1fr;
+    }
+
+    .lpf-upload {
+        width: 100%;
+        min-height: 120px;
+    }
+
+    .lpf-modal-footer {
+        gap: 8px;
+    }
+
+    .lpf-btn {
+        min-height: 44px;
+        flex: 1 1 0;
+    }
+
+    /* Prevent long content from forcing horizontal overflow */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a,
+    span,
+    label,
+    button {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* =========================================================
+   VERY SMALL SAFETY — below 320px
+   No separate design system; only overflow protection.
+========================================================= */
+
+@media (max-width: 319px) {
+    .container {
+        width: calc(100% - 16px);
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .mobile-sidebar {
+        width: 94vw;
+    }
+
+    .lpf-overlay {
+        padding: 8px;
+    }
+
+    .lpf-modal {
+        height: calc(100dvh - 16px);
+        max-height: calc(100dvh - 16px);
+    }
+
+    .lpf-step-label {
+        font-size: 9px;
+    }
+
+    .copyright {
+        font-size: 8px;
+    }
+}
+
+/* =========================================================
+   GENERAL RESPONSIVE SAFETY
+========================================================= */
+
+main,
+section,
+footer,
+header,
+.container,
+.nav,
+.footer-main,
+.copyright {
+    min-width: 0;
+}
+
+.footer-col,
+.footer-company,
+.nav,
+.menu,
+.nav-actions {
+    min-width: 0;
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
+.table-responsive,
+.table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+input,
+select,
+textarea {
+    min-width: 0;
+}
+
+iframe,
+video {
+    max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+</style>
