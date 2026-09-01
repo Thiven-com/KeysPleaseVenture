@@ -1710,8 +1710,8 @@ section {
 
     background:
         linear-gradient(90deg,
-            #1119a5 0%,
-            #1724c9 60%,
+            #00068a 0%,
+            #00068a 60%,
             rgba(23, 36, 201, 0.72) 100%),
         url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80") right center / 45% auto no-repeat;
 
@@ -4690,7 +4690,7 @@ header.scrolled {
             gap: 8px;
             border: none;
             background: var(--rpf-bg);
-            color: var(--rpf-text);
+            color: #00068a;
             font-weight: 600;
             font-size: 15px;
             padding: 12px 22px;
@@ -4704,7 +4704,7 @@ header.scrolled {
         }
 
         .rpf-tab.rpf-tab-active {
-            background: var(--rpf-blue);
+            background: #00068a;
             color: #ffffff;
         }
 
@@ -4720,7 +4720,7 @@ header.scrolled {
             display: block;
             font-size: 14px;
             font-weight: 700;
-            color: var(--rpf-text);
+            color: #00068a;
             margin-bottom: 8px;
         }
 
@@ -4739,11 +4739,11 @@ header.scrolled {
 
         .rpf-control:hover,
         .rpf-control.rpf-control-open {
-            border-color: var(--rpf-blue);
+            border-color: #00068a;
         }
 
         .rpf-control>i {
-            color: var(--rpf-blue);
+            color: #00068a;
             font-size: 15px;
             flex-shrink: 0;
         }
@@ -4753,7 +4753,7 @@ header.scrolled {
             outline: none;
             font-size: 15px;
             width: 100%;
-            color: var(--rpf-text);
+            color: #00068a;
             background: transparent;
         }
 
@@ -4764,7 +4764,7 @@ header.scrolled {
         .rpf-control-value {
             flex: 1;
             font-size: 15px;
-            color: var(--rpf-blue);
+            color: #00068a;
             font-weight: 600;
         }
 
@@ -4781,7 +4781,7 @@ header.scrolled {
         }
 
         .rpf-control-icon.rpf-clear-icon {
-            color: var(--rpf-muted);
+            color: #00068a;
             cursor: pointer;
         }
 
@@ -4816,17 +4816,17 @@ header.scrolled {
             border: none;
             padding: 10px 12px;
             font-size: 14px;
-            color: var(--rpf-text);
+            /* color: #00068a; */
             border-radius: 8px;
             cursor: pointer;
         }
 
         .rpf-dropdown button:hover {
-            background: var(--rpf-bg);
+            background:#00068a;
         }
 
         .rpf-dropdown button i {
-            color: var(--rpf-blue);
+            color: #00068a;
             font-size: 13px;
         }
 
@@ -4834,7 +4834,7 @@ header.scrolled {
         .rpf-search-btn {
             width: 100%;
             border: none;
-            background: var(--rpf-blue);
+            background: #00068a;
             color: #ffffff;
             font-size: 16px;
             font-weight: 700;
@@ -7087,5 +7087,338 @@ section.reveal-left {
     *::after {
         scroll-behavior: auto !important;
         transition-duration: .01ms !important;
+    }
+}
+
+
+/* =========================================================
+   RPF DROPDOWN — FINAL RESPONSIVE / STACKING FIX
+   Scoped to the rental-property-filter component only.
+   Does not alter JS, routes, API or business logic.
+========================================================= */
+
+.rpf-search-card {
+    position: relative;
+    z-index: 50;
+    overflow: visible;
+    isolation: isolate;
+}
+
+.rpf-form-grid {
+    position: relative;
+    z-index: 2;
+    overflow: visible;
+}
+
+.rpf-field {
+    position: relative;
+    min-width: 0;
+    overflow: visible;
+}
+
+/* The open field must sit above neighboring fields */
+.rpf-field:has(.rpf-control.rpf-control-open) {
+    z-index: 100;
+}
+
+.rpf-control {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    overflow: visible;
+}
+
+.rpf-control.rpf-control-open {
+    z-index: 101;
+}
+
+.rpf-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: min(100%, 360px);
+    max-height: min(240px, 42vh);
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 9999;
+
+    box-sizing: border-box;
+    background: #fff;
+    isolation: isolate;
+}
+
+.rpf-dropdown.rpf-dropdown-open {
+    display: block;
+    z-index: 9999;
+}
+
+/* Never allow a neighboring form column to cover an open dropdown */
+.rpf-field:has(.rpf-dropdown.rpf-dropdown-open) {
+    z-index: 1000;
+}
+
+/* Dropdown buttons remain inside the viewport */
+.rpf-dropdown button {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .rpf-search-card {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    .rpf-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .rpf-field,
+    .rpf-control {
+        min-width: 0;
+    }
+
+    .rpf-dropdown {
+        max-width: 100%;
+        max-height: 230px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .rpf-search-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+        overflow: visible;
+    }
+
+    .rpf-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        overflow: visible;
+    }
+
+    .rpf-field {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    .rpf-control {
+        width: 100%;
+        max-width: 100%;
+        min-height: 44px;
+        padding: 11px 12px;
+    }
+
+    .rpf-dropdown,
+    .rpf-dropdown.rpf-dropdown-open {
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 220px;
+        z-index: 9999;
+    }
+
+    .rpf-dropdown button {
+        min-height: 40px;
+        padding: 10px 11px;
+        font-size: 13px;
+    }
+
+    .rpf-control input,
+    .rpf-control-value {
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* =========================================================
+   EXTRA SMALL SAFETY
+========================================================= */
+
+@media (max-width: 319px) {
+
+    .rpf-search-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 11px;
+        overflow: visible;
+    }
+
+    .rpf-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rpf-dropdown {
+        max-width: 100%;
+        max-height: 200px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .rpf-dropdown {
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   RPF DROPDOWN — TABLET + MOBILE ONLY
+   320px–768px
+   Desktop/laptop 769px+ remain completely unchanged.
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 768px) {
+
+    /* Allow the dropdown to extend outside the search card */
+    .hero,
+    .hero-inner,
+    .rpf-search-card,
+    .rpf-form-grid,
+    .rpf-field,
+    .rpf-control {
+        overflow: visible;
+    }
+
+    /* Put the search section above the trust strip */
+    .hero:has(.rpf-dropdown.rpf-dropdown-open) {
+        position: relative;
+        z-index: 10;
+        overflow: visible;
+    }
+
+    .hero:has(.rpf-dropdown.rpf-dropdown-open) .hero-inner {
+        position: relative;
+        z-index: 20;
+        overflow: visible;
+    }
+
+    /* Open field gets priority over neighboring fields */
+    .rpf-field {
+        position: relative;
+        z-index: 1;
+    }
+
+    .rpf-field:has(.rpf-dropdown.rpf-dropdown-open) {
+        z-index: 1000;
+    }
+
+    .rpf-control {
+        position: relative;
+        z-index: 1;
+    }
+
+    .rpf-control.rpf-control-open {
+        z-index: 1001;
+    }
+
+    /* Dropdown */
+    .rpf-dropdown,
+    .rpf-dropdown.rpf-dropdown-open {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 220px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        z-index: 1002;
+        box-sizing: border-box;
+    }
+
+    /* Keep the decorative hero fade behind the dropdown */
+    .hero:has(.rpf-dropdown.rpf-dropdown-open)::after {
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    /* Trust strip stays below the open dropdown */
+    .trust {
+        position: relative;
+        z-index: 4;
+    }
+}
+
+/* -------------------------
+   MOBILE 320px–480px
+------------------------- */
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .rpf-search-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .rpf-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .rpf-field,
+    .rpf-control {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .rpf-control {
+        min-height: 44px;
+    }
+
+    .rpf-dropdown,
+    .rpf-dropdown.rpf-dropdown-open {
+        width: 100%;
+        max-width: 100%;
+        max-height: 220px;
+    }
+
+    .rpf-dropdown button {
+        width: 100%;
+        min-height: 40px;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* -------------------------
+   TABLET 481px–768px
+------------------------- */
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .rpf-search-card {
+        width: 100%;
+        max-width: 640px;
+    }
+
+    .rpf-dropdown,
+    .rpf-dropdown.rpf-dropdown-open {
+        max-width: 100%;
     }
 }

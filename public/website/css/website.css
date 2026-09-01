@@ -3,8 +3,8 @@
    ========================================================= */
 
 :root {
-    --blue: #1019a7;
-    --blue2: #1725c8;
+    --blue: #00068a;
+    --blue2: #00068a;
     --navy: #111a43;
 
     --text: #1b2340;
@@ -24,8 +24,8 @@
 
 
 
-    --blue: #1724c9;
-    --blue-dark: #1018a5;
+    --blue: #00068a;
+    --blue-dark: #00068a;
     --blue-light: #eef3ff;
 
     --text: #171d34;
@@ -2519,11 +2519,11 @@ body.menu-open {
 
 
 .city-option:hover {
-    border-color: #1724c9;
+    border-color: #00068a;
 
     background: #f8f9ff;
 
-    color: #1724c9;
+    color: #00068a;
 
     transform: translateY(-1px);
 }
@@ -2532,7 +2532,7 @@ body.menu-open {
 /* Selected */
 
 .city-option.active {
-    border-color: #7438ff;
+    border-color: #00068a;
 
     color: #4d4d55;
 
@@ -2604,7 +2604,7 @@ body.menu-open {
 
 
 .footer-links a:hover {
-    color: #1724c9;
+    color: #00068a;
 }
 
 
@@ -2646,7 +2646,7 @@ body.menu-open {
 
 
 .view-all-cities:hover {
-    color: #1724c9;
+    color: #00068a;
 }
 
 
@@ -2949,8 +2949,8 @@ body.menu-open {
 
 
     :root {
-      --rpf-blue: #3a2fd8;
-      --rpf-blue-dark: #2e24b8;
+      --rpf-blue: #00068a;
+      --rpf-blue-dark: #00068a;
       --rpf-blue-light: #eeecfd;
       --rpf-text: #1a1a2e;
       --rpf-muted: #6b7280;
@@ -3093,13 +3093,13 @@ body.menu-open {
     }
 
     .lpf-step-dot-wrap.lpf-step-active .lpf-step-dot {
-      background: var(--rpf-blue);
+      background: #00068a;
       border-color: var(--rpf-blue);
       color: #ffffff;
     }
 
     .lpf-step-dot-wrap.lpf-step-active .lpf-step-label {
-      color: var(--rpf-blue);
+      color: #00068a;
     }
 
     .lpf-step-dot-wrap.lpf-step-done .lpf-step-dot {
@@ -3199,7 +3199,7 @@ body.menu-open {
     }
 
     .lpf-pill.lpf-pill-active {
-      background: var(--rpf-blue);
+      background:#00068a;
       border-color: var(--rpf-blue);
       color: #ffffff;
     }
@@ -3251,7 +3251,7 @@ body.menu-open {
 
     .lpf-upload i {
       font-size: 22px;
-      color: var(--rpf-blue);
+      color: #00068a;
       display: block;
       margin-bottom: 8px;
     }
@@ -3358,7 +3358,7 @@ body.menu-open {
     }
 
     .lpf-btn-primary {
-      background: var(--rpf-blue);
+      background: #00068a;
       color: #ffffff;
     }
 
@@ -4398,9 +4398,9 @@ header.scrolled {
     background:
         linear-gradient(
             110deg,
-            #1018a5,
-            #1724c9,
-            #354ce0,
+            #00068a,
+            #00068a,
+            #00068a,
             #1724c9
         );
 

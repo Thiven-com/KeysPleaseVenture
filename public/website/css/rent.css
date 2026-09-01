@@ -4193,149 +4193,397 @@ body.enquiry-modal-open {
     }
 }
 
-
 /* =========================================================
-   FINAL STACKING / DROPDOWN FIX
+   RENT DROPDOWN — ACTUAL MOBILE + TABLET FIX
    ---------------------------------------------------------
-   Keeps the existing design, layout, responsive breakpoints,
-   class names and functionality unchanged.
-   Fixes location/select dropdowns appearing behind cards.
+   Desktop/laptop (769px+) is intentionally untouched.
+   Fixes:
+   1. Dropdown appearing over its own trigger
+   2. Dropdown stacking behind following fields
+   3. Dropdown clipping inside search panel
+   4. Premium dropdown animation transform conflict
 ========================================================= */
 
-/* Search area must sit above the results section */
-.search-area {
-    position: relative !important;
-    z-index: 1000 !important;
-    overflow: visible !important;
-}
+@media (min-width: 320px) and (max-width: 768px) {
 
-/* Search panel creates the correct stacking context */
-.search-panel {
-    position: relative !important;
-    z-index: 1001 !important;
-    overflow: visible !important;
-}
+    /* -----------------------------------------------------
+       SEARCH STACK
+    ----------------------------------------------------- */
 
-/* Every search field stays above result cards */
-.search-panel .field {
-    position: relative !important;
-    z-index: 1002 !important;
-}
-
-/* Location field gets the highest local layer */
-.search-panel .field:first-child,
-.location-control {
-    position: relative !important;
-    z-index: 1010 !important;
-}
-
-/* Location suggestions must be above the complete results area */
-.location-suggestions {
-    position: absolute !important;
-    z-index: 999999 !important;
-}
-
-/* Custom select menus must also stay above result cards */
-.custom-select {
-    position: relative !important;
-    z-index: 1005 !important;
-}
-
-.select-menu {
-    position: absolute !important;
-    z-index: 999999 !important;
-}
-
-/* Results stay below the search controls */
-.content,
-.results {
-    position: relative;
-    z-index: 1;
-}
-
-/* Result cards must never create a competing high layer */
-.result-card {
-    position: relative;
-    z-index: 1 !important;
-}
-
-/* Gallery elements remain inside their cards */
-.gallery {
-    position: relative;
-    z-index: 1;
-}
-
-/* Card overlays stay inside the card stacking context */
-.featured,
-.photo-count,
-.heart {
-    z-index: 4;
-}
-
-/* Dropdowns must remain clickable */
-.location-suggestions,
-.select-menu {
-    pointer-events: auto;
-}
-
-/* Make sure no parent clips the dropdown */
-.search-area,
-.search-panel,
-.search-panel .field,
-.location-control,
-.custom-select {
-    overflow: visible !important;
-}
-
-/* =========================================================
-   PREMIUM ANIMATION STACKING SAFETY
-   ---------------------------------------------------------
-   Transform animations can create stacking contexts.
-   The following keeps them visually below the search dropdown.
-========================================================= */
-
-.result-card {
-    isolation: isolate;
-}
-
-.search-area {
-    isolation: isolate;
-}
-
-/* On tablet/mobile the search area remains above results */
-@media (max-width: 1199px) {
     .search-area {
-        z-index: 1000 !important;
+        position: relative;
+        z-index: 100;
+        overflow: visible;
     }
 
     .search-panel {
-        z-index: 1001 !important;
+        position: relative;
+        z-index: 101;
+        overflow: visible;
     }
 
-    .content {
+    .search-panel .field {
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    /* -----------------------------------------------------
+       OPEN FIELD ALWAYS GETS THE TOP LAYER
+    ----------------------------------------------------- */
+
+    .search-panel .field:has(.select-menu.show),
+    .search-panel .field:has(.location-suggestions.show) {
+        z-index: 1000;
+    }
+
+    .custom-select,
+    .location-control {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    .custom-select:has(.select-menu.show) {
+        z-index: 1001;
+    }
+
+    /* -----------------------------------------------------
+       DROPDOWN
+       Explicitly anchor it BELOW the trigger.
+    ----------------------------------------------------- */
+
+    .select-menu,
+    .location-suggestions {
+        position: absolute;
+        top: calc(100% + 7px);
+        bottom: auto;
+        left: 0;
+        right: auto;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        z-index: 1002;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        /* Do not let the animation transform change the
+           dropdown's visual position on mobile/tablet. */
+        transform: translateY(-6px);
+    }
+
+    .select-menu.show,
+    .location-suggestions.show {
+        top: calc(100% + 7px);
+        transform: translateY(0);
+        z-index: 1002;
+    }
+
+    /* -----------------------------------------------------
+       REMOVE PREMIUM SCALE ANIMATION ON THESE TWO MENUS
+       It was creating a visual overlap during open state.
+       The normal fade/slide remains.
+    ----------------------------------------------------- */
+
+    .select-menu.show,
+    .location-suggestions.show {
+        animation: none;
+        transition:
+            opacity .2s ease,
+            visibility .2s ease,
+            transform .2s ease;
+    }
+
+    /* -----------------------------------------------------
+       OPTIONS
+    ----------------------------------------------------- */
+
+    .select-menu button,
+    .location-suggestions button {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* -----------------------------------------------------
+       CONTENT BELOW SEARCH MUST STAY BELOW IT
+    ----------------------------------------------------- */
+
+    .content,
+    .results,
+    .result-toolbar,
+    .result-card,
+    .sidebar {
+        position: relative;
         z-index: 1;
     }
 }
 
-/* Mobile dropdown width follows the existing field width */
-@media (max-width: 575px) {
-    .location-suggestions,
-    .select-menu {
-        z-index: 999999 !important;
-    }
+/* =========================================================
+   MOBILE — 320px to 480px
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 480px) {
 
     .search-area {
-    position: relative !important;
+        padding: 12px 0 14px;
+    }
+
+    .search-panel {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+        overflow: visible;
+    }
+
+    .search-panel .field {
+        width: 100%;
+    }
+
+    .field label {
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    .control {
+        width: 100%;
+        min-width: 0;
+        height: 46px;
+        box-sizing: border-box;
+    }
+
+    .select-trigger {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .custom-select {
+        min-height: 46px;
+    }
+
+    .select-menu,
+    .location-suggestions {
+        width: 100%;
+        max-width: 100%;
+        max-height: 220px;
+        border-radius: 8px;
+    }
+
+    .select-menu button,
+    .location-suggestions button {
+        min-height: 40px;
+        padding: 9px 11px;
+        font-size: 12px;
+    }
+
+    /* Open dropdown is always above the next field. */
+    .search-panel .field:has(.select-menu.show),
+    .search-panel .field:has(.location-suggestions.show) {
+        z-index: 1000;
     }
 }
 
 /* =========================================================
-   ACCESSIBILITY
+   TABLET — 481px to 768px
 ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .search-area,
+    .search-panel {
+        overflow: visible;
+    }
+
+    .search-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .search-panel .field {
+        min-width: 0;
+        overflow: visible;
+    }
+
+    .search-panel .field:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .select-menu,
+    .location-suggestions {
+        max-width: 100%;
+        max-height: 240px;
+    }
+
+    .select-menu button,
+    .location-suggestions button {
+        min-height: 40px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   RENT PAGE — SEARCH DROPDOWN STACKING
+   Fixes dropdowns being hidden behind the Results toolbar.
+   Scoped to the Rent page search/content selectors.
+========================================================= */
+
+.search-area {
+    position: relative;
+    z-index: 50;
+    overflow: visible;
+}
+
+.search-panel {
+    position: relative;
+    z-index: 51;
+    overflow: visible;
+}
+
+.search-panel .field {
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+
+.search-panel .field:has(.location-suggestions.show),
+.search-panel .field:has(.select-menu.show),
+.search-panel .custom-select:has(.select-menu.show) {
+    z-index: 500;
+}
+
+.location-suggestions,
+.select-menu {
+    position: absolute;
+    z-index: 501;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Keep dropdowns above the results toolbar/card */
+.result-toolbar,
+.result-card,
+.sidebar {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================================
+   TABLET + MOBILE — retain the responsive behavior
+========================================================= */
+
+@media (min-width: 320px) and (max-width: 768px) {
+
+    .search-area,
+    .search-panel,
+    .search-panel .field,
+    .search-panel .custom-select,
+    .search-panel .location-control {
+        overflow: visible;
+    }
+
+    .search-area {
+        z-index: 50;
+    }
+
+    .search-panel {
+        z-index: 51;
+    }
+
+    .search-panel .field:has(.location-suggestions.show),
+    .search-panel .field:has(.select-menu.show),
+    .search-panel .custom-select:has(.select-menu.show) {
+        z-index: 500;
+    }
+
     .location-suggestions,
     .select-menu {
-        transition: none !important;
+        z-index: 501;
+    }
+
+    .content,
+    .result-toolbar,
+    .result-card,
+    .sidebar {
+        z-index: 1;
+    }
+}
+
+
+/* =========================================================
+   HEADER CITY / RENT MEGA MENU — DESKTOP ONLY
+   Fix: header dropdown must appear above the search panel.
+   769px+ only; tablet/mobile rules remain unchanged.
+========================================================= */
+
+@media (min-width: 769px) {
+
+    header {
+        position: relative;
+        z-index: 5000;
+        isolation: isolate;
+    }
+
+    header .nav {
+        position: relative;
+        z-index: 5001;
+    }
+
+    header .city-selector,
+    header .menu,
+    header .nav-actions {
+        position: relative;
+        z-index: 5002;
+    }
+
+    header .city-selector {
+        isolation: isolate;
+    }
+
+    /* City dropdown / mega menu */
+    header .city-dropdown,
+    header .city-menu,
+    header .nav-mega-menu,
+    header .mega-menu {
+        position: absolute;
+        z-index: 6000;
+    }
+
+    /* Rent mega menu */
+    header .nav-dropdown {
+        position: relative;
+        z-index: 5003;
+    }
+
+    header .nav-dropdown > .nav-mega-menu {
+        z-index: 6000;
+    }
+
+    /* Search panel remains below header menus */
+    .search-area {
+        position: relative;
+        z-index: 100;
+    }
+
+    .search-panel {
+        position: relative;
+        z-index: 101;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
     }
 }
