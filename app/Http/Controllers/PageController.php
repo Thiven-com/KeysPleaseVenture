@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Property;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\CartItem;
@@ -31,11 +31,17 @@ class PageController extends Controller
         return view('website.contact');
     }
 
-     public function rent()
-    {
-        return view('website.rent');
-    }
-     
+    public function rent()
+{
+    $properties = Property::with('images')
+        ->where('status', 'approved')
+        ->where('listing_for', 'Rent')
+        ->latest()
+        ->get();
+
+    return view('website.rent', compact('properties'));
+}
+
     public function login()
     {
         return view('website.login');

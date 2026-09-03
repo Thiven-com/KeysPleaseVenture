@@ -42,6 +42,9 @@
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/venlogo.png') }}">
 
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <style>
     /* =========================================================
    LIST YOUR PROPERTY - MODAL SCROLL FIX
@@ -614,7 +617,7 @@
 
       <span>
         © 2026 Keys Please Venture. All Rights Reserved.Developed By <a href="https://www.thiven.com/" target="_blank"
-                style="text-decoration: none;color: #000;">ThiVen</a>
+          style="text-decoration: none;color: #000;">ThiVen</a>
       </span>
 
       <span>
@@ -1382,481 +1385,701 @@
       }
 
       // ---- Submit ----
-      function submitListing() {
-        // Replace this with an actual fetch/axios POST to your Laravel route, e.g.:
-        // fetch('/property/store', { method:'POST', body: new FormData(...) })
+      // ---- Submit ----
 
-        panels.forEach(function (panel) {
-          panel.classList.remove('lpf-panel-active');
-        });
-        document.querySelector('.lpf-panel[data-panel="success"]').classList.add('lpf-panel-active');
-        document.getElementById('lpfStepper').style.display = 'none';
-        footer.style.display = 'none';
+      async function submitListing() {
+
+        var submitButton = nextBtn;
+
+        try {
+
+          // Disable submit button
+          submitButton.disabled = true;
+          submitButton.innerHTML =
+            'Submitting... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+          // Create FormData
+          var formData = new FormData();
+
+          // -----------------------------
+          // STEP 1
+          // -----------------------------
+
+          formData.append(
+            'listing_for',
+            formState.listingFor
+          );
+
+          formData.append(
+            'property_type',
+            formState.propertyType
+          );
+
+          // -----------------------------
+          // STEP 2
+          // -----------------------------
+
+          formData.append(
+            'locality',
+            document.getElementById('lpfLocality').value.trim()
+          );
+
+          formData.append(
+            'address',
+            document.getElementById('lpfAddress').value.trim()
+          );
+
+          formData.append(
+            'bhk',
+            document.getElementById('lpfBhk').value
+          );
+
+          formData.append(
+            'area_sqft',
+            document.getElementById('lpfArea').value
+          );
+
+          // -----------------------------
+          // STEP 3
+          // -----------------------------
+
+          // Your UI field is lpfRent,
+          // but Laravel expects "price"
+          formData.append(
+            'price',
+            document.getElementById('lpfRent').value
+          );
+
+          formData.append(
+            'furnishing',
+            document.getElementById('lpfFurnishing').value
+          );
+
+          // Amenities
+          var amenities = Array.from(
+            document.querySelectorAll('.lpf-amenity input:checked')
+          ).map(function (checkbox) {
+            return checkbox.value;
+          });
+
+          formData.append(
+            'amenities',
+            JSON.stringify(amenities)
+          );
+
+          // -----------------------------
+          // STEP 4
+          // -----------------------------
+
+          formData.append(
+            'owner_name',
+            document.getElementById('lpfOwnerName').value.trim()
+          );
+
+          formData.append(
+            'owner_phone',
+            document.getElementById('lpfOwnerPhone').value.trim()
+          );
+
+          // -----------------------------
+          // PHOTOS
+          // -----------------------------
+
+          if (fileInput && fileInput.files.length > 0) {
+
+            Array.from(fileInput.files).forEach(function (file) {
+
+              formData.append(
+                'photos[]',
+                file
+              );
+
+            });
+
+          }
+
+          // -----------------------------
+          // CSRF TOKEN
+          // -----------------------------
+
+          var csrfToken = document.querySelector(
+            'meta[name="csrf-token"]'
+          );
+
+          if (!csrfToken) {
+            throw new Error('CSRF token not found.');
+          }
+
+          // -----------------------------
+          // SEND TO LARAVEL
+          // -----------------------------
+
+          var response = await fetch(
+            "{{ route('properties.store') }}",
+            {
+              method: 'POST',
+
+              headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+              },
+
+              body: formData
+            }
+          );
+
+          var result = await response.json();
+
+          console.log(
+            'Property submission response:',
+            result
+          );
+
+          // -----------------------------
+          // ERROR
+          // -----------------------------
+
+          if (!response.ok || !result.success) {
+
+            var errorMessage =
+              result.message ||
+              'Unable to submit property.';
+
+            // Laravel validation errors
+            if (result.errors) {
+
+              errorMessage = Object.values(result.errors)
+                .flat()
+                .join('\n');
+
+            }
+
+            alert(errorMessage);
+
+            submitButton.disabled = false;
+
+            submitButton.innerHTML =
+              'Submit Listing <i class="fa-solid fa-check"></i>';
+
+            return;
+          }
+
+          // -----------------------------
+          // SUCCESS
+          // -----------------------------
+
+          panels.forEach(function (panel) {
+
+            panel.classList.remove(
+              'lpf-panel-active'
+            );
+
+          });
+
+          var successPanel = document.querySelector(
+            '.lpf-panel[data-panel="success"]'
+          );
+
+          if (successPanel) {
+
+            successPanel.classList.add(
+              'lpf-panel-active'
+            );
+
+          }
+
+          document.getElementById(
+            'lpfStepper'
+          ).style.display = 'none';
+
+          footer.style.display = 'none';
+
+          console.log(
+            'Property submitted successfully. ID:',
+            result.property_id
+          );
+
+        } catch (error) {
+
+          console.error(
+            'Property submission error:',
+            error
+          );
+
+          alert(
+            'Something went wrong while submitting your property. Please try again.'
+          );
+
+          submitButton.disabled = false;
+
+          submitButton.innerHTML =
+            'Submit Listing <i class="fa-solid fa-check"></i>';
+        }
       }
 
     })();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
 </html>
 
 <style>
-
-/* =========================================================
+  /* =========================================================
    KEYS PLEASE VENTURE — COMPLETE RESPONSIVE OVERRIDE
    ---------------------------------------------------------
    Existing functionality/content/routes/business logic remain
    untouched. This block only improves responsive presentation.
 ========================================================= */
 
-*,
-*::before,
-*::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
-}
+  }
 
-html,
-body {
+  html,
+  body {
     max-width: 100%;
     overflow-x: hidden;
-}
+  }
 
-img,
-svg,
-video,
-canvas {
+  img,
+  svg,
+  video,
+  canvas {
     max-width: 100%;
     height: auto;
-}
+  }
 
-button,
-input,
-select,
-textarea {
+  button,
+  input,
+  select,
+  textarea {
     max-width: 100%;
-}
+  }
 
-.container {
+  .container {
     width: min(100% - 40px, 1600px);
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    LARGE DESKTOP — 1441px+
 ========================================================= */
 
-@media (min-width: 1441px) {
+  @media (min-width: 1441px) {
     .container {
-        width: min(100% - 64px, 1600px);
+      width: min(100% - 64px, 1600px);
     }
 
     .footer-main {
-        grid-template-columns: 1.25fr 1fr 1fr 1fr 1.1fr;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr 1.1fr;
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    DESKTOP — 1025px–1440px
 ========================================================= */
 
-@media (min-width: 1025px) and (max-width: 1440px) {
+  @media (min-width: 1025px) and (max-width: 1440px) {
     .container {
-        width: calc(100% - 48px);
-        max-width: 1360px;
+      width: calc(100% - 48px);
+      max-width: 1360px;
     }
 
     .nav {
-        gap: 18px;
+      gap: 18px;
     }
 
     .menu {
-        gap: clamp(18px, 2vw, 32px);
-        margin-left: clamp(18px, 3vw, 48px);
+      gap: clamp(18px, 2vw, 32px);
+      margin-left: clamp(18px, 3vw, 48px);
     }
 
     .nav-actions {
-        gap: 10px;
-        flex-shrink: 0;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
     .nav-btn {
-        padding-inline: 14px;
+      padding-inline: 14px;
     }
 
     .nav-btn.primary {
-        min-width: 145px;
+      min-width: 145px;
     }
 
     .footer-main {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 
     .copyright {
-        align-items: center;
-        flex-wrap: wrap;
+      align-items: center;
+      flex-wrap: wrap;
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    SMALL LAPTOP — 769px–1024px
 ========================================================= */
 
-@media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 769px) and (max-width: 1024px) {
     .container {
-        width: calc(100% - 32px);
+      width: calc(100% - 32px);
     }
 
     header,
     .nav {
-        height: 74px;
+      height: 74px;
     }
 
     .nav {
-        justify-content: space-between;
-        gap: 12px;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .logo {
-        width: 116px;
-        height: 74px;
-        flex: 0 0 auto;
+      width: 116px;
+      height: 74px;
+      flex: 0 0 auto;
     }
 
     .city {
-        width: 120px;
-        margin-left: 0;
-        padding-inline: 10px;
-        flex: 0 0 auto;
+      width: 120px;
+      margin-left: 0;
+      padding-inline: 10px;
+      flex: 0 0 auto;
     }
 
     .menu {
-        gap: 14px;
-        margin-left: 0;
-        font-size: 12px;
-        min-width: 0;
+      gap: 14px;
+      margin-left: 0;
+      font-size: 12px;
+      min-width: 0;
     }
 
     .menu a {
-        white-space: nowrap;
+      white-space: nowrap;
     }
 
     .nav-actions {
-        gap: 6px;
-        margin-left: 0;
-        flex: 0 0 auto;
+      gap: 6px;
+      margin-left: 0;
+      flex: 0 0 auto;
     }
 
     .nav-btn {
-        height: 38px;
-        padding-inline: 9px;
-        font-size: 10px;
+      height: 38px;
+      padding-inline: 9px;
+      font-size: 10px;
     }
 
     .nav-btn.primary {
-        min-width: 112px;
+      min-width: 112px;
     }
 
     .footer-main {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 28px 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px 20px;
     }
 
     .footer-company {
-        grid-column: 1 / -1;
+      grid-column: 1 / -1;
     }
 
     .copyright {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    TABLET — 481px–768px
 ========================================================= */
 
-@media (min-width: 481px) and (max-width: 768px) {
+  @media (min-width: 481px) and (max-width: 768px) {
     .container {
-        width: calc(100% - 28px);
+      width: calc(100% - 28px);
     }
 
     header,
     .nav {
-        height: 70px;
+      height: 70px;
     }
 
     .nav {
-        justify-content: space-between;
+      justify-content: space-between;
     }
 
     .logo {
-        width: 116px;
-        height: 70px;
+      width: 116px;
+      height: 70px;
     }
 
     .city,
     .menu,
     .nav-actions {
-        display: none;
+      display: none;
     }
 
     .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
     }
 
     .footer-main {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 28px 20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 20px;
     }
 
     .footer-company {
-        grid-column: 1 / -1;
+      grid-column: 1 / -1;
     }
 
     .footer-copy {
-        max-width: 100%;
-        font-size: 12px;
-        line-height: 1.6;
+      max-width: 100%;
+      font-size: 12px;
+      line-height: 1.6;
     }
 
     .footer-col h4 {
-        font-size: 13px;
+      font-size: 13px;
     }
 
     .footer-col a,
     .contact a {
-        font-size: 11px;
+      font-size: 11px;
     }
 
     .copyright {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 7px;
-        line-height: 1.5;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.5;
     }
 
     /* Modal */
     .lpf-overlay {
-        padding: 16px;
+      padding: 16px;
     }
 
     .lpf-modal {
-        width: min(100%, 680px);
-        max-height: calc(100dvh - 32px);
+      width: min(100%, 680px);
+      max-height: calc(100dvh - 32px);
     }
 
     .lpf-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    MOBILE — 320px–480px
 ========================================================= */
 
-@media (min-width: 320px) and (max-width: 480px) {
+  @media (min-width: 320px) and (max-width: 480px) {
     .container {
-        width: calc(100% - 20px);
+      width: calc(100% - 20px);
     }
 
     header,
     .nav {
-        height: 65px;
+      height: 65px;
     }
 
     .nav {
-        justify-content: space-between;
-        gap: 10px;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .logo {
-        width: 108px;
-        height: 65px;
-        flex: 0 0 auto;
+      width: 108px;
+      height: 65px;
+      flex: 0 0 auto;
     }
 
     .logo img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .city,
     .menu,
     .nav-actions {
-        display: none;
+      display: none;
     }
 
     .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
     }
 
     /* Footer */
     .footer-main {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 28px 0 18px;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 28px 0 18px;
     }
 
     .footer-company {
-        grid-column: auto;
+      grid-column: auto;
     }
 
     .footer-copy {
-        max-width: 100%;
-        font-size: 11px;
-        line-height: 1.65;
+      max-width: 100%;
+      font-size: 11px;
+      line-height: 1.65;
     }
 
     .footer-col h4 {
-        font-size: 13px;
-        margin-bottom: 10px;
+      font-size: 13px;
+      margin-bottom: 10px;
     }
 
     .footer-col a,
     .contact a {
-        font-size: 10px;
-        line-height: 1.45;
-        margin: 7px 0;
+      font-size: 10px;
+      line-height: 1.45;
+      margin: 7px 0;
     }
 
     .apps {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
     }
 
     .app {
-        min-height: 30px;
-        height: auto;
-        padding: 7px 10px;
-        white-space: normal;
+      min-height: 30px;
+      height: auto;
+      padding: 7px 10px;
+      white-space: normal;
     }
 
     .copyright {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 7px;
-        line-height: 1.55;
-        padding: 10px 0;
-        font-size: 9px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.55;
+      padding: 10px 0;
+      font-size: 9px;
     }
 
     .copyright span {
-        max-width: 100%;
-        overflow-wrap: anywhere;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
     /* Mobile sidebar */
     .mobile-sidebar {
-        width: min(88vw, 360px);
-        max-width: 100%;
+      width: min(88vw, 360px);
+      max-width: 100%;
     }
 
     .mobile-sidebar-content {
-        width: 100%;
+      width: 100%;
     }
 
     .mobile-sidebar-actions {
-        width: 100%;
+      width: 100%;
     }
 
     .mobile-sidebar-btn {
-        width: 100%;
-        min-height: 44px;
+      width: 100%;
+      min-height: 44px;
     }
 
     /* List-your-property modal */
     .lpf-overlay {
-        align-items: flex-start;
-        padding: 12px;
+      align-items: flex-start;
+      padding: 12px;
     }
 
     .lpf-modal {
-        width: 100%;
-        max-width: 100%;
-        height: calc(100dvh - 24px);
-        max-height: calc(100dvh - 24px);
-        border-radius: 14px;
+      width: 100%;
+      max-width: 100%;
+      height: calc(100dvh - 24px);
+      max-height: calc(100dvh - 24px);
+      border-radius: 14px;
     }
 
     .lpf-modal-header {
-        gap: 10px;
+      gap: 10px;
     }
 
     .lpf-modal-title {
-        font-size: clamp(17px, 5vw, 21px);
-        line-height: 1.25;
+      font-size: clamp(17px, 5vw, 21px);
+      line-height: 1.25;
     }
 
     .lpf-stepper {
-        overflow-x: auto;
-        overflow-y: hidden;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     .lpf-stepper::-webkit-scrollbar {
-        display: none;
+      display: none;
     }
 
     .lpf-step-label {
-        font-size: 10px;
-        white-space: nowrap;
+      font-size: 10px;
+      white-space: nowrap;
     }
 
     .lpf-modal-body {
-        min-width: 0;
+      min-width: 0;
     }
 
     .lpf-panel {
-        min-width: 0;
+      min-width: 0;
     }
 
     .lpf-row {
-        grid-template-columns: 1fr;
-        gap: 14px;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     .lpf-pill-group {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 8px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
     }
 
     .lpf-pill {
-        width: 100%;
-        min-height: 42px;
+      width: 100%;
+      min-height: 42px;
     }
 
     .lpf-input,
     .lpf-select,
     .lpf-textarea {
-        width: 100%;
-        min-width: 0;
+      width: 100%;
+      min-width: 0;
     }
 
     .lpf-amenities {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
 
     .lpf-upload {
-        width: 100%;
-        min-height: 120px;
+      width: 100%;
+      min-height: 120px;
     }
 
     .lpf-modal-footer {
-        gap: 8px;
+      gap: 8px;
     }
 
     .lpf-btn {
-        min-height: 44px;
-        flex: 1 1 0;
+      min-height: 44px;
+      flex: 1 1 0;
     }
 
     /* Prevent long content from forcing horizontal overflow */
@@ -1871,102 +2094,102 @@ textarea {
     span,
     label,
     button {
-        overflow-wrap: anywhere;
+      overflow-wrap: anywhere;
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    VERY SMALL SAFETY — below 320px
    No separate design system; only overflow protection.
 ========================================================= */
 
-@media (max-width: 319px) {
+  @media (max-width: 319px) {
     .container {
-        width: calc(100% - 16px);
+      width: calc(100% - 16px);
     }
 
     .logo {
-        width: 100px;
+      width: 100px;
     }
 
     .mobile-sidebar {
-        width: 94vw;
+      width: 94vw;
     }
 
     .lpf-overlay {
-        padding: 8px;
+      padding: 8px;
     }
 
     .lpf-modal {
-        height: calc(100dvh - 16px);
-        max-height: calc(100dvh - 16px);
+      height: calc(100dvh - 16px);
+      max-height: calc(100dvh - 16px);
     }
 
     .lpf-step-label {
-        font-size: 9px;
+      font-size: 9px;
     }
 
     .copyright {
-        font-size: 8px;
+      font-size: 8px;
     }
-}
+  }
 
-/* =========================================================
+  /* =========================================================
    GENERAL RESPONSIVE SAFETY
 ========================================================= */
 
-main,
-section,
-footer,
-header,
-.container,
-.nav,
-.footer-main,
-.copyright {
+  main,
+  section,
+  footer,
+  header,
+  .container,
+  .nav,
+  .footer-main,
+  .copyright {
     min-width: 0;
-}
+  }
 
-.footer-col,
-.footer-company,
-.nav,
-.menu,
-.nav-actions {
+  .footer-col,
+  .footer-company,
+  .nav,
+  .menu,
+  .nav-actions {
     min-width: 0;
-}
+  }
 
-table {
+  table {
     width: 100%;
     max-width: 100%;
     border-collapse: collapse;
-}
+  }
 
-.table-responsive,
-.table-wrapper {
+  .table-responsive,
+  .table-wrapper {
     max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
+  }
 
-input,
-select,
-textarea {
+  input,
+  select,
+  textarea {
     min-width: 0;
-}
+  }
 
-iframe,
-video {
+  iframe,
+  video {
     max-width: 100%;
-}
+  }
 
-@media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
     }
-}
-
+  }
 </style>

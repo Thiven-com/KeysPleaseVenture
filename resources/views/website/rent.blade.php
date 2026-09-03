@@ -6,8 +6,8 @@
 
 
     <!-- =====================================================
-                                         SEARCH AREA
-                                    ====================================================== -->
+                                                                         SEARCH AREA
+                                                                    ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -229,15 +229,15 @@
 
 
     <!-- =====================================================
-                                         CONTENT AREA
-                                    ====================================================== -->
+                                                                         CONTENT AREA
+                                                                    ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                             SIDEBAR
-                                        ================================================== -->
+                                                                             SIDEBAR
+                                                                        ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -338,43 +338,43 @@
 
             <!-- <div class="filter-section">
 
-                        <button type="button" class="filter-title">
-                            <span>
-                                Rent Range
-                            </span>
+                                                        <button type="button" class="filter-title">
+                                                            <span>
+                                                                Rent Range
+                                                            </span>
 
-                            <i class="fa-solid fa-chevron-up"></i>
-                        </button>
-
-
-                        <div class="range">
-
-                            <span class="range-progress"></span>
-
-                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                        </div>
+                                                            <i class="fa-solid fa-chevron-up"></i>
+                                                        </button>
 
 
-                        <div class="range-values">
+                                                        <div class="range">
 
-                            <div class="range-box">
-                                ₹ 0
-                            </div>
+                                                            <span class="range-progress"></span>
 
-                            <span class="range-to">
-                                to
-                            </span>
+                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                            <div class="range-box">
-                                ₹ 1,00,000+
-                            </div>
+                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                        </div>
+                                                        </div>
 
-                    </div> -->
+
+                                                        <div class="range-values">
+
+                                                            <div class="range-box">
+                                                                ₹ 0
+                                                            </div>
+
+                                                            <span class="range-to">
+                                                                to
+                                                            </span>
+
+                                                            <div class="range-box">
+                                                                ₹ 1,00,000+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div> -->
 
 
             <!-- BHK -->
@@ -471,8 +471,8 @@
 
 
         <!-- =================================================
-                                             RESULTS
-                                        ================================================== -->
+                                                                             RESULTS
+                                                                        ================================================== -->
 
         <section class="results">
 
@@ -536,8 +536,8 @@
 
 
             <!-- =================================================
-                                                 PROPERTY 1
-                                            ================================================== -->
+                                         PROPERTY 1
+                        ================================================== -->
 
             <article class="result-card" data-property="property1" data-price="45000" data-age="2" data-bhk="3"
                 data-location="Koramangala 4th Block" data-type="Apartment">
@@ -689,7 +689,7 @@
                     </button>
 
 
-                    <button type="button" class="action-btn enquire-btn">
+                    <button type="button" class="action-btn enquire-btn" data-property-id="1">
                         Enquire Now
                     </button>
 
@@ -708,8 +708,8 @@
 
 
             <!-- =================================================
-                                                 PROPERTY 2
-                                            ================================================== -->
+                                                                                 PROPERTY 2
+                                                                            ================================================== -->
 
             <article class="result-card" data-property="property2" data-price="32000" data-age="5" data-bhk="2"
                 data-location="HSR Layout" data-type="Apartment">
@@ -855,7 +855,7 @@
                     </button>
 
 
-                    <button type="button" class="action-btn enquire-btn">
+                    <button type="button" class="action-btn enquire-btn" data-property-id="2">
                         Enquire Now
                     </button>
 
@@ -874,8 +874,8 @@
 
 
             <!-- =================================================
-                                                 PROPERTY 3
-                                            ================================================== -->
+                                                                                 PROPERTY 3
+                                                                            ================================================== -->
 
             <article class="result-card" data-property="property3" data-price="78000" data-age="24" data-bhk="4"
                 data-location="Indiranagar" data-type="Apartment">
@@ -1021,7 +1021,7 @@
                     </button>
 
 
-                    <button type="button" class="action-btn enquire-btn">
+                    <button type="button" class="action-btn enquire-btn" data-property-id="3">
                         Enquire Now
                     </button>
 
@@ -1067,9 +1067,8 @@
 
 
     <!-- =====================================================
-                                         ENQUIRY MODAL
-                                    ====================================================== -->
-
+                                                                         ENQUIRY MODAL
+                                                                    ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1080,11 +1079,9 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-
             <div class="enquiry-icon">
                 <i class="fa-solid fa-house"></i>
             </div>
-
 
             <h2>
                 Enquire About This Property
@@ -1095,8 +1092,8 @@
                 will contact you shortly.
             </p>
 
-
-            <form id="enquiryForm">
+            <form id="enquiryForm" action="{{ route('rent.enquiry.store') }}" method="POST">
+                @csrf
 
                 <!-- Full Name -->
                 <div class="enquiry-field">
@@ -1112,7 +1109,6 @@
                     </div>
                 </div>
 
-
                 <!-- Mobile Number -->
                 <div class="enquiry-field">
                     <label for="enquiryPhone">
@@ -1126,7 +1122,6 @@
                             autocomplete="tel" inputmode="tel" required>
                     </div>
                 </div>
-
 
                 <!-- Email Address -->
                 <div class="enquiry-field">
@@ -1142,7 +1137,6 @@
                     </div>
                 </div>
 
-
                 <!-- Preferred Contact -->
                 <div class="enquiry-field">
                     <label for="preferredContact">
@@ -1153,14 +1147,24 @@
                         <i class="fa-solid fa-address-book"></i>
 
                         <select id="preferredContact" name="preferred_contact" required>
-                            <option value="">Select preferred contact method</option>
-                            <option value="phone">Phone Call</option>
-                            <option value="whatsapp">WhatsApp</option>
-                            <option value="email">Email</option>
+                            <option value="">
+                                Select preferred contact method
+                            </option>
+
+                            <option value="phone">
+                                Phone Call
+                            </option>
+
+                            <option value="whatsapp">
+                                WhatsApp
+                            </option>
+
+                            <option value="email">
+                                Email
+                            </option>
                         </select>
                     </div>
                 </div>
-
 
                 <!-- Message / Enquiry -->
                 <div class="enquiry-field">
@@ -1176,7 +1180,6 @@
                     </div>
                 </div>
 
-
                 <!-- Submit -->
                 <button type="submit" class="enquiry-submit">
                     <i class="fa-solid fa-paper-plane"></i>
@@ -1191,8 +1194,8 @@
 
 
     <!-- =====================================================
-                                         JAVASCRIPT
-                                    ====================================================== -->
+                                                                         JAVASCRIPT
+                                                                    ====================================================== -->
 
     <script>
 
@@ -1848,8 +1851,8 @@
 
 
             /* =================================================
-               ENQUIRE NOW
-            ================================================= */
+    ENQUIRE NOW
+    ================================================= */
 
             document
                 .querySelectorAll(".enquire-btn")
@@ -1857,24 +1860,36 @@
 
                     button.addEventListener("click", function (event) {
 
+                        event.preventDefault();
                         event.stopPropagation();
 
+                        if (!enquiryModal) {
+                            console.error("Enquiry modal not found.");
+                            return;
+                        }
 
-                        const card =
-                            this.closest(".result-card");
+                        const card = this.closest(".result-card");
 
-                        const title =
-                            card.querySelector(
-                                ".property-title"
-                            ).textContent.trim();
+                        const titleElement = card
+                            ? card.querySelector(".property-title")
+                            : null;
 
+                        const title = titleElement
+                            ? titleElement.textContent.trim()
+                            : "this property";
 
-                        document.getElementById(
-                            "enquiryMessage"
-                        ).value =
-                            "I am interested in " + title + ".";
+                        /*
+                         * Set message only.
+                         * No property ID is required.
+                         */
+                        if (enquiryMessage) {
+                            enquiryMessage.value =
+                                "I am interested in " + title + ".";
+                        }
 
-
+                        /*
+                         * Open enquiry modal
+                         */
                         enquiryModal.classList.add("show");
 
                         enquiryModal.setAttribute(
@@ -1890,19 +1905,20 @@
                             "enquiry-modal-open"
                         );
 
-
+                        /*
+                         * Focus name field
+                         */
                         setTimeout(function () {
 
-                            document.getElementById(
-                                "enquiryName"
-                            ).focus();
+                            if (enquiryName) {
+                                enquiryName.focus();
+                            }
 
                         }, 200);
 
                     });
 
                 });
-
 
             /* =================================================
                CLOSE MODAL
@@ -1964,52 +1980,213 @@
 
 
             /* =================================================
-               ENQUIRY FORM
-            ================================================= */
+    ENQUIRY FORM
+    ================================================= */
 
-            enquiryForm.addEventListener(
-                "submit",
-                function (event) {
+            if (enquiryForm) {
+
+                enquiryForm.addEventListener("submit", async function (event) {
 
                     event.preventDefault();
 
+                    const submitButton =
+                        enquiryForm.querySelector(".enquiry-submit");
 
+                    const originalButtonText =
+                        submitButton
+                            ? submitButton.innerHTML
+                            : "";
+
+                    /*
+                     * Get form values
+                     */
                     const name =
-                        document.getElementById(
-                            "enquiryName"
-                        ).value.trim();
-
+                        document
+                            .getElementById("enquiryName")
+                            .value
+                            .trim();
 
                     const phone =
-                        document.getElementById(
-                            "enquiryPhone"
-                        ).value.trim();
+                        document
+                            .getElementById("enquiryPhone")
+                            .value
+                            .trim();
 
+                    const email =
+                        document
+                            .getElementById("enquiryEmail")
+                            .value
+                            .trim();
 
-                    if (!name || !phone) {
+                    const preferredContact =
+                        document
+                            .getElementById("preferredContact")
+                            .value;
 
-                        alert(
-                            "Please enter your name and phone number."
+                    const message =
+                        document
+                            .getElementById("enquiryMessage")
+                            .value
+                            .trim();
+
+                    /*
+                     * Basic validation
+                     */
+                    if (!name) {
+                        alert("Please enter your name.");
+                        return;
+                    }
+
+                    if (!phone) {
+                        alert("Please enter your mobile number.");
+                        return;
+                    }
+
+                    if (!email) {
+                        alert("Please enter your email address.");
+                        return;
+                    }
+
+                    if (!preferredContact) {
+                        alert("Please select your preferred contact method.");
+                        return;
+                    }
+
+                    /*
+                     * Disable button
+                     */
+                    if (submitButton) {
+
+                        submitButton.disabled = true;
+
+                        submitButton.innerHTML =
+                            '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+                    }
+
+                    try {
+
+                        /*
+                         * Create form data
+                         */
+                        const formData = new FormData();
+
+                        formData.append("name", name);
+                        formData.append("phone", phone);
+                        formData.append("email", email);
+                        formData.append(
+                            "preferred_contact",
+                            preferredContact
+                        );
+                        formData.append("message", message);
+
+                        /*
+                         * Laravel request
+                         */
+                        const response = await fetch(
+                            enquiryForm.action,
+                            {
+                                method: "POST",
+
+                                body: formData,
+
+                                headers: {
+                                    "Accept": "application/json",
+                                    "X-Requested-With": "XMLHttpRequest"
+                                }
+                            }
                         );
 
-                        return;
+                        const result = await response.json();
+
+                        console.log(
+                            "Enquiry response:",
+                            result
+                        );
+
+                        /*
+                         * Validation error
+                         */
+                        if (!response.ok) {
+
+                            if (result.errors) {
+
+                                const firstError =
+                                    Object.values(result.errors)
+                                        .flat()[0];
+
+                                alert(
+                                    firstError ||
+                                    "Please check the form."
+                                );
+
+                            } else {
+
+                                alert(
+                                    result.message ||
+                                    "Unable to submit enquiry."
+                                );
+                            }
+
+                            return;
+                        }
+
+                        /*
+                         * Success
+                         */
+                        if (result.success) {
+
+                            alert(
+                                result.message ||
+                                "Your enquiry has been submitted successfully."
+                            );
+
+                            /*
+                             * Clear form
+                             */
+                            enquiryForm.reset();
+
+                            /*
+                             * Close modal
+                             */
+                            closeEnquiryModal();
+
+                        } else {
+
+                            alert(
+                                result.message ||
+                                "Unable to submit enquiry."
+                            );
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Enquiry submission error:",
+                            error
+                        );
+
+                        alert(
+                            "Unable to submit your enquiry. Please try again."
+                        );
+
+                    } finally {
+
+                        /*
+                         * Enable button again
+                         */
+                        if (submitButton) {
+
+                            submitButton.disabled = false;
+
+                            submitButton.innerHTML =
+                                originalButtonText;
+                        }
 
                     }
 
+                });
 
-                    alert(
-                        "Thank you, " +
-                        name +
-                        "! Your enquiry has been submitted."
-                    );
-
-
-                    enquiryForm.reset();
-
-                    closeEnquiryModal();
-
-                }
-            );
+            }
 
 
             /* =================================================
