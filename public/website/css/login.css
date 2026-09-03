@@ -37,7 +37,7 @@ html {
 
 body {
     min-height: 100vh;
-    font-family: "Inter", Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--text);
 
     background:
@@ -1645,6 +1645,7 @@ body.login-modal-open {
 }
 
 @media (hover: none) {
+
     .login-method:hover,
     .register-tab:hover,
     .social:hover,
@@ -1696,6 +1697,7 @@ body.login-modal-open {
         backdrop-filter: blur(0);
         -webkit-backdrop-filter: blur(0);
     }
+
     100% {
         opacity: 1;
         backdrop-filter: blur(10px);
@@ -1707,6 +1709,7 @@ body.login-modal-open {
     0% {
         transform: translate3d(-3%, -2%, 0) scale(1);
     }
+
     100% {
         transform: translate3d(3%, 2%, 0) scale(1.08);
     }
@@ -1734,13 +1737,11 @@ body.login-modal-open {
     z-index: 10;
     border-radius: inherit;
     background:
-        linear-gradient(
-            115deg,
+        linear-gradient(115deg,
             rgba(255, 255, 255, .22),
             transparent 25%,
             transparent 70%,
-            rgba(255, 255, 255, .08)
-        );
+            rgba(255, 255, 255, .08));
     opacity: .65;
 }
 
@@ -1750,11 +1751,13 @@ body.login-modal-open {
         transform: translateY(55px) scale(.92) rotateX(3deg);
         filter: blur(7px);
     }
+
     65% {
         opacity: 1;
         transform: translateY(-5px) scale(1.01) rotateX(0);
         filter: blur(0);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -1762,12 +1765,15 @@ body.login-modal-open {
 }
 
 @keyframes premiumFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow:
             0 35px 90px rgba(3, 12, 55, .32),
             0 8px 28px rgba(8, 24, 95, .18),
             0 0 0 1px rgba(255, 255, 255, .12) inset;
     }
+
     50% {
         box-shadow:
             0 42px 105px rgba(3, 12, 55, .36),
@@ -1800,6 +1806,7 @@ body.login-modal-open {
     from {
         transform: rotate(0deg) scale(1);
     }
+
     to {
         transform: rotate(360deg) scale(1.04);
     }
@@ -1809,6 +1816,7 @@ body.login-modal-open {
     from {
         transform: rotate(360deg) scale(1);
     }
+
     to {
         transform: rotate(0deg) scale(1.06);
     }
@@ -1824,20 +1832,22 @@ body.login-modal-open {
     height: 130%;
     pointer-events: none;
     transform: rotate(18deg);
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, .10),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, .10),
+            transparent);
     animation: premiumLightSweep 6s ease-in-out 1.2s infinite;
 }
 
 @keyframes premiumLightSweep {
-    0%, 55% {
+
+    0%,
+    55% {
         left: -160%;
     }
-    78%, 100% {
+
+    78%,
+    100% {
         left: 180%;
     }
 }
@@ -1861,6 +1871,7 @@ body.login-modal-open {
         letter-spacing: 4px;
         filter: blur(6px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -1875,6 +1886,7 @@ body.login-modal-open {
         transform: translateY(18px);
         filter: blur(4px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -1892,17 +1904,32 @@ body.login-modal-open {
     animation: buildingGlow 4s ease-in-out infinite alternate;
 }
 
-.b1 { animation-delay: .2s; }
-.b2 { animation-delay: .55s; }
-.b3 { animation-delay: .85s; }
-.b4 { animation-delay: 1.1s; }
-.b5 { animation-delay: .4s; }
+.b1 {
+    animation-delay: .2s;
+}
+
+.b2 {
+    animation-delay: .55s;
+}
+
+.b3 {
+    animation-delay: .85s;
+}
+
+.b4 {
+    animation-delay: 1.1s;
+}
+
+.b5 {
+    animation-delay: .4s;
+}
 
 @keyframes cityReveal {
     0% {
         opacity: 0;
         transform: translateY(45px) scale(.96);
     }
+
     100% {
         opacity: .95;
         transform: translateY(0) scale(1);
@@ -1913,6 +1940,7 @@ body.login-modal-open {
     0% {
         filter: brightness(.88);
     }
+
     100% {
         filter: brightness(1.12);
     }
@@ -1925,9 +1953,17 @@ body.login-modal-open {
         premiumFeatureIn .7s cubic-bezier(.16, 1, .3, 1) forwards;
 }
 
-.feature:nth-child(1) { animation-delay: .75s; }
-.feature:nth-child(2) { animation-delay: .92s; }
-.feature:nth-child(3) { animation-delay: 1.09s; }
+.feature:nth-child(1) {
+    animation-delay: .75s;
+}
+
+.feature:nth-child(2) {
+    animation-delay: .92s;
+}
+
+.feature:nth-child(3) {
+    animation-delay: 1.09s;
+}
 
 .feature-icon {
     position: relative;
@@ -1942,12 +1978,10 @@ body.login-modal-open {
     content: "";
     position: absolute;
     inset: -70%;
-    background: linear-gradient(
-        110deg,
-        transparent 42%,
-        rgba(255, 255, 255, .8) 50%,
-        transparent 58%
-    );
+    background: linear-gradient(110deg,
+            transparent 42%,
+            rgba(255, 255, 255, .8) 50%,
+            transparent 58%);
     transform: translateX(-80%) rotate(15deg);
     animation: iconShine 4.5s ease-in-out 1.5s infinite;
 }
@@ -1964,6 +1998,7 @@ body.login-modal-open {
         transform: translateX(-28px);
         filter: blur(4px);
     }
+
     100% {
         opacity: 1;
         transform: translateX(0);
@@ -1972,10 +2007,14 @@ body.login-modal-open {
 }
 
 @keyframes iconShine {
-    0%, 55% {
+
+    0%,
+    55% {
         transform: translateX(-80%) rotate(15deg);
     }
-    78%, 100% {
+
+    78%,
+    100% {
         transform: translateX(80%) rotate(15deg);
     }
 }
@@ -1991,6 +2030,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateX(28px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -2013,6 +2053,7 @@ body.login-modal-open {
         transform: translateY(18px);
         filter: blur(5px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2062,6 +2103,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateY(12px) scale(.98);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2078,7 +2120,7 @@ body.login-modal-open {
     animation-delay: .52s;
 }
 
-.form-panel > .form-group {
+.form-panel>.form-group {
     animation-delay: .62s;
 }
 
@@ -2115,6 +2157,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateY(14px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2147,13 +2190,11 @@ body.login-modal-open {
     isolation: isolate;
     position: relative;
     background:
-        linear-gradient(
-            110deg,
+        linear-gradient(110deg,
             #061580 0%,
             #071b9d 35%,
             #0b28b9 68%,
-            #4c63e8 100%
-        );
+            #4c63e8 100%);
     background-size: 220% 100%;
     box-shadow:
         0 10px 28px rgba(7, 27, 157, .25),
@@ -2169,12 +2210,10 @@ body.login-modal-open {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(
-        115deg,
-        transparent 20%,
-        rgba(255, 255, 255, .28) 45%,
-        transparent 65%
-    );
+    background: linear-gradient(115deg,
+            transparent 20%,
+            rgba(255, 255, 255, .28) 45%,
+            transparent 65%);
     transform: translateX(-130%);
     animation: buttonShine 4s ease-in-out 2s infinite;
 }
@@ -2207,6 +2246,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateY(16px) scale(.97);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2214,19 +2254,26 @@ body.login-modal-open {
 }
 
 @keyframes premiumButtonGradient {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
 }
 
 @keyframes buttonShine {
-    0%, 55% {
+
+    0%,
+    55% {
         transform: translateX(-130%);
     }
-    75%, 100% {
+
+    75%,
+    100% {
         transform: translateX(130%);
     }
 }
@@ -2247,9 +2294,17 @@ body.login-modal-open {
     animation: socialIn .55s cubic-bezier(.16, 1, .3, 1) both;
 }
 
-.social:nth-child(1) { animation-delay: .9s; }
-.social:nth-child(2) { animation-delay: 1s; }
-.social:nth-child(3) { animation-delay: 1.1s; }
+.social:nth-child(1) {
+    animation-delay: .9s;
+}
+
+.social:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.social:nth-child(3) {
+    animation-delay: 1.1s;
+}
 
 .social::before {
     content: "";
@@ -2278,6 +2333,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateY(12px) scale(.94);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2297,6 +2353,7 @@ body.login-modal-open {
         transform: translateX(38px);
         filter: blur(5px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -2352,10 +2409,12 @@ body.login-modal-open {
         opacity: 0;
         transform: translate(-50%, 18px) scale(.92);
     }
+
     70% {
         opacity: 1;
         transform: translate(-50%, -2px) scale(1.015);
     }
+
     100% {
         opacity: 1;
         transform: translate(-50%, 0) scale(1);
@@ -2398,6 +2457,7 @@ body.login-modal-open {
         transform: translateY(30px) scale(.96);
         filter: blur(5px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2410,6 +2470,7 @@ body.login-modal-open {
         opacity: 0;
         transform: translateY(18px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2419,6 +2480,7 @@ body.login-modal-open {
 /* ---------- Accessibility ---------- */
 
 @media (prefers-reduced-motion: reduce) {
+
     .login-overlay,
     .login-modal,
     .brand-panel::before,

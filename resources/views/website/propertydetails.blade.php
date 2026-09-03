@@ -1187,7 +1187,7 @@
             background: #fff;
             color: #252b3a;
 
-            font-family: inherit;
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
 
             outline: none;

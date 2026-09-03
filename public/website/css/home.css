@@ -1972,7 +1972,7 @@ section {
 
     font-size: 10px;
 
-    font-family: inherit;
+    font-family: 'Poppins', sans-serif;
 }
 
 .subscribe input::placeholder {
