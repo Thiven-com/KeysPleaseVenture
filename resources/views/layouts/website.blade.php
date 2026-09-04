@@ -1621,11 +1621,11 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-</body>
 
-</html>
 
-<style>
+
+
+  <style>
   /* =========================================================
    KEYS PLEASE VENTURE — COMPLETE RESPONSIVE OVERRIDE
    ---------------------------------------------------------
@@ -2193,3 +2193,6 @@
     }
   }
 </style>
+</body>
+
+</html>

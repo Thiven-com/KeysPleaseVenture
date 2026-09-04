@@ -675,7 +675,6 @@
 
     <div class="rent-enquiry-page">
 
-        ```
         <div class="rent-enquiry-main">
 
 

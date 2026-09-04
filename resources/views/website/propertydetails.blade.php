@@ -4,10 +4,10 @@
 
     <style>
         /* =========================================================
-                                                       PROPERTY DETAIL PAGE
-                                                       RESPONSIVE: DESKTOP / LAPTOP / TABLET / MOBILE
-                                                       PRIMARY COLOR: #1724c9
-                                                    ========================================================= */
+                                                                       PROPERTY DETAIL PAGE
+                                                                       RESPONSIVE: DESKTOP / LAPTOP / TABLET / MOBILE
+                                                                       PRIMARY COLOR: #1724c9
+                                                                    ========================================================= */
 
         :root {
             --blue: #00068a;
@@ -19,8 +19,8 @@
         }
 
         /* =========================================================
-                                                       GLOBAL
-                                                    ========================================================= */
+                                                                       GLOBAL
+                                                                    ========================================================= */
 
         *,
         *::before,
@@ -45,8 +45,8 @@
         }
 
         /* =========================================================
-                                                       BREADCRUMB
-                                                    ========================================================= */
+                                                                       BREADCRUMB
+                                                                    ========================================================= */
 
         .breadcrumb {
             display: flex;
@@ -80,8 +80,8 @@
         }
 
         /* =========================================================
-                                                       MAIN GRID
-                                                    ========================================================= */
+                                                                       MAIN GRID
+                                                                    ========================================================= */
 
         .page-grid {
             padding: 0 30px 50px;
@@ -102,8 +102,8 @@
         }
 
         /* =========================================================
-                                                       GALLERY
-                                                    ========================================================= */
+                                                                       GALLERY
+                                                                    ========================================================= */
 
         .gallery {
             width: 100%;
@@ -235,8 +235,8 @@
         }
 
         /* =========================================================
-                                                       TITLE
-                                                    ========================================================= */
+                                                                       TITLE
+                                                                    ========================================================= */
 
         .title-area {
             position: relative;
@@ -349,8 +349,8 @@
         }
 
         /* =========================================================
-                                                       CONTENT COLUMNS
-                                                    ========================================================= */
+                                                                       CONTENT COLUMNS
+                                                                    ========================================================= */
 
         .content-columns {
             display: grid;
@@ -360,8 +360,8 @@
         }
 
         /* =========================================================
-                                                       PROPERTY META
-                                                    ========================================================= */
+                                                                       PROPERTY META
+                                                                    ========================================================= */
 
         .meta-grid {
             display: grid;
@@ -423,8 +423,8 @@
         }
 
         /* =========================================================
-                                                       SECTIONS
-                                                    ========================================================= */
+                                                                       SECTIONS
+                                                                    ========================================================= */
 
         .section {
             padding: 18px 0;
@@ -448,8 +448,8 @@
         }
 
         /* =========================================================
-                                                       AMENITIES
-                                                    ========================================================= */
+                                                                       AMENITIES
+                                                                    ========================================================= */
 
         .amenities {
             display: grid;
@@ -489,8 +489,8 @@
         }
 
         /* =========================================================
-                                                       HIGHLIGHTS
-                                                    ========================================================= */
+                                                                       HIGHLIGHTS
+                                                                    ========================================================= */
 
         .highlights {
             align-self: start;
@@ -542,8 +542,8 @@
         }
 
         /* =========================================================
-                                                       RIGHT SIDEBAR
-                                                    ========================================================= */
+                                                                       RIGHT SIDEBAR
+                                                                    ========================================================= */
 
         .price-card {
             padding: 20px;
@@ -595,8 +595,8 @@
         }
 
         /* =========================================================
-                                                       SIDE ACTIONS
-                                                    ========================================================= */
+                                                                       SIDE ACTIONS
+                                                                    ========================================================= */
 
         .side-actions {
             margin-top: 12px;
@@ -654,8 +654,8 @@
         }
 
         /* =========================================================
-                                                       BROKER / LOCATION
-                                                    ========================================================= */
+                                                                       BROKER / LOCATION
+                                                                    ========================================================= */
 
         .broker-card,
         .location-card {
@@ -846,8 +846,8 @@
         }
 
         /* =========================================================
-                                                       SIMILAR PROPERTIES
-                                                    ========================================================= */
+                                                                       SIMILAR PROPERTIES
+                                                                    ========================================================= */
 
         .similar-section {
             margin: 24px 0 50px;
@@ -973,10 +973,10 @@
         }
 
         /* =========================================================
-                                                       MODAL
-                                                       IMPORTANT:
-                                                       ONLY ONE MODAL SYSTEM
-                                                    ========================================================= */
+                                                                       MODAL
+                                                                       IMPORTANT:
+                                                                       ONLY ONE MODAL SYSTEM
+                                                                    ========================================================= */
 
         html.modal-open,
         body.modal-open {
@@ -1081,8 +1081,8 @@
         }
 
         /* =========================================================
-                                                       MODAL HEADER
-                                                    ========================================================= */
+                                                                       MODAL HEADER
+                                                                    ========================================================= */
 
         .property-modal-header {
             display: flex;
@@ -1143,8 +1143,8 @@
         }
 
         /* =========================================================
-                                                       MODAL FORM
-                                                    ========================================================= */
+                                                                       MODAL FORM
+                                                                    ========================================================= */
 
         .property-modal-form {
             width: 100%;
@@ -1220,8 +1220,8 @@
         }
 
         /* =========================================================
-                                                       CLOSE BUTTON
-                                                    ========================================================= */
+                                                                       CLOSE BUTTON
+                                                                    ========================================================= */
 
         .property-modal-close {
             position: absolute;
@@ -1254,8 +1254,8 @@
         }
 
         /* =========================================================
-                                                       MODAL SUBMIT
-                                                    ========================================================= */
+                                                                       MODAL SUBMIT
+                                                                    ========================================================= */
 
         .modal-submit-btn {
             width: 100%;
@@ -1290,8 +1290,8 @@
         }
 
         /* =========================================================
-                                                       TOAST
-                                                    ========================================================= */
+                                                                       TOAST
+                                                                    ========================================================= */
 
         .toast {
             position: fixed;
@@ -1325,8 +1325,8 @@
         }
 
         /* =========================================================
-                                                       BACK TO TOP
-                                                    ========================================================= */
+                                                                       BACK TO TOP
+                                                                    ========================================================= */
 
         .back-top {
             position: fixed;
@@ -1372,9 +1372,9 @@
         }
 
         /* =========================================================
-                                                       LAPTOP
-                                                       1200px - 1399px
-                                                    ========================================================= */
+                                                                       LAPTOP
+                                                                       1200px - 1399px
+                                                                    ========================================================= */
 
         @media (max-width: 1399px) {
 
@@ -1410,9 +1410,9 @@
         }
 
         /* =========================================================
-                                                       TABLET
-                                                       768px - 1199px
-                                                    ========================================================= */
+                                                                       TABLET
+                                                                       768px - 1199px
+                                                                    ========================================================= */
 
         @media (max-width: 1199px) {
 
@@ -1604,9 +1604,9 @@
         }
 
         /* =========================================================
-                                                       MOBILE
-                                                       BELOW 768px
-                                                    ========================================================= */
+                                                                       MOBILE
+                                                                       BELOW 768px
+                                                                    ========================================================= */
 
         @media (max-width: 767px) {
 
@@ -1923,8 +1923,8 @@
             }
 
             /* =====================================================
-                                                           MOBILE MODAL
-                                                        ===================================================== */
+                                                                           MOBILE MODAL
+                                                                        ===================================================== */
 
             .property-modal {
                 align-items: flex-start;
@@ -2042,12 +2042,12 @@
 
 
         /* =========================================================
-                                                       PREMIUM / RICH PROPERTY DETAILS ANIMATIONS
-                                                       ---------------------------------------------------------
-                                                       CSS-only enhancement.
-                                                       Existing layout, colors, class names and functionality
-                                                       remain unchanged.
-                                                    ========================================================= */
+                                                                       PREMIUM / RICH PROPERTY DETAILS ANIMATIONS
+                                                                       ---------------------------------------------------------
+                                                                       CSS-only enhancement.
+                                                                       Existing layout, colors, class names and functionality
+                                                                       remain unchanged.
+                                                                    ========================================================= */
 
         /* ---------- Animation variables ---------- */
 
@@ -3112,8 +3112,8 @@
 
 
         /* =========================================================
-                                           REPORT PROPERTY MODAL
-                                        ========================================================= */
+                                                           REPORT PROPERTY MODAL
+                                                        ========================================================= */
 
         .report-modal {
             position: fixed;
@@ -3327,7 +3327,7 @@
             background: #fff;
             color: #202940;
 
-            font-family: inherit;
+            font-family: 'Poppins', sans-serif;
             font-size: 13px;
 
             outline: none;
@@ -3382,7 +3382,7 @@
 
             transform: translateY(-50%);
 
-            font-family: "Font Awesome 6 Free";
+            font-family: 'Poppins', sans-serif;
             font-weight: 900;
 
             color: #1724c9;
@@ -3454,7 +3454,7 @@
 
             border-radius: 9px;
 
-            font-family: inherit;
+            font-family: 'Poppins', sans-serif;
             font-size: 12px;
             font-weight: 600;
 
@@ -3504,9 +3504,9 @@
 
 
         /* =========================================================
-                                           TABLET
-                                           481px–768px
-                                        ========================================================= */
+                                                           TABLET
+                                                           481px–768px
+                                                        ========================================================= */
 
         @media (min-width: 481px) and (max-width: 768px) {
 
@@ -3545,9 +3545,9 @@
 
 
         /* =========================================================
-                                           MOBILE
-                                           320px–480px
-                                        ========================================================= */
+                                                           MOBILE
+                                                           320px–480px
+                                                        ========================================================= */
 
         @media (min-width: 320px) and (max-width: 480px) {
 
@@ -3639,8 +3639,8 @@
 
 
         /* =========================================================
-                                           REDUCED MOTION
-                                        ========================================================= */
+                                                           REDUCED MOTION
+                                                        ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -3655,8 +3655,8 @@
 
 
     <!-- =========================================================
-                                                         BREADCRUMB
-                                                    ========================================================= -->
+                                                                         BREADCRUMB
+                                                                    ========================================================= -->
 
     <div class="breadcrumb">
 
@@ -3701,8 +3701,8 @@
 
 
     <!-- =========================================================
-                                                         MAIN PROPERTY CONTENT
-                                                    ========================================================= -->
+                                                                         MAIN PROPERTY CONTENT
+                                                                    ========================================================= -->
 
     <div class="page-grid">
 
@@ -3741,8 +3741,8 @@
                 </div>
 
                 <!-- <div class="more-count">
-                                                                    +10
-                                                                </div> -->
+                                                                                    +10
+                                                                                </div> -->
 
             </div>
 
@@ -4161,8 +4161,8 @@
 
 
         <!-- =====================================================
-                                                             RIGHT SIDEBAR
-                                                        ====================================================== -->
+                                                                             RIGHT SIDEBAR
+                                                                        ====================================================== -->
 
         <aside class="right">
 
@@ -4310,8 +4310,8 @@
 
 
     <!-- =========================================================
-                                                         ENQUIRY MODAL
-                                                    ========================================================= -->
+                                                                         ENQUIRY MODAL
+                                                                    ========================================================= -->
 
     <div class="property-modal" id="enquiryModal" aria-hidden="true">
 
@@ -4588,8 +4588,8 @@
 
 
     <!-- =========================================================
-                                                         SCHEDULE VISIT MODAL
-                                                    ========================================================= -->
+                                                                         SCHEDULE VISIT MODAL
+                                                                    ========================================================= -->
 
     <div class="property-modal" id="visitModal" aria-hidden="true">
 
@@ -4598,19 +4598,28 @@
 
         <div class="property-modal-box" role="dialog" aria-modal="true" aria-labelledby="visitModalTitle">
 
-            {{-- Close --}}
+            {{-- =====================================================
+            CLOSE BUTTON
+            ====================================================== --}}
+
             <button type="button" class="property-modal-close" onclick="closeVisit()"
                 aria-label="Close schedule visit form">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
 
-            {{-- Header --}}
+            {{-- =====================================================
+            HEADER
+            ====================================================== --}}
+
             <div class="property-modal-header">
 
                 <div class="property-modal-icon">
+
                     <i class="fa-regular fa-calendar-check"></i>
+
                 </div>
+
 
                 <div>
 
@@ -4632,13 +4641,19 @@
             </div>
 
 
-            {{-- Form --}}
-            <form action="#" method="POST" class="property-modal-form">
+            {{-- =====================================================
+            FORM
+            ====================================================== --}}
 
+            <form action="{{ route('schedule.visit.enquiry.store') }}" method="POST" class="property-modal-form"
+                id="scheduleVisitForm">
                 @csrf
 
 
-                {{-- Name + Phone --}}
+                {{-- =================================================
+                NAME + PHONE
+                ================================================== --}}
+
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
@@ -4665,7 +4680,10 @@
                 </div>
 
 
-                {{-- Date + Time --}}
+                {{-- =================================================
+                DATE + TIME
+                ================================================== --}}
+
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
@@ -4734,7 +4752,10 @@
                 </div>
 
 
-                {{-- Rental Requirement --}}
+                {{-- =================================================
+                RENTAL REQUIREMENT
+                ================================================== --}}
+
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
@@ -4813,7 +4834,10 @@
                 </div>
 
 
-                {{-- Additional Requirements --}}
+                {{-- =================================================
+                ADDITIONAL REQUIREMENTS
+                ================================================== --}}
+
                 <div class="modal-form-group">
 
                     <label for="visit_message">
@@ -4826,7 +4850,10 @@
                 </div>
 
 
-                {{-- Submit --}}
+                {{-- =================================================
+                SUBMIT
+                ================================================== --}}
+
                 <button type="submit" class="modal-submit-btn">
 
                     <i class="fa-regular fa-calendar-check"></i>
@@ -4844,8 +4871,8 @@
 
 
     <!-- =========================================================
-                                                     REPORT PROPERTY MODAL
-                                                ========================================================= -->
+                                                                     REPORT PROPERTY MODAL
+                                                                ========================================================= -->
 
     <div class="report-modal" id="reportModal" aria-hidden="true">
 
@@ -4853,11 +4880,16 @@
 
         <div class="report-dialog" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
 
+            {{-- Close --}}
             <button type="button" class="report-close" onclick="closeReportModal()" aria-label="Close report form">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Header -->
+
+            {{-- =====================================================
+            HEADER
+            ====================================================== --}}
+
             <div class="report-header">
 
                 <div class="report-icon">
@@ -4865,6 +4897,7 @@
                 </div>
 
                 <div>
+
                     <h3 id="reportModalTitle">
                         Report Property
                     </h3>
@@ -4873,14 +4906,22 @@
                         Found something incorrect or suspicious?
                         Let us know so our team can review it.
                     </p>
+
                 </div>
 
             </div>
 
 
-            <form id="reportPropertyForm">
+            {{-- =====================================================
+            FORM
+            ====================================================== --}}
 
-                <!-- Property -->
+            <form id="reportPropertyForm" action="{{ route('rental.property.report.store') }}" method="POST">
+                @csrf
+                {{-- =================================================
+                PROPERTY
+                ================================================== --}}
+
                 <div class="report-field">
 
                     <label for="reportProperty">
@@ -4891,14 +4932,17 @@
 
                         <i class="fa-solid fa-house"></i>
 
-                        <input type="text" id="reportProperty" value="Spacious 3 BHK Apartment" readonly>
+                        <input type="text" id="reportProperty" name="property" value="Spacious 3 BHK Apartment" readonly>
 
                     </div>
 
                 </div>
 
 
-                <!-- Reason -->
+                {{-- =================================================
+                REASON
+                ================================================== --}}
+
                 <div class="report-field">
 
                     <label for="reportReason">
@@ -4909,7 +4953,7 @@
 
                         <i class="fa-solid fa-circle-exclamation"></i>
 
-                        <select id="reportReason" required>
+                        <select id="reportReason" name="reason" required>
 
                             <option value="">
                                 Select a reason
@@ -4958,26 +5002,38 @@
                 </div>
 
 
-                <!-- Additional message -->
+                {{-- =================================================
+                ADDITIONAL MESSAGE
+                ================================================== --}}
+
                 <div class="report-field">
 
                     <label for="reportMessage">
+
                         Additional Details
-                        <span>(Optional)</span>
+
+                        <span>
+                            (Optional)
+                        </span>
+
                     </label>
 
                     <div class="report-input report-textarea">
 
                         <i class="fa-regular fa-message"></i>
 
-                        <textarea id="reportMessage" rows="4" placeholder="Tell us what you noticed..."></textarea>
+                        <textarea id="reportMessage" name="message" rows="4"
+                            placeholder="Tell us what you noticed..."></textarea>
 
                     </div>
 
                 </div>
 
 
-                <!-- Notice -->
+                {{-- =================================================
+                NOTICE
+                ================================================== --}}
+
                 <div class="report-notice">
 
                     <i class="fa-solid fa-shield-halved"></i>
@@ -4991,7 +5047,10 @@
                 </div>
 
 
-                <!-- Actions -->
+                {{-- =================================================
+                ACTIONS
+                ================================================== --}}
+
                 <div class="report-actions">
 
                     <button type="button" class="report-cancel" onclick="closeReportModal()">
@@ -4999,8 +5058,11 @@
                     </button>
 
                     <button type="submit" class="report-submit">
+
                         <i class="fa-solid fa-paper-plane"></i>
+
                         Submit Report
+
                     </button>
 
                 </div>
@@ -5013,8 +5075,8 @@
 
 
     <!-- =========================================================
-                                                         SCRIPT
-                                                    ========================================================= -->
+                                                                         SCRIPT
+                                                                    ========================================================= -->
 
 
     {{-- SweetAlert2 --}}
@@ -5025,6 +5087,27 @@
 
             const header = document.getElementById("header");
             const toast = document.getElementById("toast");
+
+
+            /* =====================================================
+               SCHEDULE VISIT DATE
+               Prevent selecting a past date.
+            ===================================================== */
+
+            const visitDateInput =
+                document.getElementById(
+                    "visit_date"
+                );
+
+            if (visitDateInput) {
+
+                const today =
+                    new Date()
+                        .toISOString()
+                        .split("T")[0];
+
+                visitDateInput.min = today;
+            }
 
 
             /* =====================================================
@@ -5702,6 +5785,263 @@
 
 
             /* =====================================================
+               SCHEDULE VISIT ENQUIRY SUBMIT
+
+               Form:
+               scheduleVisitForm
+
+               Route:
+               schedule.visit.enquiry.store
+            ===================================================== */
+
+            const scheduleVisitForm =
+                document.getElementById(
+                    "scheduleVisitForm"
+                );
+
+
+            if (scheduleVisitForm) {
+
+                scheduleVisitForm.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const submitButton =
+                            scheduleVisitForm.querySelector(
+                                ".modal-submit-btn"
+                            );
+
+
+                        const originalButtonText =
+                            submitButton
+                                ? submitButton.innerHTML
+                                : "";
+
+
+                        /* =============================================
+                           BUTTON LOADING
+                        ============================================== */
+
+                        if (submitButton) {
+
+                            submitButton.disabled = true;
+
+                            submitButton.innerHTML =
+                                '<i class="fa-solid fa-spinner fa-spin"></i> Scheduling...';
+                        }
+
+
+                        try {
+
+                            const formData =
+                                new FormData(
+                                    scheduleVisitForm
+                                );
+
+
+                            const response =
+                                await fetch(
+                                    scheduleVisitForm.action,
+                                    {
+                                        method: "POST",
+
+                                        body: formData,
+
+                                        headers: {
+                                            "Accept":
+                                                "application/json",
+
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+                                        }
+                                    }
+                                );
+
+
+                            let result;
+
+
+                            /* =========================================
+                               PARSE SERVER RESPONSE
+                            ========================================== */
+
+                            try {
+
+                                result =
+                                    await response.json();
+
+                            } catch (jsonError) {
+
+                                throw new Error(
+                                    "Invalid server response."
+                                );
+                            }
+
+
+                            /* =========================================
+                               VALIDATION / SERVER ERROR
+                            ========================================== */
+
+                            if (!response.ok) {
+
+                                if (result.errors) {
+
+                                    const firstError =
+                                        Object.values(
+                                            result.errors
+                                        ).flat()[0];
+
+
+                                    Swal.fire({
+                                        icon: "error",
+
+                                        title:
+                                            "Submission Failed",
+
+                                        text:
+                                            firstError ||
+                                            "Please check the form and try again.",
+
+                                        confirmButtonText: "OK",
+
+                                        confirmButtonColor:
+                                            "#071b3d"
+                                    });
+
+                                } else {
+
+                                    Swal.fire({
+                                        icon: "error",
+
+                                        title:
+                                            "Submission Failed",
+
+                                        text:
+                                            result.message ||
+                                            "Unable to schedule your visit. Please try again.",
+
+                                        confirmButtonText: "OK",
+
+                                        confirmButtonColor:
+                                            "#071b3d"
+                                    });
+
+                                }
+
+                                return;
+                            }
+
+
+                            /* =========================================
+                               SUCCESS
+                            ========================================== */
+
+                            if (result.success) {
+
+                                scheduleVisitForm.reset();
+
+
+                                /*
+                                 * Close Schedule Visit modal.
+                                 */
+                                if (
+                                    typeof window.closeVisit ===
+                                    "function"
+                                ) {
+
+                                    window.closeVisit();
+
+                                }
+
+
+                                Swal.fire({
+                                    icon: "success",
+
+                                    title:
+                                        "Visit Scheduled!",
+
+                                    text:
+                                        result.message ||
+                                        "Your property visit has been scheduled successfully. Our property expert will contact you shortly.",
+
+                                    confirmButtonText: "OK",
+
+                                    confirmButtonColor:
+                                        "#071b3d",
+
+                                    allowOutsideClick: false,
+
+                                    allowEscapeKey: true
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+
+                                    title:
+                                        "Submission Failed",
+
+                                    text:
+                                        result.message ||
+                                        "Unable to schedule your visit. Please try again.",
+
+                                    confirmButtonText: "OK",
+
+                                    confirmButtonColor:
+                                        "#071b3d"
+                                });
+
+                            }
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "Schedule visit submission error:",
+                                error
+                            );
+
+
+                            Swal.fire({
+                                icon: "error",
+
+                                title:
+                                    "Something Went Wrong",
+
+                                text:
+                                    "Unable to schedule your visit. Please try again.",
+
+                                confirmButtonText: "OK",
+
+                                confirmButtonColor:
+                                    "#071b3d"
+                            });
+
+
+                        } finally {
+
+                            if (submitButton) {
+
+                                submitButton.disabled = false;
+
+                                submitButton.innerHTML =
+                                    originalButtonText;
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================================
                OVERLAY
             ===================================================== */
 
@@ -5930,75 +6270,132 @@
             /*
              * SUBMIT REPORT
              *
-             * Current version:
-             * Shows confirmation only.
-             *
-             * Replace the showToast section later with your
-             * Laravel/API request when the backend endpoint is ready.
+             * Submit the report to Laravel using AJAX.
              */
             if (reportForm) {
 
-                reportForm.addEventListener("submit", function (event) {
+                reportForm.addEventListener("submit", async function (event) {
 
                     event.preventDefault();
 
-                    const reason =
-                        document.getElementById("reportReason");
+                    const submitButton =
+                        reportForm.querySelector(".report-submit");
 
-                    const message =
-                        document.getElementById("reportMessage");
+                    const originalButtonText =
+                        submitButton ? submitButton.innerHTML : "";
 
-                    if (!reason || !reason.value) {
-
-                        if (typeof window.showToast === "function") {
-                            window.showToast("Please select a reason");
-                        }
-
-                        return;
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.innerHTML =
+                            '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
                     }
 
+                    try {
 
-                    /*
-                     * Get selected values
-                     */
-                    const selectedReason =
-                        reason.options[reason.selectedIndex].text;
+                        const formData = new FormData(reportForm);
 
-                    const additionalMessage =
-                        message ? message.value.trim() : "";
-
-
-                    /*
-                     * Temporary frontend confirmation.
-                     *
-                     * This does NOT save to the database yet.
-                     */
-                    console.log("Property Report:", {
-                        reason: selectedReason,
-                        message: additionalMessage
-                    });
-
-
-                    window.closeReportModal();
-
-
-                    if (typeof window.showToast === "function") {
-
-                        window.showToast(
-                            "Report submitted successfully"
+                        const response = await fetch(
+                            reportForm.action,
+                            {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    "Accept": "application/json",
+                                    "X-Requested-With": "XMLHttpRequest"
+                                }
+                            }
                         );
 
+                        let result;
+
+                        try {
+                            result = await response.json();
+                        } catch (jsonError) {
+                            throw new Error("Invalid server response.");
+                        }
+
+                        if (!response.ok) {
+
+                            if (result.errors) {
+
+                                const firstError =
+                                    Object.values(result.errors).flat()[0];
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Submission Failed",
+                                    text: firstError ||
+                                        "Please check the form and try again.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Submission Failed",
+                                    text: result.message ||
+                                        "Unable to submit your report. Please try again.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+                            }
+
+                            return;
+                        }
+
+                        if (result.success) {
+
+                            reportForm.reset();
+
+                            window.closeReportModal();
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Report Submitted!",
+                                text: result.message ||
+                                    "Thank you for reporting this property. Our team will review it shortly.",
+                                confirmButtonText: "OK",
+                                confirmButtonColor: "#071b3d",
+                                allowOutsideClick: false,
+                                allowEscapeKey: true
+                            });
+
+                        } else {
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Submission Failed",
+                                text: result.message ||
+                                    "Unable to submit your report. Please try again.",
+                                confirmButtonText: "OK",
+                                confirmButtonColor: "#071b3d"
+                            });
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Property report submission error:",
+                            error
+                        );
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something Went Wrong",
+                            text: "Unable to submit your report. Please try again.",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#071b3d"
+                        });
+
+                    } finally {
+
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalButtonText;
+                        }
                     }
-
-
-                    /*
-                     * Reset after submission
-                     */
-                    setTimeout(function () {
-
-                        reportForm.reset();
-
-                    }, 300);
 
                 });
 

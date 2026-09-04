@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\RentEnquiryController;
+use App\Http\Controllers\Admin\RentalRequirmentsEnquiryController;
+use App\Http\Controllers\Admin\ScheduleVisitEnquiryController;
+use App\Http\Controllers\Admin\RentalPropertyReportController;
+use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,11 +29,17 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('dashboard', [AuthController::class, 'dashboard'])
         ->name('admin.dashboard');
 
-    Route::get('contacts', [ContactController::class, 'index'])
-        ->name('contacts.all');
+    Route::get(
+        '/contact-enquiries',
+        [ContactController::class, 'index']
+    )
+        ->name('admin.contact.enquiries');
 
-    Route::delete('contacts/{id}', [ContactController::class, 'destroy'])
-        ->name('contacts.delete');
+    Route::delete(
+        '/contact-enquiries/{id}',
+        [ContactController::class, 'destroy']
+    )
+        ->name('admin.contact.enquiries.destroy');
 
     Route::get('galleries', [GalleryController::class, 'index'])
         ->name('galleries.all');
@@ -78,15 +88,63 @@ Route::group(['middleware' => 'admin'], function () {
         ->name('site.settings.update');
 
 
-Route::get(
-    '/admin/rent-enquiries',
-    [RentEnquiryController::class, 'index']
-)->name('admin.rent-enquiries.index');
+    Route::get(
+        '/admin/rent-enquiries',
+        [RentEnquiryController::class, 'index']
+    )->name('admin.rent-enquiries.index');
 
-Route::delete(
-    '/admin/rent-enquiries/{id}',
-    [RentEnquiryController::class, 'destroy']
-)->name('admin.rent-enquiries.destroy');
+    Route::delete(
+        '/admin/rent-enquiries/{id}',
+        [RentEnquiryController::class, 'destroy']
+    )->name('admin.rent-enquiries.destroy');
+
+
+    Route::get(
+        '/rental-requirments-enquiries',
+        [RentalRequirmentsEnquiryController::class, 'index']
+    )->name('admin.rental.requirments.enquiries');
+
+    Route::delete(
+        '/rental-requirments-enquiries/{id}',
+        [RentalRequirmentsEnquiryController::class, 'destroy']
+    )->name('admin.rental.requirments.enquiries.destroy');
+
+
+    Route::get(
+        '/schedule-visit-enquiries',
+        [ScheduleVisitEnquiryController::class, 'index']
+    )->name('admin.schedule.visit.enquiries');
+
+    Route::delete(
+        '/schedule-visit-enquiries/{id}',
+        [ScheduleVisitEnquiryController::class, 'destroy']
+    )->name('admin.schedule.visit.enquiries.destroy');
+
+    Route::get(
+        '/rental-property-reports',
+        [RentalPropertyReportController::class, 'index']
+    )
+        ->name('admin.rental.property.reports');
+
+    Route::delete(
+        '/rental-property-reports/{id}',
+        [RentalPropertyReportController::class, 'destroy']
+    )
+        ->name('admin.rental.property.reports.destroy');
+
+
+    Route::get(
+        '/subscribers',
+        [SubscriberController::class, 'index']
+    )
+        ->name('admin.subscribers');
+
+    Route::delete(
+        '/subscribers/{id}',
+        [SubscriberController::class, 'destroy']
+    )
+        ->name('admin.subscribers.destroy');
+
 
     // Property Management
     Route::get('properties', [PropertyController::class, 'index'])

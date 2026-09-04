@@ -46,10 +46,7 @@
                                         <h6 class="submenu-hdr">Schedule</h6>
                                         <ul>
 
-                                                <li class="{{ Request::is('admin/contacts') ? 'active' : '' }}"><a
-                                                                href="{{ route('contacts.all') }}"><i
-                                                                        class="ti ti-address-book fs-16 me-2"></i><span>Contacts</span></a>
-                                                </li>
+
 
                                                 {{-- Properties --}}
                                                 <li class="{{ Request::is('admin/properties*') ? 'active' : '' }}">
@@ -65,6 +62,60 @@
                                                         <a href="{{ route('admin.rent-enquiries.index') }}">
                                                                 <i class="ti ti-message-circle fs-16 me-2"></i>
                                                                 <span>Rent Enquiries</span>
+                                                        </a>
+                                                </li>
+
+                                                {{-- Rental Requirements Enquiries --}}
+                                                <li
+                                                        class="{{ Request::is('admin/rental-requirments-enquiries*') ? 'active' : '' }}">
+
+                                                        <a href="{{ route('admin.rental.requirments.enquiries') }}">
+
+                                                                <i class="ti ti-home-search fs-16 me-2"></i>
+
+                                                                <span>Rental Requirements</span>
+
+                                                        </a>
+
+                                                </li>
+
+
+                                                {{-- Schedule Visit Enquiries --}}
+                                                <li
+                                                        class="{{ Request::is('admin/schedule-visit-enquiries*') ? 'active' : '' }}">
+
+                                                        <a href="{{ route('admin.schedule.visit.enquiries') }}">
+
+                                                                <i class="ti ti-calendar-event fs-16 me-2"></i>
+
+                                                                <span>
+                                                                        Schedule Visit
+                                                                </span>
+
+                                                        </a>
+
+                                                </li>
+
+
+                                                <li
+                                                        class="{{ Request::is('admin/rental-property-reports*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.rental.property.reports') }}">
+                                                                <i class="ti ti-flag fs-16 me-2"></i>
+                                                                <span>Property Reports</span>
+                                                        </a>
+                                                </li>
+
+                                                <li class="{{ Request::is('admin/contact-enquiries*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.contact.enquiries') }}">
+                                                                <i class="ti ti-mail fs-16 me-2"></i>
+                                                                <span>Contact Enquiries</span>
+                                                        </a>
+                                                </li>
+
+                                                <li class="{{ Request::is('admin/subscribers*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.subscribers') }}">
+                                                                <i class="ti ti-mail fs-16 me-2"></i>
+                                                                <span>Subscribers</span>
                                                         </a>
                                                 </li>
 

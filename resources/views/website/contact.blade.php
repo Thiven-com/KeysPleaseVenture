@@ -85,20 +85,25 @@
 
                 <h2>Send Us a Message</h2>
 
-                <form>
+                <form id="contactForm" action="{{ route('contact.store') }}" method="POST">
+                    @csrf
 
                     <div class="contact-form-row">
 
                         <div class="contact-input-group">
-                            <span class="input-icon"><i class="fa-solid fa-user"></i></span>
+                            <span class="input-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
 
-                            <input type="text" name="name" placeholder="Full Name">
+                            <input type="text" name="name" placeholder="Full Name" required>
                         </div>
 
                         <div class="contact-input-group">
-                            <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="input-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
 
-                            <input type="email" name="email" placeholder="Email Address">
+                            <input type="email" name="email" placeholder="Email Address" required>
                         </div>
 
                     </div>
@@ -107,41 +112,58 @@
                     <div class="contact-form-row">
 
                         <div class="contact-input-group">
-                            <span class="input-icon"><i class="fa-solid fa-phone"></i></span>
+                            <span class="input-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
 
-                            <input type="tel" name="phone" placeholder="Phone Number">
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
                         </div>
 
                         <div class="contact-input-group">
-                            <span class="input-icon"><i class="fa-solid fa-heading"></i></span>
+                            <span class="input-icon">
+                                <i class="fa-solid fa-heading"></i>
+                            </span>
 
-                            <input type="text" name="subject" placeholder="Subject">
+                            <input type="text" name="subject" placeholder="Subject" required>
                         </div>
 
                     </div>
 
 
-                    <!-- Message -->
+                    {{-- Message --}}
+
                     <div class="contact-textarea-group">
 
-                        <span class="textarea-icon"><i class="fa-solid fa-comment-dots"></i></span>
+                        <span class="textarea-icon">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </span>
 
-                        <textarea name="message" placeholder="Your Message"></textarea>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
 
                     </div>
 
 
-                    <!-- Submit -->
-                    <button type="submit" class="contact-submit-btn">
+                    {{-- Submit --}}
+
+                    <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
                         Send Message
-                        <span><i class="fa-solid fa-paper-plane"></i></span>
+
+                        <span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </span>
                     </button>
 
 
-                    <!-- Privacy -->
+                    {{-- Privacy --}}
+
                     <div class="contact-privacy">
-                        <span><i class="fa-solid fa-lock"></i></span>
+
+                        <span>
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+
                         Your information is safe with us. We respect your privacy.
+
                     </div>
 
                 </form>
@@ -154,8 +176,8 @@
 
 
     <!-- =========================================
-                     GET IN TOUCH
-                ========================================= -->
+                                 GET IN TOUCH
+                            ========================================= -->
 
     <section class="contact-info-section">
 
@@ -183,8 +205,8 @@
             <div class="contact-info-grid">
 
                 <!-- =================================
-                                 CONTACT METHODS
-                            ================================= -->
+                                             CONTACT METHODS
+                                        ================================= -->
 
                 <div class="contact-methods">
 
@@ -287,8 +309,8 @@
 
 
                 <!-- =================================
-                                 OFFICE
-                            ================================= -->
+                                             OFFICE
+                                        ================================= -->
 
                 <div class="office-card">
 
@@ -323,8 +345,8 @@
 
 
                 <!-- =================================
-                                 MAP
-                            ================================= -->
+                                             MAP
+                                        ================================= -->
 
                 <div class="contact-map">
                     <iframe src="https://www.google.com/maps?q=Bangalore%2C%20Karnataka%2C%20India&z=12&output=embed"
@@ -378,4 +400,182 @@
 
     </section>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const contactForm = document.getElementById('contactForm');
+
+            if (!contactForm) {
+                return;
+            }
+
+            contactForm.addEventListener('submit', async function (event) {
+
+                event.preventDefault();
+
+                const submitButton =
+                    contactForm.querySelector('.contact-submit-btn');
+
+                const originalButtonText =
+                    submitButton ? submitButton.innerHTML : '';
+
+                /*
+                 * Loading state
+                 */
+                if (submitButton) {
+
+                    submitButton.disabled = true;
+
+                    submitButton.innerHTML =
+                        '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                }
+
+
+                try {
+
+                    const formData = new FormData(contactForm);
+
+                    const response = await fetch(
+                        contactForm.action,
+                        {
+                            method: 'POST',
+
+                            body: formData,
+
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        }
+                    );
+
+
+                    let result;
+
+                    try {
+
+                        result = await response.json();
+
+                    } catch (jsonError) {
+
+                        throw new Error(
+                            'Invalid server response.'
+                        );
+
+                    }
+
+
+                    /*
+                     * Validation / server error
+                     */
+
+                    if (!response.ok) {
+
+                        if (result.errors) {
+
+                            const firstError =
+                                Object.values(result.errors).flat()[0];
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Submission Failed',
+                                text:
+                                    firstError ||
+                                    'Please check the form and try again.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#071b3d'
+                            });
+
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Submission Failed',
+                                text:
+                                    result.message ||
+                                    'Unable to send your message. Please try again.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#071b3d'
+                            });
+
+                        }
+
+                        return;
+                    }
+
+
+                    /*
+                     * Success
+                     */
+
+                    if (result.success) {
+
+                        contactForm.reset();
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Message Sent!',
+                            text:
+                                result.message ||
+                                'Thank you for contacting us. We will get back to you shortly.',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#071b3d',
+                            allowOutsideClick: false,
+                            allowEscapeKey: true
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Submission Failed',
+                            text:
+                                result.message ||
+                                'Unable to send your message. Please try again.',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#071b3d'
+                        });
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        'Contact form submission error:',
+                        error
+                    );
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something Went Wrong',
+                        text:
+                            'Unable to send your message. Please try again.',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#071b3d'
+                    });
+
+
+                } finally {
+
+                    /*
+                     * Restore button
+                     */
+
+                    if (submitButton) {
+
+                        submitButton.disabled = false;
+
+                        submitButton.innerHTML =
+                            originalButtonText;
+
+                    }
+
+                }
+
+            });
+
+        });
+    </script>
 @endsection

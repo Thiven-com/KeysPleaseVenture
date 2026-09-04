@@ -4,24 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+    /**
+     * Display all contact enquiries.
+     */
     public function index()
     {
-         $contacts = Contact::latest()->get();
-        return view('admin.contact.all', compact('contacts'));
+        $enquiries = Contact::latest()->get();
+
+        return view('admin.contacts.all', compact('enquiries'));
     }
 
-   
-
-
-     public function destroy($id)
+    /**
+     * Delete contact enquiry.
+     */
+    public function destroy($id)
     {
-        $contact = Contact::findOrFail($id);
-        $contact->delete();
+        $enquiry = Contact::findOrFail($id);
 
-        return redirect()->back()->with('success', 'Service deleted successfully.');
+        $enquiry->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Contact enquiry deleted successfully.');
     }
 }
