@@ -457,7 +457,7 @@
         }
 
         .search-action {
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             color: #fff;
 
@@ -775,7 +775,7 @@
         }
 
         .checkbox.checked {
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             border-color: var(--blue);
 
@@ -874,7 +874,7 @@
 
             border-radius: inherit;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
         }
 
         .range:before,
@@ -890,7 +890,7 @@
 
             border-radius: 50%;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             border: 3px solid #fff;
 
@@ -927,7 +927,7 @@
 
             border-radius: 50%;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             box-shadow:
                 0 0 0 1px rgba(23, 36, 201, 0.15);
@@ -1307,7 +1307,7 @@
 
             border-radius: 13px;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             color: #fff;
 
@@ -1545,7 +1545,7 @@
         .price {
             margin-top: 13px;
 
-            color: var(--blue);
+            color: #000;
 
             font-size: 21px;
 
@@ -1615,7 +1615,7 @@
         }
 
         .meta span i {
-            color: var(--blue);
+            color: #000;
 
             font-size: 17px;
         }
@@ -1770,7 +1770,7 @@
         }
 
         .action-btn.primary {
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             color: #fff;
         }
@@ -1884,7 +1884,7 @@
 
             border-radius: 5px;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             color: #fff;
 
@@ -2197,7 +2197,7 @@
 
             border-radius: 6px;
 
-            background: var(--blue);
+        background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
             color: #fff;
 

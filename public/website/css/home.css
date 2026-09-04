@@ -71,7 +71,7 @@
 }
 
 .hero {
-    min-height: 550px !important;
+    min-height: 590px !important;
     position: relative;
     overflow: hidden;
 
@@ -417,7 +417,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 
     border-radius: 7px;
@@ -1080,7 +1080,7 @@ section {
 
     border-radius: 50%;
 
-    background: #151c3d;
+    background: #001783;
 
     color: #ffffff;
 
@@ -1709,10 +1709,7 @@ section {
     color: #ffffff;
 
     background:
-        linear-gradient(90deg,
-            #00068a 0%,
-            #00068a 60%,
-            rgba(23, 36, 201, 0.72) 100%),
+        linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1e3aab91 50%, #2f53d528 75%, #4b6fff10 100%),
         url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80") right center / 45% auto no-repeat;
 
     box-shadow:
@@ -1851,7 +1848,7 @@ section {
 .newsletter {
     margin-top: 32px;
 
-    background: var(--blue);
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
     color: #ffffff;
 
@@ -1997,7 +1994,7 @@ section {
 
     border-radius: 4px;
 
-    background: var(--blue);
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
     color: #ffffff;
 
@@ -4704,7 +4701,7 @@ header.scrolled {
         }
 
         .rpf-tab.rpf-tab-active {
-            background: #00068a;
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #ffffff;
         }
 
@@ -4720,7 +4717,7 @@ header.scrolled {
             display: block;
             font-size: 14px;
             font-weight: 700;
-            color: #00068a;
+            color: #000;
             margin-bottom: 8px;
         }
 
@@ -4764,7 +4761,7 @@ header.scrolled {
         .rpf-control-value {
             flex: 1;
             font-size: 15px;
-            color: #00068a;
+            color: #000;
             font-weight: 600;
         }
 
@@ -4822,7 +4819,7 @@ header.scrolled {
         }
 
         .rpf-dropdown button:hover {
-            background:#00068a;
+            background:#0000005d;
         }
 
         .rpf-dropdown button i {
@@ -4834,7 +4831,7 @@ header.scrolled {
         .rpf-search-btn {
             width: 100%;
             border: none;
-            background: #00068a;
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #ffffff;
             font-size: 16px;
             font-weight: 700;
