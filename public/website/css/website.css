@@ -775,7 +775,7 @@ footer {
     border: 0;
     border-radius: 50%;
 
-    background: var(--blue);
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 
     display: grid;
@@ -3265,7 +3265,7 @@ body.menu-open {
 }
 
 .lpf-step-dot-wrap.lpf-step-active .lpf-step-dot {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     border-color: var(--rpf-blue);
     color: #ffffff;
 }
@@ -3371,7 +3371,7 @@ body.menu-open {
 }
 
 .lpf-pill.lpf-pill-active {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     border-color: var(--rpf-blue);
     color: #ffffff;
 }
@@ -3530,7 +3530,7 @@ body.menu-open {
 }
 
 .lpf-btn-primary {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 }
 
@@ -4576,11 +4576,7 @@ header.scrolled {
 
 .nav-btn.primary {
     background:
-        linear-gradient(110deg,
-            #00068a,
-            #00068a,
-            #00068a,
-            #1724c9);
+        linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
     background-size: 240% 100%;
 
@@ -4592,8 +4588,8 @@ header.scrolled {
     background-position: 100% 50%;
 
     box-shadow:
-        0 14px 32px rgba(16, 25, 167, .30),
-        0 0 22px rgba(23, 36, 201, .14);
+        0 14px 32px rgba(16, 26, 167, 0),
+        0 0 22px rgba(23, 35, 201, 0.455);
 }
 
 .btn-icon {

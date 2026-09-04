@@ -147,7 +147,7 @@
             z-index: 5;
             padding: 7px 12px;
             border-radius: 16px;
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #fff;
             font-size: 10px;
             font-weight: 800;
@@ -322,7 +322,7 @@
         }
 
         .location>span {
-            color: var(--blue);
+            color: #000;
         }
 
         .map-btn {
@@ -625,7 +625,7 @@
 
         .primary-btn {
             border: 0;
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #fff;
         }
 
@@ -946,7 +946,7 @@
         }
 
         .card-price {
-            color: var(--blue);
+            color: #000;
             font-size: 16px;
             font-weight: 800;
         }
@@ -1248,7 +1248,7 @@
         }
 
         .property-modal-close:hover {
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #fff;
             transform: rotate(90deg);
         }
@@ -1270,7 +1270,7 @@
             border: 0;
             border-radius: 9px;
 
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #fff;
 
             font-weight: 700;
@@ -1344,7 +1344,7 @@
             border: 0;
             border-radius: 50%;
 
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             color: #fff;
 
             font-size: 18px;
@@ -2460,7 +2460,7 @@
             bottom: 0;
             width: 0;
             height: 2px;
-            background: var(--blue);
+            background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
             transform: translateX(-50%);
             transition: width .35s var(--premium-ease);
         }

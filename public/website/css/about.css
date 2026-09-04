@@ -127,14 +127,14 @@
 }
 
 .about-btn-primary {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 
     box-shadow: 0 10px 22px rgba(108, 79, 245, 0.25);
 }
 
 .about-btn-primary:hover {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
     transform: translateY(-2px);
 
@@ -308,7 +308,7 @@
 
     border-radius: 50%;
 
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 
     font-size: 10px;
@@ -346,7 +346,7 @@
     border: 0;
     border-radius: 50%;
 
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 
     font-size: 18px;
@@ -359,7 +359,7 @@
 }
 
 .about-play-btn:hover {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     transform: translate(-50%, -50%) scale(1.08);
 }
 
@@ -689,7 +689,7 @@
 }
 
 .about-team-social:hover {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 }
 
@@ -702,7 +702,7 @@
     width: 100%;
     padding: 30px 0;
 
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 }
 
 .about-cta-container {
@@ -976,7 +976,7 @@
 }
 
 .mission-card:hover .mission-icon {
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #ffffff;
 }
 
@@ -2048,7 +2048,7 @@ html, body {
     bottom: -3px;
     width: 100%;
     height: 1px;
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform .35s cubic-bezier(.16,1,.3,1);
@@ -2326,12 +2326,7 @@ html, body {
 
 .about-btn-primary {
     background:
-        linear-gradient(
-            110deg,
-            #00068a,
-            #00068a,
-            #00068a
-        );
+        linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     background-size: 220% 100%;
 
     animation: aboutButtonGradient 6s ease-in-out infinite;
@@ -2598,7 +2593,7 @@ html, body {
 
 .about-stat:hover .about-stat-icon {
     transform: scale(1.10) rotate(-5deg);
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #fff;
     box-shadow: 0 10px 22px rgba(23,36,201,.20);
 }
@@ -2721,7 +2716,7 @@ html, body {
 
 .about-value-card:hover .about-value-icon {
     transform: translateY(-4px) scale(1.10) rotate(-5deg);
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #fff;
     box-shadow: 0 10px 22px rgba(23,36,201,.20);
 }
@@ -2869,7 +2864,7 @@ html, body {
     width: 0;
     height: 2px;
 
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     transform: translateX(-50%);
 
     animation: aboutHeadingLine .65s cubic-bezier(.16,1,.3,1) .25s forwards;
@@ -2951,7 +2946,7 @@ html, body {
 
 .mission-card:hover .mission-icon {
     transform: translateY(-5px) scale(1.10) rotate(-5deg);
-    background: #00068a;
+    background: linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
     color: #fff;
 
     box-shadow:
@@ -2989,12 +2984,7 @@ html, body {
     overflow: hidden;
 
     background:
-        linear-gradient(
-            110deg,
-            #00068a,
-            #00068a,
-            #00068a
-        );
+        linear-gradient(135deg, #0B0F5C 0%, #13207F 25%, #1E3AAB 50%, #2F54D5 75%, #4B6EFF 100%);
 
     background-size: 220% 100%;
 
