@@ -32,23 +32,57 @@ class PageController extends Controller
     }
 
     public function rent()
-{
-    $properties = Property::with('images')
-        ->where('status', 'approved')
-        ->where('listing_for', 'Rent')
-        ->latest()
-        ->get();
+    {
+        $properties = Property::with([
+            'images',
+            'user',
+            'propertyAmenities'
+        ])
+            ->where('status', 'approved')
+            ->where('listing_for', 'Rent')
+            ->latest()
+            ->get();
 
-    return view('website.rent', compact('properties'));
-}
+        return view('website.rent', compact('properties'));
+    }
 
     public function login()
     {
         return view('website.login');
     }
 
-    public function propertydetails()
+    public function propertydetails(Request $request)
     {
-        return view('website.propertydetails');
+        $propertyId = $request->query('property');
+
+        if (!$propertyId) {
+            abort(404);
+        }
+
+        $property = Property::with([
+            'images',
+            'user',
+            'propertyAmenities'
+        ])
+            ->where('status', 'approved')
+            ->where('id', $propertyId)
+            ->firstOrFail();
+
+        $similarProperties = Property::with([
+            'images',
+            'user',
+            'propertyAmenities'
+        ])
+            ->where('status', 'approved')
+            ->where('listing_for', $property->listing_for)
+            ->where('id', '!=', $property->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('website.propertydetails', compact(
+            'property',
+            'similarProperties'
+        ));
     }
 }

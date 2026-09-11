@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [PageController::class, 'home'])
     ->name('home');
 
@@ -30,18 +31,28 @@ Route::get('login', [PageController::class, 'login'])
 
 
 // ========================================
-// LIST YOUR PROPERTY
+// LIST YOUR PROPERTY - VENDOR
 // ========================================
 
 Route::post(
     '/properties/store',
     [PropertyController::class, 'store']
-)->name('properties.store');
+)->name('vendor.properties.store');
 
 
+// ========================================
+// RENT ENQUIRY
+// ========================================
 
-Route::post('/rent-enquiry', [RentEnquiryController::class, 'store'])
-    ->name('rent.enquiry.store');
+Route::post(
+    '/rent-enquiry',
+    [RentEnquiryController::class, 'store']
+)->name('rent.enquiry.store');
+
+
+// ========================================
+// RENTAL REQUIREMENTS ENQUIRY
+// ========================================
 
 Route::post(
     '/rental-requirments-enquiry',
@@ -49,10 +60,19 @@ Route::post(
 )->name('rental.requirments.enquiry.store');
 
 
+// ========================================
+// SCHEDULE VISIT
+// ========================================
+
 Route::post(
     '/schedule-visit-enquiry',
     [ScheduleVisitEnquiryController::class, 'store']
 )->name('schedule.visit.enquiry.store');
+
+
+// ========================================
+// PROPERTY REPORT
+// ========================================
 
 Route::post(
     '/rental-property-report',
@@ -60,8 +80,31 @@ Route::post(
 )->name('rental.property.report.store');
 
 
-Route::post('/contact', [ContactController::class, 'store'])
-    ->name('contact.store');
+// ========================================
+// CONTACT
+// ========================================
 
-Route::post('/subscribe', [SubscribeController::class, 'store'])
-    ->name('subscribe.store');
+Route::post(
+    '/contact',
+    [ContactController::class, 'store']
+)->name('contact.store');
+
+
+// ========================================
+// SUBSCRIBE
+// ========================================
+
+Route::post(
+    '/subscribe',
+    [SubscribeController::class, 'store']
+)->name('subscribe.store');
+
+
+
+Route::get('/php-upload-info', function () {
+    return [
+        'upload_max_filesize' => ini_get('upload_max_filesize'),
+        'post_max_size' => ini_get('post_max_size'),
+        'memory_limit' => ini_get('memory_limit'),
+    ];
+});

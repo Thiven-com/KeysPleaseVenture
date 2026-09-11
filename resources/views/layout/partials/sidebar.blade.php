@@ -56,6 +56,14 @@
                                                         </a>
                                                 </li>
 
+                                                {{-- Amenities --}}
+                                                <li class="{{ Request::is('admin/amenities*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.amenities.index') }}">
+                                                                <i class="ti ti-list-details fs-16 me-2"></i>
+                                                                <span>Amenities</span>
+                                                        </a>
+                                                </li>
+
 
                                                 {{-- Rent Enquiries --}}
                                                 <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
@@ -105,7 +113,8 @@
                                                         </a>
                                                 </li>
 
-                                                <li class="{{ Request::is('admin/contact-enquiries*') ? 'active' : '' }}">
+                                                <li
+                                                        class="{{ Request::is('admin/contact-enquiries*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.contact.enquiries') }}">
                                                                 <i class="ti ti-mail fs-16 me-2"></i>
                                                                 <span>Contact Enquiries</span>

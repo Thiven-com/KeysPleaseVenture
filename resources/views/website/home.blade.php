@@ -1,6 +1,125 @@
 @extends('layouts.website')
 @section('content')
+    <style>
+        /* =========================================================
+           INFINITE LOCALITY CAROUSEL
+        ========================================================= */
 
+        .locality-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .locality-grid {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            gap: 20px;
+            width: max-content;
+            overflow: visible !important;
+            padding: 5px 2px 15px;
+
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .locality-grid .locality {
+            flex: 0 0 calc((100vw - 160px) / 4);
+            width: calc((100vw - 160px) / 4);
+        }
+
+
+        /* =========================================================
+           ARROWS
+        ========================================================= */
+
+        .locality-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .locality-arrows {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .locality-arrow {
+            width: 40px;
+            height: 40px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #dfe5ed;
+            border-radius: 50%;
+
+            background: #fff;
+            color: #071b3d;
+
+            cursor: pointer;
+
+            transition: all .25s ease;
+        }
+
+        .locality-arrow:hover {
+            background: #071b3d;
+            color: #fff;
+            border-color: #071b3d;
+            transform: translateY(-2px);
+        }
+
+        .locality-arrow:active {
+            transform: scale(.94);
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================= */
+
+        @media (max-width: 991px) {
+
+            .locality-grid {
+                gap: 18px;
+            }
+
+            .locality-grid .locality {
+                flex: 0 0 calc((100vw - 90px) / 2);
+                width: calc((100vw - 90px) / 2);
+            }
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 576px) {
+
+            .locality-controls .view {
+                display: none;
+            }
+
+            .locality-grid {
+                gap: 14px;
+            }
+
+            .locality-grid .locality {
+                flex: 0 0 82vw;
+                width: 82vw;
+            }
+
+            .locality-arrow {
+                width: 36px;
+                height: 36px;
+            }
+
+        }
+    </style>
 
     <section class="hero">
         <div class="container hero-inner">
@@ -222,91 +341,123 @@
             <div class="section-head">
                 <h2>Popular Localities in Bangalore</h2>
 
-                <a class="view" href="#">
-                    View all localities <i class="fa-solid fa-arrow-right"></i>
-                </a>
+                <div class="locality-controls">
+                    <a class="view" href="#">
+                        View all localities
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <div class="locality-arrows">
+                        <button type="button" class="locality-arrow" id="localityPrev" aria-label="Previous localities">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+
+                        <button type="button" class="locality-arrow" id="localityNext" aria-label="Next localities">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
 
-            <div class="locality-grid stagger">
+            <div class="locality-carousel">
 
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                        alt="Whitefield">
+                <div class="locality-grid stagger" id="localityGrid">
 
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Whitefield</div>
-                    <div class="count">1,250+ Properties</div>
-                </a>
-
-
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-                        alt="Koramangala">
-
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Koramangala</div>
-                    <div class="count">980+ Properties</div>
-                </a>
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                            alt="Whitefield">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Whitefield
+                        </div>
+                        <div class="count">1,250+ Properties</div>
+                    </a>
 
 
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
-                        alt="Indiranagar">
-
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Indiranagar</div>
-                    <div class="count">850+ Properties</div>
-                </a>
-
-
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                        alt="HSR Layout">
-
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> HSR Layout</div>
-                    <div class="count">760+ Properties</div>
-                </a>
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                            alt="Koramangala">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Koramangala
+                        </div>
+                        <div class="count">980+ Properties</div>
+                    </a>
 
 
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
-                        alt="Marathahalli">
-
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Marathahalli</div>
-                    <div class="count">680+ Properties</div>
-                </a>
-
-
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                        alt="Bellandur">
-
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Bellandur</div>
-                    <div class="count">540+ Properties</div>
-                </a>
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                            alt="Indiranagar">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Indiranagar
+                        </div>
+                        <div class="count">850+ Properties</div>
+                    </a>
 
 
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
-                        alt="JP Nagar">
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                            alt="HSR Layout">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            HSR Layout
+                        </div>
+                        <div class="count">760+ Properties</div>
+                    </a>
 
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> JP Nagar</div>
-                    <div class="count">620+ Properties</div>
-                </a>
+
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                            alt="Marathahalli">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Marathahalli
+                        </div>
+                        <div class="count">680+ Properties</div>
+                    </a>
 
 
-                <a class="locality" href="#">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                        alt="Electronic City">
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                            alt="Bellandur">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Bellandur
+                        </div>
+                        <div class="count">540+ Properties</div>
+                    </a>
 
-                    <div class="name"><i class="fa-solid fa-location-dot"></i> Electronic City</div>
-                    <div class="count">1,100+ Properties</div>
-                </a>
+
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                            alt="JP Nagar">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            JP Nagar
+                        </div>
+                        <div class="count">620+ Properties</div>
+                    </a>
+
+
+                    <a class="locality" href="#">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                            alt="Electronic City">
+                        <div class="name">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Electronic City
+                        </div>
+                        <div class="count">1,100+ Properties</div>
+                    </a>
+
+                </div>
 
             </div>
 
         </div>
 
     </section>
-
 
 
     <section id="properties" class="reveal">
@@ -316,7 +467,7 @@
             <div class="section-head">
                 <h2>Featured Rental Properties</h2>
 
-                <a class="view" href="#">
+                <a class="view" href="{{ route('rent') }}">
                     View all properties <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
@@ -842,8 +993,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                     NEWSLETTER
-                                                                                     ========================================================= -->
+                                                                                                         NEWSLETTER
+                                                                                                         ========================================================= -->
 
     <div class="newsletter">
 
@@ -1085,6 +1236,279 @@
 
                 }
             });
+
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const localityGrid = document.getElementById('localityGrid');
+            const localityPrev = document.getElementById('localityPrev');
+            const localityNext = document.getElementById('localityNext');
+
+            if (!localityGrid) return;
+
+
+            /* =========================================================
+               ORIGINAL CARDS
+            ========================================================= */
+
+            const originalCards = Array.from(
+                localityGrid.querySelectorAll('.locality')
+            );
+
+            if (!originalCards.length) return;
+
+
+            /* =========================================================
+               CLONE THE COMPLETE SET
+            ========================================================= */
+
+            originalCards.forEach(function (card) {
+
+                const clone = card.cloneNode(true);
+
+                clone.classList.add('locality-clone');
+
+                localityGrid.appendChild(clone);
+
+            });
+
+
+            let position = 0;
+            let lastTime = performance.now();
+
+            let isPaused = false;
+
+            let direction = 1;
+
+            const speed = 45; // pixels per second
+
+
+            /* =========================================================
+               GET ONE COMPLETE SET WIDTH
+            ========================================================= */
+
+            function getSetWidth() {
+
+                const originalCount = originalCards.length;
+
+                const allCards =
+                    localityGrid.querySelectorAll('.locality');
+
+                if (!allCards[originalCount - 1]) {
+                    return 0;
+                }
+
+                const firstCard =
+                    allCards[0].getBoundingClientRect();
+
+                const lastOriginalCard =
+                    allCards[originalCount - 1].getBoundingClientRect();
+
+                const gap =
+                    parseFloat(
+                        window.getComputedStyle(localityGrid).gap
+                    ) || 0;
+
+                return (
+                    lastOriginalCard.right -
+                    firstCard.left +
+                    gap
+                );
+            }
+
+
+            /* =========================================================
+               CONTINUOUS ANIMATION
+            ========================================================= */
+
+            function animate(currentTime) {
+
+                const delta =
+                    (currentTime - lastTime) / 1000;
+
+                lastTime = currentTime;
+
+
+                if (!isPaused) {
+
+                    position += speed * delta * direction;
+
+                    const setWidth = getSetWidth();
+
+
+                    /*
+                     * Moving forward:
+                     *
+                     * After one complete set has passed,
+                     * reset by exactly one set width.
+                     *
+                     * Because the second set is identical,
+                     * there is NO visible jump.
+                     */
+
+                    if (direction === 1 && position >= setWidth) {
+
+                        position -= setWidth;
+
+                    }
+
+
+                    /*
+                     * Moving backward.
+                     */
+
+                    if (direction === -1 && position <= 0) {
+
+                        position += setWidth;
+
+                    }
+
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                }
+
+
+                requestAnimationFrame(animate);
+
+            }
+
+
+            /* =========================================================
+               NEXT BUTTON
+            ========================================================= */
+
+            if (localityNext) {
+
+                localityNext.addEventListener('click', function () {
+
+                    direction = 1;
+
+                    /*
+                     * Move forward faster when clicked.
+                     */
+
+                    position += getSetWidth() / originalCards.length;
+
+                    const setWidth = getSetWidth();
+
+                    if (position >= setWidth) {
+                        position -= setWidth;
+                    }
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                });
+
+            }
+
+
+            /* =========================================================
+               PREVIOUS BUTTON
+            ========================================================= */
+
+            if (localityPrev) {
+
+                localityPrev.addEventListener('click', function () {
+
+                    direction = -1;
+
+                    /*
+                     * Move one card backward.
+                     */
+
+                    position -= getSetWidth() / originalCards.length;
+
+                    const setWidth = getSetWidth();
+
+                    if (position < 0) {
+                        position += setWidth;
+                    }
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                });
+
+            }
+
+
+            /* =========================================================
+               PAUSE ON HOVER
+            ========================================================= */
+
+            localityGrid.addEventListener('mouseenter', function () {
+
+                isPaused = true;
+
+            });
+
+
+            localityGrid.addEventListener('mouseleave', function () {
+
+                isPaused = false;
+
+                lastTime = performance.now();
+
+            });
+
+
+            /* =========================================================
+               TOUCH
+            ========================================================= */
+
+            localityGrid.addEventListener('touchstart', function () {
+
+                isPaused = true;
+
+            }, {
+                passive: true
+            });
+
+
+            localityGrid.addEventListener('touchend', function () {
+
+                setTimeout(function () {
+
+                    isPaused = false;
+
+                    lastTime = performance.now();
+
+                }, 1000);
+
+            }, {
+                passive: true
+            });
+
+
+            /* =========================================================
+               RESIZE
+            ========================================================= */
+
+            window.addEventListener('resize', function () {
+
+                const setWidth = getSetWidth();
+
+                if (setWidth > 0 && position >= setWidth) {
+
+                    position %= setWidth;
+
+                }
+
+            });
+
+
+            /* =========================================================
+               START
+            ========================================================= */
+
+            requestAnimationFrame(animate);
 
         });
     </script>

@@ -6,8 +6,8 @@
 
 
     <!-- =====================================================
-                                                                         SEARCH AREA
-                                                                    ====================================================== -->
+                                                                                                                                                                         SEARCH AREA
+                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -34,35 +34,39 @@
                 </div>
 
                 <!-- Location Suggestions -->
+                @php
+                    $locations = $properties
+                        ->flatMap(function ($property) {
+                            return [
+                                $property->locality,
+                                $property->landmark,
+                                $property->city,
+                            ];
+                        })
+                        ->filter()
+                        ->map(function ($location) {
+                            return trim($location);
+                        })
+                        ->unique()
+                        ->sort()
+                        ->values();
+                @endphp
+
                 <div class="location-suggestions" id="locationSuggestions">
 
-                    <button type="button" data-location="Koramangala">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Koramangala
-                    </button>
+                    @foreach($locations as $location)
 
-                    <button type="button" data-location="HSR Layout">
-                        <i class="fa-solid fa-location-dot"></i>
-                        HSR Layout
-                    </button>
+                        <button type="button" data-location="{{ $location }}">
 
-                    <button type="button" data-location="Indiranagar">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Indiranagar
-                    </button>
+                            <i class="fa-solid fa-location-dot"></i>
 
-                    <button type="button" data-location="Whitefield">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Whitefield
-                    </button>
+                            {{ $location }}
 
-                    <button type="button" data-location="Electronic City">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Electronic City
-                    </button>
+                        </button>
+
+                    @endforeach
 
                 </div>
-
             </div>
 
 
@@ -83,27 +87,31 @@
                         <i class="fa-solid fa-chevron-down arrow"></i>
                     </button>
 
+                    @php
+                        $propertyTypes = $properties
+                            ->pluck('property_type')
+                            ->filter()
+                            ->map(function ($type) {
+                                return trim($type);
+                            })
+                            ->unique()
+                            ->sort()
+                            ->values();
+                    @endphp
+
                     <div class="select-menu" id="propertyTypeMenu">
 
                         <button type="button" data-value="Any Type">
                             Any Type
                         </button>
 
-                        <button type="button" data-value="Apartment">
-                            Apartment
-                        </button>
+                        @foreach($propertyTypes as $propertyType)
 
-                        <button type="button" data-value="Villa">
-                            Villa
-                        </button>
+                            <button type="button" data-value="{{ $propertyType }}">
+                                {{ $propertyType }}
+                            </button>
 
-                        <button type="button" data-value="Independent House">
-                            Independent House
-                        </button>
-
-                        <button type="button" data-value="PG">
-                            PG
-                        </button>
+                        @endforeach
 
                     </div>
 
@@ -129,27 +137,46 @@
                         <i class="fa-solid fa-chevron-down arrow"></i>
                     </button>
 
+                    @php
+                        $bhkOptions = $properties
+                            ->pluck('bhk')
+                            ->filter()
+                            ->map(function ($bhk) {
+                                preg_match('/\d+/', $bhk, $match);
+
+                                return isset($match[0])
+                                    ? (int) $match[0]
+                                    : null;
+                            })
+                            ->filter()
+                            ->unique()
+                            ->sort()
+                            ->values();
+                    @endphp
+
                     <div class="select-menu" id="bhkMenu">
 
                         <button type="button" data-value="Any">
                             Any
                         </button>
 
-                        <button type="button" data-value="1 BHK">
-                            1 BHK
-                        </button>
+                        @foreach($bhkOptions as $bhkNumber)
 
-                        <button type="button" data-value="2 BHK">
-                            2 BHK
-                        </button>
+                            <button type="button" data-value="{{ $bhkNumber }} BHK">
 
-                        <button type="button" data-value="3 BHK">
-                            3 BHK
-                        </button>
+                                {{ $bhkNumber }} BHK
 
-                        <button type="button" data-value="4+ BHK">
-                            4+ BHK
-                        </button>
+                            </button>
+
+                        @endforeach
+
+                        @if($bhkOptions->contains(fn($value) => $value >= 4))
+
+                            <button type="button" data-value="4+ BHK">
+                                4+ BHK
+                            </button>
+
+                        @endif
 
                     </div>
 
@@ -229,15 +256,15 @@
 
 
     <!-- =====================================================
-                                                                         CONTENT AREA
-                                                                    ====================================================== -->
+                                                                                                                                                                         CONTENT AREA
+                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                             SIDEBAR
-                                                                        ================================================== -->
+                                                                                                                                                                             SIDEBAR
+                                                                                                                                                                        ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -257,78 +284,89 @@
 
             <!-- LOCATION FILTER -->
 
+            <!-- LOCATION FILTER -->
+
+            @php
+                $locationTree = $properties
+                    ->filter(function ($property) {
+                        return $property->city || $property->locality;
+                    })
+                    ->groupBy(function ($property) {
+                        return trim($property->city ?: 'Other');
+                    })
+                    ->map(function ($cityProperties) {
+
+                        return $cityProperties
+                            ->pluck('locality')
+                            ->filter()
+                            ->map(function ($locality) {
+                                return trim($locality);
+                            })
+                            ->filter()
+                            ->unique()
+                            ->sort()
+                            ->values();
+
+                    })
+                    ->sortKeys();
+            @endphp
+
             <div class="filter-section">
 
                 <button type="button" class="filter-title">
+
                     <span>
                         Location
                     </span>
 
                     <i class="fa-solid fa-chevron-up"></i>
+
                 </button>
 
 
                 <div class="tree">
 
-                    <button type="button" class="tree-row active-parent">
-                        <i class="fa-solid fa-chevron-down"></i>
-                        Bangalore
-                    </button>
+                    @foreach($locationTree as $city => $localities)
 
-                    <button type="button" class="tree-row active-parent">
-                        <i class="fa-solid fa-chevron-down"></i>
-                        Koramangala
-                    </button>
+                        {{-- CITY --}}
+                        <button type="button" class="tree-row active-parent">
 
-                    <button type="button" class="tree-row checked">
-                        <i class="fa-solid fa-chevron-down"></i>
+                            <i class="fa-solid fa-chevron-down"></i>
 
-                        <span>
-                            Koramangala 4th Block
-                        </span>
+                            {{ $city }}
 
-                        <span class="checkbox checked">
-                            <i class="fa-solid fa-check"></i>
-                        </span>
-
-                    </button>
+                        </button>
 
 
-                    <div class="tree-line"></div>
+                        @foreach($localities as $index => $locality)
 
+                            <div class="tree-line {{ $index >= 4 ? 'extra-location' : '' }}" @if($index >= 4) style="display:none;"
+                            @endif>
+                            </div>
 
-                    <button type="button" class="tree-row child">
-                        Koramangala 5th Block
+                            {{-- LOCALITY --}}
+                            <button type="button" class="tree-row child {{ $index >= 4 ? 'extra-location' : '' }}"
+                                data-location="{{ $locality }}" @if($index >= 4) style="display:none;" @endif>
 
-                        <span class="checkbox"></span>
-                    </button>
+                                {{ $locality }}
 
+                                <span class="checkbox"></span>
 
-                    <div class="tree-line"></div>
+                            </button>
 
+                        @endforeach
 
-                    <button type="button" class="tree-row child">
-                        Koramangala 6th Block
-
-                        <span class="checkbox"></span>
-                    </button>
-
-
-                    <div class="tree-line"></div>
-
-
-                    <button type="button" class="tree-row child">
-                        Koramangala 7th Block
-
-                        <span class="checkbox"></span>
-                    </button>
+                    @endforeach
 
                 </div>
 
 
                 <button type="button" class="more">
+
                     <i class="fa-solid fa-plus"></i>
+
                     Show More Areas
+
                 </button>
 
             </div>
@@ -338,92 +376,117 @@
 
             <!-- <div class="filter-section">
 
-                                                        <button type="button" class="filter-title">
-                                                            <span>
-                                                                Rent Range
-                                                            </span>
+                                                                                                                                                        <button type="button" class="filter-title">
+                                                                                                                                                            <span>
+                                                                                                                                                                Rent Range
+                                                                                                                                                            </span>
 
-                                                            <i class="fa-solid fa-chevron-up"></i>
-                                                        </button>
-
-
-                                                        <div class="range">
-
-                                                            <span class="range-progress"></span>
-
-                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                        </div>
+                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                        </button>
 
 
-                                                        <div class="range-values">
+                                                                                                                                                        <div class="range">
 
-                                                            <div class="range-box">
-                                                                ₹ 0
-                                                            </div>
+                                                                                                                                                            <span class="range-progress"></span>
 
-                                                            <span class="range-to">
-                                                                to
-                                                            </span>
+                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                            <div class="range-box">
-                                                                ₹ 1,00,000+
-                                                            </div>
+                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                        </div>
+                                                                                                                                                        </div>
 
-                                                    </div> -->
+
+                                                                                                                                                        <div class="range-values">
+
+                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                ₹ 0
+                                                                                                                                                            </div>
+
+                                                                                                                                                            <span class="range-to">
+                                                                                                                                                                to
+                                                                                                                                                            </span>
+
+                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                ₹ 1,00,000+
+                                                                                                                                                            </div>
+
+                                                                                                                                                        </div>
+
+                                                                                                                                                    </div> -->
 
 
             <!-- BHK -->
 
+            <!-- BHK -->
+
+            @php
+                $bhkCounts = [
+                    '1 BHK' => 0,
+                    '2 BHK' => 0,
+                    '3 BHK' => 0,
+                    '4+ BHK' => 0,
+                ];
+
+                foreach ($properties as $property) {
+
+                    if (!$property->bhk) {
+                        continue;
+                    }
+
+                    preg_match('/\d+/', $property->bhk, $match);
+
+                    $bhkNumber = isset($match[0])
+                        ? (int) $match[0]
+                        : null;
+
+                    if ($bhkNumber === 1) {
+
+                        $bhkCounts['1 BHK']++;
+
+                    } elseif ($bhkNumber === 2) {
+
+                        $bhkCounts['2 BHK']++;
+
+                    } elseif ($bhkNumber === 3) {
+
+                        $bhkCounts['3 BHK']++;
+
+                    } elseif ($bhkNumber >= 4) {
+
+                        $bhkCounts['4+ BHK']++;
+
+                    }
+                }
+            @endphp
+
             <div class="filter-section">
 
                 <button type="button" class="filter-title">
+
                     <span>
                         BHK
                     </span>
 
                     <i class="fa-solid fa-chevron-up"></i>
+
                 </button>
 
 
-                <button type="button" class="tree-row filter-checkbox-row" data-filter="1 BHK">
-                    <span class="checkbox"></span>
-                    1 BHK
-                    <span class="count">
-                        (234)
-                    </span>
-                </button>
+                @foreach($bhkCounts as $bhk => $count)
 
+                    <button type="button" class="tree-row filter-checkbox-row" data-filter="{{ $bhk }}">
 
-                <button type="button" class="tree-row filter-checkbox-row" data-filter="2 BHK">
-                    <span class="checkbox"></span>
-                    2 BHK
-                    <span class="count">
-                        (512)
-                    </span>
-                </button>
+                        <span class="checkbox"></span>
 
+                        {{ $bhk }}
 
-                <button type="button" class="tree-row filter-checkbox-row" data-filter="3 BHK">
-                    <span class="checkbox"></span>
-                    3 BHK
-                    <span class="count">
-                        (896)
-                    </span>
-                </button>
+                        <span class="count">
+                            ({{ $count }})
+                        </span>
 
+                    </button>
 
-                <button type="button" class="tree-row filter-checkbox-row" data-filter="4+ BHK">
-                    <span class="checkbox"></span>
-                    4+ BHK
-                    <span class="count">
-                        (204)
-                    </span>
-                </button>
+                @endforeach
 
             </div>
 
@@ -441,27 +504,28 @@
                 </button>
 
 
+                @php
+                    $propertyTypes = $properties
+                        ->pluck('property_type')
+                        ->filter()
+                        ->unique()
+                        ->sort()
+                        ->values();
+                @endphp
+
                 <div class="property-type-filters">
 
-                    <button type="button">
-                        <span class="checkbox"></span>
-                        Apartment
-                    </button>
+                    @foreach($propertyTypes as $propertyType)
 
-                    <button type="button">
-                        <span class="checkbox"></span>
-                        Villa
-                    </button>
+                        <button type="button">
 
-                    <button type="button">
-                        <span class="checkbox"></span>
-                        Independent House
-                    </button>
+                            <span class="checkbox"></span>
 
-                    <button type="button">
-                        <span class="checkbox"></span>
-                        PG
-                    </button>
+                            {{ $propertyType }}
+
+                        </button>
+
+                    @endforeach
 
                 </div>
 
@@ -471,8 +535,8 @@
 
 
         <!-- =================================================
-                                                                             RESULTS
-                                                                        ================================================== -->
+                                                                                                                                                                             RESULTS
+                                                                                                                                                                        ================================================== -->
 
         <section class="results">
 
@@ -486,7 +550,7 @@
                     Showing
 
                     <strong id="resultCount">
-                        1,248
+                        {{ $properties->count() }}
                     </strong>
 
                     Rental Properties
@@ -535,510 +599,350 @@
             </div>
 
 
-            <!-- =================================================
-                                         PROPERTY 1
-                        ================================================== -->
+            @forelse($properties as $property)
 
-            <article class="result-card" data-property="property1" data-price="45000" data-age="2" data-bhk="3"
-                data-location="Koramangala 4th Block" data-type="Apartment">
+                @php
+                    $firstImage = $property->images->first();
 
-                <div class="gallery">
+                    if ($firstImage && $firstImage->image_path) {
+                        $propertyImage = asset('storage/' . $firstImage->image_path);
+                    } else {
+                        $propertyImage = asset('images/default-property.jpg');
+                    }
 
-                    <span class="featured">
-                        FEATURED
-                    </span>
+                    // Extract number from "3 BHK", "2 BHK", etc.
+                    $bhkNumber = null;
 
+                    if ($property->bhk) {
+                        preg_match('/\d+/', $property->bhk, $bhkMatch);
+                        $bhkNumber = $bhkMatch[0] ?? null;
+                    }
 
-                    <button type="button" class="heart" aria-label="Add to favourites">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
+                    // Property age
+                    $ageHours = $property->created_at
+                        ? $property->created_at->diffInHours(now())
+                        : 0;
 
+                    if ($ageHours < 1) {
+                        $ageText = 'Just now';
+                    } elseif ($ageHours < 24) {
+                        $ageText = $ageHours . ' hours ago';
+                    } else {
+                        $ageDays = floor($ageHours / 24);
+                        $ageText = $ageDays . ($ageDays == 1 ? ' day ago' : ' days ago');
+                    }
 
-                    <img class="main"
-                        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85"
-                        alt="Spacious 3 BHK Apartment" loading="lazy">
+                    $isNew = $ageHours <= 48;
 
+                    // Owner / vendor name
+                    $brokerName =
+                        $property->owner_name
+                        ?: optional($property->user)->name
+                        ?: 'Property Owner';
 
-                    <span class="photo-count">
+                    // Broker initials
+                    $brokerWords = preg_split('/\s+/', trim($brokerName));
 
-                        <i class="fa-regular fa-images"></i>
+                    if (count($brokerWords) >= 2) {
+                        $brokerInitials = strtoupper(
+                            substr($brokerWords[0], 0, 1) .
+                            substr($brokerWords[1], 0, 1)
+                        );
+                    } else {
+                        $brokerInitials = strtoupper(substr($brokerName, 0, 2));
+                    }
 
-                        12 Photos
-
-                    </span>
-
-                </div>
-
-
-                <div class="details">
-
-                    <div class="title-row">
-
-                        <div class="property-title">
-                            Spacious 3 BHK Apartment
-                        </div>
-
-                        <span class="verified">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            Verified
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="location">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        Koramangala 4th Block,
-                        Koramangala, Bangalore
-
-                    </div>
-
-
-                    <div class="price">
-
-                        ₹ 45,000
-
-                        <span>
-                            /month
-                        </span>
-
-                    </div>
+                    // Location
+                    $locationText = collect([
+                        $property->locality,
+                        $property->city,
+                        $property->district,
+                        $property->state
+                    ])
+                        ->filter()
+                        ->unique()
+                        ->implode(', ');
+                    // Image count
+                    $photoCount = $property->images->count();
+                @endphp
 
 
-                    <div class="deposit">
+                <article class="result-card" data-property="{{ $property->id }}" data-price="{{ (float) $property->price }}"
+                    data-age="{{ $ageHours }}" data-bhk="{{ $bhkNumber ?? 0 }}" data-location="{{ $locationText }}"
+                    data-type="{{ $property->property_type }}"
+                    data-amenities="{{ $property->propertyAmenities->pluck('name')->implode(',') }}">
 
-                        Security Deposit:
-                        ₹ 2,50,000
+                    {{-- IMAGE --}}
+                    <div class="gallery">
 
-                    </div>
+                        @if($isNew)
+                            <span class="featured">NEW</span>
+                        @endif
 
+                        <button type="button" class="heart" aria-label="Add to favourites">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
 
-                    <div class="meta">
+                        <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
-                        <span>
-                            <i class="fa-solid fa-bed"></i>
-                            3 BHK
-                        </span>
+                        @if($photoCount > 0)
 
-                        <span>
-                            <i class="fa-solid fa-bath"></i>
-                            3 Bath
-                        </span>
+                            <span class="photo-count">
+                                <i class="fa-regular fa-images"></i>
 
-                        <span>
-                            <i class="fa-solid fa-ruler-combined"></i>
-                            1650 sq.ft
-                        </span>
+                                {{ $photoCount }}
 
-                        <span>
-                            <i class="fa-solid fa-couch"></i>
-                            Semi Furnished
-                        </span>
+                                {{ $photoCount == 1 ? 'Photo' : 'Photos' }}
+                            </span>
+
+                        @endif
 
                     </div>
 
 
-                    <div class="broker">
+                    {{-- DETAILS --}}
+                    <div class="details">
 
-                        <div class="broker-avatar">
-                            US<br>
-                            SPACE
-                        </div>
+                        <div class="title-row">
 
-                        <div>
+                            <div class="property-title">
+                                {{ $property->property_title }}
+                            </div>
 
-                            <div class="broker-name">
-
-                                Urban Spaces
-
-                                <span class="tick">
+                            @if($property->status === 'approved')
+                                <span class="verified">
                                     <i class="fa-solid fa-circle-check"></i>
+                                    Verified
+                                </span>
+                            @endif
+
+                        </div>
+
+
+                        {{-- LOCATION --}}
+                        <div class="location">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            {{ $locationText ?: 'Location not available' }}
+
+                        </div>
+
+                        {{-- PROPERTY TYPE / LISTING FOR --}}
+                        <div class="property-subtitle">
+
+                            @if($property->property_type)
+                                {{ $property->property_type }}
+                            @endif
+
+                            @if($property->listing_for)
+                                <span>
+                                    • {{ $property->listing_for }}
+                                </span>
+                            @endif
+
+                        </div>
+
+
+                        {{-- PRICE --}}
+                        {{-- PRICE --}}
+                        <div class="price">
+
+                            @if($property->price)
+
+                                ₹ {{ number_format((float) $property->price) }}
+
+                                <span>/month</span>
+
+                            @else
+
+                                Contact for Price
+
+                            @endif
+
+                        </div>
+
+
+                        {{-- SECURITY DEPOSIT --}}
+                        @if($property->security_deposit !== null)
+
+                            <div class="deposit">
+
+                                Security Deposit:
+
+                                @if((float) $property->security_deposit > 0)
+
+                                    ₹ {{ number_format((float) $property->security_deposit) }}
+
+                                @else
+
+                                    No Security Deposit
+
+                                @endif
+
+                            </div>
+
+                        @endif
+
+
+                        {{-- PROPERTY META --}}
+                        {{-- PROPERTY META --}}
+                        <div class="meta">
+
+                            @if($property->bhk)
+                                <span>
+                                    <i class="fa-solid fa-bed"></i>
+                                    {{ $property->bhk }}
+                                </span>
+                            @endif
+
+                            @if($property->bathrooms)
+                                <span>
+                                    <i class="fa-solid fa-bath"></i>
+                                    {{ $property->bathrooms }} Bath
+                                </span>
+                            @endif
+
+                            @if($property->area_sqft)
+                                <span>
+                                    <i class="fa-solid fa-ruler-combined"></i>
+                                    {{ number_format($property->area_sqft) }} sq.ft
+                                </span>
+                            @endif
+
+                            @if($property->furnishing)
+                                <span>
+                                    <i class="fa-solid fa-couch"></i>
+                                    {{ $property->furnishing }}
+                                </span>
+                            @endif
+
+
+
+                            @if($property->car_parking)
+                                <span>
+                                    <i class="fa-solid fa-car"></i>
+                                    {{ $property->car_parking }}
+                                </span>
+                            @endif
+
+                            @if($property->available_from)
+
+                                <span>
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    Available {{ $property->available_from->format('d M Y') }}
                                 </span>
 
-                            </div>
+                            @endif
 
-                            <div class="broker-role">
-                                Verified Broker
-                            </div>
+                            @if($property->property_age)
 
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <span class="age">
-                        2 hours ago
-                    </span>
-
-                    <span class="new">
-                        New
-                    </span>
-
-
-                    <button type="button" class="action-btn primary view-details">
-                        View Details
-                    </button>
-
-
-                    <button type="button" class="action-btn enquire-btn" data-property-id="1">
-                        Enquire Now
-                    </button>
-
-
-                    <div class="phone">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        +91 80 1234 5678
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- =================================================
-                                                                                 PROPERTY 2
-                                                                            ================================================== -->
-
-            <article class="result-card" data-property="property2" data-price="32000" data-age="5" data-bhk="2"
-                data-location="HSR Layout" data-type="Apartment">
-
-                <div class="gallery">
-
-                    <button type="button" class="heart" aria-label="Add to favourites">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
-
-
-                    <img class="main"
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85"
-                        alt="Modern 2 BHK Apartment" loading="lazy">
-
-
-                    <span class="photo-count">
-
-                        <i class="fa-regular fa-images"></i>
-
-                        10 Photos
-
-                    </span>
-
-                </div>
-
-
-                <div class="details">
-
-                    <div class="title-row">
-
-                        <div class="property-title">
-                            Modern 2 BHK Apartment
-                        </div>
-
-                        <span class="verified">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            Verified
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="location">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        HSR Layout, Sector 2,
-                        Bangalore
-
-                    </div>
-
-
-                    <div class="price">
-
-                        ₹ 32,000
-
-                        <span>
-                            /month
-                        </span>
-
-                    </div>
-
-
-                    <div class="deposit">
-
-                        Security Deposit:
-                        ₹ 2,00,000
-
-                    </div>
-
-
-                    <div class="meta">
-
-                        <span>
-                            <i class="fa-solid fa-bed"></i>
-                            2 BHK
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-bath"></i>
-                            2 Bath
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-ruler-combined"></i>
-                            1200 sq.ft
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-couch"></i>
-                            Fully Furnished
-                        </span>
-
-                    </div>
-
-
-                    <div class="broker">
-
-                        <div class="broker-avatar" style="background:#ff7d22;color:#fff">
-                            <i class="fa-solid fa-house"></i>
-                        </div>
-
-                        <div>
-
-                            <div class="broker-name">
-
-                                Home Line Brokers
-
-                                <span class="tick">
-                                    <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    <i class="fa-solid fa-building"></i>
+                                    {{ $property->property_age }}
                                 </span>
 
-                            </div>
+                            @endif
 
-                            <div class="broker-role">
-                                Verified Broker
-                            </div>
+                            @if($property->property_condition)
 
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <span class="age">
-                        5 hours ago
-                    </span>
-
-                    <span class="new">
-                        New
-                    </span>
-
-
-                    <button type="button" class="action-btn primary view-details">
-                        View Details
-                    </button>
-
-
-                    <button type="button" class="action-btn enquire-btn" data-property-id="2">
-                        Enquire Now
-                    </button>
-
-
-                    <div class="phone">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        +91 80 9876 5432
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- =================================================
-                                                                                 PROPERTY 3
-                                                                            ================================================== -->
-
-            <article class="result-card" data-property="property3" data-price="78000" data-age="24" data-bhk="4"
-                data-location="Indiranagar" data-type="Apartment">
-
-                <div class="gallery">
-
-                    <button type="button" class="heart" aria-label="Add to favourites">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
-
-
-                    <img class="main"
-                        src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85"
-                        alt="Luxurious 4 BHK Apartment" loading="lazy">
-
-
-                    <span class="photo-count">
-
-                        <i class="fa-regular fa-images"></i>
-
-                        14 Photos
-
-                    </span>
-
-                </div>
-
-
-                <div class="details">
-
-                    <div class="title-row">
-
-                        <div class="property-title">
-                            Luxurious 4 BHK Apartment
-                        </div>
-
-                        <span class="verified">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            Verified
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="location">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        Indiranagar, 100 Ft Road,
-                        Bangalore
-
-                    </div>
-
-
-                    <div class="price">
-
-                        ₹ 78,000
-
-                        <span>
-                            /month
-                        </span>
-
-                    </div>
-
-
-                    <div class="deposit">
-
-                        Security Deposit:
-                        ₹ 4,00,000
-
-                    </div>
-
-
-                    <div class="meta">
-
-                        <span>
-                            <i class="fa-solid fa-bed"></i>
-                            4 BHK
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-bath"></i>
-                            4 Bath
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-ruler-combined"></i>
-                            2400 sq.ft
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-couch"></i>
-                            Semi Furnished
-                        </span>
-
-                    </div>
-
-
-                    <div class="broker">
-
-                        <div class="broker-avatar" style="background:#1627c5;color:#fff">
-                            WR
-                        </div>
-
-                        <div>
-
-                            <div class="broker-name">
-
-                                Whitefield Realty
-
-                                <span class="tick">
-                                    <i class="fa-solid fa-circle-check"></i>
+                                <span>
+                                    <i class="fa-solid fa-house-circle-check"></i>
+                                    {{ $property->property_condition }}
                                 </span>
 
+                            @endif
+
+                        </div>
+
+
+                        {{-- BROKER --}}
+                        <div class="broker">
+
+                            <div class="broker-avatar">
+                                {{ $brokerInitials }}
                             </div>
 
-                            <div class="broker-role">
-                                Verified Broker
+                            <div>
+
+                                <div class="broker-name">
+
+                                    {{ $brokerName }}
+
+                                    <span class="tick">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </span>
+
+                                </div>
+
+                                <div class="broker-role">
+
+                                    @if($property->user)
+                                        {{ ucfirst($property->user->role ?? 'Property Owner') }}
+                                    @else
+                                        Property Owner
+                                    @endif
+
+                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
 
-                </div>
+
+                    {{-- ACTIONS --}}
+                    <div class="actions">
+
+                        <span class="age">
+                            {{ $ageText }}
+                        </span>
 
 
-                <div class="actions">
+                        @if($isNew)
 
-                    <span class="age">
-                        1 day ago
-                    </span>
+                            <span class="new">
+                                New
+                            </span>
 
-                    <span class="new">
-                        New
-                    </span>
+                        @endif
 
 
-                    <button type="button" class="action-btn primary view-details">
-                        View Details
-                    </button>
+                        {{-- VIEW DETAILS --}}
+                        <button type="button" class="action-btn primary view-details" data-property-id="{{ $property->id }}">
+                            View Details
+                        </button>
 
 
-                    <button type="button" class="action-btn enquire-btn" data-property-id="3">
-                        Enquire Now
-                    </button>
+                        {{-- ENQUIRE --}}
+                        <button type="button" class="action-btn enquire-btn" data-property-id="{{ $property->id }}">
+                            Enquire Now
+                        </button>
 
 
-                    <div class="phone">
+                        {{-- PHONE --}}
+                        @if($property->owner_phone)
 
-                        <i class="fa-solid fa-phone"></i>
+                            <div class="phone">
 
-                        +91 80 1122 3344
+                                <i class="fa-solid fa-phone"></i>
+
+                                {{ $property->owner_phone }}
+
+                            </div>
+
+                        @endif
 
                     </div>
 
-                </div>
+                </article>
 
-            </article>
+            @empty
 
+                {{-- No properties from database --}}
 
+            @endforelse
             <!-- No Results -->
             <div class="no-results" id="noResults" style="display:none;">
 
@@ -1067,8 +971,8 @@
 
 
     <!-- =====================================================
-                                                                         ENQUIRY MODAL
-                                                                    ====================================================== -->
+                                                                                                                                                                         ENQUIRY MODAL
+                                                                                                                                                                    ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1192,11 +1096,6 @@
 
     </div>
 
-
-    <!-- =====================================================
-                                                                         JAVASCRIPT
-                                                                    ====================================================== -->
-
     <script>
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -1254,6 +1153,12 @@
 
             const enquiryForm =
                 document.getElementById("enquiryForm");
+
+            const enquiryName =
+                document.getElementById("enquiryName");
+
+            const enquiryMessage =
+                document.getElementById("enquiryMessage");
 
 
             const propertyCards =
@@ -1412,7 +1317,6 @@
 
                 });
 
-
             document
                 .querySelectorAll(".select-menu button")
                 .forEach(function (option) {
@@ -1433,17 +1337,53 @@
                         const strong =
                             trigger.querySelector("strong");
 
-
                         strong.textContent = value;
 
                         menu.classList.remove("show");
 
-
-                        /*
-                         * Store selected value
-                         */
-
                         trigger.dataset.value = value;
+
+
+                        /* ==========================================
+                           RENT RANGE DROPDOWN
+                        ========================================== */
+
+                        if (menu.id === "rentMenu") {
+
+                            if (value === "₹ 0 - ₹ 1,00,000+") {
+
+                                rentLow = RENT_MIN;
+                                rentHigh = RENT_MAX;
+
+                            } else if (value === "₹ 0 - ₹ 25,000") {
+
+                                rentLow = 0;
+                                rentHigh = 25000;
+
+                            } else if (value === "₹ 25,000 - ₹ 50,000") {
+
+                                rentLow = 25000;
+                                rentHigh = 50000;
+
+                            } else if (value === "₹ 50,000 - ₹ 75,000") {
+
+                                rentLow = 50000;
+                                rentHigh = 75000;
+
+                            } else if (value === "₹ 75,000+") {
+
+                                rentLow = 75000;
+                                rentHigh = RENT_MAX;
+
+                            }
+
+                            if (rangeThumbLeft && rangeThumbRight) {
+                                updateRangeUI();
+                            }
+
+                            performSearch();
+
+                        }
 
                     });
 
@@ -1535,18 +1475,39 @@
 
                 moreAreasBtn.addEventListener("click", function () {
 
-                    this.classList.toggle("expanded");
+                    const extraLocations =
+                        document.querySelectorAll(".extra-location");
+
+                    const isExpanded =
+                        this.classList.toggle("expanded");
+
+                    extraLocations.forEach(function (element) {
+
+                        element.style.display =
+                            isExpanded ? "" : "none";
+
+                    });
 
                     const icon =
                         this.querySelector("i");
 
                     if (icon) {
-                        icon.classList.toggle("fa-plus");
-                        icon.classList.toggle("fa-minus");
+
+                        icon.classList.toggle(
+                            "fa-plus",
+                            !isExpanded
+                        );
+
+                        icon.classList.toggle(
+                            "fa-minus",
+                            isExpanded
+                        );
+
                     }
 
-                    // Hook point: reveal additional .tree-row elements here
-                    // once they exist in the DOM.
+                    this.innerHTML = isExpanded
+                        ? '<i class="fa-solid fa-minus"></i> Show Less Areas'
+                        : '<i class="fa-solid fa-plus"></i> Show More Areas';
 
                 });
 
@@ -2333,6 +2294,12 @@
                             return row.classList.contains("checked");
                         })
                         .map(function (row) {
+                            const location = row.dataset.location;
+
+                            if (location) {
+                                return location.trim().toLowerCase();
+                            }
+
                             const label =
                                 row.querySelector("span:not(.checkbox)");
 
@@ -2613,6 +2580,14 @@
                 ).textContent =
                     "₹ 0 - ₹ 1,00,000+";
 
+                const rentTrigger =
+                    document.querySelector('[data-target="rentMenu"]');
+
+                if (rentTrigger) {
+                    rentTrigger.dataset.value =
+                        "₹ 0 - ₹ 1,00,000+";
+                }
+
 
                 /*
                  * Checkboxes
@@ -2639,6 +2614,13 @@
 
                 treeRows.forEach(function (row) {
                     row.classList.remove("checked");
+
+                    const checkbox = row.querySelector(".checkbox");
+
+                    if (checkbox) {
+                        checkbox.classList.remove("checked");
+                        checkbox.innerHTML = "";
+                    }
                 });
 
 
@@ -2754,7 +2736,6 @@
         });
 
     </script>
-
 
     <style>
         .enquiry-field select {
