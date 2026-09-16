@@ -1340,6 +1340,8 @@ footer {
     header,
     .nav {
         height: 65px;
+            background-color: #01068a;
+
     }
 
     .nav {
@@ -1348,7 +1350,7 @@ footer {
 
     .logo {
         width: 108px;
-        height: 65px;
+        height: 60px;
         border-radius: 0 0 8px 8px;
     }
 
