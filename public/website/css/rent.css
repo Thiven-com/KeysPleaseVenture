@@ -1689,7 +1689,7 @@
         .actions {
             position: relative;
 
-            padding: 15px 17px;
+            padding: 75px 17px;
 
             display: flex;
 
@@ -1714,7 +1714,7 @@
         .new {
             align-self: flex-end;
 
-            margin: 0 0 43px auto;
+            /* margin: 0 0 43px auto; */
 
             padding: 6px 12px;
 
@@ -1728,7 +1728,7 @@
 
             font-weight: 700;
 
-            margin-top: 15px;
+            margin-bottom: 7px;
         }
 
 

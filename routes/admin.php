@@ -311,8 +311,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('amenities/{id}', [AmenityController::class, 'destroy'])
         ->name('admin.amenities.destroy');
 
-        Route::patch('amenities/{id}/toggle-status', [AmenityController::class, 'toggleStatus'])
-    ->name('admin.amenities.toggleStatus');
+    Route::patch('amenities/{id}/toggle-status', [AmenityController::class, 'toggleStatus'])
+        ->name('admin.amenities.toggleStatus');
 
 });
 
@@ -369,6 +369,9 @@ Route::delete(
     '/service/{id}',
     [ServiceController::class, 'destroy']
 )->name('service.destroy');
+
+Route::get('/property-search', [PropertyController::class, 'search'])
+    ->name('property.search');
 
 
 /*

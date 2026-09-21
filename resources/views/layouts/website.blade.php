@@ -391,7 +391,9 @@
 
         <button class="nav-btn primary" type="button">
           <span class="btn-icon">♙</span>
-          <a href="{{ route('login') }}"><span>Login / Register</span></a>
+          <a href="{{ route('login') }}">
+            <span>Login / Register</span>
+          </a>
         </button>
 
       </div>

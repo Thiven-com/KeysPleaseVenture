@@ -39,7 +39,12 @@ class PageController extends Controller
             'propertyAmenities'
         ])
             ->where('status', 'approved')
-            ->where('listing_for', 'Rent')
+            ->whereIn('listing_for', [
+                'Rent',
+                'PG',
+                'Sell',
+                'Lease'
+            ])
             ->latest()
             ->get();
 
