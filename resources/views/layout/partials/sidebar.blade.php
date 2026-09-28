@@ -128,6 +128,13 @@
                                                         </a>
                                                 </li>
 
+                                                <!-- <li class="{{ Request::is('admin/brokers*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.brokers.index') }}">
+                                                                <i class="ti ti-users fs-16 me-2"></i>
+                                                                <span>Brokers</span>
+                                                        </a>
+                                                </li> -->
+
 
 
                                                 <!-- <li class="{{ Request::is('admin/service') ? 'active' : '' }}"><a

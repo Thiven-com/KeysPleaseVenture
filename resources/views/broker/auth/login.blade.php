@@ -7,11 +7,26 @@
                 <div class="login-content">
                     <form method="POST" action="{{ route('broker.login.submit') }}">
                         @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <div class="login-userset">
                             <div class="final-logo logo-normal">
                                 <a href="{{ url('broker/dashboard') }}" class="logo logo-normal d-flex align-items-center">
                                     <img src="{{ asset('website') }}/images/solarlogo.png" alt="Logo"
-                                      style="width:400px; margin-left: 30px; ">
+                                        style="width:400px; margin-left: 30px; ">
                                 </a>
                             </div>
                             {{-- <a href="{{url('index')}}" class="login-logo logo-white">
@@ -62,6 +77,15 @@
                             </div>
                             <div class="form-login">
                                 <button type="submit" class="btn btn-login">Sign In</button>
+                            </div>
+
+                            <div class="signinform">
+                                <h4>
+                                    New Broker?
+                                    <a href="{{ route('broker.register') }}" class="hover-a">
+                                        Register Now
+                                    </a>
+                                </h4>
                             </div>
                             {{-- <div class="signinform">
                                 <h4>New on our platform?<a href="{{url('register-2')}}" class="hover-a"> Create an

@@ -31,6 +31,7 @@
 
     $isBrokerAuthPage = request()->routeIs(
         'broker.login',
+        'broker.register',
         'broker.password.*'
     );
 @endphp
@@ -46,7 +47,7 @@
         @if (!$isBrokerAuthPage)
 
             <!-- Header -->
-            @include('layout.partials.header')
+            @include('layout.broker.brokerheader')
 
             <!-- Broker Sidebar -->
             @include('layout.broker.brokersidebar')

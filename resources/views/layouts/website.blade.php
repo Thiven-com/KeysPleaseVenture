@@ -594,7 +594,7 @@
         </a>
 
 
-        <h4 class="download-title">
+        <!-- <h4 class="download-title">
           Download Our App
         </h4>
 
@@ -608,7 +608,7 @@
             <i class="fa-brands fa-app-store-ios"></i> &nbsp; App Store
           </div>
 
-        </div>
+        </div> -->
 
       </div>
 

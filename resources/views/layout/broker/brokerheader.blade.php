@@ -6,15 +6,15 @@
                 <a href="{{ url('admin/dashboard') }}"
                     class="logo logo-normal d-flex align-items-center justify-content-center w-100">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}" alt="sanjeev" style="height:60px;">
+                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="sanjeev" style="height:60px;">
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo logo-white">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}" alt="Sanjeev" style="height:50px;">
+                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="Sanjeev" style="height:50px;">
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo-small">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}" alt="Sanjeev" style="height:50px;">
+                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="Sanjeev" style="height:50px;">
                 </a>
             </div>
             <!-- /Logo -->
@@ -174,7 +174,7 @@
                                 {{-- <img src="{{ asset }}" alt="Img"> --}}
                             </span>
                             <div>
-                                <p>Admin</p>
+                                <p>Broker</p>
                             </div>
                         </div>
                         {{-- <a class="dropdown-item" href="{{url('profile')}}"><i
@@ -184,7 +184,7 @@
                         <a class="dropdown-item" href="{{url('general-settings')}}"><i
                                 class="ti ti-settings-2 me-2"></i>Settings</a> --}}
                         <hr class="my-2">
-                        <a class="dropdown-item logout pb-0" href="{{route('admin.logout')}}"><i
+                        <a class="dropdown-item logout pb-0" href="{{route('broker.logout')}}"><i
                                 class="ti ti-logout me-2"></i>Logout</a>
                     </div>
                 </li>
@@ -197,7 +197,7 @@
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
 
-                    <a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
+                    <a class="dropdown-item" href="{{ route('broker.logout') }}">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->
@@ -335,7 +335,7 @@
                         <a class="dropdown-item" href="{{url('general-settings')}}"><i class="me-2"
                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0"> --}}
-                        <a class="dropdown-item logout pb-0" href="{{ route('admin.logout') }}"><img
+                        <a class="dropdown-item logout pb-0" href="{{ route('broker.logout') }}"><img
                                 src="{{URL::asset('build/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
@@ -350,7 +350,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="{{url('profile')}}">My Profile</a>
                 <a class="dropdown-item" href="{{url('general-settings')}}">Settings</a>
-                <a class="dropdown-item" href="{{route('admin.logout')}}">Logout</a>
+                <a class="dropdown-item" href="{{route('broker.logout')}}">Logout</a>
             </div>
         </div>
         <!-- /Mobile Menu -->

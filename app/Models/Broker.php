@@ -18,8 +18,24 @@ class Broker extends Authenticatable
         'email',
         'mobile',
         'profile_pic',
-        'otp',
+
+        // Registration details
+        'agency_name',
+        'broker_type',
+        'license_number',
+        'address',
+        'city',
+        'state',
+        'pincode',
+
+        // Account
         'password',
+        'status',
+        'rejection_reason',
+
+        // OTP
+        'otp',
+        'otp_expires_at',
     ];
 
     protected $hidden = [

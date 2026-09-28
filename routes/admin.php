@@ -15,7 +15,59 @@ use App\Http\Controllers\Admin\ScheduleVisitEnquiryController;
 use App\Http\Controllers\Admin\RentalPropertyReportController;
 use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BrokerController;
 
+
+
+  Route::get('/brokers', [BrokerController::class, 'index'])
+    ->name('admin.brokers.index');
+
+
+// CREATE BROKER
+Route::get('/brokers/create', [BrokerController::class, 'create'])
+    ->name('admin.brokers.create');
+
+Route::post('/brokers', [BrokerController::class, 'store'])
+    ->name('admin.brokers.store');
+
+
+// VIEW BROKER
+Route::get('/brokers/{id}', [BrokerController::class, 'show'])
+    ->name('admin.brokers.show');
+
+
+// APPROVE / REJECT
+Route::patch('/brokers/{id}/approve', [BrokerController::class, 'approve'])
+    ->name('admin.brokers.approve');
+
+Route::patch('/brokers/{id}/reject', [BrokerController::class, 'reject'])
+    ->name('admin.brokers.reject');
+
+
+// EDIT
+Route::get('/brokers/{id}/edit', [BrokerController::class, 'edit'])
+    ->name('admin.brokers.edit');
+
+Route::put('/brokers/{id}', [BrokerController::class, 'update'])
+    ->name('admin.brokers.update');
+
+
+// PASSWORD
+Route::put('/brokers/{id}/password', [BrokerController::class, 'changePassword'])
+    ->name('admin.brokers.changePassword');
+
+
+// ACTIVATE / DEACTIVATE
+Route::patch('/brokers/{id}/activate', [BrokerController::class, 'activate'])
+    ->name('admin.brokers.activate');
+
+Route::patch('/brokers/{id}/deactivate', [BrokerController::class, 'deactivate'])
+    ->name('admin.brokers.deactivate');
+
+
+// DELETE
+Route::delete('/brokers/{id}', [BrokerController::class, 'destroy'])
+    ->name('admin.brokers.destroy');
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +81,8 @@ Route::get('login', [AuthController::class, 'showLoginForm'])
 Route::post('login', [AuthController::class, 'login'])
     ->name('admin.loginAction');
 
-Route::post('logout', [AuthController::class, 'logout'])
+Route::get('logout', [AuthController::class, 'logout'])
     ->name('admin.logout');
-
-Route::get('logout', [AuthController::class, 'logout']);
 
 
 /*
@@ -42,6 +92,8 @@ Route::get('logout', [AuthController::class, 'logout']);
 */
 
 Route::group(['middleware' => 'admin'], function () {
+
+
 
     /*
     |--------------------------------------------------------------------------

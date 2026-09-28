@@ -77,21 +77,14 @@
                                                 </li> -->
 
                                                 <li>
-                                                        <form method="POST" action="{{ route('broker.logout') }}"
-                                                                style="display: inline;">
+                                                        <a class="dropdown-item d-flex align-items-center"
+                                                                href="{{ route('broker.logout') }}" style="color: red;">
 
-                                                                @csrf
+                                                                <i class="ti ti-logout fs-16 me-2"
+                                                                        style="color: red;"></i>
 
-                                                                <button type="submit"
-                                                                        class="dropdown-item d-flex align-items-center"
-                                                                        style="border: none; background: transparent; color: red;">
-
-                                                                        <i class="ti ti-logout fs-16 me-2"
-                                                                                style="color: red;"></i>
-
-                                                                        <span style="color: red;">Logout</span>
-                                                                </button>
-                                                        </form>
+                                                                <span style="color: red;">Logout</span>
+                                                        </a>
                                                 </li>
                                         </ul>
                                 </li>
