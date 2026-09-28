@@ -4,10 +4,10 @@
 
     <style>
         /* =========================================================
-       PROPERTY DETAIL PAGE
-       RESPONSIVE: DESKTOP / LAPTOP / TABLET / MOBILE
-       PRIMARY COLOR: #1724c9
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               PROPERTY DETAIL PAGE
+                                                                                                                                                                                                                                                                                                               RESPONSIVE: DESKTOP / LAPTOP / TABLET / MOBILE
+                                                                                                                                                                                                                                                                                                               PRIMARY COLOR: #1724c9
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         :root {
             --blue: #00068a;
@@ -19,8 +19,8 @@
         }
 
         /* =========================================================
-       GLOBAL
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               GLOBAL
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         *,
         *::before,
@@ -45,8 +45,8 @@
         }
 
         /* =========================================================
-       BREADCRUMB
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               BREADCRUMB
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .breadcrumb {
             display: flex;
@@ -80,8 +80,8 @@
         }
 
         /* =========================================================
-       MAIN GRID
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MAIN GRID
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .page-grid {
             padding: 0 30px 50px;
@@ -102,8 +102,8 @@
         }
 
         /* =========================================================
-       GALLERY
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               GALLERY
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .gallery {
             width: 100%;
@@ -234,9 +234,43 @@
             background: rgba(0, 0, 0, .04);
         }
 
+
+        /* =====================================================
+                   MORE PHOTOS OVERLAY
+                ===================================================== */
+
+        .more-photos-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            gap: 6px;
+
+            background: rgba(0, 0, 0, .48);
+
+            color: #fff;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            pointer-events: none;
+        }
+
+        .more-photos-overlay i {
+            font-size: 22px;
+        }
+
+        .more-photos-overlay span {
+            font-size: 13px;
+        }
+
         /* =========================================================
-       TITLE
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               TITLE
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .title-area {
             position: relative;
@@ -349,8 +383,8 @@
         }
 
         /* =========================================================
-       CONTENT COLUMNS
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               CONTENT COLUMNS
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .content-columns {
             display: grid;
@@ -360,8 +394,8 @@
         }
 
         /* =========================================================
-       PROPERTY META
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               PROPERTY META
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .meta-grid {
             display: grid;
@@ -423,8 +457,8 @@
         }
 
         /* =========================================================
-       SECTIONS
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               SECTIONS
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .section {
             padding: 18px 0;
@@ -448,8 +482,8 @@
         }
 
         /* =========================================================
-       AMENITIES
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               AMENITIES
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .amenities {
             display: grid;
@@ -489,8 +523,8 @@
         }
 
         /* =========================================================
-       HIGHLIGHTS
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               HIGHLIGHTS
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .highlights {
             align-self: start;
@@ -542,8 +576,8 @@
         }
 
         /* =========================================================
-       RIGHT SIDEBAR
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               RIGHT SIDEBAR
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .price-card {
             padding: 20px;
@@ -595,8 +629,8 @@
         }
 
         /* =========================================================
-       SIDE ACTIONS
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               SIDE ACTIONS
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .side-actions {
             margin-top: 12px;
@@ -654,8 +688,8 @@
         }
 
         /* =========================================================
-       BROKER / LOCATION
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               BROKER / LOCATION
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .broker-card,
         .location-card {
@@ -846,8 +880,8 @@
         }
 
         /* =========================================================
-       SIMILAR PROPERTIES
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               SIMILAR PROPERTIES
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .similar-section {
             margin: 24px 0 50px;
@@ -973,10 +1007,10 @@
         }
 
         /* =========================================================
-       MODAL
-       IMPORTANT:
-       ONLY ONE MODAL SYSTEM
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MODAL
+                                                                                                                                                                                                                                                                                                               IMPORTANT:
+                                                                                                                                                                                                                                                                                                               ONLY ONE MODAL SYSTEM
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         html.modal-open,
         body.modal-open {
@@ -1081,8 +1115,8 @@
         }
 
         /* =========================================================
-       MODAL HEADER
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MODAL HEADER
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .property-modal-header {
             display: flex;
@@ -1143,8 +1177,8 @@
         }
 
         /* =========================================================
-       MODAL FORM
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MODAL FORM
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .property-modal-form {
             width: 100%;
@@ -1220,8 +1254,8 @@
         }
 
         /* =========================================================
-       CLOSE BUTTON
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               CLOSE BUTTON
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .property-modal-close {
             position: absolute;
@@ -1254,8 +1288,8 @@
         }
 
         /* =========================================================
-       MODAL SUBMIT
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MODAL SUBMIT
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .modal-submit-btn {
             width: 100%;
@@ -1290,8 +1324,8 @@
         }
 
         /* =========================================================
-       TOAST
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               TOAST
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .toast {
             position: fixed;
@@ -1325,8 +1359,8 @@
         }
 
         /* =========================================================
-       BACK TO TOP
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               BACK TO TOP
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         .back-top {
             position: fixed;
@@ -1372,9 +1406,9 @@
         }
 
         /* =========================================================
-       LAPTOP
-       1200px - 1399px
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               LAPTOP
+                                                                                                                                                                                                                                                                                                               1200px - 1399px
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         @media (max-width: 1399px) {
 
@@ -1410,9 +1444,9 @@
         }
 
         /* =========================================================
-       TABLET
-       768px - 1199px
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               TABLET
+                                                                                                                                                                                                                                                                                                               768px - 1199px
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         @media (max-width: 1199px) {
 
@@ -1604,9 +1638,9 @@
         }
 
         /* =========================================================
-       MOBILE
-       BELOW 768px
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               MOBILE
+                                                                                                                                                                                                                                                                                                               BELOW 768px
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         @media (max-width: 767px) {
 
@@ -1923,8 +1957,8 @@
             }
 
             /* =====================================================
-           MOBILE MODAL
-        ===================================================== */
+                                                                                                                                                                                                                                                                                                                   MOBILE MODAL
+                                                                                                                                                                                                                                                                                                                ===================================================== */
 
             .property-modal {
                 align-items: flex-start;
@@ -2042,12 +2076,12 @@
 
 
         /* =========================================================
-       PREMIUM / RICH PROPERTY DETAILS ANIMATIONS
-       ---------------------------------------------------------
-       CSS-only enhancement.
-       Existing layout, colors, class names and functionality
-       remain unchanged.
-    ========================================================= */
+                                                                                                                                                                                                                                                                                                               PREMIUM / RICH PROPERTY DETAILS ANIMATIONS
+                                                                                                                                                                                                                                                                                                               ---------------------------------------------------------
+                                                                                                                                                                                                                                                                                                               CSS-only enhancement.
+                                                                                                                                                                                                                                                                                                               Existing layout, colors, class names and functionality
+                                                                                                                                                                                                                                                                                                               remain unchanged.
+                                                                                                                                                                                                                                                                                                            ========================================================= */
 
         /* ---------- Animation variables ---------- */
 
@@ -3105,17 +3139,580 @@
                 transform: translateY(-2px);
             }
         }
+
+
+
+
+
+
+        /* =========================================================
+                                                                                                                                                                                                                                                                                                   REPORT PROPERTY MODAL
+                                                                                                                                                                                                                                                                                                ========================================================= */
+
+        .report-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+
+            transition:
+                opacity .25s ease,
+                visibility .25s ease;
+        }
+
+        .report-modal.active {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Overlay */
+
+        .report-overlay {
+            position: absolute;
+            inset: 0;
+
+            background: rgba(12, 18, 38, .62);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Dialog */
+
+        .report-dialog {
+            position: relative;
+            z-index: 2;
+
+            width: min(100%, 500px);
+            max-height: calc(100vh - 40px);
+
+            overflow-y: auto;
+
+            background: #fff;
+            border-radius: 20px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, .25),
+                0 8px 30px rgba(15, 23, 42, .12);
+
+            transform: translateY(25px) scale(.97);
+
+            transition:
+                transform .3s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .report-modal.active .report-dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Close */
+
+        .report-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            border-radius: 50%;
+
+            background: #f3f5f9;
+            color: #667089;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+        .report-close:hover {
+            background: #1724c9;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        /* Header */
+
+        .report-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+
+            padding-right: 40px;
+            margin-bottom: 25px;
+        }
+
+        .report-icon {
+            flex: 0 0 48px;
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: rgba(23, 36, 201, .09);
+            color: #1724c9;
+
+            font-size: 19px;
+        }
+
+        .report-header h3 {
+            margin: 2px 0 6px;
+
+            color: #172033;
+
+            font-size: 21px;
+            line-height: 1.25;
+            font-weight: 700;
+        }
+
+        .report-header p {
+            margin: 0;
+
+            color: #70798d;
+
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* Fields */
+
+        .report-field {
+            margin-bottom: 17px;
+        }
+
+        .report-field>label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #30394d;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .report-field>label span {
+            color: #929aaa;
+            font-weight: 400;
+        }
+
+        /* Input wrapper */
+
+        .report-input {
+            position: relative;
+            width: 100%;
+        }
+
+        .report-input>i {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+
+            z-index: 2;
+
+            transform: translateY(-50%);
+
+            color: #7c8496;
+
+            font-size: 13px;
+
+            pointer-events: none;
+        }
+
+        /* Inputs */
+
+        .report-input input,
+        .report-input select,
+        .report-input textarea {
+            box-sizing: border-box;
+
+            width: 100%;
+            max-width: 100%;
+
+            border: 1px solid #dfe4ed;
+            border-radius: 9px;
+
+            background: #fff;
+            color: #202940;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+
+            outline: none;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+        .report-input input,
+        .report-input select {
+            height: 44px;
+
+            padding: 0 38px;
+        }
+
+        .report-input textarea {
+            min-height: 100px;
+
+            padding: 12px 14px 12px 38px;
+
+            resize: vertical;
+            line-height: 1.55;
+        }
+
+        /* Readonly property */
+
+        .report-input input[readonly] {
+            background: #f7f8fb;
+            color: #596277;
+            cursor: default;
+        }
+
+        /* Select */
+
+        .report-input select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            cursor: pointer;
+        }
+
+        .report-input:has(select)::after {
+            content: "\f078";
+
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+
+            color: #1724c9;
+            font-size: 9px;
+
+            pointer-events: none;
+        }
+
+        /* Focus */
+
+        .report-input input:focus,
+        .report-input select:focus,
+        .report-input textarea:focus {
+            border-color: #1724c9;
+
+            box-shadow:
+                0 0 0 3px rgba(23, 36, 201, .08);
+        }
+
+        /* Notice */
+
+        .report-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            margin: 5px 0 21px;
+
+            padding: 12px 13px;
+
+            border: 1px solid rgba(23, 36, 201, .10);
+            border-radius: 10px;
+
+            background: rgba(23, 36, 201, .045);
+        }
+
+        .report-notice i {
+            flex: 0 0 auto;
+
+            margin-top: 2px;
+
+            color: #1724c9;
+            font-size: 14px;
+        }
+
+        .report-notice p {
+            margin: 0;
+
+            color: #687186;
+
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+        /* Actions */
+
+        .report-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .report-cancel,
+        .report-submit {
+            min-height: 43px;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+        .report-cancel {
+            border: 1px solid #dfe4ed;
+
+            background: #fff;
+            color: #5f687c;
+        }
+
+        .report-cancel:hover {
+            background: #f6f7fa;
+        }
+
+        .report-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            border: 0;
+
+            background: #1724c9;
+            color: #fff;
+
+            box-shadow: 0 8px 20px rgba(23, 36, 201, .18);
+        }
+
+        .report-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 25px rgba(23, 36, 201, .25);
+        }
+
+        /* Prevent body scrolling while modal is open */
+
+        body.report-modal-open {
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                                                                                                   TABLET
+                                                                                                                                                                                                                                                                                                   481px–768px
+                                                                                                                                                                                                                                                                                                ========================================================= */
+
+        @media (min-width: 481px) and (max-width: 768px) {
+
+            .report-modal {
+                padding: 18px;
+            }
+
+            .report-dialog {
+                width: min(100%, 480px);
+                padding: 25px;
+            }
+
+            .report-header h3 {
+                font-size: 22px;
+            }
+
+            .report-header p {
+                font-size: 13px;
+            }
+
+            .report-field>label {
+                font-size: 13px;
+            }
+
+            .report-input input,
+            .report-input select,
+            .report-input textarea {
+                font-size: 14px;
+            }
+
+            .report-input input,
+            .report-input select {
+                height: 46px;
+            }
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                                                                                                   MOBILE
+                                                                                                                                                                                                                                                                                                   320px–480px
+                                                                                                                                                                                                                                                                                                ========================================================= */
+
+        @media (min-width: 320px) and (max-width: 480px) {
+
+            .report-modal {
+                align-items: flex-end;
+                padding: 0;
+            }
+
+            .report-dialog {
+                width: 100%;
+                max-width: none;
+
+                max-height: 92vh;
+
+                padding: 22px 18px 18px;
+
+                border-radius: 20px 20px 0 0;
+
+                transform: translateY(100%);
+            }
+
+            .report-modal.active .report-dialog {
+                transform: translateY(0);
+            }
+
+            .report-header {
+                gap: 12px;
+
+                padding-right: 38px;
+
+                margin-bottom: 21px;
+            }
+
+            .report-icon {
+                flex-basis: 43px;
+
+                width: 43px;
+                height: 43px;
+
+                border-radius: 12px;
+
+                font-size: 17px;
+            }
+
+            .report-header h3 {
+                font-size: 19px;
+            }
+
+            .report-header p {
+                font-size: 11px;
+                line-height: 1.5;
+            }
+
+            .report-field {
+                margin-bottom: 14px;
+            }
+
+            .report-field>label {
+                font-size: 12px;
+            }
+
+            .report-input input,
+            .report-input select {
+                height: 45px;
+                font-size: 12px;
+            }
+
+            .report-input textarea {
+                min-height: 90px;
+                font-size: 12px;
+            }
+
+            .report-notice {
+                margin-bottom: 17px;
+            }
+
+            .report-actions {
+                display: grid;
+                grid-template-columns: 1fr 1.5fr;
+            }
+
+            .report-cancel,
+            .report-submit {
+                width: 100%;
+                min-height: 45px;
+                font-size: 12px;
+            }
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                                                                                                   REDUCED MOTION
+                                                                                                                                                                                                                                                                                                ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .report-modal,
+            .report-dialog,
+            .report-close,
+            .report-submit {
+                transition: none;
+            }
+        }
     </style>
 
 
+
+
     <!-- =========================================================
-         BREADCRUMB
-    ========================================================= -->
+                                                                                                                                                             BREADCRUMB
+                                                                                                                                                        ========================================================= -->
+
+    @php
+        $breadcrumbLocations = collect([
+            $property->country,
+            $property->state,
+            $property->district,
+            $property->city,
+            $property->locality,
+        ])
+            ->filter()
+            ->map(fn($item) => trim($item))
+            ->unique()
+            ->values();
+    @endphp
 
     <div class="breadcrumb">
 
         <a href="{{ route('home') }}">
-            <i class="fa-solid fa-house"></i> Home
+            <i class="fa-solid fa-house"></i>
+            Home
         </a>
 
         <span>
@@ -3126,21 +3723,17 @@
             Search Properties
         </a>
 
-        <span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+        @foreach($breadcrumbLocations as $location)
 
-        <a href="{{ route('rent', ['locality' => 'koramangala']) }}">
-            Koramangala
-        </a>
+            <span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
 
-        <span>
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+            <a href="{{ route('rent') }}">
+                {{ $location }}
+            </a>
 
-        <a href="{{ route('rent', ['locality' => 'koramangala-4th-block']) }}">
-            Koramangala 4th Block
-        </a>
+        @endforeach
 
         <span>
             <i class="fa-solid fa-chevron-right"></i>
@@ -3153,10 +3746,9 @@
 
     </div>
 
-
     <!-- =========================================================
-         MAIN PROPERTY CONTENT
-    ========================================================= -->
+                                                                                                                                                                                                                                                                                                                 MAIN PROPERTY CONTENT
+                                                                                                                                                                                                                                                                                                            ========================================================= -->
 
     <div class="page-grid">
 
@@ -3164,55 +3756,149 @@
         <section class="left">
 
             <!-- GALLERY -->
+            <!-- GALLERY -->
+            <!-- GALLERY -->
+            @php
+                $propertyImages = $property->images;
+
+                $defaultImage = asset('images/default-property.jpg');
+
+                $heroImage = $propertyImages->first()
+                    ? asset('storage/' . $propertyImages->first()->image_path)
+                    : $defaultImage;
+
+                $secondImage = $propertyImages->get(1)
+                    ? asset('storage/' . $propertyImages->get(1)->image_path)
+                    : $defaultImage;
+
+                $thirdImage = $propertyImages->get(2)
+                    ? asset('storage/' . $propertyImages->get(2)->image_path)
+                    : $defaultImage;
+
+                $fourthImage = $propertyImages->get(3)
+                    ? asset('storage/' . $propertyImages->get(3)->image_path)
+                    : $defaultImage;
+
+                $photoCount = $propertyImages->count();
+            @endphp
+
             <div class="gallery">
 
-                <span class="featured">
-                    FEATURED
-                </span>
+                {{-- NEW BADGE --}}
+                @if($property->created_at && $property->created_at->gt(now()->subHours(48)))
+                    <span class="featured">
+                        NEW
+                    </span>
+                @endif
 
+                {{-- FAVOURITE --}}
                 <button type="button" class="fav" onclick="toggleFavourite(this)" aria-label="Add property to favourites">
                     <i class="fa-regular fa-heart"></i>
                 </button>
 
-                <img class="hero"
-                    src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=90"
-                    alt="Living room">
+                {{-- MAIN IMAGE --}}
+                <img class="hero" src="{{ $heroImage }}" alt="{{ $property->property_title }}" onclick="openGallery(0)">
 
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=700&q=85"
-                    alt="Kitchen">
+                {{-- IMAGE 2 --}}
+                <img src="{{ $secondImage }}" alt="{{ $property->property_title }}" onclick="openGallery(1)">
 
-                <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=700&q=85"
-                    alt="Bedroom">
+                {{-- IMAGE 3 --}}
+                <img src="{{ $thirdImage }}" alt="{{ $property->property_title }}" onclick="openGallery(2)">
 
-                <div class="thumb-more">
-                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=700&q=85"
-                        alt="Interior">
+                {{-- IMAGE 4 --}}
+                <div class="thumb-more" onclick="openGallery(3)">
+                    <img src="{{ $fourthImage }}" alt="{{ $property->property_title }}">
+
+                    @if($photoCount > 4)
+                        <div class="more-photos-overlay">
+                            <i class="fa-regular fa-images"></i>
+                            <span>
+                                +{{ $photoCount - 4 }} Photos
+                            </span>
+                        </div>
+                    @endif
                 </div>
 
-                <div class="photo-count">
-                    <i class="fa-regular fa-images"></i>
-                    &nbsp;14 Photos
-                </div>
-
-                <!-- <div class="more-count">
-                    +10
-                </div> -->
+                {{-- PHOTO COUNT --}}
+                @if($photoCount > 0)
+                    <div class="photo-count">
+                        <i class="fa-regular fa-images"></i>
+                        &nbsp;
+                        {{ $photoCount }}
+                        {{ $photoCount == 1 ? 'Photo' : 'Photos' }}
+                    </div>
+                @endif
 
             </div>
 
+
+            {{-- =========================================================
+            FULL SCREEN PROPERTY IMAGE GALLERY
+            IMPORTANT: KEEP THIS OUTSIDE .gallery
+            ========================================================= --}}
+
+            <div class="gallery-viewer" id="galleryViewer" aria-hidden="true">
+
+                {{-- DARK BACKGROUND --}}
+                <div class="gallery-viewer-overlay" onclick="closeGallery()"></div>
+
+
+                {{-- CLOSE --}}
+                <button type="button" class="gallery-close" onclick="closeGallery()" aria-label="Close gallery">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+
+                {{-- PREVIOUS --}}
+                <button type="button" class="gallery-prev" onclick="previousGalleryImage()" aria-label="Previous image">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+
+                {{-- IMAGE --}}
+                <div class="gallery-viewer-content">
+
+                    <img id="galleryViewerImage" src="" alt="{{ $property->property_title }}">
+
+                    <div class="gallery-counter" id="galleryCounter">
+                        1 / {{ $photoCount }}
+                    </div>
+
+                </div>
+
+
+                {{-- NEXT --}}
+                <button type="button" class="gallery-next" onclick="nextGalleryImage()" aria-label="Next image">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+            @php
+                $shareTitle = $property->property_title ?? 'Property Details';
+
+                $shareText = collect([
+                    $property->bhk ? $property->bhk . ' BHK' : null,
+                    $property->property_type,
+                    $locationText ?? null,
+                ])
+                    ->filter()
+                    ->implode(', ');
+            @endphp
 
             <!-- TITLE -->
             <div class="title-area">
 
                 <div class="title-row">
 
-                    <span class="verified-listing">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Verified Listing
-                    </span>
+                    @if($property->status === 'approved')
+                        <span class="verified-listing">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Verified Listing
+                        </span>
+                    @endif
 
                     <h1 class="title">
-                        Spacious 3 BHK Apartment for Rent
+                        {{ $property->property_title }}
                     </h1>
 
                     <div class="title-actions">
@@ -3222,9 +3908,9 @@
                             &nbsp; Share
                         </button>
 
-                        <button type="button" class="small-action" onclick="showToast('Property reported')">
+                        <button type="button" class="small-action" onclick="openReportModal()">
                             <i class="fa-solid fa-flag"></i>
-                            &nbsp; Report
+                            <span>Report</span>
                         </button>
 
                     </div>
@@ -3238,9 +3924,21 @@
                         <i class="fa-solid fa-location-dot"></i>
                     </span>
 
+                    @php
+                        $locationText = collect([
+                            $property->locality,
+                            $property->city,
+                            $property->district,
+                            $property->state,
+                        ])
+                            ->filter()
+                            ->map(fn($item) => trim($item))
+                            ->unique()
+                            ->implode(', ');
+                    @endphp
+
                     <span>
-                        Koramangala 4th Block, Koramangala,
-                        Bangalore 560034
+                        {{ $locationText ?: 'Location not available' }}
                     </span>
 
                     <button type="button" class="map-btn" onclick="openMap()">
@@ -3259,61 +3957,255 @@
                 <div class="details-main">
 
                     <!-- META -->
+                    <!-- META -->
+                    <!-- META -->
                     <div class="meta-grid">
 
-                        <div class="meta-item">
-                            <span class="meta-icon">
-                                <i class="fa-solid fa-bed"></i>
-                            </span>
+                        {{-- BEDROOMS --}}
+                        @if($property->bhk)
+                            <div class="meta-item">
+                                <span class="meta-icon">
+                                    <i class="fa-solid fa-bed"></i>
+                                </span>
 
-                            <div>
-                                <b>3</b>
-                                <small>Bedrooms</small>
+                                <div>
+                                    <b>{{ $property->bhk }}</b>
+                                    <small>Bedrooms</small>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="meta-item">
-                            <span class="meta-icon">
-                                <i class="fa-solid fa-bath"></i>
-                            </span>
 
-                            <div>
-                                <b>3</b>
-                                <small>Bathrooms</small>
+                        {{-- BATHROOMS --}}
+                        @if($property->bathrooms !== null)
+                            <div class="meta-item">
+                                <span class="meta-icon">
+                                    <i class="fa-solid fa-bath"></i>
+                                </span>
+
+                                <div>
+                                    <b>{{ $property->bathrooms }}</b>
+                                    <small>Bathrooms</small>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="meta-item">
-                            <span class="meta-icon">
-                                <i class="fa-solid fa-ruler-combined"></i>
-                            </span>
 
-                            <div>
-                                <b>1650 sq.ft</b>
-                                <small>Super Built-up</small>
+                        {{-- SUPER BUILT-UP AREA --}}
+                        @if($property->area_sqft)
+                            <div class="meta-item">
+                                <span class="meta-icon">
+                                    <i class="fa-solid fa-ruler-combined"></i>
+                                </span>
+
+                                <div>
+                                    <b>{{ number_format($property->area_sqft) }} sq.ft</b>
+                                    <small>Property Area</small>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="meta-item">
-                            <span class="meta-icon">
-                                <i class="fa-solid fa-couch"></i>
-                            </span>
 
-                            <div>
-                                <b>Semi</b>
-                                <small>Furnished</small>
+                        {{-- FURNISHING --}}
+                        @if($property->furnishing)
+                            <div class="meta-item">
+                                <span class="meta-icon">
+                                    <i class="fa-solid fa-couch"></i>
+                                </span>
+
+                                <div>
+                                    <b>
+                                        {{ ucwords(str_replace('-', ' ', $property->furnishing)) }}
+                                    </b>
+                                    <small>Furnished</small>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="meta-item">
-                            <span class="meta-icon">
-                                <i class="fa-solid fa-square-parking"></i>
-                            </span>
+                        {{-- CAR PARKING --}}
+                        @if($property->car_parking)
+                            <div class="meta-item">
+                                <span class="meta-icon">
+                                    <i class="fa-solid fa-car"></i>
+                                </span>
 
-                            <div>
-                                <b>1</b>
-                                <small>Car Parking</small>
+                                <div>
+                                    <b>{{ $property->car_parking }}</b>
+                                    <small>Car Parking</small>
+                                </div>
                             </div>
+                        @endif
+
+                    </div>
+
+
+                    {{-- PROPERTY SPECIFICATIONS --}}
+                    <div class="section property-specifications">
+
+                        <h2>
+                            Property Specifications
+                        </h2>
+
+                        <div class="meta-grid">
+
+                            {{-- BALCONIES --}}
+                            @if($property->balconies !== null)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-door-open"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ $property->balconies }}</b>
+                                        <small>Balconies</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- FLOOR --}}
+                            @if($property->floor_number !== null)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-building"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>
+                                            {{ $property->floor_number }}
+                                            @if($property->total_floors)
+                                                / {{ $property->total_floors }}
+                                            @endif
+                                        </b>
+                                        <small>Floor / Total Floors</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- BUILT-UP AREA --}}
+                            @if($property->built_up_area)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-ruler-horizontal"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ number_format($property->built_up_area) }} sq.ft</b>
+                                        <small>Built-up Area</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- CARPET AREA --}}
+                            @if($property->carpet_area)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-vector-square"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ number_format($property->carpet_area) }} sq.ft</b>
+                                        <small>Carpet Area</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- PROPERTY AGE --}}
+                            @if($property->property_age)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-calendar"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ $property->property_age }}</b>
+                                        <small>Property Age</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- PROPERTY CONDITION --}}
+                            @if($property->property_condition)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-house-circle-check"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>
+                                            {{ ucwords(str_replace('-', ' ', $property->property_condition)) }}
+                                        </b>
+                                        <small>Condition</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- FACING --}}
+                            @if($property->facing)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-compass"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ $property->facing }}</b>
+                                        <small>Facing</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- ROAD WIDTH --}}
+                            @if($property->road_width)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-road"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ $property->road_width }} ft</b>
+                                        <small>Road Width</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- CAR PARKING --}}
+                            @if($property->car_parking)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-car"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>{{ $property->car_parking }}</b>
+                                        <small>Car Parking</small>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            {{-- POSSESSION STATUS --}}
+                            @if($property->possession_status)
+                                <div class="meta-item">
+                                    <span class="meta-icon">
+                                        <i class="fa-solid fa-key"></i>
+                                    </span>
+
+                                    <div>
+                                        <b>
+                                            {{ ucwords(str_replace('-', ' ', $property->possession_status)) }}
+                                        </b>
+                                        <small>Possession</small>
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
 
                     </div>
@@ -3327,17 +4219,15 @@
                         </h2>
 
                         <p>
-                            Spacious and beautifully designed 3 BHK apartment
-                            available for rent in the prime location of
-                            Koramangala 4th Block. This semi-furnished apartment
-                            comes with modern interiors, ample natural light,
-                            and excellent ventilation. Ideal for families and
-                            working professionals.
+                            {{ $property->description ?: 'No description available for this property.' }}
                         </p>
 
                     </div>
 
 
+                    <!-- AMENITIES -->
+                    <!-- AMENITIES -->
+                    <!-- AMENITIES -->
                     <!-- AMENITIES -->
                     <div class="section">
 
@@ -3345,82 +4235,35 @@
                             Amenities
                         </h2>
 
-                        <div class="amenities">
+                        @if($property->propertyAmenities->count())
 
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-droplet"></i>
-                                </span>
-                                24/7 Water Supply
+                            <div class="amenities">
+
+                                @foreach($property->propertyAmenities as $amenity)
+
+                                    <div class="amenity">
+
+                                        <span class="amenity-icon">
+                                            <i class="{{ $amenity->icon ?: 'ti ti-circle-check' }}"></i>
+                                        </span>
+
+                                        {{ $amenity->name }}
+
+                                    </div>
+
+                                @endforeach
+
                             </div>
 
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-bolt"></i>
-                                </span>
-                                Power Backup
-                            </div>
+                        @else
 
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-elevator"></i>
-                                </span>
-                                Lift
-                            </div>
+                            <p class="text-muted">
+                                No amenities available for this property.
+                            </p>
 
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-square-parking"></i>
-                                </span>
-                                Car Parking
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-video"></i>
-                                </span>
-                                CCTV Security
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                </span>
-                                Gated Community
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-dumbbell"></i>
-                                </span>
-                                Gym
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-cloud-rain"></i>
-                                </span>
-                                Rain Water Harvesting
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-fire-flame-simple"></i>
-                                </span>
-                                Gas Pipeline
-                            </div>
-
-                            <div class="amenity">
-                                <span class="amenity-icon">
-                                    <i class="fa-solid fa-child-reaching"></i>
-                                </span>
-                                Children Play Area
-                            </div>
-
-                        </div>
+                        @endif
 
                     </div>
-
 
                     <!-- SIMILAR PROPERTIES -->
                     <div class="similar-section">
@@ -3450,111 +4293,92 @@
 
                         <div class="similar-list" id="similarList">
 
-                            <div class="property-card" onclick="location.href='property_details.html#property2'">
+                            @forelse($similarProperties as $similar)
 
-                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=700&q=85"
-                                    alt="2.5 BHK Apartment">
+                                @php
+                                    $similarImage = $similar->images->first();
 
-                                <div class="card-body">
+                                    $similarImageUrl = $similarImage
+                                        ? asset('storage/' . $similarImage->image_path)
+                                        : asset('images/default-property.jpg');
 
-                                    <div class="card-price">
-                                        ₹ 42,000
-                                        <span>/month</span>
-                                    </div>
+                                    $similarLocation = collect([
+                                        $similar->locality,
+                                        $similar->city,
+                                        $similar->district,
+                                        $similar->state
+                                    ])->filter()->unique()->implode(', ');
+                                @endphp
 
-                                    <div class="card-title">
-                                        2.5 BHK Apartment
-                                    </div>
+                                <div class="property-card"
+                                    onclick="window.location.href='{{ route('propertydetails') }}?property={{ $similar->id }}'">
 
-                                    <div class="card-meta">
-                                        Koramangala 5th Block<br>
-                                        1340 sq.ft · Semi Furnished
-                                    </div>
+                                    {{-- IMAGE --}}
+                                    <img src="{{ $similarImageUrl }}" alt="{{ $similar->property_title }}" loading="lazy">
 
-                                </div>
+                                    <div class="card-body">
 
-                            </div>
+                                        {{-- PRICE --}}
+                                        {{-- PRICE --}}
+                                        <div class="card-price">
 
+                                            @if($similar->price)
+                                                ₹ {{ number_format((float) $similar->price) }}
+                                            @else
+                                                Contact for Price
+                                            @endif
 
-                            <div class="property-card" onclick="location.href='property_details.html#property3'">
+                                            @if($similar->price)
+                                                <span>
+                                                    @if(strtolower($similar->listing_for) === 'sell')
+                                                        Total Price
+                                                    @else
+                                                        /month
+                                                    @endif
+                                                </span>
+                                            @endif
 
-                                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=700&q=85"
-                                    alt="3 BHK Apartment">
+                                        </div>
 
-                                <div class="card-body">
+                                        {{-- TITLE --}}
+                                        <div class="card-title">
+                                            {{ $similar->property_title }}
+                                        </div>
 
-                                    <div class="card-price">
-                                        ₹ 50,000
-                                        <span>/month</span>
-                                    </div>
+                                        {{-- LOCATION + DETAILS --}}
+                                        <div class="card-meta">
 
-                                    <div class="card-title">
-                                        3 BHK Apartment
-                                    </div>
+                                            {{ $similarLocation ?: 'Location not available' }}
 
-                                    <div class="card-meta">
-                                        HSR Layout, Sector 2<br>
-                                        1600 sq.ft · Furnished
-                                    </div>
+                                            <br>
 
-                                </div>
+                                            @if($similar->area_sqft)
+                                                {{ number_format($similar->area_sqft) }} sq.ft
+                                            @endif
 
-                            </div>
+                                            @if($similar->area_sqft && $similar->furnishing)
+                                                ·
+                                            @endif
 
+                                            @if($similar->furnishing)
+                                                {{ ucwords(str_replace('-', ' ', $similar->furnishing)) }}
+                                            @endif
 
-                            <div class="property-card" onclick="location.href='{{ route('rent') }}'">
+                                        </div>
 
-                                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=700&q=85"
-                                    alt="2 BHK Apartment">
-
-                                <div class="card-body">
-
-                                    <div class="card-price">
-                                        ₹ 38,000
-                                        <span>/month</span>
-                                    </div>
-
-                                    <div class="card-title">
-                                        2 BHK Apartment
-                                    </div>
-
-                                    <div class="card-meta">
-                                        Koramangala 8th Block<br>
-                                        1100 sq.ft · Semi Furnished
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="property-card" onclick="location.href='{{ route('rent') }}'">
-
-                                <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&w=700&q=85"
-                                    alt="3 BHK Apartment">
-
-                                <div class="card-body">
-
-                                    <div class="card-price">
-                                        ₹ 55,000
-                                        <span>/month</span>
-                                    </div>
-
-                                    <div class="card-title">
-                                        3 BHK Apartment
-                                    </div>
-
-                                    <div class="card-meta">
-                                        Indiranagar, 100 Ft Road<br>
-                                        1800 sq.ft · Furnished
                                     </div>
 
                                 </div>
 
-                            </div>
+                            @empty
+
+                                <div class="no-similar-properties">
+                                    No similar properties available.
+                                </div>
+
+                            @endforelse
 
                         </div>
-
                     </div>
 
                 </div>
@@ -3567,45 +4391,43 @@
                         Property Highlights
                     </h3>
 
+                    {{-- RENT --}}
                     <div class="highlight-row">
                         <span>Rent</span>
-                        <b>₹ 45,000 /month</b>
+                        <b>
+                            ₹ {{ number_format((float) $property->price) }} /month
+                        </b>
                     </div>
 
-                    <div class="highlight-row">
-                        <span>Security Deposit</span>
-                        <b>₹ 2,50,000</b>
-                    </div>
+                    {{-- SECURITY DEPOSIT --}}
+                    @if($property->security_deposit)
+                        <div class="highlight-row">
+                            <span>Security Deposit</span>
+                            <b>
+                                ₹ {{ number_format((float) $property->security_deposit) }}
+                            </b>
+                        </div>
+                    @endif
 
-                    <div class="highlight-row">
-                        <span>Available From</span>
-                        <b>15 Jun 2025</b>
-                    </div>
+                    {{-- AVAILABLE FROM --}}
+                    @if($property->available_from)
+                        <div class="highlight-row">
+                            <span>Available From</span>
+                            <b>
+                                {{ $property->available_from->format('d M Y') }}
+                            </b>
+                        </div>
+                    @endif
 
-                    <div class="highlight-row">
-                        <span>Property Age</span>
-                        <b>5 - 7 Years</b>
-                    </div>
-
-                    <div class="highlight-row">
-                        <span>Furnishing</span>
-                        <b>Semi Furnished</b>
-                    </div>
-
-                    <div class="highlight-row">
-                        <span>Facing</span>
-                        <b>East</b>
-                    </div>
-
-                    <div class="highlight-row">
-                        <span>Floor</span>
-                        <b>2 out of 4</b>
-                    </div>
-
-                    <div class="highlight-row">
-                        <span>Maintenance</span>
-                        <b>₹ 3,000 (Included)</b>
-                    </div>
+                    {{-- FURNISHING --}}
+                    @if($property->furnishing)
+                        <div class="highlight-row">
+                            <span>Furnishing</span>
+                            <b>
+                                {{ ucwords(str_replace('-', ' ', $property->furnishing)) }}
+                            </b>
+                        </div>
+                    @endif
 
                 </aside>
 
@@ -3615,33 +4437,76 @@
 
 
         <!-- =====================================================
-             RIGHT SIDEBAR
-        ====================================================== -->
+                                                                                                                                                                                                                                                                                                                     RIGHT SIDEBAR
+                                                                                                                                                                                                                                                                                                                ====================================================== -->
 
         <aside class="right">
+
+            @php
+                $listingFor = strtolower(trim($property->listing_for ?? 'rent'));
+
+                $priceLabel = match ($listingFor) {
+                    'sell' => 'Total Price',
+                    'lease' => 'Monthly',
+                    'pg' => 'Monthly',
+                    'rent' => 'Monthly',
+                    default => 'Price',
+                };
+
+                $hasPrice = $property->price !== null && (float) $property->price > 0;
+
+                $hasDeposit = $property->security_deposit !== null;
+                $depositAmount = (float) ($property->security_deposit ?? 0);
+            @endphp
+
 
             <div class="price-card">
 
                 <div class="price-line">
 
                     <span class="price">
-                        ₹ 45,000
+                        @if($hasPrice)
+                            ₹ {{ number_format((float) $property->price) }}
+                        @else
+                            Contact for Price
+                        @endif
                     </span>
 
-                    <span class="per">
-                        /month
-                    </span>
+                    @if($hasPrice)
+                        <span class="per">
+                            @if($listingFor === 'sell')
+                                Total Price
+                            @else
+                                /month
+                            @endif
+                        </span>
+                    @endif
 
-                    <span class="verified-badge">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Verified
-                    </span>
+                    @if($property->status === 'approved')
+                        <span class="verified-badge">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Verified
+                        </span>
+                    @endif
 
                 </div>
 
-                <div class="deposit">
-                    Security Deposit: ₹ 2,50,000
-                </div>
+
+                @if($hasDeposit)
+
+                    <div class="deposit">
+
+                        Security Deposit:
+
+                        @if($depositAmount > 0)
+                            ₹ {{ number_format($depositAmount) }}
+                        @else
+                            No Security Deposit
+                        @endif
+
+                    </div>
+
+                @endif
 
             </div>
 
@@ -3660,6 +4525,34 @@
             </div>
 
 
+            @php
+                $brokerName = $property->owner_name
+                    ?: optional($property->user)->name
+                    ?: 'Property Owner';
+
+                $brokerPhone = $property->owner_phone
+                    ?: optional($property->user)->phone
+                    ?: null;
+
+                $brokerEmail = optional($property->user)->email;
+
+                $brokerRole = optional($property->user)->role
+                    ? ucwords(str_replace(['_', '-'], ' ', optional($property->user)->role))
+                    : 'Property Owner';
+
+                $brokerWords = preg_split('/\s+/', trim($brokerName));
+
+                if (count($brokerWords) >= 2) {
+                    $brokerInitials = strtoupper(
+                        substr($brokerWords[0], 0, 1) .
+                        substr($brokerWords[1], 0, 1)
+                    );
+                } else {
+                    $brokerInitials = strtoupper(substr($brokerName, 0, 2));
+                }
+            @endphp
+
+
             <div class="broker-card">
 
                 <h2>
@@ -3669,33 +4562,21 @@
                 <div class="broker">
 
                     <div class="avatar">
-                        URBAN<br>
-                        SPACES
+                        {{ $brokerInitials }}
                     </div>
 
                     <div>
 
                         <div class="broker-name">
-                            Urban Spaces
-                            <i class="fa-solid fa-circle-check" style="color:#1264d8"></i>
+                            {{ $brokerName }}
+
+                            @if($property->status === 'approved')
+                                <i class="fa-solid fa-circle-check" style="color:#1264d8"></i>
+                            @endif
                         </div>
 
                         <div class="broker-role">
-                            Verified Broker
-                        </div>
-
-                        <div class="rating">
-
-                            <span class="star">
-                                <i class="fa-solid fa-star"></i>
-                            </span>
-
-                            <b>4.8</b>
-
-                            <span>
-                                (120 Reviews)
-                            </span>
-
+                            {{ $brokerRole }}
                         </div>
 
                     </div>
@@ -3703,15 +4584,35 @@
                 </div>
 
 
-                <div class="contact-row">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>+91 80 1234 5678</span>
-                </div>
+                @if($brokerPhone)
 
-                <div class="contact-row">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>info@urbanspaces.in</span>
-                </div>
+                    <div class="contact-row">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        <span>
+                            {{ $brokerPhone }}
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if($brokerEmail)
+
+                    <div class="contact-row">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <span>
+                            {{ $brokerEmail }}
+                        </span>
+
+                    </div>
+
+                @endif
+
 
                 <button type="button" class="all-properties" onclick="location.href='{{ route('rent') }}'">
                     View All Properties
@@ -3746,15 +4647,77 @@
                     &nbsp; Location
                 </h2>
 
+                @php
+                    $locationParts = collect([
+                        $property->locality,
+                        $property->city,
+                        $property->district,
+                        $property->state,
+                        $property->country,
+                    ])
+                        ->filter()
+                        ->map(fn($item) => trim($item))
+                        ->unique()
+                        ->values();
+
+                    $locationText = $locationParts->implode(', ');
+                @endphp
+
+                {{-- LOCATION --}}
                 <div class="location-text">
-                    Koramangala 4th Block,<br>
-                    Koramangala, Bangalore 560034
+                    {{ $locationText ?: 'Location not available' }}
                 </div>
 
-                <button type="button" class="map-link" onclick="openMap()">
-                    View on Map
-                    <i class="fa-solid fa-location-dot"></i>
-                </button>
+                {{-- PINCODE --}}
+                @if($property->pincode)
+                    <div class="location-text">
+                        <strong>Pincode:</strong>
+                        {{ $property->pincode }}
+                    </div>
+                @endif
+
+                {{-- LANDMARK --}}
+                @if($property->landmark)
+                    <div class="location-text">
+                        <strong>Landmark:</strong>
+                        {{ $property->landmark }}
+                    </div>
+                @endif
+
+                {{-- DETAILED ADDRESS --}}
+                @if($property->address)
+                    <div class="location-text">
+                        <strong>Address:</strong>
+                        {{ $property->address }}
+                    </div>
+                @endif
+
+                {{-- COORDINATES --}}
+                @if($property->latitude !== null || $property->longitude !== null)
+                    <div class="location-text">
+                        @if($property->latitude !== null)
+                            <strong>Latitude:</strong>
+                            {{ $property->latitude }}
+                        @endif
+
+                        @if($property->latitude !== null && $property->longitude !== null)
+                            &nbsp; | &nbsp;
+                        @endif
+
+                        @if($property->longitude !== null)
+                            <strong>Longitude:</strong>
+                            {{ $property->longitude }}
+                        @endif
+                    </div>
+                @endif
+
+                {{-- VIEW ON MAP --}}
+                @if($property->google_map_url || $locationText)
+                    <button type="button" class="map-link" onclick="openMap()">
+                        View on Map
+                        <i class="fa-solid fa-location-dot"></i>
+                    </button>
+                @endif
 
             </div>
 
@@ -3764,21 +4727,22 @@
 
 
     <!-- =========================================================
-         ENQUIRY MODAL
-    ========================================================= -->
+                                                                                                                                                                                                                                                                                                                 ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                            ========================================================= -->
 
     <div class="property-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="property-modal-overlay" onclick="closeEnquiry()"></div>
 
-
         <div class="property-modal-box" role="dialog" aria-modal="true" aria-labelledby="enquiryModalTitle">
 
+            {{-- Close --}}
             <button type="button" class="property-modal-close" onclick="closeEnquiry()" aria-label="Close enquiry form">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
 
+            {{-- Header --}}
             <div class="property-modal-header">
 
                 <div class="property-modal-icon">
@@ -3796,8 +4760,8 @@
                     </h2>
 
                     <p>
-                        Share your details and our property expert
-                        will contact you shortly.
+                        Share your details and our property
+                        expert will contact you shortly.
                     </p>
 
                 </div>
@@ -3805,10 +4769,19 @@
             </div>
 
 
-            <form action="#" method="POST" class="property-modal-form">
+            {{-- Form --}}
+            <form action="{{ route('rental.requirments.enquiry.store') }}" method="POST" class="property-modal-form"
+                id="rentalRequirementsForm">
 
                 @csrf
 
+                {{-- Property Information --}}
+                <input type="hidden" name="property_id" value="{{ $property->id }}">
+
+
+
+
+                {{-- Name + Phone --}}
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
@@ -3835,82 +4808,73 @@
                 </div>
 
 
+                {{-- Email --}}
                 <div class="modal-form-group">
 
                     <label for="enquiry_email">
                         Email Address
                     </label>
 
-                    <input type="email" id="enquiry_email" name="email" placeholder="Enter your email address">
+                    <input type="email" id="enquiry_email" name="email" placeholder="Enter your email address" required>
 
                 </div>
 
 
+                {{-- Property Type --}}
+                <div class="modal-form-group">
+
+                    <label for="enquiry_property">
+                        Property Type
+                    </label>
+
+                    <input type="text" id="enquiry_property"
+                        value="{{ ucwords(str_replace('-', ' ', $property->property_type)) }}" readonly>
+
+
+
+                </div>
+
+
+                {{-- Move In + Furnishing --}}
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
 
-                        <label for="enquiry_property">
-                            Property Type
+                        <label for="move_in_date">
+                            Preferred Move-in Date
                         </label>
 
-                        <select id="enquiry_property" name="property_type" required>
-
-                            <option value="">
-                                Select property type
-                            </option>
-
-                            <option value="apartment">
-                                Apartment
-                            </option>
-
-                            <option value="villa">
-                                Villa
-                            </option>
-
-                            <option value="plot">
-                                Plot
-                            </option>
-
-                            <option value="commercial">
-                                Commercial
-                            </option>
-
-                        </select>
+                        <input type="date" id="move_in_date" name="move_in_date">
 
                     </div>
 
 
                     <div class="modal-form-group">
 
-                        <label for="enquiry_budget">
-                            Budget
+                        <label for="furnishing">
+                            Furnishing Preference
                         </label>
 
-                        <select id="enquiry_budget" name="budget">
+                        <select id="furnishing" name="furnishing">
 
                             <option value="">
-                                Select your budget
+                                Select furnishing
                             </option>
 
-                            <option value="below-25">
-                                Below ₹25 Lakhs
+                            <option value="fully-furnished">
+                                Fully Furnished
                             </option>
 
-                            <option value="25-50">
-                                ₹25 – ₹50 Lakhs
+                            <option value="semi-furnished">
+                                Semi Furnished
                             </option>
 
-                            <option value="50-75">
-                                ₹50 – ₹75 Lakhs
+                            <option value="unfurnished">
+                                Unfurnished
                             </option>
 
-                            <option value="75-1cr">
-                                ₹75 Lakhs – ₹1 Crore
-                            </option>
-
-                            <option value="above-1cr">
-                                Above ₹1 Crore
+                            <option value="any">
+                                Any
                             </option>
 
                         </select>
@@ -3920,6 +4884,37 @@
                 </div>
 
 
+                {{-- Preferred Contact --}}
+                <div class="modal-form-group">
+
+                    <label for="preferred_contact">
+                        Preferred Contact Method
+                    </label>
+
+                    <select id="preferred_contact" name="preferred_contact" required>
+
+                        <option value="">
+                            Select contact method
+                        </option>
+
+                        <option value="phone">
+                            Phone Call
+                        </option>
+
+                        <option value="whatsapp">
+                            WhatsApp
+                        </option>
+
+                        <option value="email">
+                            Email
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                {{-- Message --}}
                 <div class="modal-form-group">
 
                     <label for="enquiry_message">
@@ -3927,14 +4922,18 @@
                     </label>
 
                     <textarea id="enquiry_message" name="message" rows="4"
-                        placeholder="Tell us what you are looking for..."></textarea>
+                        placeholder="Tell us anything you would like to know about this property..."></textarea>
 
                 </div>
 
 
+                {{-- Submit --}}
                 <button type="submit" class="modal-submit-btn">
+
                     <i class="fa-solid fa-paper-plane"></i>
-                    Send Enquiry
+
+                    Send Property Enquiry
+
                 </button>
 
             </form>
@@ -3945,8 +4944,8 @@
 
 
     <!-- =========================================================
-         SCHEDULE VISIT MODAL
-    ========================================================= -->
+                                                                                                                                                                                                              SCHEDULE VISIT MODAL
+                                                                                                                                                                                    ========================================================= -->
 
     <div class="property-modal" id="visitModal" aria-hidden="true">
 
@@ -3955,22 +4954,33 @@
 
         <div class="property-modal-box" role="dialog" aria-modal="true" aria-labelledby="visitModalTitle">
 
+            {{-- =====================================================
+            CLOSE BUTTON
+            ====================================================== --}}
+
             <button type="button" class="property-modal-close" onclick="closeVisit()"
                 aria-label="Close schedule visit form">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
 
+            {{-- =====================================================
+            HEADER
+            ====================================================== --}}
+
             <div class="property-modal-header">
 
                 <div class="property-modal-icon">
+
                     <i class="fa-regular fa-calendar-check"></i>
+
                 </div>
+
 
                 <div>
 
                     <span>
-                        SCHEDULE A VISIT
+                        SCHEDULE A RENTAL VISIT
                     </span>
 
                     <h2 id="visitModalTitle">
@@ -3978,8 +4988,8 @@
                     </h2>
 
                     <p>
-                        Choose your preferred date and time
-                        to visit this property.
+                        Choose your preferred date and time to
+                        visit this rental property.
                     </p>
 
                 </div>
@@ -3987,9 +4997,18 @@
             </div>
 
 
-            <form action="#" method="POST" class="property-modal-form">
+            {{-- =====================================================
+            FORM
+            ====================================================== --}}
 
+            <form action="{{ route('schedule.visit.enquiry.store') }}" method="POST" class="property-modal-form"
+                id="scheduleVisitForm">
                 @csrf
+
+                <input type="hidden" name="property_id" value="{{ $property->id }}">
+                {{-- =================================================
+                NAME + PHONE
+                ================================================== --}}
 
                 <div class="modal-form-row">
 
@@ -4017,12 +5036,16 @@
                 </div>
 
 
+                {{-- =================================================
+                DATE + TIME
+                ================================================== --}}
+
                 <div class="modal-form-row">
 
                     <div class="modal-form-group">
 
                         <label for="visit_date">
-                            Preferred Date
+                            Preferred Visit Date
                         </label>
 
                         <input type="date" id="visit_date" name="visit_date" required>
@@ -4039,7 +5062,7 @@
                         <select id="visit_time" name="visit_time" required>
 
                             <option value="">
-                                Select time
+                                Select preferred time
                             </option>
 
                             <option value="09:00">
@@ -4085,54 +5108,124 @@
                 </div>
 
 
-                <div class="modal-form-group">
+                {{-- =================================================
+                RENTAL REQUIREMENT
+                ================================================== --}}
 
-                    <label for="visit_property">
-                        Property
-                    </label>
+                <div class="modal-form-row">
 
-                    <select id="visit_property" name="property" required>
+                    <div class="modal-form-group">
 
-                        <option value="">
-                            Select property
-                        </option>
+                        <label for="visit_property_type">
+                            Rental Property Type
+                        </label>
 
-                        <option value="luxury-villa">
-                            Luxury Villa
-                        </option>
+                        @php
+                            $currentPropertyType = strtolower(
+                                trim($property->property_type ?? '')
+                            );
+                        @endphp
 
-                        <option value="premium-apartment">
-                            Premium Apartment
-                        </option>
+                        <select id="visit_property_type" name="property_type" required>
 
-                        <option value="residential-plot">
-                            Residential Plot
-                        </option>
+                            <option value="">
+                                Select property type
+                            </option>
 
-                        <option value="commercial-property">
-                            Commercial Property
-                        </option>
+                            <option value="apartment" {{ $currentPropertyType === 'apartment' ? 'selected' : '' }}>
+                                Apartment
+                            </option>
 
-                    </select>
+                            <option value="villa" {{ $currentPropertyType === 'villa' ? 'selected' : '' }}>
+                                Villa
+                            </option>
+
+                            <option value="independent-house" {{ $currentPropertyType === 'independent house' ? 'selected' : '' }}>
+                                Independent House
+                            </option>
+
+                            <option value="plot" {{ $currentPropertyType === 'plot' ? 'selected' : '' }}>
+                                Plot
+                            </option>
+
+                            <option value="office" {{ $currentPropertyType === 'office' ? 'selected' : '' }}>
+                                Office
+                            </option>
+
+                            <option value="commercial" {{ $currentPropertyType === 'commercial' ? 'selected' : '' }}>
+                                Commercial Property
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="modal-form-group">
+
+                        <label for="visit_rent">
+                            Preferred Monthly Rent
+                        </label>
+
+                        <select id="visit_rent" name="monthly_rent">
+
+                            <option value="">
+                                Select monthly rent
+                            </option>
+
+                            <option value="below-10k">
+                                Below ₹10,000
+                            </option>
+
+                            <option value="10k-20k">
+                                ₹10,000 – ₹20,000
+                            </option>
+
+                            <option value="20k-30k">
+                                ₹20,000 – ₹30,000
+                            </option>
+
+                            <option value="30k-50k">
+                                ₹30,000 – ₹50,000
+                            </option>
+
+                            <option value="above-50k">
+                                Above ₹50,000
+                            </option>
+
+                        </select>
+
+                    </div>
 
                 </div>
 
+
+                {{-- =================================================
+                ADDITIONAL REQUIREMENTS
+                ================================================== --}}
 
                 <div class="modal-form-group">
 
                     <label for="visit_message">
-                        Additional Requirements
+                        Rental Requirements
                     </label>
 
                     <textarea id="visit_message" name="message" rows="3"
-                        placeholder="Any specific requirements..."></textarea>
+                        placeholder="Mention your preferred location, bedrooms, furnishing, parking, family/bachelor requirement, or any other requirements..."></textarea>
 
                 </div>
 
 
+                {{-- =================================================
+                SUBMIT
+                ================================================== --}}
+
                 <button type="submit" class="modal-submit-btn">
+
                     <i class="fa-regular fa-calendar-check"></i>
-                    Schedule Visit
+
+                    Schedule Rental Visit
+
                 </button>
 
             </form>
@@ -4142,15 +5235,247 @@
     </div>
 
 
+
     <!-- =========================================================
-         SCRIPT
-    ========================================================= -->
+                                                                                                                                                                                                                                                                                                             REPORT PROPERTY MODAL
+                                                                                                                                                                                                                                                                                                        ========================================================= -->
+
+    <div class="report-modal" id="reportModal" aria-hidden="true">
+
+        <div class="report-overlay" onclick="closeReportModal()"></div>
+
+        <div class="report-dialog" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+
+            {{-- Close --}}
+            <button type="button" class="report-close" onclick="closeReportModal()" aria-label="Close report form">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            {{-- =====================================================
+            HEADER
+            ====================================================== --}}
+
+            <div class="report-header">
+
+                <div class="report-icon">
+                    <i class="fa-solid fa-flag"></i>
+                </div>
+
+                <div>
+
+                    <h3 id="reportModalTitle">
+                        Report Property
+                    </h3>
+
+                    <p>
+                        Found something incorrect or suspicious?
+                        Let us know so our team can review it.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- =====================================================
+            FORM
+            ====================================================== --}}
+
+            <form id="reportPropertyForm" action="{{ route('rental.property.report.store') }}" method="POST">
+                @csrf
+                {{-- =================================================
+                PROPERTY
+                ================================================== --}}
+                <input type="hidden" name="property_id" value="{{ $property->id }}">
+                <div class="report-field">
+
+                    <label for="reportProperty">
+                        Property
+                    </label>
+
+                    <div class="report-input">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        <input type="text" id="reportProperty" name="property" value="{{ $property->property_title }}"
+                            readonly>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                REASON
+                ================================================== --}}
+
+                <div class="report-field">
+
+                    <label for="reportReason">
+                        What is wrong with this property?
+                    </label>
+
+                    <div class="report-input">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <select id="reportReason" name="reason" required>
+
+                            <option value="">
+                                Select a reason
+                            </option>
+
+                            <option value="already_rented">
+                                Property is already rented
+                            </option>
+
+                            <option value="incorrect_information">
+                                Incorrect property information
+                            </option>
+
+                            <option value="incorrect_price">
+                                Incorrect rent / price
+                            </option>
+
+                            <option value="incorrect_location">
+                                Incorrect location
+                            </option>
+
+                            <option value="duplicate">
+                                Duplicate listing
+                            </option>
+
+                            <option value="fake_listing">
+                                Fake or suspicious listing
+                            </option>
+
+                            <option value="wrong_contact">
+                                Wrong contact details
+                            </option>
+
+                            <option value="misleading_photos">
+                                Misleading photos
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                ADDITIONAL MESSAGE
+                ================================================== --}}
+
+                <div class="report-field">
+
+                    <label for="reportMessage">
+
+                        Additional Details
+
+                        <span>
+                            (Optional)
+                        </span>
+
+                    </label>
+
+                    <div class="report-input report-textarea">
+
+                        <i class="fa-regular fa-message"></i>
+
+                        <textarea id="reportMessage" name="message" rows="4"
+                            placeholder="Tell us what you noticed..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                NOTICE
+                ================================================== --}}
+
+                <div class="report-notice">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <p>
+                        Your report will be reviewed by our team.
+                        Reporting a property does not automatically
+                        remove the listing.
+                    </p>
+
+                </div>
+
+
+                {{-- =================================================
+                ACTIONS
+                ================================================== --}}
+
+                <div class="report-actions">
+
+                    <button type="button" class="report-cancel" onclick="closeReportModal()">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="report-submit">
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        Submit Report
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+                                                                                                                                                                                                                                                                                                                 SCRIPT
+                                                                                                                                                                                                                                                                                                            ========================================================= -->
+
+
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
             const header = document.getElementById("header");
             const toast = document.getElementById("toast");
+
+
+            /* =====================================================
+               SCHEDULE VISIT DATE
+               Prevent selecting a past date.
+            ===================================================== */
+
+            const visitDateInput =
+                document.getElementById(
+                    "visit_date"
+                );
+
+            if (visitDateInput) {
+
+                const today =
+                    new Date()
+                        .toISOString()
+                        .split("T")[0];
+
+                visitDateInput.min = today;
+            }
+
 
             /* =====================================================
                HEADER
@@ -4168,6 +5493,7 @@
             }, { passive: true });
 
 
+
             /* =====================================================
                TOAST
             ===================================================== */
@@ -4183,12 +5509,11 @@
                 clearTimeout(window.toastTimer);
 
                 window.toastTimer = setTimeout(function () {
-
                     toast.classList.remove("show");
-
                 }, 2400);
 
             };
+
 
 
             /* =====================================================
@@ -4206,6 +5531,7 @@
                 const isFavourite =
                     icon.classList.contains("fa-solid");
 
+
                 if (isFavourite) {
 
                     icon.classList.remove("fa-solid");
@@ -4213,7 +5539,9 @@
 
                     button.style.color = "#667089";
 
-                    showToast("Removed from favourites");
+                    window.showToast(
+                        "Removed from favourites"
+                    );
 
                 } else {
 
@@ -4222,17 +5550,26 @@
 
                     button.style.color = "#e52d5f";
 
-                    showToast("Added to favourites");
+                    window.showToast(
+                        "Added to favourites"
+                    );
 
                 }
+
 
                 if (button.animate) {
 
                     button.animate(
                         [
-                            { transform: "scale(1)" },
-                            { transform: "scale(1.15)" },
-                            { transform: "scale(1)" }
+                            {
+                                transform: "scale(1)"
+                            },
+                            {
+                                transform: "scale(1.15)"
+                            },
+                            {
+                                transform: "scale(1)"
+                            }
                         ],
                         {
                             duration: 300,
@@ -4245,20 +5582,19 @@
             };
 
 
+
             /* =====================================================
                SHARE
             ===================================================== */
 
             window.shareProperty = async function () {
 
-                const title =
-                    "Spacious 3 BHK Apartment for Rent";
-
-                const text =
-                    "Koramangala 4th Block, Bangalore";
+                const title = @json($shareTitle);
+                const text = @json($shareText);
 
                 const url =
                     window.location.href;
+
 
                 if (navigator.share) {
 
@@ -4273,10 +5609,12 @@
                     } catch (error) {
 
                         if (error.name !== "AbortError") {
+
                             console.log(
                                 "Share failed:",
                                 error
                             );
+
                         }
 
                     }
@@ -4294,21 +5632,28 @@
 
                         await navigator.clipboard.writeText(url);
 
-                        showToast("Property link copied");
+                        window.showToast(
+                            "Property link copied"
+                        );
 
                     } else {
 
-                        showToast("Unable to copy property link");
+                        window.showToast(
+                            "Unable to copy property link"
+                        );
 
                     }
 
                 } catch (error) {
 
-                    showToast("Unable to copy property link");
+                    window.showToast(
+                        "Unable to copy property link"
+                    );
 
                 }
 
             };
+
 
 
             /* =====================================================
@@ -4317,8 +5662,22 @@
 
             window.openMap = function () {
 
-                const location =
-                    "Koramangala 4th Block, Bangalore";
+                const savedMapUrl = @json($property->google_map_url);
+                const location = @json($locationText);
+
+                if (savedMapUrl) {
+                    window.open(
+                        savedMapUrl,
+                        "_blank",
+                        "noopener,noreferrer"
+                    );
+                    return;
+                }
+
+                if (!location) {
+                    alert("Property location is not available.");
+                    return;
+                }
 
                 const mapUrl =
                     "https://www.google.com/maps/search/?api=1&query=" +
@@ -4329,8 +5688,8 @@
                     "_blank",
                     "noopener,noreferrer"
                 );
-
             };
+
 
 
             /* =====================================================
@@ -4350,6 +5709,7 @@
             }
 
 
+
             /* =====================================================
                UNLOCK BODY
             ===================================================== */
@@ -4362,13 +5722,16 @@
                 const visit =
                     document.getElementById("visitModal");
 
+
                 const enquiryOpen =
                     enquiry &&
                     enquiry.classList.contains("active");
 
+
                 const visitOpen =
                     visit &&
                     visit.classList.contains("active");
+
 
                 if (!enquiryOpen && !visitOpen) {
 
@@ -4385,6 +5748,7 @@
             }
 
 
+
             /* =====================================================
                OPEN ENQUIRY
             ===================================================== */
@@ -4396,18 +5760,22 @@
 
                 if (!modal) return;
 
+
                 const visit =
                     document.getElementById("visitModal");
+
 
                 if (visit) {
 
                     visit.classList.remove("active");
+
                     visit.setAttribute(
                         "aria-hidden",
                         "true"
                     );
 
                 }
+
 
                 modal.classList.add("active");
 
@@ -4416,16 +5784,20 @@
                     "false"
                 );
 
+
                 lockPage();
+
 
                 const box =
                     modal.querySelector(
                         ".property-modal-box"
                     );
 
+
                 if (box) {
                     box.scrollTop = 0;
                 }
+
 
                 setTimeout(function () {
 
@@ -4434,13 +5806,19 @@
                             "enquiry_name"
                         );
 
+
                     if (input) {
-                        input.focus({ preventScroll: true });
+
+                        input.focus({
+                            preventScroll: true
+                        });
+
                     }
 
                 }, 250);
 
             };
+
 
 
             /* =====================================================
@@ -4454,6 +5832,7 @@
 
                 if (!modal) return;
 
+
                 modal.classList.remove("active");
 
                 modal.setAttribute(
@@ -4461,9 +5840,11 @@
                     "true"
                 );
 
+
                 unlockPage();
 
             };
+
 
 
             /* =====================================================
@@ -4477,8 +5858,10 @@
 
                 if (!modal) return;
 
+
                 const enquiry =
                     document.getElementById("enquiryModal");
+
 
                 if (enquiry) {
 
@@ -4491,6 +5874,7 @@
 
                 }
 
+
                 modal.classList.add("active");
 
                 modal.setAttribute(
@@ -4498,16 +5882,20 @@
                     "false"
                 );
 
+
                 lockPage();
+
 
                 const box =
                     modal.querySelector(
                         ".property-modal-box"
                     );
 
+
                 if (box) {
                     box.scrollTop = 0;
                 }
+
 
                 setTimeout(function () {
 
@@ -4516,13 +5904,19 @@
                             "visit_name"
                         );
 
+
                     if (input) {
-                        input.focus({ preventScroll: true });
+
+                        input.focus({
+                            preventScroll: true
+                        });
+
                     }
 
                 }, 250);
 
             };
+
 
 
             /* =====================================================
@@ -4536,6 +5930,7 @@
 
                 if (!modal) return;
 
+
                 modal.classList.remove("active");
 
                 modal.setAttribute(
@@ -4543,9 +5938,499 @@
                     "true"
                 );
 
+
                 unlockPage();
 
             };
+
+
+
+            /* =====================================================
+               RENTAL REQUIREMENTS ENQUIRY SUBMIT
+
+               Separate Form ID:
+               rentalRequirementsForm
+
+               Route:
+               rental.requirments.enquiry.store
+            ===================================================== */
+
+            /* =====================================================
+    PROPERTY ENQUIRY SUBMIT
+    ===================================================== */
+
+            const rentalRequirementsForm =
+                document.getElementById("rentalRequirementsForm");
+
+            if (rentalRequirementsForm) {
+
+                rentalRequirementsForm.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+                        const submitButton =
+                            rentalRequirementsForm.querySelector(
+                                ".modal-submit-btn"
+                            );
+
+                        const originalButtonText =
+                            submitButton
+                                ? submitButton.innerHTML
+                                : "";
+
+                        if (submitButton) {
+                            submitButton.disabled = true;
+
+                            submitButton.innerHTML =
+                                '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                        }
+
+                        try {
+
+                            const formData =
+                                new FormData(
+                                    rentalRequirementsForm
+                                );
+
+                            const response =
+                                await fetch(
+                                    rentalRequirementsForm.action,
+                                    {
+                                        method: "POST",
+                                        body: formData,
+
+                                        headers: {
+                                            "Accept": "application/json",
+                                            "X-Requested-With": "XMLHttpRequest"
+                                        }
+                                    }
+                                );
+
+                            /*
+                             * Get response as TEXT first.
+                             * This prevents "Invalid server response"
+                             * from hiding the actual Laravel error.
+                             */
+                            const responseText =
+                                await response.text();
+
+                            console.log(
+                                "Property enquiry HTTP status:",
+                                response.status
+                            );
+
+                            console.log(
+                                "Property enquiry raw response:",
+                                responseText
+                            );
+
+                            let result = null;
+
+                            try {
+
+                                result =
+                                    JSON.parse(responseText);
+
+                            } catch (jsonError) {
+
+                                console.error(
+                                    "Laravel returned non-JSON response:",
+                                    responseText
+                                );
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Server Error",
+                                    html:
+                                        "<p>Laravel returned an unexpected response.</p>" +
+                                        "<small>Status: " +
+                                        response.status +
+                                        "</small>",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+
+                                return;
+                            }
+
+
+                            /* =================================================
+                               VALIDATION / SERVER ERROR
+                               ================================================= */
+
+                            if (!response.ok) {
+
+                                console.error(
+                                    "Property enquiry server error:",
+                                    result
+                                );
+
+                                if (result.errors) {
+
+                                    const firstError =
+                                        Object.values(
+                                            result.errors
+                                        ).flat()[0];
+
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Submission Failed",
+                                        text:
+                                            firstError ||
+                                            "Please check the form and try again.",
+                                        confirmButtonText: "OK",
+                                        confirmButtonColor: "#071b3d"
+                                    });
+
+                                } else {
+
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Submission Failed",
+                                        text:
+                                            result.message ||
+                                            "Unable to submit your enquiry. Please try again.",
+                                        confirmButtonText: "OK",
+                                        confirmButtonColor: "#071b3d"
+                                    });
+                                }
+
+                                return;
+                            }
+
+
+                            /* =================================================
+                               SUCCESS
+                               ================================================= */
+
+                            if (result.success) {
+
+                                rentalRequirementsForm.reset();
+
+                                if (
+                                    typeof window.closeEnquiry ===
+                                    "function"
+                                ) {
+                                    window.closeEnquiry();
+                                }
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Enquiry Submitted!",
+                                    text:
+                                        result.message ||
+                                        "Your property enquiry has been submitted successfully. Our property expert will contact you shortly.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d",
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: true
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Submission Failed",
+                                    text:
+                                        result.message ||
+                                        "Unable to submit your enquiry. Please try again.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+                            }
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "Property enquiry submission error:",
+                                error
+                            );
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Something Went Wrong",
+                                text:
+                                    error.message ||
+                                    "Unable to submit your enquiry. Please try again.",
+                                confirmButtonText: "OK",
+                                confirmButtonColor: "#071b3d"
+                            });
+
+
+                        } finally {
+
+                            if (submitButton) {
+
+                                submitButton.disabled = false;
+
+                                submitButton.innerHTML =
+                                    originalButtonText;
+                            }
+                        }
+                    }
+                );
+            }
+
+
+
+            /* =====================================================
+               SCHEDULE VISIT ENQUIRY SUBMIT
+
+               Form:
+               scheduleVisitForm
+
+               Route:
+               schedule.visit.enquiry.store
+            ===================================================== */
+
+            const scheduleVisitForm =
+                document.getElementById(
+                    "scheduleVisitForm"
+                );
+
+
+            if (scheduleVisitForm) {
+
+                scheduleVisitForm.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const submitButton =
+                            scheduleVisitForm.querySelector(
+                                ".modal-submit-btn"
+                            );
+
+
+                        const originalButtonText =
+                            submitButton
+                                ? submitButton.innerHTML
+                                : "";
+
+
+                        /* =============================================
+                           BUTTON LOADING
+                        ============================================== */
+
+                        if (submitButton) {
+
+                            submitButton.disabled = true;
+
+                            submitButton.innerHTML =
+                                '<i class="fa-solid fa-spinner fa-spin"></i> Scheduling...';
+                        }
+
+
+                        try {
+
+                            const formData =
+                                new FormData(
+                                    scheduleVisitForm
+                                );
+
+
+                            const response =
+                                await fetch(
+                                    scheduleVisitForm.action,
+                                    {
+                                        method: "POST",
+
+                                        body: formData,
+
+                                        headers: {
+                                            "Accept":
+                                                "application/json",
+
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+                                        }
+                                    }
+                                );
+
+
+                            let result;
+
+
+                            /* =========================================
+                               PARSE SERVER RESPONSE
+                            ========================================== */
+
+                            try {
+
+                                result =
+                                    await response.json();
+
+                            } catch (jsonError) {
+
+                                throw new Error(
+                                    "Invalid server response."
+                                );
+                            }
+
+
+                            /* =========================================
+                               VALIDATION / SERVER ERROR
+                            ========================================== */
+
+                            if (!response.ok) {
+
+                                if (result.errors) {
+
+                                    const firstError =
+                                        Object.values(
+                                            result.errors
+                                        ).flat()[0];
+
+
+                                    Swal.fire({
+                                        icon: "error",
+
+                                        title:
+                                            "Submission Failed",
+
+                                        text:
+                                            firstError ||
+                                            "Please check the form and try again.",
+
+                                        confirmButtonText: "OK",
+
+                                        confirmButtonColor:
+                                            "#071b3d"
+                                    });
+
+                                } else {
+
+                                    Swal.fire({
+                                        icon: "error",
+
+                                        title:
+                                            "Submission Failed",
+
+                                        text:
+                                            result.message ||
+                                            "Unable to schedule your visit. Please try again.",
+
+                                        confirmButtonText: "OK",
+
+                                        confirmButtonColor:
+                                            "#071b3d"
+                                    });
+
+                                }
+
+                                return;
+                            }
+
+
+                            /* =========================================
+                               SUCCESS
+                            ========================================== */
+
+                            if (result.success) {
+
+                                scheduleVisitForm.reset();
+
+
+                                /*
+                                 * Close Schedule Visit modal.
+                                 */
+                                if (
+                                    typeof window.closeVisit ===
+                                    "function"
+                                ) {
+
+                                    window.closeVisit();
+
+                                }
+
+
+                                Swal.fire({
+                                    icon: "success",
+
+                                    title:
+                                        "Visit Scheduled!",
+
+                                    text:
+                                        result.message ||
+                                        "Your property visit has been scheduled successfully. Our property expert will contact you shortly.",
+
+                                    confirmButtonText: "OK",
+
+                                    confirmButtonColor:
+                                        "#071b3d",
+
+                                    allowOutsideClick: false,
+
+                                    allowEscapeKey: true
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+
+                                    title:
+                                        "Submission Failed",
+
+                                    text:
+                                        result.message ||
+                                        "Unable to schedule your visit. Please try again.",
+
+                                    confirmButtonText: "OK",
+
+                                    confirmButtonColor:
+                                        "#071b3d"
+                                });
+
+                            }
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "Schedule visit submission error:",
+                                error
+                            );
+
+
+                            Swal.fire({
+                                icon: "error",
+
+                                title:
+                                    "Something Went Wrong",
+
+                                text:
+                                    "Unable to schedule your visit. Please try again.",
+
+                                confirmButtonText: "OK",
+
+                                confirmButtonColor:
+                                    "#071b3d"
+                            });
+
+
+                        } finally {
+
+                            if (submitButton) {
+
+                                submitButton.disabled = false;
+
+                                submitButton.innerHTML =
+                                    originalButtonText;
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
 
 
             /* =====================================================
@@ -4553,7 +6438,9 @@
             ===================================================== */
 
             document
-                .querySelectorAll(".property-modal-overlay")
+                .querySelectorAll(
+                    ".property-modal-overlay"
+                )
                 .forEach(function (overlay) {
 
                     overlay.addEventListener(
@@ -4565,16 +6452,20 @@
                                     ".property-modal"
                                 );
 
+
                             if (!modal) return;
+
 
                             modal.classList.remove(
                                 "active"
                             );
 
+
                             modal.setAttribute(
                                 "aria-hidden",
                                 "true"
                             );
+
 
                             unlockPage();
 
@@ -4584,13 +6475,16 @@
                 });
 
 
+
             /* =====================================================
                MODAL BOX CLICK
                Prevent overlay close
             ===================================================== */
 
             document
-                .querySelectorAll(".property-modal-box")
+                .querySelectorAll(
+                    ".property-modal-box"
+                )
                 .forEach(function (box) {
 
                     box.addEventListener(
@@ -4605,6 +6499,7 @@
                 });
 
 
+
             /* =====================================================
                ESCAPE KEY
             ===================================================== */
@@ -4617,34 +6512,54 @@
                         return;
                     }
 
+
                     const enquiryModal =
-                        document.getElementById("enquiryModal");
+                        document.getElementById(
+                            "enquiryModal"
+                        );
+
 
                     const visitModal =
-                        document.getElementById("visitModal");
+                        document.getElementById(
+                            "visitModal"
+                        );
+
 
                     if (
                         enquiryModal &&
-                        enquiryModal.classList.contains("active")
+                        enquiryModal.classList.contains(
+                            "active"
+                        )
                     ) {
+
                         window.closeEnquiry();
+
                     }
+
 
                     if (
                         visitModal &&
-                        visitModal.classList.contains("active")
+                        visitModal.classList.contains(
+                            "active"
+                        )
                     ) {
+
                         window.closeVisit();
+
                     }
 
+
                     if (toast) {
+
                         toast.classList.remove(
                             "show"
                         );
+
                     }
 
                 }
             );
+
 
 
             /* =====================================================
@@ -4658,7 +6573,9 @@
                         "similarList"
                     );
 
+
                 if (!list) return;
+
 
                 const amount =
                     Math.max(
@@ -4666,14 +6583,763 @@
                         list.clientWidth * 0.75
                     );
 
+
                 list.scrollBy({
+
                     left: direction * amount,
+
                     behavior: "smooth"
+
                 });
 
             };
 
+
         });
     </script>
 
-@endsection
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const reportModal = document.getElementById("reportModal");
+            const reportForm = document.getElementById("reportPropertyForm");
+
+            /*
+             * OPEN REPORT MODAL
+             */
+            window.openReportModal = function () {
+
+                if (!reportModal) return;
+
+                reportModal.classList.add("active");
+                reportModal.setAttribute("aria-hidden", "false");
+
+                document.body.classList.add("report-modal-open");
+
+                setTimeout(function () {
+
+                    const reason = document.getElementById("reportReason");
+
+                    if (reason) {
+                        reason.focus();
+                    }
+
+                }, 250);
+            };
+
+
+            /*
+             * CLOSE REPORT MODAL
+             */
+            window.closeReportModal = function () {
+
+                if (!reportModal) return;
+
+                reportModal.classList.remove("active");
+                reportModal.setAttribute("aria-hidden", "true");
+
+                document.body.classList.remove("report-modal-open");
+            };
+
+
+            /*
+             * CLOSE WHEN CLICKING OUTSIDE
+             */
+            if (reportModal) {
+
+                reportModal.addEventListener("click", function (event) {
+
+                    if (event.target.classList.contains("report-overlay")) {
+                        window.closeReportModal();
+                    }
+
+                });
+
+            }
+
+
+            /*
+             * SUBMIT REPORT
+             *
+             * Submit the report to Laravel using AJAX.
+             */
+            if (reportForm) {
+
+                reportForm.addEventListener("submit", async function (event) {
+
+                    event.preventDefault();
+
+                    const submitButton =
+                        reportForm.querySelector(".report-submit");
+
+                    const originalButtonText =
+                        submitButton ? submitButton.innerHTML : "";
+
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.innerHTML =
+                            '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+                    }
+
+                    try {
+
+                        const formData = new FormData(reportForm);
+
+                        const response = await fetch(
+                            reportForm.action,
+                            {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    "Accept": "application/json",
+                                    "X-Requested-With": "XMLHttpRequest"
+                                }
+                            }
+                        );
+
+                        let result;
+
+                        try {
+                            result = await response.json();
+                        } catch (jsonError) {
+                            throw new Error("Invalid server response.");
+                        }
+
+                        if (!response.ok) {
+
+                            if (result.errors) {
+
+                                const firstError =
+                                    Object.values(result.errors).flat()[0];
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Submission Failed",
+                                    text: firstError ||
+                                        "Please check the form and try again.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Submission Failed",
+                                    text: result.message ||
+                                        "Unable to submit your report. Please try again.",
+                                    confirmButtonText: "OK",
+                                    confirmButtonColor: "#071b3d"
+                                });
+                            }
+
+                            return;
+                        }
+
+                        if (result.success) {
+
+                            reportForm.reset();
+
+                            window.closeReportModal();
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Report Submitted!",
+                                text: result.message ||
+                                    "Thank you for reporting this property. Our team will review it shortly.",
+                                confirmButtonText: "OK",
+                                confirmButtonColor: "#071b3d",
+                                allowOutsideClick: false,
+                                allowEscapeKey: true
+                            });
+
+                        } else {
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Submission Failed",
+                                text: result.message ||
+                                    "Unable to submit your report. Please try again.",
+                                confirmButtonText: "OK",
+                                confirmButtonColor: "#071b3d"
+                            });
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Property report submission error:",
+                            error
+                        );
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something Went Wrong",
+                            text: "Unable to submit your report. Please try again.",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#071b3d"
+                        });
+
+                    } finally {
+
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalButtonText;
+                        }
+                    }
+
+                });
+
+            }
+
+
+            /*
+             * ESC KEY
+             */
+            document.addEventListener("keydown", function (event) {
+
+                if (event.key === "Escape") {
+
+                    if (
+                        reportModal &&
+                        reportModal.classList.contains("active")
+                    ) {
+                        window.closeReportModal();
+                    }
+
+                }
+
+            });
+
+        });
+    </script>
+
+
+
+
+    <style>
+        /* =====================================================
+       FULL SCREEN PROPERTY GALLERY
+    ===================================================== */
+
+        .gallery-viewer {
+            position: fixed !important;
+            inset: 0 !important;
+
+            z-index: 999999 !important;
+
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            opacity: 0;
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity .25s ease,
+                visibility .25s ease;
+        }
+
+        .gallery-viewer.active {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+
+
+        /* =====================================================
+       BACKGROUND
+    ===================================================== */
+
+        .gallery-viewer-overlay {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(8, 10, 18, .94);
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+       IMAGE CONTAINER
+    ===================================================== */
+
+        .gallery-viewer-content {
+            position: relative;
+
+            z-index: 2;
+
+            width: calc(100vw - 160px);
+            max-width: 1400px;
+
+            height: calc(100dvh - 80px);
+            max-height: 800px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+       VIEWER IMAGE
+    ===================================================== */
+
+        .gallery-viewer-content img {
+            display: block;
+
+            width: auto !important;
+            height: auto !important;
+
+            max-width: calc(100vw - 180px) !important;
+            max-height: calc(100dvh - 100px) !important;
+
+            object-fit: contain !important;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, .45);
+
+            user-select: none;
+            -webkit-user-drag: none;
+
+            flex: 0 1 auto;
+        }
+
+
+        /* =====================================================
+       CONTROL BUTTONS
+    ===================================================== */
+
+        .gallery-close,
+        .gallery-prev,
+        .gallery-next {
+            position: absolute;
+
+            z-index: 5;
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, .10);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
+
+        .gallery-close:hover,
+        .gallery-prev:hover,
+        .gallery-next:hover {
+            background: rgba(255, 255, 255, .20);
+        }
+
+
+        /* =====================================================
+       CLOSE
+    ===================================================== */
+
+        .gallery-close {
+            top: 25px;
+            right: 25px;
+        }
+
+        .gallery-close:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* =====================================================
+       PREVIOUS
+    ===================================================== */
+
+        .gallery-prev {
+            left: 25px;
+            top: 50%;
+
+            transform: translateY(-50%);
+        }
+
+        .gallery-prev:hover {
+            transform:
+                translateY(-50%) scale(1.05);
+        }
+
+
+        /* =====================================================
+       NEXT
+    ===================================================== */
+
+        .gallery-next {
+            right: 25px;
+            top: 50%;
+
+            transform: translateY(-50%);
+        }
+
+        .gallery-next:hover {
+            transform:
+                translateY(-50%) scale(1.05);
+        }
+
+
+        /* =====================================================
+       COUNTER
+    ===================================================== */
+
+        .gallery-counter {
+            position: absolute;
+
+            left: 50%;
+            bottom: 18px;
+
+            transform: translateX(-50%);
+
+            z-index: 5;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            background: rgba(0, 0, 0, .55);
+
+            color: #fff;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+       LOCK PAGE SCROLL
+    ===================================================== */
+
+        html.gallery-open,
+        body.gallery-open {
+            overflow: hidden !important;
+        }
+
+
+        /* =====================================================
+       MOBILE
+    ===================================================== */
+
+        @media (max-width: 767px) {
+
+            .gallery-viewer-content {
+                width: calc(100vw - 70px);
+                max-width: none;
+
+                height: calc(100dvh - 90px);
+                max-height: none;
+
+                padding: 0;
+            }
+
+            .gallery-close {
+                top: 15px;
+                right: 15px;
+            }
+
+            .gallery-prev {
+                left: 10px;
+            }
+
+            .gallery-next {
+                right: 10px;
+            }
+
+            .gallery-close,
+            .gallery-prev,
+            .gallery-next {
+                width: 40px;
+                height: 40px;
+            }
+
+            .gallery-viewer-content img {
+                max-width: calc(100vw - 70px) !important;
+                max-height: calc(100dvh - 120px) !important;
+            }
+
+            .gallery-counter {
+                bottom: 15px;
+
+                padding: 6px 11px;
+
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <script>
+
+        /* =====================================================
+           PROPERTY IMAGE GALLERY
+        ===================================================== */
+
+        const propertyGalleryImages = @json(
+            $propertyImages
+                ->map(function ($image) {
+                    return asset('storage/' . $image->image_path);
+                })
+                ->values()
+        );
+
+        let currentGalleryIndex = 0;
+
+
+        /*     =====================================================
+               OPEN GALLERY
+        ===================================================== */
+
+        window.openGallery = function (index) {
+
+            if (!propertyGalleryImages.length) {
+                return;
+            }
+
+                currentGalleryIndex = Math.max(
+                0,
+                Math.min(
+                    Number(index) || 0,
+                    propertyGalleryImages.length - 1
+                )
+            );
+
+            updateGalleryViewer();
+
+                const viewer =
+                document.getElementById('galleryViewer');
+
+            if (!viewer) {
+                return;
+            }
+
+            viewer.classList.add('active');
+
+                viewer.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+                document.documentElement.classList.add(
+                'gallery-open'
+            );
+
+                document.body.classList.add(
+                'gallery-open'
+            );
+        };
+
+
+        /*     =====================================================
+               CLOSE GALLERY
+        ===================================================== */
+
+        window.closeGallery = function () {
+
+                const viewer =
+                document.getElementById('galleryViewer');
+
+            if (!viewer) {
+                return;
+            }
+
+            viewer.classList.remove('active');
+
+                viewer.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+                document.documentElement.classList.remove(
+                'gallery-open'
+            );
+
+                document.body.classList.remove(
+                'gallery-open'
+            );
+        };
+
+
+        /*     =====================================================
+               NEXT IMAGE
+        ===================================================== */
+
+        window.nextGalleryImage = function () {
+
+            if (!propertyGalleryImages.length) {
+                return;
+            }
+
+                currentGalleryIndex =
+                (currentGalleryIndex + 1) %
+                propertyGalleryImages.length;
+
+            updateGalleryViewer();
+        };
+
+
+        /*     =====================================================
+               PREVIOUS IMAGE
+        ===================================================== */
+
+        window.previousGalleryImage = function () {
+
+            if (!propertyGalleryImages.length) {
+                return;
+            }
+
+                currentGalleryIndex =
+                (
+                    currentGalleryIndex -
+                    1 +
+                    propertyGalleryImages.length
+                ) %
+                propertyGalleryImages.length;
+
+            updateGalleryViewer();
+        };
+
+
+        /*     =====================================================
+               UPDATE VIEWER
+        ===================================================== */
+
+        function updateGalleryViewer() {
+
+                const image =
+                document.getElementById(
+                    'galleryViewerImage'
+                );
+
+                const counter =
+                document.getElementById(
+                    'galleryCounter'
+                );
+
+            if (!image || !counter) {
+                return;
+            }
+
+                image.src =
+                propertyGalleryImages[
+                currentGalleryIndex
+                ];
+
+                counter.textContent =
+                `${currentGalleryIndex + 1} / ${propertyGalleryImages.length}`;
+        }
+
+
+        /*     =====================================================
+               KEYBOARD CONTROLS
+        ===================================================== */
+
+        document.addEventListener(
+            'keydown',
+            function (event) {
+
+                    const viewer =
+                    document.getElementById(
+                        'galleryViewer'
+                    );
+
+                if (
+                    !viewer ||
+                    !viewer.classList.contains('active')
+                ) {
+                    return;
+                }
+
+                if (event.key === 'Escape') {
+
+                    event.preventDefault();
+
+                    closeGallery();
+
+                    return;
+                }
+
+                if (event.key === 'ArrowRight') {
+
+                    event.preventDefault();
+
+                    nextGalleryImage();
+
+                    return;
+                }
+
+                if (event.key === 'ArrowLeft') {
+
+                    event.preventDefault();
+
+                    previousGalleryImage();
+
+                    return;
+                }
+            }
+        );
+
+
+        /*     =====================================================
+               PREVENT IMAGE DRAGGING
+        ===================================================== */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function () {
+
+                    const viewerImage =
+                    document.getElementById(
+                        'galleryViewerImage'
+                    );
+
+                if (viewerImage) {
+
+                        viewerImage.addEventListener(
+                    'dragstart',
+                    function(event) {
+                    event.preventDefault();
+                }
+                );
+
+                }
+
+            }
+        );
+
+    </script>
+
+@endsection 

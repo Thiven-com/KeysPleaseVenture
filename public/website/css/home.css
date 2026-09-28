@@ -2049,9 +2049,9 @@ body {
    PAGE LOAD ANIMATION
    ========================================================= */
 
-body {
+/* body {
     animation: pageFadeIn 0.7s ease-out both;
-}
+} */
 
 @keyframes pageFadeIn {
     from {
