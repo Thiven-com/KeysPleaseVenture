@@ -10,6 +10,9 @@ return new class extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
 
+            $table->double('road_width', 15, 3)
+                ->nullable()
+                ->after('facing');
             $table->string('car_parking')
                 ->nullable()
                 ->after('road_width');
