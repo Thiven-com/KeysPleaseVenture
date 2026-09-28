@@ -605,7 +605,7 @@
                     $firstImage = $property->images->first();
 
                     if ($firstImage && $firstImage->image_path) {
-                        $propertyImage = asset('storage/' . $firstImage->image_path);
+                        $propertyImage = asset($firstImage->image_path);
                     } else {
                         $propertyImage = asset('images/default-property.jpg');
                     }

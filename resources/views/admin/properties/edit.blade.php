@@ -1017,7 +1017,7 @@
                                     <div class="property-image-card">
 
                                         <img
-                                            src="{{ asset('storage/' . $image->image_path) }}"
+                                            src="{{ asset($image->image_path) }}"
                                             alt="Property Image"
                                             class="img-fluid"
                                         >

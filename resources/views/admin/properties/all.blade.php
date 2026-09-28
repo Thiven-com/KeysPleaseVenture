@@ -1029,7 +1029,7 @@
                                             @endphp
 
                                             <img
-                                                src="{{ asset('storage/' . $firstImage->image_path) }}"
+                                                src="{{ asset($firstImage->image_path) }}"
                                                 alt="{{ $property->property_title ?? 'Property' }}"
                                                 class="property-image"
                                                 onerror="this.style.display='none';"

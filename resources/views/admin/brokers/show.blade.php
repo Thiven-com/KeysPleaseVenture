@@ -138,7 +138,7 @@
 
                             @if($broker->profile_pic)
 
-                                <img src="{{ asset('storage/' . $broker->profile_pic) }}" alt="Broker"
+                                <img src="{{ asset($broker->profile_pic) }}" alt="Broker"
                                     class="img-fluid rounded-circle mb-3" style="width:150px;height:150px;object-fit:cover;">
 
                             @else

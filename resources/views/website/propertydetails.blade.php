@@ -3764,19 +3764,19 @@
                 $defaultImage = asset('images/default-property.jpg');
 
                 $heroImage = $propertyImages->first()
-                    ? asset('storage/' . $propertyImages->first()->image_path)
+                    ? asset($propertyImages->first()->image_path)
                     : $defaultImage;
 
                 $secondImage = $propertyImages->get(1)
-                    ? asset('storage/' . $propertyImages->get(1)->image_path)
+                    ? asset($propertyImages->get(1)->image_path)
                     : $defaultImage;
 
                 $thirdImage = $propertyImages->get(2)
-                    ? asset('storage/' . $propertyImages->get(2)->image_path)
+                    ? asset($propertyImages->get(2)->image_path)
                     : $defaultImage;
 
                 $fourthImage = $propertyImages->get(3)
-                    ? asset('storage/' . $propertyImages->get(3)->image_path)
+                    ? asset($propertyImages->get(3)->image_path)
                     : $defaultImage;
 
                 $photoCount = $propertyImages->count();
@@ -4299,7 +4299,7 @@
                                     $similarImage = $similar->images->first();
 
                                     $similarImageUrl = $similarImage
-                                        ? asset('storage/' . $similarImage->image_path)
+                                        ? asset($similarImage->image_path)
                                         : asset('images/default-property.jpg');
 
                                     $similarLocation = collect([
@@ -7111,7 +7111,7 @@
         const propertyGalleryImages = @json(
             $propertyImages
                 ->map(function ($image) {
-                    return asset('storage/' . $image->image_path);
+                    return asset($image->image_path);
                 })
                 ->values()
         );

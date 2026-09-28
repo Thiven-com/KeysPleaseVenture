@@ -78,7 +78,7 @@
                                         <div class="col-md-4 col-sm-6">
 
                                             <div class="property-image">
-                                                <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                <img src="{{ asset($image->image_path) }}"
                                                     alt="{{ $property->property_title }}">
                                             </div>
 
