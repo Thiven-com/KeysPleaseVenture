@@ -207,60 +207,91 @@ class BrokerController extends Controller
             ->with('success', 'Broker deleted successfully.');
     }
 
+    public function trash()
+    {
+        $brokers = Broker::onlyTrashed()
+            ->latest('deleted_at')
+            ->paginate(15);
+
+        return view('admin.brokers.trash', compact('brokers'));
+    }
+
+    public function restore($id)
+    {
+        $broker = Broker::withTrashed()->findOrFail($id);
+
+        $broker->restore();
+
+        return redirect()
+            ->route('admin.brokers.index')
+            ->with('success', 'Broker restored successfully.');
+    }
+
+    public function forceDelete($id)
+    {
+        $broker = Broker::onlyTrashed()->findOrFail($id);
+
+        $broker->forceDelete();
+
+        return redirect()
+            ->route('admin.brokers.trash')
+            ->with('success', 'Broker permanently deleted.');
+    }
+
     public function create()
     {
         return view('admin.brokers.create');
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
 
-        'email' => 'required|email|unique:brokers,email',
+            'email' => 'required|email|unique:brokers,email',
 
-        'mobile' => 'required|string|max:20',
+            'mobile' => 'required|string|max:20',
 
-        'broker_type' => 'required|string|max:100',
+            'broker_type' => 'required|string|max:100',
 
-        'agency_name' => 'nullable|string|max:255',
+            'agency_name' => 'nullable|string|max:255',
 
-        'license_number' => 'nullable|string|max:255',
+            'license_number' => 'nullable|string|max:255',
 
-        'address' => 'required|string',
+            'address' => 'required|string',
 
-        'city' => 'required|string|max:100',
+            'city' => 'required|string|max:100',
 
-        'state' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
 
-        'pincode' => 'required|string|max:10',
+            'pincode' => 'required|string|max:10',
 
-        'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed',
 
-        'status' => 'required|in:pending,approved,inactive',
-    ]);
+            'status' => 'required|in:pending,approved,inactive',
+        ]);
 
-    Broker::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'mobile' => $request->mobile,
-        'broker_type' => $request->broker_type,
-        'agency_name' => $request->agency_name,
-        'license_number' => $request->license_number,
-        'address' => $request->address,
-        'city' => $request->city,
-        'state' => $request->state,
-        'pincode' => $request->pincode,
+        Broker::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'broker_type' => $request->broker_type,
+            'agency_name' => $request->agency_name,
+            'license_number' => $request->license_number,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
 
-        'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password),
 
-        'status' => $request->status,
+            'status' => $request->status,
 
-        'rejection_reason' => null,
-    ]);
+            'rejection_reason' => null,
+        ]);
 
-    return redirect()
-        ->route('admin.brokers.index')
-        ->with('success', 'Broker account created successfully.');
-}
+        return redirect()
+            ->route('admin.brokers.index')
+            ->with('success', 'Broker account created successfully.');
+    }
 }

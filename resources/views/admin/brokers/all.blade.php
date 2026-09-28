@@ -16,7 +16,16 @@
                         </p>
                     </div>
 
+
+
                     <div class="col-auto">
+
+                        <a href="{{ route('admin.brokers.trash') }}" class="btn btn-secondary me-2">
+
+                            <i class="fa fa-trash me-1"></i>
+                            Trash
+
+                        </a>
 
                         <a href="{{ route('admin.brokers.create') }}" class="btn btn-primary">
                             <i class="fa fa-plus me-1"></i>
@@ -83,35 +92,35 @@
                     <div class="mb-4">
 
                         <a href="{{ route('admin.brokers.index') }}" class="btn btn-sm
-                                    {{ !request('status') || request('status') === 'all'
+                                            {{ !request('status') || request('status') === 'all'
         ? 'btn-primary'
         : 'btn-outline-primary' }} me-1">
                             All
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'pending']) }}" class="btn btn-sm
-                                    {{ request('status') === 'pending'
+                                            {{ request('status') === 'pending'
         ? 'btn-warning'
         : 'btn-outline-warning' }} me-1">
                             Pending
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'approved']) }}" class="btn btn-sm
-                                    {{ request('status') === 'approved'
+                                            {{ request('status') === 'approved'
         ? 'btn-success'
         : 'btn-outline-success' }} me-1">
                             Approved
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'rejected']) }}" class="btn btn-sm
-                                    {{ request('status') === 'rejected'
+                                            {{ request('status') === 'rejected'
         ? 'btn-danger'
         : 'btn-outline-danger' }} me-1">
                             Rejected
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'inactive']) }}" class="btn btn-sm
-                                    {{ request('status') === 'inactive'
+                                            {{ request('status') === 'inactive'
         ? 'btn-secondary'
         : 'btn-outline-secondary' }}">
                             Inactive

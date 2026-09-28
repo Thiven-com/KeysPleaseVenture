@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\BrokerController;
 
 
 
-  Route::get('/brokers', [BrokerController::class, 'index'])
+Route::get('/brokers', [BrokerController::class, 'index'])
     ->name('admin.brokers.index');
 
 
@@ -29,6 +29,16 @@ Route::get('/brokers/create', [BrokerController::class, 'create'])
 
 Route::post('/brokers', [BrokerController::class, 'store'])
     ->name('admin.brokers.store');
+
+Route::get('/brokers/trash', [BrokerController::class, 'trash'])
+    ->name('admin.brokers.trash');
+
+Route::patch('/brokers/{id}/restore', [BrokerController::class, 'restore'])
+    ->name('admin.brokers.restore');
+
+Route::delete('/brokers/{id}/force-delete', [BrokerController::class, 'forceDelete'])
+    ->name('admin.brokers.forceDelete');
+
 
 
 // VIEW BROKER
