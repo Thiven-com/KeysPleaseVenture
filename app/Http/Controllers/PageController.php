@@ -13,6 +13,7 @@ use App\Models\Testimonial;
 use App\Models\WishlistItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\City;
 
 class PageController extends Controller
 {
@@ -36,7 +37,8 @@ class PageController extends Controller
         $properties = Property::with([
             'images',
             'user',
-            'propertyAmenities'
+            'propertyAmenities',
+            'cityRelation'
         ])
             ->where('status', 'approved')
             ->whereIn('listing_for', [
@@ -56,27 +58,28 @@ class PageController extends Controller
         return view('website.login');
     }
 
-    public function propertydetails(Request $request)
+    public function propertydetails($slug)
     {
-        $propertyId = $request->query('property');
-
-        if (!$propertyId) {
-            abort(404);
-        }
-
         $property = Property::with([
             'images',
             'user',
-            'propertyAmenities'
+            'propertyAmenities',
+            'cityRelation'
         ])
             ->where('status', 'approved')
-            ->where('id', $propertyId)
-            ->firstOrFail();
+            ->where('slug', $slug)
+            ->first();
+
+        // Invalid or incomplete slug → Rent page
+        if (!$property) {
+            return redirect()->route('rent');
+        }
 
         $similarProperties = Property::with([
             'images',
             'user',
-            'propertyAmenities'
+            'propertyAmenities',
+            'cityRelation'
         ])
             ->where('status', 'approved')
             ->where('listing_for', $property->listing_for)
@@ -90,4 +93,38 @@ class PageController extends Controller
             'similarProperties'
         ));
     }
+
+
+    public function rentByCity($citySlug)
+{
+    $city = City::where('slug', $citySlug)
+        ->where('status', true)
+        ->first();
+
+    if (!$city) {
+        return redirect()->route('rent');
+    }
+
+    $properties = Property::with([
+        'images',
+        'user',
+        'propertyAmenities',
+        'cityRelation'
+    ])
+        ->where('status', 'approved')
+        ->where('city_id', $city->id)
+        ->whereIn('listing_for', [
+            'Rent',
+            'PG',
+            'Sell',
+            'Lease'
+        ])
+        ->latest()
+        ->get();
+
+    return view('website.rent', [
+        'properties' => $properties,
+        'selectedCityModel' => $city,
+    ]);
+}
 }

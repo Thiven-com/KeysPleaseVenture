@@ -56,6 +56,19 @@
                                                         </a>
                                                 </li>
 
+                                                {{-- Cities --}}
+                                                <li class="{{ Request::is('admin/cities*') ? 'active' : '' }}">
+
+                                                        <a href="{{ route('admin.cities.index') }}">
+
+                                                                <i class="ti ti-building fs-16 me-2"></i>
+
+                                                                <span>Cities</span>
+
+                                                        </a>
+
+                                                </li>
+
                                                 {{-- Amenities --}}
                                                 <li class="{{ Request::is('admin/amenities*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.amenities.index') }}">

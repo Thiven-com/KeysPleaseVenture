@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Amenity;
+use App\Models\City;
 
 class Property extends Model
 {
     protected $fillable = [
+        'city_id',
         'user_id',
         'listing_for',
 
@@ -96,4 +98,9 @@ class Property extends Model
             'property_amenities'
         )->withTimestamps();
     }
+
+    public function cityRelation()
+{
+    return $this->belongsTo(City::class, 'city_id');
+}
 }

@@ -6,8 +6,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                         SEARCH AREA
-                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                         SEARCH AREA
+                                                                                                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -40,7 +40,7 @@
                             return [
                                 $property->locality,
                                 $property->landmark,
-                                $property->city,
+                                optional($property->cityRelation)->name,
                             ];
                         })
                         ->filter()
@@ -256,15 +256,15 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                         CONTENT AREA
-                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                         CONTENT AREA
+                                                                                                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                             SIDEBAR
-                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                             SIDEBAR
+                                                                                                                                                                                                                                                        ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -289,10 +289,10 @@
             @php
                 $locationTree = $properties
                     ->filter(function ($property) {
-                        return $property->city || $property->locality;
+                        return $property->cityRelation || $property->locality;
                     })
                     ->groupBy(function ($property) {
-                        return trim($property->city ?: 'Other');
+                        return optional($property->cityRelation)->name ?: 'Other';
                     })
                     ->map(function ($cityProperties) {
 
@@ -329,12 +329,12 @@
                     @foreach($locationTree as $city => $localities)
 
                         {{-- CITY --}}
-                        <button type="button" class="tree-row active-parent">
-
+                        <button type="button" class="tree-row active-parent city-filter-row" data-city="{{ $city }}">
                             <i class="fa-solid fa-chevron-down"></i>
 
                             {{ $city }}
 
+                            <span class="checkbox"></span>
                         </button>
 
 
@@ -376,43 +376,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                        <button type="button" class="filter-title">
-                                                                                                                                                            <span>
-                                                                                                                                                                Rent Range
-                                                                                                                                                            </span>
+                                                                                                                                                                                                                                        <button type="button" class="filter-title">
+                                                                                                                                                                                                                                            <span>
+                                                                                                                                                                                                                                                Rent Range
+                                                                                                                                                                                                                                            </span>
 
-                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                        </button>
-
-
-                                                                                                                                                        <div class="range">
-
-                                                                                                                                                            <span class="range-progress"></span>
-
-                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                        </div>
+                                                                                                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                        </button>
 
 
-                                                                                                                                                        <div class="range-values">
+                                                                                                                                                                                                                                        <div class="range">
 
-                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                ₹ 0
-                                                                                                                                                            </div>
+                                                                                                                                                                                                                                            <span class="range-progress"></span>
 
-                                                                                                                                                            <span class="range-to">
-                                                                                                                                                                to
-                                                                                                                                                            </span>
+                                                                                                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                ₹ 1,00,000+
-                                                                                                                                                            </div>
+                                                                                                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                        </div>
+                                                                                                                                                                                                                                        </div>
 
-                                                                                                                                                    </div> -->
+
+                                                                                                                                                                                                                                        <div class="range-values">
+
+                                                                                                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                                                                                                ₹ 0
+                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                            <span class="range-to">
+                                                                                                                                                                                                                                                to
+                                                                                                                                                                                                                                            </span>
+
+                                                                                                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                                                                                                ₹ 1,00,000+
+                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                    </div> -->
 
 
             <!-- BHK -->
@@ -535,8 +535,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                             RESULTS
-                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                             RESULTS
+                                                                                                                                                                                                                                                        ================================================== -->
 
         <section class="results">
 
@@ -655,7 +655,7 @@
                     // Location
                     $locationText = collect([
                         $property->locality,
-                        $property->city,
+                        optional($property->cityRelation)->name,
                         $property->district,
                         $property->state
                     ])
@@ -667,9 +667,10 @@
                 @endphp
 
 
-                <article class="result-card" data-property="{{ $property->id }}" data-price="{{ (float) $property->price }}"
-                    data-age="{{ $ageHours }}" data-bhk="{{ $bhkNumber ?? 0 }}" data-location="{{ $locationText }}"
-                    data-type="{{ $property->property_type }}"
+                <article class="result-card" data-property="{{ $property->id }}" data-property-slug="{{ $property->slug }}"
+                    data-price="{{ (float) $property->price }}" data-age="{{ $ageHours }}" data-bhk="{{ $bhkNumber ?? 0 }}"
+                    data-city-id="{{ $property->city_id }}" data-city="{{ optional($property->cityRelation)->name }}"
+                    data-location="{{ $locationText }}" data-type="{{ $property->property_type }}"
                     data-amenities="{{ $property->propertyAmenities->pluck('name')->implode(',') }}">
 
                     {{-- IMAGE --}}
@@ -910,13 +911,14 @@
 
 
                         {{-- VIEW DETAILS --}}
-                        <button type="button" class="action-btn primary view-details" data-property-id="{{ $property->id }}">
+                        <button type="button" class="action-btn primary view-details"
+                            data-property-slug="{{ $property->slug }}">
                             View Details
                         </button>
 
 
                         {{-- ENQUIRE --}}
-                        <button type="button" class="action-btn enquire-btn" data-property-id="{{ $property->id }}">
+                        <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
                             Enquire Now
                         </button>
 
@@ -962,17 +964,92 @@
 
             </div>
 
+            <!-- PAGINATION -->
+            <div class="pagination-wrapper" id="paginationWrapper">
+                <button type="button" class="pagination-btn" id="prevPage">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="pagination-pages" id="paginationPages"></div>
+
+                <button type="button" class="pagination-btn" id="nextPage">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
         </section>
 
     </div>
 
+    <style>
+        /* =================================================
+                                                           PAGINATION
+                                                        ================================================= */
 
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            margin: 30px 0 20px;
+        }
+
+        .pagination-pages {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pagination-btn,
+        .pagination-page {
+            min-width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #dce2ed;
+            border-radius: 7px;
+
+            background: #fff;
+            color: #1724c9;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-page:hover {
+            background: #eef2ff;
+            border-color: #1724c9;
+        }
+
+        .pagination-page.active {
+            background: #1724c9;
+            color: #fff;
+            border-color: #1724c9;
+        }
+
+        .pagination-btn:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .pagination-wrapper.hidden {
+            display: none;
+        }
+    </style>
 
 
 
     <!-- =====================================================
-                                                                                                                                                                         ENQUIRY MODAL
-                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                         ENQUIRY MODAL
+                                                                                                                                                                                                                                                    ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1101,6 +1178,25 @@
         document.addEventListener("DOMContentLoaded", function () {
 
 
+
+            const paginationWrapper =
+                document.getElementById("paginationWrapper");
+
+            const paginationPages =
+                document.getElementById("paginationPages");
+
+            const prevPage =
+                document.getElementById("prevPage");
+
+            const nextPage =
+                document.getElementById("nextPage");
+
+            const ITEMS_PER_PAGE = 3;
+
+            let currentPage = 1;
+
+
+
             /* =================================================
                ELEMENTS
             ================================================= */
@@ -1171,8 +1267,42 @@
 
             const treeRows =
                 Array.from(
-                    document.querySelectorAll(".tree .tree-row.child, .tree .tree-row.checked")
+                    document.querySelectorAll(".tree .tree-row.child")
                 );
+
+            const cityFilterRows =
+                Array.from(
+                    document.querySelectorAll(".city-filter-row")
+                );
+
+
+            /* ================================================= 
+    CITY FILTER 
+    ================================================= */
+
+            cityFilterRows.forEach(function (row) {
+
+                row.addEventListener("click", function () {
+
+                    const checkbox =
+                        this.querySelector(".checkbox");
+
+                    if (!checkbox) return;
+
+                    checkbox.classList.toggle("checked");
+
+                    this.classList.toggle("checked");
+
+                    checkbox.innerHTML =
+                        checkbox.classList.contains("checked")
+                            ? '<i class="fa-solid fa-check"></i>'
+                            : "";
+
+                    performSearch();
+
+                });
+
+            });
 
             const moreAreasBtn =
                 document.querySelector(".more");
@@ -1773,11 +1903,11 @@
                         const card =
                             this.closest(".result-card");
 
-                        const propertyId =
-                            card.dataset.property;
+                        const propertySlug =
+                            this.dataset.propertySlug;
 
                         window.location.href =
-                            "{{ route('propertydetails') }}?property=" + propertyId;
+                            "{{ url('propertydetails') }}/" + propertySlug;
 
                     });
 
@@ -1800,11 +1930,11 @@
                         return;
                     }
 
-                    const propertyId =
-                        this.dataset.property;
+                    const propertySlug =
+                        this.dataset.propertySlug;
 
                     window.location.href =
-                        "{{ route('propertydetails') }}?property=" + propertyId;
+                        "{{ url('propertydetails') }}/" + propertySlug;
 
                 });
 
@@ -2256,6 +2386,157 @@
             );
 
 
+
+             /* =================================================
+               PAGINATION
+                  ================================================= */
+
+            function renderPagination() {
+
+                const visibleCards = propertyCards.filter(function (card) {
+                    return card.dataset.filteredVisible === "true";
+                });
+
+                const totalPages = Math.ceil(
+                    visibleCards.length / ITEMS_PER_PAGE
+                );
+
+                /* Hide pagination if only one page */
+                if (totalPages <= 1) {
+
+                    paginationWrapper.classList.add("hidden");
+
+                } else {
+
+                    paginationWrapper.classList.remove("hidden");
+
+                }
+
+                /* Make sure current page is valid */
+                if (currentPage > totalPages) {
+                    currentPage = totalPages || 1;
+                }
+
+                /* Clear page buttons */
+                paginationPages.innerHTML = "";
+
+                /* Create page buttons */
+                for (let i = 1; i <= totalPages; i++) {
+
+                    const button = document.createElement("button");
+
+                    button.type = "button";
+
+                    button.className = "pagination-page";
+
+                    if (i === currentPage) {
+                        button.classList.add("active");
+                    }
+
+                    button.textContent = i;
+
+                    button.addEventListener("click", function () {
+
+                        currentPage = i;
+
+                        renderPagination();
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+
+                    });
+
+                    paginationPages.appendChild(button);
+                }
+
+                /* Previous button */
+                prevPage.disabled =
+                    currentPage <= 1 || totalPages === 0;
+
+                /* Next button */
+                nextPage.disabled =
+                    currentPage >= totalPages || totalPages === 0;
+
+                /* Calculate current page items */
+                const startIndex =
+                    (currentPage - 1) * ITEMS_PER_PAGE;
+
+                const endIndex =
+                    startIndex + ITEMS_PER_PAGE;
+
+                const currentPageCards =
+                    visibleCards.slice(startIndex, endIndex);
+
+                /* Hide all cards first */
+                propertyCards.forEach(function (card) {
+
+                    card.style.display = "none";
+
+                });
+
+                /* Show only current page cards */
+                currentPageCards.forEach(function (card) {
+
+                    card.style.display = "";
+
+                });
+            }
+
+
+            /* =================================================
+               PREVIOUS PAGE
+            ================================================= */
+
+            prevPage.addEventListener("click", function () {
+
+                if (currentPage > 1) {
+
+                    currentPage--;
+
+                    renderPagination();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+            });
+
+
+            /* =================================================
+               NEXT PAGE
+            ================================================= */
+
+            nextPage.addEventListener("click", function () {
+
+                const visibleCards = propertyCards.filter(function (card) {
+                    return card.dataset.filteredVisible === "true";
+                });
+
+                const totalPages = Math.ceil(
+                    visibleCards.length / ITEMS_PER_PAGE
+                );
+
+                if (currentPage < totalPages) {
+
+                    currentPage++;
+
+                    renderPagination();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+            });
+
+
             /* =================================================
                SEARCH (UPDATED — now reads sidebar filters too)
             ================================================= */
@@ -2308,6 +2589,22 @@
                             ).trim().toLowerCase();
                         });
 
+                /* SELECTED CITIES */
+
+                const checkedCities =
+                    cityFilterRows
+                        .filter(function (row) {
+                            return row.classList.contains("checked");
+                        })
+                        .map(function (row) {
+
+                            return (row.dataset.city || row.textContent)
+                                .replace(/\s+/g, " ")
+                                .trim()
+                                .toLowerCase();
+
+                        });
+
 
                 /* NEW: sidebar BHK checkboxes */
 
@@ -2339,21 +2636,16 @@
                 propertyCards.forEach(function (card) {
 
                     const cardLocation =
-                        card.dataset.location
+                        card.dataset.location.toLowerCase();
+
+                    const cardCity =
+                        (card.dataset.city || "")
+                            .trim()
                             .toLowerCase();
 
-
-                    const cardType =
-                        card.dataset.type;
-
-
-                    const cardBhk =
-                        card.dataset.bhk;
-
-
-                    const cardPrice =
-                        Number(card.dataset.price);
-
+                    const cardType = card.dataset.type;
+                    const cardBhk = card.dataset.bhk;
+                    const cardPrice = Number(card.dataset.price);
 
                     let visible = true;
 
@@ -2368,6 +2660,24 @@
                     ) {
 
                         visible = false;
+
+                    }
+
+
+                    /* CITY FILTER */
+
+                    if (checkedCities.length > 0) {
+
+                        const matchesCity =
+                            checkedCities.some(function (city) {
+
+                                return cardCity === city;
+
+                            });
+
+                        if (!matchesCity) {
+                            visible = false;
+                        }
 
                     }
 
@@ -2428,16 +2738,27 @@
                      * NEW: Sidebar location tree (OR match)
                      */
 
+                    /*
+                        * Sidebar location tree (OR match)
+                       */
+
                     if (checkedLocations.length > 0) {
 
-                        const matchesArea =
-                            checkedLocations.some(function (area) {
-                                return cardLocation.includes(area);
-                            });
+    const matchesLocation =
+        checkedLocations.some(function (selectedLocation) {
 
-                        if (!matchesArea) visible = false;
+            return (
+                cardCity.includes(selectedLocation) ||
+                cardLocation.includes(selectedLocation)
+            );
 
-                    }
+        });
+
+    if (!matchesLocation) {
+        visible = false;
+    }
+
+}
 
 
                     /*
@@ -2485,10 +2806,10 @@
                     }
 
 
-                    card.style.display =
-                        visible
-                            ? ""
-                            : "none";
+                    card.dataset.filteredVisible =
+                        visible ? "true" : "false";
+
+                    card.style.display = "none";
 
 
                     if (visible) {
@@ -2506,6 +2827,10 @@
                     visibleCount === 0
                         ? "block"
                         : "none";
+
+                currentPage = 1;
+
+                renderPagination();
 
             }
 
@@ -2621,6 +2946,22 @@
                         checkbox.classList.remove("checked");
                         checkbox.innerHTML = "";
                     }
+                });
+
+                /* CITY FILTER ROWS */
+
+                cityFilterRows.forEach(function (row) {
+
+                    row.classList.remove("checked");
+
+                    const checkbox =
+                        row.querySelector(".checkbox");
+
+                    if (checkbox) {
+                        checkbox.classList.remove("checked");
+                        checkbox.innerHTML = "";
+                    }
+
                 });
 
 

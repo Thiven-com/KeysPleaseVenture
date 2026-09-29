@@ -16,6 +16,30 @@ use App\Http\Controllers\Admin\RentalPropertyReportController;
 use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrokerController;
+use App\Http\Controllers\Admin\CityController;
+
+
+// CITY MANAGEMENT
+Route::get('cities', [CityController::class, 'index'])
+    ->name('admin.cities.index');
+
+Route::get('cities/create', [CityController::class, 'create'])
+    ->name('admin.cities.create');
+
+Route::post('cities', [CityController::class, 'store'])
+    ->name('admin.cities.store');
+
+Route::get('cities/{id}/edit', [CityController::class, 'edit'])
+    ->name('admin.cities.edit');
+
+Route::put('cities/{id}', [CityController::class, 'update'])
+    ->name('admin.cities.update');
+
+Route::delete('cities/{id}', [CityController::class, 'destroy'])
+    ->name('admin.cities.destroy');
+
+
+
 
 
 

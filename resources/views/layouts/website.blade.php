@@ -133,7 +133,13 @@
             <i class="fa-solid fa-location-dot"></i>
           </span>
 
-          <span class="city-name">Bengaluru</span>
+          <span class="city-name">
+            @if(isset($selectedCityModel) && is_object($selectedCityModel))
+              {{ $selectedCityModel->name }}
+            @else
+              Bengaluru
+            @endif
+          </span>
 
           <span class="city-arrow">
             <i class="fa-solid fa-chevron-down"></i>
@@ -148,118 +154,40 @@
           <div class="city-search">
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <input type="text" placeholder="Search for city">
+            <input type="text" id="citySearchInput" placeholder="Search for city">
           </div>
-
 
           <div class="city-dropdown-content">
 
             <h3>Popular cities</h3>
 
-
             <div class="popular-cities">
 
-              <button class="city-option active">
-                <span class="city-option-icon">
-                  🏙️
-                </span>
-                <span>Bengaluru</span>
-              </button>
+              @foreach($cities->where('is_popular', true) as $city)
 
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏛️
-                </span>
-                <span>Mumbai</span>
-              </button>
+                <button type="button" class="city-option {{ request()->is('rent/' . $city->slug) ? 'active' : '' }}"
+                  data-city="{{ $city->slug }}">
 
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏢
-                </span>
-                <span>Pune</span>
-              </button>
+                  <span class="city-option-icon">
+                    <i class="{{ config('city_icons.' . $city->icon) }}"></i>
+                  </span>
 
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏘️
-                </span>
-                <span>Chennai</span>
-              </button>
+                  <span>{{ $city->name }}</span>
 
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏙️
-                </span>
-                <span>Kolkata</span>
-              </button>
+                </button>
 
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏢
-                </span>
-                <span>Ahmedabad</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏙️
-                </span>
-                <span>Delhi</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏢
-                </span>
-                <span>Noida</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏙️
-                </span>
-                <span>Gurgaon</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏢
-                </span>
-                <span>Hyderabad</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏛️
-                </span>
-                <span>Thane</span>
-              </button>
-
-              <button class="city-option">
-                <span class="city-option-icon">
-                  🏙️
-                </span>
-                <span>Navi Mumbai</span>
-              </button>
+              @endforeach
 
             </div>
 
           </div>
 
-
-          <!-- Bottom -->
-
           <div class="city-dropdown-footer">
 
             <div class="footer-links">
-
               <a href="#">All India</a>
-
               <span></span>
-
               <a href="#">International</a>
-
             </div>
 
             <a href="#" class="view-all-cities">
@@ -1212,6 +1140,58 @@
 
         }
       );
+
+      /* =========================================================
+   CITY SELECTION
+========================================================= */
+
+      const cityOptions = document.querySelectorAll('.city-option');
+
+      cityOptions.forEach(function (option) {
+
+        option.addEventListener('click', function () {
+
+          const citySlug = this.dataset.city;
+
+          if (!citySlug) {
+            return;
+          }
+
+          window.location.href = '/rent/' + citySlug;
+
+        });
+
+      });
+
+
+      /* =========================================================
+   CITY SEARCH
+========================================================= */
+
+      const citySearchInput = document.getElementById('citySearchInput');
+      
+
+      if (citySearchInput) {
+        citySearchInput.addEventListener('input', function () {
+
+          const searchText = this.value.toLowerCase().trim();
+
+          cityOptions.forEach(function (option) {
+
+            const cityName = option
+              .querySelector('span:last-child')
+              .textContent
+              .toLowerCase();
+
+            if (cityName.includes(searchText)) {
+              option.style.display = 'flex';
+            } else {
+              option.style.display = 'none';
+            }
+
+          });
+        });
+      }
 
     });
   </script>

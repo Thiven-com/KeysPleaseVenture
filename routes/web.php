@@ -22,8 +22,10 @@ Route::get('contact', [PageController::class, 'contact'])
 
 Route::get('rent', [PageController::class, 'rent'])
     ->name('rent');
+ Route::get('/rent/{citySlug}', [PageController::class, 'rentByCity'])
+    ->name('rent.city');
 
-Route::get('propertydetails', [PageController::class, 'propertydetails'])
+Route::get('propertydetails/{slug}', [PageController::class, 'propertydetails'])
     ->name('propertydetails');
 
 Route::get('login', [PageController::class, 'login'])

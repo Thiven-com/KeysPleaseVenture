@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amenity;
 use App\Models\Property;
 use App\Models\PropertyImage;
-use App\Models\Amenity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +37,11 @@ class PropertyController extends Controller
      */
     public function create()
     {
+        $cities = \App\Models\City::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
         $amenities = Amenity::where('status', 'active')
             ->orderBy('sort_order')
             ->orderBy('name')
@@ -44,7 +49,7 @@ class PropertyController extends Controller
 
         return view(
             'admin.properties.create',
-            compact('amenities')
+            compact('amenities', 'cities')
         );
     }
 
@@ -81,7 +86,7 @@ class PropertyController extends Controller
 
             'district' => 'nullable|string|max:100',
 
-            'city' => 'nullable|string|max:100',
+            'city_id' => 'required|exists:cities,id',
 
             'locality' => 'required|string|max:255',
 
@@ -220,8 +225,8 @@ class PropertyController extends Controller
                 'district' =>
                     $validated['district'] ?? null,
 
-                'city' =>
-                    $validated['city'] ?? null,
+                'city_id' =>
+                    $validated['city_id'],
 
                 'locality' =>
                     $validated['locality'],
@@ -429,11 +434,21 @@ class PropertyController extends Controller
             ->get();
 
 
+        /*
+         * Load active cities for edit form.
+         */
+        $cities = \App\Models\City::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+
         return view(
             'admin.properties.edit',
             compact(
                 'property',
-                'amenities'
+                'amenities',
+                'cities'
             )
         );
     }
@@ -481,8 +496,8 @@ class PropertyController extends Controller
             'district' =>
                 'nullable|string|max:100',
 
-            'city' =>
-                'nullable|string|max:100',
+            'city_id' =>
+                'required|exists:cities,id',
 
             'locality' =>
                 'required|string|max:255',
@@ -657,8 +672,8 @@ class PropertyController extends Controller
                 'district' =>
                     $validated['district'] ?? null,
 
-                'city' =>
-                    $validated['city'] ?? null,
+                'city_id' =>
+                    $validated['city_id'],
 
                 'locality' =>
                     $validated['locality'],

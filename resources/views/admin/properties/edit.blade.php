@@ -321,21 +321,33 @@
 
 
                     {{-- City --}}
-                    <div class="property-col-4">
-                        <label class="property-form-label">
-                            City
-                            <span class="text-danger">*</span>
-                        </label>
+                   {{-- City --}}
+<div class="property-col-4">
 
-                        <input
-                            type="text"
-                            name="city"
-                            class="form-control"
-                            value="{{ old('city', $property->city) }}"
-                            placeholder="Enter city"
-                            required
-                        >
-                    </div>
+    <label class="property-form-label">
+        City
+        <span class="text-danger">*</span>
+    </label>
+
+    <select
+        name="city_id"
+        class="form-control"
+        required
+    >
+        <option value="">Select City</option>
+
+        @foreach ($cities as $city)
+            <option
+                value="{{ $city->id }}"
+                {{ old('city_id', $property->city_id) == $city->id ? 'selected' : '' }}
+            >
+                {{ $city->name }}
+            </option>
+        @endforeach
+
+    </select>
+
+</div>
 
 
                     {{-- Locality --}}
