@@ -6,8 +6,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                         SEARCH AREA
-                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                     SEARCH AREA
+                                                                                                                                                                                                                                                                                ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -256,15 +256,15 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                         CONTENT AREA
-                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                     CONTENT AREA
+                                                                                                                                                                                                                                                                                ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                             SIDEBAR
-                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                         SIDEBAR
+                                                                                                                                                                                                                                                                                    ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -376,43 +376,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                        <button type="button" class="filter-title">
-                                                                                                                                                                                                                                            <span>
-                                                                                                                                                                                                                                                Rent Range
-                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                    <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                        <span>
+                                                                                                                                                                                                                                                                            Rent Range
+                                                                                                                                                                                                                                                                        </span>
 
-                                                                                                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                        </button>
-
-
-                                                                                                                                                                                                                                        <div class="range">
-
-                                                                                                                                                                                                                                            <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                        <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                    </button>
 
 
-                                                                                                                                                                                                                                        <div class="range-values">
+                                                                                                                                                                                                                                                                    <div class="range">
 
-                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                ₹ 0
-                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                        <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                            <span class="range-to">
-                                                                                                                                                                                                                                                to
-                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                ₹ 1,00,000+
-                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                    </div>
 
-                                                                                                                                                                                                                                    </div> -->
+
+                                                                                                                                                                                                                                                                    <div class="range-values">
+
+                                                                                                                                                                                                                                                                        <div class="range-box">
+                                                                                                                                                                                                                                                                            ₹ 0
+                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                        <span class="range-to">
+                                                                                                                                                                                                                                                                            to
+                                                                                                                                                                                                                                                                        </span>
+
+                                                                                                                                                                                                                                                                        <div class="range-box">
+                                                                                                                                                                                                                                                                            ₹ 1,00,000+
+                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                </div> -->
 
 
             <!-- BHK -->
@@ -535,8 +535,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                             RESULTS
-                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                         RESULTS
+                                                                                                                                                                                                                                                                                    ================================================== -->
 
         <section class="results">
 
@@ -680,9 +680,9 @@
                             <span class="featured">NEW</span>
                         @endif
 
-                        <button type="button" class="heart" aria-label="Add to favourites">
+                        <!-- <button type="button" class="heart" aria-label="Add to favourites">
                             <i class="fa-regular fa-heart"></i>
-                        </button>
+                        </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -983,8 +983,8 @@
 
     <style>
         /* =================================================
-                                                           PAGINATION
-                                                        ================================================= */
+                                                                                       PAGINATION
+                                                                                    ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1048,8 +1048,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                         ENQUIRY MODAL
-                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                     ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1261,6 +1261,86 @@
                 Array.from(
                     document.querySelectorAll(".result-card")
                 );
+
+
+            /* =================================================
+    URL FILTERS FROM RENT MENU
+    ================================================= */
+
+            /* =================================================
+    APPLY RENT MENU URL FILTERS
+    ================================================= */
+
+            const urlParams = new URLSearchParams(window.location.search);
+
+            const urlLocation = urlParams.get("location");
+            const urlType = urlParams.get("type");
+            const urlBhk = urlParams.get("bhk");
+
+
+            if (urlLocation) {
+
+                locationInput.value =
+                    decodeURIComponent(urlLocation).trim();
+
+            }
+
+
+            if (urlType) {
+
+                const typeValue =
+                    decodeURIComponent(urlType).trim();
+
+                const typeOption =
+                    Array.from(
+                        document.querySelectorAll("#propertyTypeMenu button")
+                    ).find(function (button) {
+
+                        return (
+                            button.dataset.value &&
+                            button.dataset.value.toLowerCase() ===
+                            typeValue.toLowerCase()
+                        );
+
+                    });
+
+                if (typeOption) {
+
+                    document.getElementById("propertyTypeValue").textContent =
+                        typeOption.dataset.value;
+
+                }
+
+            }
+
+
+            if (urlBhk) {
+
+                let bhkValue;
+
+                if (Number(urlBhk) >= 4) {
+                    bhkValue = "4+ BHK";
+                } else {
+                    bhkValue = urlBhk + " BHK";
+                }
+
+                const bhkOption =
+                    Array.from(
+                        document.querySelectorAll("#bhkMenu button")
+                    ).find(function (button) {
+
+                        return button.dataset.value === bhkValue;
+
+                    });
+
+                if (bhkOption) {
+
+                    document.getElementById("bhkValue").textContent =
+                        bhkOption.dataset.value;
+
+                }
+
+            }
 
 
             /* NEW: sidebar filter elements */
@@ -2387,9 +2467,9 @@
 
 
 
-             /* =================================================
-               PAGINATION
-                  ================================================= */
+            /* =================================================
+              PAGINATION
+                 ================================================= */
 
             function renderPagination() {
 
@@ -2744,21 +2824,21 @@
 
                     if (checkedLocations.length > 0) {
 
-    const matchesLocation =
-        checkedLocations.some(function (selectedLocation) {
+                        const matchesLocation =
+                            checkedLocations.some(function (selectedLocation) {
 
-            return (
-                cardCity.includes(selectedLocation) ||
-                cardLocation.includes(selectedLocation)
-            );
+                                return (
+                                    cardCity.includes(selectedLocation) ||
+                                    cardLocation.includes(selectedLocation)
+                                );
 
-        });
+                            });
 
-    if (!matchesLocation) {
-        visible = false;
-    }
+                        if (!matchesLocation) {
+                            visible = false;
+                        }
 
-}
+                    }
 
 
                     /*
@@ -2832,6 +2912,12 @@
 
                 renderPagination();
 
+            }
+
+            /* APPLY URL FILTERS ON PAGE LOAD */
+
+            if (urlLocation || urlType || urlBhk) {
+                performSearch();
             }
 
 

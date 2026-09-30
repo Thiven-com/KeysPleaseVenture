@@ -54,7 +54,7 @@
     <!-- =========================================
                          OUR STORY
                     ========================================= -->
-    <section class="about-story">
+    <!-- <section class="about-story">
         <div class="about-story-container">
 
             <div class="about-story-content">
@@ -106,7 +106,7 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
 
     <style>
         .about-story-media video {
@@ -150,7 +150,7 @@
     <!-- =========================================
                          STATS
                     ========================================= -->
-    <section class="about-stats">
+    <!-- <section class="about-stats">
         <div class="about-stats-container">
 
             <div class="about-stat">
@@ -190,7 +190,7 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
 
 
     <!-- =========================================================
@@ -257,6 +257,51 @@
 
         </div>
     </section>
+
+
+
+     <section class="about-stats">
+        <div class="about-stats-container">
+
+            <div class="about-stat">
+                <div class="about-stat-icon"><i class="fa-solid fa-house"></i></div>
+                <div class="about-stat-body">
+                    <strong>2M+</strong>
+                    <h3>Happy Customers</h3>
+                    <p>Helped people find their dream homes</p>
+                </div>
+            </div>
+
+            <div class="about-stat">
+                <div class="about-stat-icon"><i class="fa-solid fa-building"></i></div>
+                <div class="about-stat-body">
+                    <strong>500K+</strong>
+                    <h3>Properties Listed</h3>
+                    <p>Wide range of verified properties</p>
+                </div>
+            </div>
+
+            <div class="about-stat">
+                <div class="about-stat-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="about-stat-body">
+                    <strong>1200+</strong>
+                    <h3>Cities &amp; Localities</h3>
+                    <p>Strong presence across India</p>
+                </div>
+            </div>
+
+            <div class="about-stat">
+                <div class="about-stat-icon"><i class="fa-solid fa-user-group"></i></div>
+                <div class="about-stat-body">
+                    <strong>1500+</strong>
+                    <h3>Partner Agents</h3>
+                    <p>Professional agents to assist you</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
   
 

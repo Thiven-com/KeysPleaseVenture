@@ -2,8 +2,8 @@
 @section('content')
     <style>
         /* =========================================================
-           INFINITE LOCALITY CAROUSEL
-        ========================================================= */
+                                                   INFINITE LOCALITY CAROUSEL
+                                                ========================================================= */
 
         .locality-carousel {
             position: relative;
@@ -30,8 +30,8 @@
 
 
         /* =========================================================
-           ARROWS
-        ========================================================= */
+                                                   ARROWS
+                                                ========================================================= */
 
         .locality-controls {
             display: flex;
@@ -77,8 +77,8 @@
 
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+                                                   TABLET
+                                                ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -95,8 +95,8 @@
 
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+                                                   MOBILE
+                                                ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -149,13 +149,23 @@
             <!-- Search Card -->
             <div class="rpf-search-card">
 
-                <div class="rpf-tabs">
-                    <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
-                        <i class="fa-solid fa-house"></i> Rent
-                    </button>
+                <!-- <div class="rpf-tabs">
+                        <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                            <i class="fa-solid fa-house"></i> Rent
+                        </button>
 
-                    <button class="rpf-tab" type="button" data-mode="locality">
-                        <i class="fa-solid fa-location-dot"></i> By Locality
+                        <button class="rpf-tab" type="button" data-mode="locality">
+                            <i class="fa-solid fa-location-dot"></i> By Locality
+                        </button>
+                    </div> -->
+
+                <div class="rpf-tabs">
+                    <button class="rpf-tab rpf-tab-active" type="button">
+                        <i class="fa-solid fa-house"></i>
+                        Rent
+                        <span class="rpf-tab-divider">|</span>
+                        <i class="fa-solid fa-location-dot"></i>
+                        By Locality
                     </button>
                 </div>
 
@@ -176,21 +186,16 @@
                             </span>
 
                             <div class="rpf-dropdown" id="rpfLocationDropdown">
-                                <button type="button" data-value="Koramangala">
-                                    <i class="fa-solid fa-location-dot"></i> Koramangala
-                                </button>
-                                <button type="button" data-value="HSR Layout">
-                                    <i class="fa-solid fa-location-dot"></i> HSR Layout
-                                </button>
-                                <button type="button" data-value="Indiranagar">
-                                    <i class="fa-solid fa-location-dot"></i> Indiranagar
-                                </button>
-                                <button type="button" data-value="Whitefield">
-                                    <i class="fa-solid fa-location-dot"></i> Whitefield
-                                </button>
-                                <button type="button" data-value="Electronic City">
-                                    <i class="fa-solid fa-location-dot"></i> Electronic City
-                                </button>
+
+                                @foreach($searchLocations as $location)
+
+                                    <button type="button" data-value="{{ $location }}">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        {{ $location }}
+                                    </button>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -206,11 +211,19 @@
                             </span>
 
                             <div class="rpf-dropdown" id="rpfPropertyTypeDropdown">
-                                <button type="button" data-value="Any Type">Any Type</button>
-                                <button type="button" data-value="Apartment">Apartment</button>
-                                <button type="button" data-value="Villa">Villa</button>
-                                <button type="button" data-value="Independent House">Independent House</button>
-                                <button type="button" data-value="PG">PG</button>
+
+                                <button type="button" data-value="Any Type">
+                                    Any Type
+                                </button>
+
+                                @foreach($searchPropertyTypes as $type)
+
+                                    <button type="button" data-value="{{ $type }}">
+                                        {{ $type }}
+                                    </button>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -226,11 +239,19 @@
                             </span>
 
                             <div class="rpf-dropdown" id="rpfBhkDropdown">
-                                <button type="button" data-value="Any">Any</button>
-                                <button type="button" data-value="1">1 BHK</button>
-                                <button type="button" data-value="2">2 BHK</button>
-                                <button type="button" data-value="3">3 BHK</button>
-                                <button type="button" data-value="4">4+ BHK</button>
+
+                                <button type="button" data-value="Any">
+                                    Any
+                                </button>
+
+                                @foreach($searchBhks as $bhk)
+
+                                    <button type="button" data-value="{{ $bhk }} BHK">
+                                        {{ $bhk }} BHK
+                                    </button>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -246,11 +267,29 @@
                             </span>
 
                             <div class="rpf-dropdown" id="rpfRentRangeDropdown">
-                                <button type="button" data-value="Any Range">Any Range</button>
-                                <button type="button" data-value="0-25000">₹ 0 - ₹ 25,000</button>
-                                <button type="button" data-value="25000-50000">₹ 25,000 - ₹ 50,000</button>
-                                <button type="button" data-value="50000-75000">₹ 50,000 - ₹ 75,000</button>
-                                <button type="button" data-value="75000+">₹ 75,000+</button>
+
+                                <button type="button" data-value="Any Range">
+                                    Any Range
+                                </button>
+
+                                @php
+                                    $rentRanges = [
+                                        ['label' => '₹0 - ₹25,000', 'min' => 0, 'max' => 25000],
+                                        ['label' => '₹25,000 - ₹50,000', 'min' => 25000, 'max' => 50000],
+                                        ['label' => '₹50,000 - ₹75,000', 'min' => 50000, 'max' => 75000],
+                                        ['label' => '₹75,000+', 'min' => 75000, 'max' => null],
+                                    ];
+                                @endphp
+
+                                @foreach($rentRanges as $range)
+
+                                    <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
+                                        data-max="{{ $range['max'] }}">
+                                        {{ $range['label'] }}
+                                    </button>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -485,9 +524,9 @@
 
                         <span class="badge">FEATURED</span>
 
-                        <button class="heart" type="button" aria-label="Add to favorites">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
+                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Indiranagar
@@ -556,9 +595,9 @@
 
                         <span class="badge">FEATURED</span>
 
-                        <button class="heart" type="button" aria-label="Add to favorites">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
+                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Koramangala
@@ -629,9 +668,9 @@
                             NEW
                         </span>
 
-                        <button class="heart" type="button" aria-label="Add to favorites">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
+                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Whitefield
@@ -702,9 +741,9 @@
                             NEW
                         </span>
 
-                        <button class="heart" type="button" aria-label="Add to favorites">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
+                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> HSR Layout
@@ -993,8 +1032,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                                         NEWSLETTER
-                                                                                                         ========================================================= -->
+                                                                                                                                                 NEWSLETTER
+                                                                                                                                                 ========================================================= -->
 
     <div class="newsletter">
 
@@ -1100,7 +1139,36 @@
             });
 
             rpfLocationInput.addEventListener('input', function () {
-                rpfLocationClear.style.display = rpfLocationInput.value ? 'flex' : 'none';
+
+                var searchText = rpfLocationInput.value
+                    .toLowerCase()
+                    .trim();
+
+                rpfLocationClear.style.display = searchText ? 'flex' : 'none';
+
+                var locationButtons =
+                    rpfLocationDropdown.querySelectorAll('button');
+
+                locationButtons.forEach(function (btn) {
+
+                    var locationName = btn
+                        .getAttribute('data-value')
+                        .toLowerCase();
+
+                    if (
+                        searchText === '' ||
+                        locationName.includes(searchText)
+                    ) {
+                        btn.style.display = 'flex';
+                    } else {
+                        btn.style.display = 'none';
+                    }
+
+                });
+
+                // Keep dropdown open while searching
+                rpfLocationDropdown.classList.add('rpf-dropdown-open');
+                rpfLocationControl.classList.add('rpf-control-open');
             });
 
             rpfLocationClear.addEventListener('click', function (e) {
@@ -1134,10 +1202,36 @@
             var rentRange = document.getElementById('rpfRentRangeValue').textContent;
 
             var params = new URLSearchParams();
-            if (location) params.set('location', location);
-            if (propertyType && propertyType !== 'Any Type') params.set('property_type', propertyType);
-            if (bhk && bhk !== 'Any') params.set('bhk', bhk);
-            if (rentRange && rentRange !== 'Any Range') params.set('rent_range', rentRange);
+            if (location) {
+                params.set('location', location);
+            }
+
+            if (propertyType && propertyType !== 'Any Type') {
+                params.set('type', propertyType);
+            }
+
+            if (bhk && bhk !== 'Any') {
+                params.set('bhk', bhk.replace(' BHK', ''));
+            }
+
+            if (rentRange && rentRange !== 'Any Range') {
+                const rentRangeButton = Array.from(
+                    document.querySelectorAll('#rpfRentRangeDropdown button')
+                ).find(function (button) {
+                    return button.dataset.value === rentRange;
+                });
+
+                if (rentRangeButton) {
+                    const min = rentRangeButton.dataset.min;
+                    const max = rentRangeButton.dataset.max;
+
+                    if (max === 'null' || max === '') {
+                        params.set('rent_range', min + '+');
+                    } else {
+                        params.set('rent_range', min + '-' + max);
+                    }
+                }
+            }
 
             // Laravel route: Route::get('propertydetails', ...)->name('propertydetails')
             var url = '/rent';

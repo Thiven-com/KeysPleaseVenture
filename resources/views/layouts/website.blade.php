@@ -184,14 +184,14 @@
 
           <div class="city-dropdown-footer">
 
-            <div class="footer-links">
+            <!-- <div class="footer-links">
               <a href="#">All India</a>
               <span></span>
               <a href="#">International</a>
-            </div>
+            </div> -->
 
-            <a href="#" class="view-all-cities">
-              View all cities
+            <a href="{{ route('rent') }}" class="view-all-cities">
+              View all 
               <i class="fa-solid fa-chevron-right"></i>
             </a>
 
@@ -215,7 +215,7 @@
         <!-- RENT DROPDOWN -->
         <div class="nav-dropdown">
 
-          <a href="#" class="nav-dropdown-trigger">
+          <a href="{{ route('rent') }}" class="nav-dropdown-trigger">
             Rent
             <i class="fa-solid fa-chevron-down nav-arrow"></i>
           </a>
@@ -228,59 +228,69 @@
               <div class="mega-col">
                 <h4>Property Type</h4>
 
-                <a href="{{ route('rent') }}?type=flat">
-                  <i class="fa-solid fa-building"></i>
-                  Flats
-                </a>
+                @foreach($rentMenuTypes as $type)
 
-                <a href="{{ route('rent') }}?type=house">
-                  <i class="fa-solid fa-house"></i>
-                  Independent House
-                </a>
+                  @php
+                    $typeLower = strtolower($type);
 
-                <a href="{{ route('rent') }}?type=villa">
-                  <i class="fa-solid fa-house-chimney"></i>
-                  Villas
-                </a>
+                    if (str_contains($typeLower, 'flat')) {
+                      $icon = 'fa-solid fa-building';
+                    } elseif (str_contains($typeLower, 'house')) {
+                      $icon = 'fa-solid fa-house';
+                    } elseif (str_contains($typeLower, 'villa')) {
+                      $icon = 'fa-solid fa-house-chimney';
+                    } elseif (
+                      str_contains($typeLower, 'pg') ||
+                      str_contains($typeLower, 'co-living')
+                    ) {
+                      $icon = 'fa-solid fa-bed';
+                    } else {
+                      $icon = 'fa-solid fa-building';
+                    }
+                  @endphp
 
-                <a href="{{ route('rent') }}?type=pg">
-                  <i class="fa-solid fa-bed"></i>
-                  PG / Co-living
-                </a>
+                  <a href="{{ route('rent') }}?type={{ urlencode($type) }}">
+                    <i class="{{ $icon }}"></i>
+                    {{ $type }}
+                  </a>
 
+                @endforeach
               </div>
 
               <!-- Popular Areas -->
               <div class="mega-col">
                 <h4>Popular Areas</h4>
 
-                <a href="{{ route('rent') }}?location=Koramangala">Koramangala</a>
-                <a href="{{ route('rent') }}?location=HSR Layout">HSR Layout</a>
-                <a href="{{ route('rent') }}?location=Indiranagar">Indiranagar</a>
-                <a href="{{ route('rent') }}?location=Whitefield">Whitefield</a>
-                <a href="{{ route('rent') }}?location=Electronic City">Electronic City</a>
-
+                @foreach($rentMenuAreas as $area)
+                  <a href="{{ route('rent') }}?location={{ urlencode($area['locality'] . ', ' . $area['city']) }}">
+                    {{ $area['locality'] }}
+                  </a>
+                @endforeach
               </div>
 
               <!-- Search by BHK -->
               <div class="mega-col">
                 <h4>Search by BHK</h4>
 
-                <a href="{{ route('rent') }}?bhk=1">1 BHK for Rent</a>
-                <a href="{{ route('rent') }}?bhk=2">2 BHK for Rent</a>
-                <a href="{{ route('rent') }}?bhk=3">3 BHK for Rent</a>
-                <a href="{{ route('rent') }}?bhk=4">4+ BHK for Rent</a>
-
+                @foreach($rentMenuBhks as $bhk)
+                  <a href="{{ route('rent') }}?bhk={{ $bhk }}">
+                    @if($bhk >= 4)
+                      4+ BHK for Rent
+                    @else
+                      {{ $bhk }} BHK for Rent
+                    @endif
+                  </a>
+                @endforeach
               </div>
 
               <!-- Popular Searches -->
               <div class="mega-col">
                 <h4>Popular Searches</h4>
 
-                <a href="#">Flats without brokerage</a>
-                <a href="#">Furnished flats for rent</a>
-                <a href="#">Pet friendly flats</a>
-                <a href="#">Verified listings only</a>
+                <a href="{{ route('rent') }}">Flats without brokerage</a>
+                <a href="{{ route('rent') }}">Furnished flats for rent</a>
+                <a href="{{ route('rent') }}">Pet friendly flats</a>
+                <a href="{{ route('rent') }}">Verified listings only</a>
 
               </div>
 
@@ -312,10 +322,10 @@
       <!-- Header Actions -->
       <div class="nav-actions">
 
-        <button class="nav-btn" type="button" id="lpfOpenBtn">
+        <!-- <button class="nav-btn" type="button" id="lpfOpenBtn">
           <span class="btn-icon"><i class="fa-solid fa-building"></i></span>
           <span>List Your Property</span>
-        </button>
+        </button> -->
 
         <button class="nav-btn primary" type="button">
           <span class="btn-icon">♙</span>
@@ -405,10 +415,10 @@
       <!-- Actions -->
       <div class="mobile-sidebar-actions">
 
-        <button class="mobile-sidebar-btn" type="button" id="lpfMobileOpenBtn">
+        <!-- <button class="mobile-sidebar-btn" type="button" id="lpfMobileOpenBtn">
           <span class="btn-icon"><i class="fa-solid fa-building"></i></span>
           <span>List Your Property</span>
-        </button>
+        </button> -->
 
         <button type="button" class="mobile-sidebar-btn primary" onclick="window.location.href='{{ route('login') }}'">
 
@@ -495,7 +505,7 @@
 
         <h4>For Owners &amp; Brokers</h4>
 
-        <a href="#">List Your Property</a>
+        <!-- <a href="#">List Your Property</a> -->
         <a href="#">Broker Benefits</a>
         <a href="#">Partner with Us</a>
         <a href="#">Resources</a>
@@ -1169,7 +1179,7 @@
 ========================================================= */
 
       const citySearchInput = document.getElementById('citySearchInput');
-      
+
 
       if (citySearchInput) {
         citySearchInput.addEventListener('input', function () {
