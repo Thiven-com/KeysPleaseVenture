@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\City;
 use App\Models\Property;
+use App\Models\PropertyType;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,15 +42,10 @@ class AppServiceProvider extends ServiceProvider
                 ]);
 
             // PROPERTY TYPES - MAX 5
-            $rentMenuTypes = $rentMenuProperties
-                ->pluck('property_type')
-                ->filter()
-                ->map(function ($type) {
-                    return trim($type);
-                })
-                ->unique()
-                ->sort()
-                ->values()
+            $rentMenuTypes = PropertyType::where('status', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->pluck('name')
                 ->take(5);
 
 
@@ -123,22 +119,10 @@ class AppServiceProvider extends ServiceProvider
                 ->take(10);
 
 
-            $searchPropertyTypes = Property::where('status', 'approved')
-                ->whereIn('listing_for', [
-                    'Rent',
-                    'PG',
-                    'Sell',
-                    'Lease'
-                ])
-                ->whereNotNull('property_type')
-                ->where('property_type', '!=', '')
-                ->pluck('property_type')
-                ->map(function ($type) {
-                    return trim($type);
-                })
-                ->unique()
-                ->sort()
-                ->values()
+            $searchPropertyTypes = PropertyType::where('status', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->pluck('name')
                 ->take(10);
 
             $searchBhks = Property::where('status', 'approved')

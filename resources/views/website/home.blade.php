@@ -2,8 +2,8 @@
 @section('content')
     <style>
         /* =========================================================
-                                                   INFINITE LOCALITY CAROUSEL
-                                                ========================================================= */
+                                                       INFINITE LOCALITY CAROUSEL
+                                                    ========================================================= */
 
         .locality-carousel {
             position: relative;
@@ -30,8 +30,8 @@
 
 
         /* =========================================================
-                                                   ARROWS
-                                                ========================================================= */
+                                                       ARROWS
+                                                    ========================================================= */
 
         .locality-controls {
             display: flex;
@@ -77,8 +77,8 @@
 
 
         /* =========================================================
-                                                   TABLET
-                                                ========================================================= */
+                                                       TABLET
+                                                    ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -95,8 +95,8 @@
 
 
         /* =========================================================
-                                                   MOBILE
-                                                ========================================================= */
+                                                       MOBILE
+                                                    ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -150,14 +150,14 @@
             <div class="rpf-search-card">
 
                 <!-- <div class="rpf-tabs">
-                        <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
-                            <i class="fa-solid fa-house"></i> Rent
-                        </button>
+                            <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                                <i class="fa-solid fa-house"></i> Rent
+                            </button>
 
-                        <button class="rpf-tab" type="button" data-mode="locality">
-                            <i class="fa-solid fa-location-dot"></i> By Locality
-                        </button>
-                    </div> -->
+                            <button class="rpf-tab" type="button" data-mode="locality">
+                                <i class="fa-solid fa-location-dot"></i> By Locality
+                            </button>
+                        </div> -->
 
                 <div class="rpf-tabs">
                     <button class="rpf-tab rpf-tab-active" type="button">
@@ -403,92 +403,127 @@
 
                 <div class="locality-grid stagger" id="localityGrid">
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                            alt="Whitefield">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Whitefield
-                        </div>
-                        <div class="count">1,250+ Properties</div>
-                    </a>
+                    <!-- <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                alt="Whitefield">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Whitefield
+                            </div>
+                            <div class="count">1,250+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-                            alt="Koramangala">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Koramangala
-                        </div>
-                        <div class="count">980+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                                alt="Koramangala">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Koramangala
+                            </div>
+                            <div class="count">980+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
-                            alt="Indiranagar">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Indiranagar
-                        </div>
-                        <div class="count">850+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                                alt="Indiranagar">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Indiranagar
+                            </div>
+                            <div class="count">850+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                            alt="HSR Layout">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            HSR Layout
-                        </div>
-                        <div class="count">760+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                alt="HSR Layout">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                HSR Layout
+                            </div>
+                            <div class="count">760+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
-                            alt="Marathahalli">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Marathahalli
-                        </div>
-                        <div class="count">680+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                                alt="Marathahalli">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Marathahalli
+                            </div>
+                            <div class="count">680+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                            alt="Bellandur">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Bellandur
-                        </div>
-                        <div class="count">540+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                alt="Bellandur">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Bellandur
+                            </div>
+                            <div class="count">540+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
-                            alt="JP Nagar">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            JP Nagar
-                        </div>
-                        <div class="count">620+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                                alt="JP Nagar">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                JP Nagar
+                            </div>
+                            <div class="count">620+ Properties</div>
+                        </a>
 
 
-                    <a class="locality" href="#">
-                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                            alt="Electronic City">
-                        <div class="name">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Electronic City
-                        </div>
-                        <div class="count">1,100+ Properties</div>
-                    </a>
+                        <a class="locality" href="#">
+                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                alt="Electronic City">
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Electronic City
+                            </div>
+                            <div class="count">1,100+ Properties</div>
+                        </a> -->
+
+
+
+
+                    @php
+                        $localityImages = [
+                            'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80',
+                        ];
+                    @endphp
+
+                    @foreach($popularLocalities as $index => $locality)
+
+                        <a class="locality" href="{{ url('rent') }}?locality={{ urlencode($locality->locality) }}">
+
+                            <img src="{{ $localityImages[$index] }}" alt="{{ $locality->locality }}">
+
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                {{ $locality->locality }}
+                            </div>
+
+                            <div class="count">
+                                {{ number_format($locality->property_count) }}+ Properties
+                            </div>
+
+                        </a>
+
+                    @endforeach
 
                 </div>
 
@@ -525,8 +560,8 @@
                         <span class="badge">FEATURED</span>
 
                         <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button> -->
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Indiranagar
@@ -596,8 +631,8 @@
                         <span class="badge">FEATURED</span>
 
                         <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button> -->
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Koramangala
@@ -669,8 +704,8 @@
                         </span>
 
                         <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button> -->
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> Whitefield
@@ -742,8 +777,8 @@
                         </span>
 
                         <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button> -->
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button> -->
 
                         <span class="location">
                             <i class="fa-solid fa-location-dot"></i> HSR Layout
@@ -1032,8 +1067,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                                                                                 NEWSLETTER
-                                                                                                                                                 ========================================================= -->
+                                                                                                                                                     NEWSLETTER
+                                                                                                                                                     ========================================================= -->
 
     <div class="newsletter">
 

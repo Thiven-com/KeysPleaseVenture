@@ -9,6 +9,7 @@ use App\Models\PropertyImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\PropertyType;
 
 class PropertyController extends Controller
 {
@@ -37,6 +38,12 @@ class PropertyController extends Controller
      */
     public function create()
     {
+
+        $propertyTypes = PropertyType::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
         $cities = \App\Models\City::where('status', true)
             ->orderBy('sort_order')
             ->orderBy('name')
@@ -49,7 +56,7 @@ class PropertyController extends Controller
 
         return view(
             'admin.properties.create',
-            compact('amenities', 'cities')
+            compact('amenities', 'cities','propertyTypes')
         );
     }
 

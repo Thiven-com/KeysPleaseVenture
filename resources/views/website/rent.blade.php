@@ -6,8 +6,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                     SEARCH AREA
-                                                                                                                                                                                                                                                                                ====================================================== -->
+                                                                                                                                                                                                                                                                                                     SEARCH AREA
+                                                                                                                                                                                                                                                                                                ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -88,15 +88,10 @@
                     </button>
 
                     @php
-                        $propertyTypes = $properties
-                            ->pluck('property_type')
-                            ->filter()
-                            ->map(function ($type) {
-                                return trim($type);
-                            })
-                            ->unique()
-                            ->sort()
-                            ->values();
+                        $propertyTypes = \App\Models\PropertyType::where('status', true)
+                            ->orderBy('sort_order')
+                            ->orderBy('name')
+                            ->get();
                     @endphp
 
                     <div class="select-menu" id="propertyTypeMenu">
@@ -107,8 +102,8 @@
 
                         @foreach($propertyTypes as $propertyType)
 
-                            <button type="button" data-value="{{ $propertyType }}">
-                                {{ $propertyType }}
+                            <button type="button" data-value="{{ $propertyType->name }}">
+                                {{ $propertyType->name }}
                             </button>
 
                         @endforeach
@@ -256,15 +251,15 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                     CONTENT AREA
-                                                                                                                                                                                                                                                                                ====================================================== -->
+                                                                                                                                                                                                                                                                                                     CONTENT AREA
+                                                                                                                                                                                                                                                                                                ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                         SIDEBAR
-                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                         SIDEBAR
+                                                                                                                                                                                                                                                                                                    ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -376,43 +371,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                                                    <button type="button" class="filter-title">
-                                                                                                                                                                                                                                                                        <span>
-                                                                                                                                                                                                                                                                            Rent Range
-                                                                                                                                                                                                                                                                        </span>
+                                                                                                                                                                                                                                                                                    <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                                        <span>
+                                                                                                                                                                                                                                                                                            Rent Range
+                                                                                                                                                                                                                                                                                        </span>
 
-                                                                                                                                                                                                                                                                        <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                                                    </button>
-
-
-                                                                                                                                                                                                                                                                    <div class="range">
-
-                                                                                                                                                                                                                                                                        <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                        <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                                    </button>
 
 
-                                                                                                                                                                                                                                                                    <div class="range-values">
+                                                                                                                                                                                                                                                                                    <div class="range">
 
-                                                                                                                                                                                                                                                                        <div class="range-box">
-                                                                                                                                                                                                                                                                            ₹ 0
-                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                        <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                                                        <span class="range-to">
-                                                                                                                                                                                                                                                                            to
-                                                                                                                                                                                                                                                                        </span>
+                                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                                                        <div class="range-box">
-                                                                                                                                                                                                                                                                            ₹ 1,00,000+
-                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                        <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                    </div>
 
-                                                                                                                                                                                                                                                                </div> -->
+
+                                                                                                                                                                                                                                                                                    <div class="range-values">
+
+                                                                                                                                                                                                                                                                                        <div class="range-box">
+                                                                                                                                                                                                                                                                                            ₹ 0
+                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                        <span class="range-to">
+                                                                                                                                                                                                                                                                                            to
+                                                                                                                                                                                                                                                                                        </span>
+
+                                                                                                                                                                                                                                                                                        <div class="range-box">
+                                                                                                                                                                                                                                                                                            ₹ 1,00,000+
+                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                </div> -->
 
 
             <!-- BHK -->
@@ -505,12 +500,10 @@
 
 
                 @php
-                    $propertyTypes = $properties
-                        ->pluck('property_type')
-                        ->filter()
-                        ->unique()
-                        ->sort()
-                        ->values();
+                    $propertyTypes = \App\Models\PropertyType::where('status', true)
+                        ->orderBy('sort_order')
+                        ->orderBy('name')
+                        ->get();
                 @endphp
 
                 <div class="property-type-filters">
@@ -521,7 +514,7 @@
 
                             <span class="checkbox"></span>
 
-                            {{ $propertyType }}
+                            {{ $propertyType->name }}
 
                         </button>
 
@@ -535,8 +528,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                         RESULTS
-                                                                                                                                                                                                                                                                                    ================================================== -->
+                                                                                                                                                                                                                                                                                                         RESULTS
+                                                                                                                                                                                                                                                                                                    ================================================== -->
 
         <section class="results">
 
@@ -681,8 +674,8 @@
                         @endif
 
                         <!-- <button type="button" class="heart" aria-label="Add to favourites">
-                            <i class="fa-regular fa-heart"></i>
-                        </button> -->
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -983,8 +976,8 @@
 
     <style>
         /* =================================================
-                                                                                       PAGINATION
-                                                                                    ================================================= */
+                                                                                                       PAGINATION
+                                                                                                    ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1048,8 +1041,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                     ENQUIRY MODAL
-                                                                                                                                                                                                                                                                                ====================================================== -->
+                                                                                                                                                                                                                                                                                                     ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>

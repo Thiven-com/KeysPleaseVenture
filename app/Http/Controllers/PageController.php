@@ -19,9 +19,28 @@ class PageController extends Controller
 {
     public function home()
     {
-        return view('website.home');
-    }
+        $popularcities = City::where('is_popular', 1)
+            ->where('status', 1)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->inRandomOrder()
+            ->take(8)
+            ->get();
 
+        $popularLocalities = Property::where('status', 'approved')
+            ->whereNotNull('locality')
+            ->where('locality', '!=', '')
+            ->selectRaw('locality, COUNT(*) as property_count')
+            ->groupBy('locality')
+            ->orderByDesc('property_count')
+            ->take(8)
+            ->get();
+
+        return view('website.home', compact(
+            'popularcities',
+            'popularLocalities'
+        ));
+    }
     public function about()
     {
         return view('website.about');

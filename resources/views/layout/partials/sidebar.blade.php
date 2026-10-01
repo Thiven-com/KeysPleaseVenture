@@ -50,18 +50,38 @@
 
                                                 {{-- Properties --}}
                                                 <li class="{{ Request::is('admin/properties*') ? 'active' : '' }}">
+
                                                         <a href="{{ route('properties.all') }}">
-                                                                <i class="ti ti-building fs-16 me-2"></i>
+
+                                                                <i class="ti ti-home fs-16 me-2"></i>
+
                                                                 <span>Properties</span>
+
                                                         </a>
+
                                                 </li>
 
+
+                                                <li class="{{ Request::is('admin/property-types*') ? 'active' : '' }}">
+
+                                                        <a href="{{ route('admin.property-types.index') }}">
+
+                                                                <i class="ti ti-category fs-16 me-2"></i>
+
+                                                                <span>Property Types</span>
+
+                                                        </a>
+
+                                                </li>
+
+
                                                 {{-- Cities --}}
+
                                                 <li class="{{ Request::is('admin/cities*') ? 'active' : '' }}">
 
                                                         <a href="{{ route('admin.cities.index') }}">
 
-                                                                <i class="ti ti-building fs-16 me-2"></i>
+                                                                <i class="ti ti-map-pin fs-16 me-2"></i>
 
                                                                 <span>Cities</span>
 
@@ -77,6 +97,22 @@
                                                         </a>
                                                 </li>
 
+                                                <!-- <li class="{{ Request::is('admin/service') ? 'active' : '' }}"><a
+                                                                href="{{ route('service.all') }}"><i
+                                                                        class="ti ti-briefcase fs-16 me-2"></i><span>Services</span></a>
+                                                </li> -->
+
+                                        </ul>
+
+
+
+                                </li>
+
+
+
+                                <li class="submenu-open">
+                                        <h6 class="submenu-hdr">Customer Enquries</h6>
+                                        <ul>
 
                                                 {{-- Rent Enquiries --}}
                                                 <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
@@ -141,6 +177,16 @@
                                                         </a>
                                                 </li>
 
+
+                                        </ul>
+
+                                </li>
+
+
+                                <li class="submenu-open">
+                                        <h6 class="submenu-hdr">Broker Management</h6>
+                                        <ul>
+
                                                 <li class="{{ Request::is('admin/brokers*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.brokers.index') }}">
                                                                 <i class="ti ti-users fs-16 me-2"></i>
@@ -148,20 +194,8 @@
                                                         </a>
                                                 </li>
 
-
-
-                                                <!-- <li class="{{ Request::is('admin/service') ? 'active' : '' }}"><a
-                                                                href="{{ route('service.all') }}"><i
-                                                                        class="ti ti-briefcase fs-16 me-2"></i><span>Services</span></a>
-                                                </li> -->
-
                                         </ul>
-
-
-
                                 </li>
-
-
                                 <li class="submenu-open">
                                         <h6 class="submenu-hdr">Settings</h6>
                                         <ul>

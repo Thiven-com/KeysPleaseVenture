@@ -17,8 +17,28 @@ use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrokerController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\PropertyTypeController;
 
 
+
+
+Route::get('property-types', [PropertyTypeController::class, 'index'])
+    ->name('admin.property-types.index');
+
+Route::get('property-types/create', [PropertyTypeController::class, 'create'])
+    ->name('admin.property-types.create');
+
+Route::post('property-types', [PropertyTypeController::class, 'store'])
+    ->name('admin.property-types.store');
+
+Route::get('property-types/{id}/edit', [PropertyTypeController::class, 'edit'])
+    ->name('admin.property-types.edit');
+
+Route::put('property-types/{id}', [PropertyTypeController::class, 'update'])
+    ->name('admin.property-types.update');
+
+Route::delete('property-types/{id}', [PropertyTypeController::class, 'destroy'])
+    ->name('admin.property-types.destroy');
 // CITY MANAGEMENT
 Route::get('cities', [CityController::class, 'index'])
     ->name('admin.cities.index');

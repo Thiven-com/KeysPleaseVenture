@@ -878,39 +878,38 @@
 
                             <div class="property-col-4">
 
-                                <label class="property-form-label">
+    <label class="property-form-label">
 
-                                    Property Type
+        Property Type
 
-                                    <span class="property-form-required">*</span>
+        <span class="property-form-required">*</span>
 
-                                </label>
+    </label>
 
-                                <select name="property_type" class="property-form-select" required>
+    <select
+        name="property_type"
+        class="property-form-select"
+        required
+    >
 
-                                    <option value="">
-                                        Select Property Type
-                                    </option>
+        <option value="">
+            Select Property Type
+        </option>
 
-                                    <option value="Apartment" {{ old('property_type') == 'Apartment' ? 'selected' : '' }}>
-                                        Apartment
-                                    </option>
+        @foreach($propertyTypes as $type)
 
-                                    <option value="Villa" {{ old('property_type') == 'Villa' ? 'selected' : '' }}>
-                                        Villa
-                                    </option>
+            <option
+                value="{{ $type->name }}"
+                {{ old('property_type') == $type->name ? 'selected' : '' }}
+            >
+                {{ $type->name }}
+            </option>
 
-                                    <option value="Independent House" {{ old('property_type') == 'Independent House' ? 'selected' : '' }}>
-                                        Independent House
-                                    </option>
+        @endforeach
 
-                                    <option value="Plot" {{ old('property_type') == 'Plot' ? 'selected' : '' }}>
-                                        Plot
-                                    </option>
+    </select>
 
-                                </select>
-
-                            </div>
+</div>
 
 
                             {{-- LISTING FOR --}}
