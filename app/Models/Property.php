@@ -100,7 +100,7 @@ class Property extends Model
     }
 
     public function cityRelation()
-{
-    return $this->belongsTo(City::class, 'city_id');
-}
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
 }

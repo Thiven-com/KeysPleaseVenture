@@ -2,8 +2,8 @@
 @section('content')
     <style>
         /* =========================================================
-                                                       INFINITE LOCALITY CAROUSEL
-                                                    ========================================================= */
+                                                                                                                               INFINITE LOCALITY CAROUSEL
+                                                                                                                            ========================================================= */
 
         .locality-carousel {
             position: relative;
@@ -30,8 +30,8 @@
 
 
         /* =========================================================
-                                                       ARROWS
-                                                    ========================================================= */
+                                                                                                                               ARROWS
+                                                                                                                            ========================================================= */
 
         .locality-controls {
             display: flex;
@@ -77,8 +77,8 @@
 
 
         /* =========================================================
-                                                       TABLET
-                                                    ========================================================= */
+                                                                                                                               TABLET
+                                                                                                                            ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -95,8 +95,8 @@
 
 
         /* =========================================================
-                                                       MOBILE
-                                                    ========================================================= */
+                                                                                                                               MOBILE
+                                                                                                                            ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -150,14 +150,14 @@
             <div class="rpf-search-card">
 
                 <!-- <div class="rpf-tabs">
-                            <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
-                                <i class="fa-solid fa-house"></i> Rent
-                            </button>
+                                                                                                    <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                                                                                                        <i class="fa-solid fa-house"></i> Rent
+                                                                                                    </button>
 
-                            <button class="rpf-tab" type="button" data-mode="locality">
-                                <i class="fa-solid fa-location-dot"></i> By Locality
-                            </button>
-                        </div> -->
+                                                                                                    <button class="rpf-tab" type="button" data-mode="locality">
+                                                                                                        <i class="fa-solid fa-location-dot"></i> By Locality
+                                                                                                    </button>
+                                                                                                </div> -->
 
                 <div class="rpf-tabs">
                     <button class="rpf-tab rpf-tab-active" type="button">
@@ -404,91 +404,91 @@
                 <div class="locality-grid stagger" id="localityGrid">
 
                     <!-- <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                alt="Whitefield">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Whitefield
-                            </div>
-                            <div class="count">1,250+ Properties</div>
-                        </a>
+                                                                                                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Whitefield">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Whitefield
+                                                                                                    </div>
+                                                                                                    <div class="count">1,250+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-                                alt="Koramangala">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Koramangala
-                            </div>
-                            <div class="count">980+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Koramangala">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Koramangala
+                                                                                                    </div>
+                                                                                                    <div class="count">980+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
-                                alt="Indiranagar">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Indiranagar
-                            </div>
-                            <div class="count">850+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Indiranagar">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Indiranagar
+                                                                                                    </div>
+                                                                                                    <div class="count">850+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                alt="HSR Layout">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                HSR Layout
-                            </div>
-                            <div class="count">760+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="HSR Layout">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        HSR Layout
+                                                                                                    </div>
+                                                                                                    <div class="count">760+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
-                                alt="Marathahalli">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Marathahalli
-                            </div>
-                            <div class="count">680+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Marathahalli">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Marathahalli
+                                                                                                    </div>
+                                                                                                    <div class="count">680+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                alt="Bellandur">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Bellandur
-                            </div>
-                            <div class="count">540+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Bellandur">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Bellandur
+                                                                                                    </div>
+                                                                                                    <div class="count">540+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
-                                alt="JP Nagar">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                JP Nagar
-                            </div>
-                            <div class="count">620+ Properties</div>
-                        </a>
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="JP Nagar">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        JP Nagar
+                                                                                                    </div>
+                                                                                                    <div class="count">620+ Properties</div>
+                                                                                                </a>
 
 
-                        <a class="locality" href="#">
-                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                alt="Electronic City">
-                            <div class="name">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Electronic City
-                            </div>
-                            <div class="count">1,100+ Properties</div>
-                        </a> -->
+                                                                                                <a class="locality" href="#">
+                                                                                                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                        alt="Electronic City">
+                                                                                                    <div class="name">
+                                                                                                        <i class="fa-solid fa-location-dot"></i>
+                                                                                                        Electronic City
+                                                                                                    </div>
+                                                                                                    <div class="count">1,100+ Properties</div>
+                                                                                                </a> -->
 
 
 
@@ -546,295 +546,153 @@
                 </a>
             </div>
 
-
             <div class="property-grid stagger">
 
-                <!-- Property 1 -->
-                <article class="card">
+                @foreach($featuredProperties as $property)
 
-                    <div class="card-image">
+                        @php
+                            $image = $property->images->first();
 
-                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85"
-                            alt="2 BHK Apartment in Indiranagar">
+                            $imageUrl = $image
+                                ? asset($image->image_path)
+                                : 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85';
 
-                        <span class="badge">FEATURED</span>
+                            $cityName = $property->cityRelation->name
+                                ?? $property->city
+                                ?? '';
 
-                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button> -->
+                            $brokerName = $property->user->name
+                                ?? $property->owner_name
+                                ?? 'Property Owner';
 
-                        <span class="location">
-                            <i class="fa-solid fa-location-dot"></i> Indiranagar
-                        </span>
+                            $brokerInitials = collect(
+                                preg_split('/\s+/', trim($brokerName))
+                            )
+                                ->filter()
+                                ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                                ->take(2)
+                                ->implode('');
 
-                    </div>
+                            $listingBadge = match ($property->listing_for) {
+                                'Rent' => 'FOR RENT',
+                                'Sell' => 'FOR SALE',
+                                'Lease' => 'FOR LEASE',
+                                'PG' => 'PG',
+                                default => 'FEATURED',
+                            };
+                        @endphp
+
+                        <a href="{{ $property->slug ? route('propertydetails', $property->slug) : '#' }}" class="card">
+
+                            <div class="card-image">
+
+                                <img src="{{ $imageUrl }}" alt="{{ $property->property_title ?? $property->property_type }}">
+
+                                <span class="badge">
+                                    {{ $listingBadge }}
+                                </span>
 
 
-                    <div class="card-body">
 
-                        <div class="price">
-                            ₹ 28,000
-                            <span>/month</span>
-                        </div>
+                                <span class="location">
+                                    <i class="fa-solid fa-location-dot"></i>
 
-                        <div class="title">
-                            2 BHK Apartment
-                        </div>
+                                    {{ $property->locality }}
 
-                        <div class="place">
-                            Indiranagar, Bangalore
-                        </div>
-
-                        <div class="meta">
-                            <span><i class="fa-solid fa-bed"></i> 2</span>
-                            <span><i class="fa-solid fa-bath"></i> 2</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 1100 sq.ft</span>
-                        </div>
-
-                        <span class="tag">
-                            Semi Furnished
-                        </span>
-
-                        <div class="broker">
-
-                            <div class="avatar">
-                                RP
-                            </div>
-
-                            <div class="broker-info">
-
-                                <div class="broker-name">
-                                    Ravi Properties
-                                </div>
-
-                                <div class="verified">
-                                    <i class="fa-solid fa-circle-check"></i> Verified Broker
-                                </div>
+                                    @if($cityName)
+                                        , {{ $cityName }}
+                                    @endif
+                                </span>
 
                             </div>
 
-                        </div>
+                            <div class="card-body">
 
-                    </div>
+                                <div class="price">
+                                    ₹ {{ number_format($property->price) }}
 
-                </article>
-
-
-                <!-- Property 2 -->
-                <article class="card">
-
-                    <div class="card-image">
-
-                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=85"
-                            alt="3 BHK Apartment in Koramangala">
-
-                        <span class="badge">FEATURED</span>
-
-                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button> -->
-
-                        <span class="location">
-                            <i class="fa-solid fa-location-dot"></i> Koramangala
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-body">
-
-                        <div class="price">
-                            ₹ 45,000
-                            <span>/month</span>
-                        </div>
-
-                        <div class="title">
-                            3 BHK Apartment
-                        </div>
-
-                        <div class="place">
-                            Koramangala 4th Block, Bangalore
-                        </div>
-
-                        <div class="meta">
-                            <span><i class="fa-solid fa-bed"></i> 3</span>
-                            <span><i class="fa-solid fa-bath"></i> 2</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 1600 sq.ft</span>
-                        </div>
-
-                        <span class="tag">
-                            Fully Furnished
-                        </span>
-
-                        <div class="broker">
-
-                            <div class="avatar">
-                                US
-                            </div>
-
-                            <div class="broker-info">
-
-                                <div class="broker-name">
-                                    Urban Spaces
+                                    @if($property->listing_for === 'Rent')
+                                        <span>/month</span>
+                                    @elseif($property->listing_for === 'Lease')
+                                        <span>/lease</span>
+                                    @elseif($property->listing_for === 'PG')
+                                        <span>/month</span>
+                                    @endif
                                 </div>
 
-                                <div class="verified">
-                                    <i class="fa-solid fa-circle-check"></i> Verified Broker
+                                <div class="title">
+                                    @if($property->bhk)
+                                        {{ $property->bhk }} BHK
+                                    @endif
+
+                                    {{ $property->property_type }}
                                 </div>
 
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Property 3 -->
-                <article class="card">
-
-                    <div class="card-image">
-
-                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=85"
-                            alt="1 BHK Apartment in Whitefield">
-
-                        <span class="badge new">
-                            NEW
-                        </span>
-
-                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button> -->
-
-                        <span class="location">
-                            <i class="fa-solid fa-location-dot"></i> Whitefield
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-body">
-
-                        <div class="price">
-                            ₹ 22,000
-                            <span>/month</span>
-                        </div>
-
-                        <div class="title">
-                            1 BHK Apartment
-                        </div>
-
-                        <div class="place">
-                            Whitefield, Bangalore
-                        </div>
-
-                        <div class="meta">
-                            <span><i class="fa-solid fa-bed"></i> 1</span>
-                            <span><i class="fa-solid fa-bath"></i> 1</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 650 sq.ft</span>
-                        </div>
-
-                        <span class="tag">
-                            Semi Furnished
-                        </span>
-
-                        <div class="broker">
-
-                            <div class="avatar">
-                                WR
-                            </div>
-
-                            <div class="broker-info">
-
-                                <div class="broker-name">
-                                    Whitefield Realty
+                                <div class="place">
+                                    {{ $property->locality }}
+                                    @if($cityName)
+                                        , {{ $cityName }}
+                                    @endif
                                 </div>
 
-                                <div class="verified">
-                                    <i class="fa-solid fa-circle-check"></i> Verified Broker
+                                <div class="meta">
+
+                                    <span>
+                                        <i class="fa-solid fa-bed"></i>
+                                        {{ $property->bhk ?? '-' }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-bath"></i>
+                                        {{ $property->bathrooms ?? '-' }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-ruler-combined"></i>
+                                        {{ $property->area_sqft
+                    ? number_format($property->area_sqft) . ' sq.ft'
+                    : '-' }}
+                                    </span>
+
+                                </div>
+
+                                @if($property->furnishing)
+                                    <span class="tag">
+                                        {{ ucwords(str_replace('-', ' ', $property->furnishing)) }}
+                                    </span>
+                                @endif
+
+                                <div class="broker">
+
+                                    <div class="avatar">
+                                        {{ $brokerInitials ?: 'PO' }}
+                                    </div>
+
+                                    <div class="broker-info">
+
+                                        <div class="broker-name">
+                                            {{ $brokerName }}
+                                        </div>
+
+                                        <div class="verified">
+                                            <i class="fa-solid fa-circle-check"></i>
+
+                                            @if($property->user)
+                                                Verified
+                                            @else
+                                                Property Owner
+                                            @endif
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
+                        </a>
 
-                    </div>
-
-                </article>
-
-
-                <!-- Property 4 -->
-                <article class="card">
-
-                    <div class="card-image">
-
-                        <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=85"
-                            alt="3 BHK Apartment in HSR Layout">
-
-                        <span class="badge new">
-                            NEW
-                        </span>
-
-                        <!-- <button class="heart" type="button" aria-label="Add to favorites">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button> -->
-
-                        <span class="location">
-                            <i class="fa-solid fa-location-dot"></i> HSR Layout
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-body">
-
-                        <div class="price">
-                            ₹ 55,000
-                            <span>/month</span>
-                        </div>
-
-                        <div class="title">
-                            3 BHK Apartment
-                        </div>
-
-                        <div class="place">
-                            HSR Layout, Bangalore
-                        </div>
-
-                        <div class="meta">
-                            <span><i class="fa-solid fa-bed"></i> 3</span>
-                            <span><i class="fa-solid fa-bath"></i> 3</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 1800 sq.ft</span>
-                        </div>
-
-                        <span class="tag">
-                            Semi Furnished
-                        </span>
-
-                        <div class="broker">
-
-                            <div class="avatar">
-                                LB
-                            </div>
-
-                            <div class="broker-info">
-
-                                <div class="broker-name">
-                                    Home Line Brokers
-                                </div>
-
-                                <div class="verified">
-                                    <i class="fa-solid fa-circle-check"></i> Verified Broker
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </article>
+                @endforeach
 
             </div>
 
@@ -855,80 +713,134 @@
 
             <div class="type-grid stagger">
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-building"></i></div>
+                {{-- Card 1 --}}
+                <a class="type" href="{{ isset($propertyTypes[0])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[0]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
 
                     <div class="type-name">
-                        Apartment
+                        {{ $propertyTypes[0]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        5,200+ Properties
+                        @if(isset($propertyTypes[0]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[0]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-house"></i></div>
+                {{-- Card 2 --}}
+                <a class="type" href="{{ isset($propertyTypes[1])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[1]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
 
                     <div class="type-name">
-                        Independent House
+                        {{ $propertyTypes[1]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        2,100+ Properties
+                        @if(isset($propertyTypes[1]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[1]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-layer-group"></i></div>
+                {{-- Card 3 --}}
+                <a class="type" href="{{ isset($propertyTypes[2])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[2]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
 
                     <div class="type-name">
-                        Builder Floor
+                        {{ $propertyTypes[2]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        850+ Properties
+                        @if(isset($propertyTypes[2]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[2]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-door-open"></i></div>
+                {{-- Card 4 --}}
+                <a class="type" href="{{ isset($propertyTypes[3])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[3]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
 
                     <div class="type-name">
-                        Studio Apartment
+                        {{ $propertyTypes[3]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        620+ Properties
+                        @if(isset($propertyTypes[3]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[3]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-people-roof"></i></div>
+                {{-- Card 5 --}}
+                <a class="type" href="{{ isset($propertyTypes[4])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[4]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
 
                     <div class="type-name">
-                        PG / Co-Living
+                        {{ $propertyTypes[4]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        1,100+ Properties
+                        @if(isset($propertyTypes[4]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[4]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
 
-                <a class="type" href="#">
-                    <div class="type-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                {{-- Card 6 --}}
+                <a class="type" href="{{ isset($propertyTypes[5])
+        ? route('rent') . '?property_type=' . urlencode($propertyTypes[5]->name)
+        : '#' }}">
+                    <div class="type-icon">
+                        <i class="fa-solid fa-house-chimney"></i>
+                    </div>
 
                     <div class="type-name">
-                        Villa
+                        {{ $propertyTypes[5]->name ?? 'NOT AVAILABLE' }}
                     </div>
 
                     <div class="type-count">
-                        480+ Properties
+                        @if(isset($propertyTypes[5]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[5]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
                     </div>
                 </a>
 
@@ -1054,7 +966,7 @@
                     </p>
 
                     <button type="button">
-                        List Your Property Now
+                       <a href="{{ route('contact') }}"> List Your Property Now</a>
                         <span><i class="fa-solid fa-arrow-right"></i></span>
                     </button>
 
@@ -1067,8 +979,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                                                                                     NEWSLETTER
-                                                                                                                                                     ========================================================= -->
+                                                                                                                                                                                                                             NEWSLETTER
+                                                                                                                                                                                                                             ========================================================= -->
 
     <div class="newsletter">
 

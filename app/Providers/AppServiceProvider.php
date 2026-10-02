@@ -23,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
             $cities = City::where('status', true)
                 ->orderBy('sort_order')
                 ->orderBy('name')
-                ->get();
+                ->get()
+                ->take(9);
+
 
             // APPROVED RENT PROPERTIES
             $rentMenuProperties = Property::with('cityRelation')

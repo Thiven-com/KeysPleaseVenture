@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Broker\AuthController;
+use App\Http\Controllers\Broker\BrokerController;
 
 
 /*
@@ -51,6 +52,30 @@ Route::name('broker.')->group(function () {
         // Dashboard
         Route::get('/dashboard', [AuthController::class, 'dashboard'])
             ->name('dashboard');
+
+        Route::get('/properties', [BrokerController::class, 'properties'])
+            ->name('properties');
+
+        Route::get('/properties/create', [BrokerController::class, 'createProperty'])
+            ->name('properties.create');
+        Route::post('/properties', [BrokerController::class, 'storeProperty'])
+            ->name('properties.store');
+        Route::get('/properties/{id}/edit', [BrokerController::class, 'editProperty'])
+            ->name('properties.edit');
+        Route::put('/properties/{id}', [BrokerController::class, 'updateProperty'])
+            ->name('properties.update');
+
+        Route::get('/enquiries', [BrokerController::class, 'enquiries'])
+            ->name('enquiries');
+
+        Route::get('/schedule', [BrokerController::class, 'schedule'])
+            ->name('schedule');
+
+        Route::get('/profile', [BrokerController::class, 'profile'])
+            ->name('profile');
+
+        Route::get('/settings', [BrokerController::class, 'settings'])
+            ->name('settings');
 
     });
 

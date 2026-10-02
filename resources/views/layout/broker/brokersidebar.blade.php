@@ -31,6 +31,14 @@
                                                         <a href="{{ route('broker.dashboard') }}"><i
                                                                         class="ti ti-layout-grid fs-16 me-2"></i><span>Dashboard</span></a>
                                                 </li>
+
+
+                                                <li class="{{ Request::is('broker/properties') ? 'active' : '' }}">
+                                                        <a href="{{ route('broker.properties') }}">
+                                                                <i class="ti ti-building fs-16 me-2"></i>
+                                                                <span>My Properties</span>
+                                                        </a>
+                                                </li>
                                                 {{-- <li class="{{ Request::is('admin/todayDeals') ? 'active' : '' }}">
                                                         <a href="{{route('admin.todayDeals')}}">
                                                                 <i class="ti ti-cards fs-16 me-2"></i><span>Today
