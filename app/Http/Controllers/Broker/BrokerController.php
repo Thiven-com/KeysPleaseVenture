@@ -9,14 +9,16 @@ use App\Models\PropertyType;
 use App\Models\City;
 use App\Models\Amenity;
 
+
 class BrokerController extends Controller
 {
+
     public function properties()
     {
         $broker = auth('broker')->user();
 
         $properties = Property::with(['images', 'cityRelation'])
-            ->where('user_id', $broker->id)
+            ->where('broker_id', $broker->id)
             ->latest()
             ->get();
 
@@ -35,7 +37,8 @@ class BrokerController extends Controller
             ->orderBy('name')
             ->get();
 
-        $amenities = Amenity::where('status', true)
+        $amenities = Amenity::where('status', 'active')
+            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
@@ -46,7 +49,160 @@ class BrokerController extends Controller
         ));
     }
 
-    
+    public function storeProperty(Request $request)
+    {
+        $broker = auth('broker')->user();
+
+        $validated = $request->validate([
+            'property_title' => 'required|string|max:255',
+            'property_type' => 'required|string|max:255',
+            'listing_for' => 'required|in:Rent,Lease,PG,Sell',
+
+            'country' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'district' => 'nullable|string|max:100',
+            'city_id' => 'required|exists:cities,id',
+            'locality' => 'required|string|max:255',
+            'pincode' => 'nullable|string|max:20',
+            'landmark' => 'nullable|string|max:255',
+            'address' => 'nullable|string',
+            'google_map_url' => 'nullable|url|max:500',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+
+            'bhk' => 'nullable|string|max:50',
+            'bathrooms' => 'nullable|string|max:50',
+            'balconies' => 'nullable|string|max:50',
+            'area_sqft' => 'nullable|numeric|min:0',
+            'built_up_area' => 'nullable|numeric|min:0',
+            'carpet_area' => 'nullable|numeric|min:0',
+            'floor_number' => 'nullable|string|max:50',
+            'total_floors' => 'nullable|string|max:50',
+            'property_age' => 'nullable|string|max:100',
+            'property_condition' => 'nullable|string|max:100',
+            'facing' => 'nullable|string|max:100',
+            'road_width' => 'nullable|numeric|min:0',
+            'car_parking' => 'nullable|string|max:100',
+            'possession_status' => 'nullable|string|max:100',
+
+            'price' => 'required|numeric|min:0',
+            'security_deposit' => 'nullable|numeric|min:0',
+            'furnishing' => 'nullable|string|max:100',
+            'available_from' => 'nullable|date',
+
+            'description' => 'nullable|string',
+
+            'amenities' => 'nullable|array',
+            'amenities.*' => 'exists:amenities,id',
+
+            'owner_name' => 'required|string|max:255',
+            'owner_phone' => 'required|string|max:20',
+
+            'photos' => 'nullable|array|max:10',
+            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create Property
+        |--------------------------------------------------------------------------
+        */
+
+        $property = new Property();
+
+        $property->broker_id = $broker->id;
+
+        $property->user_id = null;
+
+        $property->property_title = $validated['property_title'];
+        $property->property_type = $validated['property_type'];
+        $property->listing_for = $validated['listing_for'];
+
+        $property->country = $validated['country'] ?? null;
+        $property->state = $validated['state'] ?? null;
+        $property->district = $validated['district'] ?? null;
+        $property->city_id = $validated['city_id'];
+        $property->locality = $validated['locality'];
+        $property->pincode = $validated['pincode'] ?? null;
+        $property->landmark = $validated['landmark'] ?? null;
+        $property->address = $validated['address'] ?? null;
+        $property->google_map_url = $validated['google_map_url'] ?? null;
+        $property->latitude = $validated['latitude'] ?? null;
+        $property->longitude = $validated['longitude'] ?? null;
+
+        $property->bhk = $validated['bhk'] ?? null;
+        $property->bathrooms = $validated['bathrooms'] ?? null;
+        $property->balconies = $validated['balconies'] ?? null;
+        $property->area_sqft = $validated['area_sqft'] ?? null;
+        $property->built_up_area = $validated['built_up_area'] ?? null;
+        $property->carpet_area = $validated['carpet_area'] ?? null;
+        $property->floor_number = $validated['floor_number'] ?? null;
+        $property->total_floors = $validated['total_floors'] ?? null;
+        $property->property_age = $validated['property_age'] ?? null;
+        $property->property_condition = $validated['property_condition'] ?? null;
+        $property->facing = $validated['facing'] ?? null;
+        $property->road_width = $validated['road_width'] ?? null;
+        $property->car_parking = $validated['car_parking'] ?? null;
+        $property->possession_status = $validated['possession_status'] ?? null;
+
+        $property->price = $validated['price'];
+        $property->security_deposit = $validated['security_deposit'] ?? null;
+        $property->furnishing = $validated['furnishing'] ?? null;
+        $property->available_from = $validated['available_from'] ?? null;
+
+        $property->description = $validated['description'] ?? null;
+
+        $property->owner_name = $validated['owner_name'];
+        $property->owner_phone = $validated['owner_phone'];
+
+        /*
+        |--------------------------------------------------------------------------
+        | Broker properties require Admin approval
+        |--------------------------------------------------------------------------
+        */
+
+        $property->status = 'pending';
+        $property->admin_remark = null;
+
+        $property->save();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Amenities
+        |--------------------------------------------------------------------------
+        */
+
+        $property->propertyAmenities()->sync(
+            $validated['amenities'] ?? []
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Property Images
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('photos')) {
+
+            foreach ($request->file('photos') as $photo) {
+
+                $path = $photo->store('properties', 'public');
+
+                $property->images()->create([
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('broker.properties')
+            ->with(
+                'success',
+                'Property submitted successfully. It is now waiting for admin approval.'
+            );
+    }
+
+
 
     public function editProperty($id)
     {
@@ -58,10 +214,30 @@ class BrokerController extends Controller
             'cityRelation'
         ])
             ->where('id', $id)
-            ->where('user_id', $broker->id)
+            ->where('broker_id', $broker->id)
             ->firstOrFail();
 
-        return view('broker.myproperties.edit', compact('property'));
+        $propertyTypes = PropertyType::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $cities = City::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $amenities = Amenity::where('status', 'active')
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        return view('broker.myproperties.edit', compact(
+            'property',
+            'propertyTypes',
+            'cities',
+            'amenities'
+        ));
     }
 
     public function updateProperty(Request $request, $id)
@@ -69,7 +245,7 @@ class BrokerController extends Controller
         $broker = auth('broker')->user();
 
         $property = Property::where('id', $id)
-            ->where('user_id', $broker->id)
+            ->where('broker_id', $broker->id)
             ->firstOrFail();
 
         $validated = $request->validate([
@@ -101,11 +277,67 @@ class BrokerController extends Controller
 
     public function profile()
     {
-        return view('broker.profile');
+        $broker = auth('broker')->user();
+
+        return view('broker.profile.all', compact('broker'));
+    }
+
+    public function editProfile()
+    {
+        $broker = auth('broker')->user();
+
+        return view('broker.profile.edit', compact('broker'));
     }
 
     public function settings()
     {
         return view('broker.settings');
     }
+
+
+    public function updateProfile(Request $request)
+    {
+        $broker = auth('broker')->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'mobile' => 'nullable|string|max:20',
+            'broker_type' => 'nullable|string|max:100',
+            'agency_name' => 'nullable|string|max:255',
+            'license_number' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:1000',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'pincode' => 'nullable|string|max:20',
+            'profile_pic' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $broker->name = $request->name;
+        $broker->email = $request->email;
+        $broker->mobile = $request->mobile;
+        $broker->broker_type = $request->broker_type;
+        $broker->agency_name = $request->agency_name;
+        $broker->license_number = $request->license_number;
+        $broker->address = $request->address;
+        $broker->city = $request->city;
+        $broker->state = $request->state;
+        $broker->pincode = $request->pincode;
+
+        if ($request->hasFile('profile_pic')) {
+
+            $path = $request->file('profile_pic')
+                ->store('brokers/profile', 'public');
+
+            $broker->profile_pic = $path;
+        }
+
+        $broker->save();
+
+        return redirect()
+            ->route('broker.profile')
+            ->with('success', 'Profile updated successfully.');
+    }
 }
+
+

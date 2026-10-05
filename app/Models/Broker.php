@@ -45,4 +45,10 @@ class Broker extends Authenticatable
         'remember_token',
         'otp',
     ];
+
+
+    public function properties()
+{
+    return $this->hasMany(\App\Models\Property::class, 'broker_id');
+}
 }

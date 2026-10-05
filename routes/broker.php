@@ -47,6 +47,8 @@ Route::name('broker.')->group(function () {
     // Protected Broker Routes
     // ==========================================
 
+
+
     Route::middleware('auth:broker')->group(function () {
 
         // Dashboard
@@ -73,6 +75,11 @@ Route::name('broker.')->group(function () {
 
         Route::get('/profile', [BrokerController::class, 'profile'])
             ->name('profile');
+        Route::get('/profile/edit', [BrokerController::class, 'editProfile'])
+            ->name('profile.edit');
+        Route::put('/profile', [BrokerController::class, 'updateProfile'])
+            ->name('profile.update');
+
 
         Route::get('/settings', [BrokerController::class, 'settings'])
             ->name('settings');

@@ -196,9 +196,37 @@ class AuthController extends Controller
     // Dashboard
     public function dashboard()
     {
-        return view('broker.auth.dashboard');
-    }
+        $broker = auth('broker')->user();
 
+        $properties = $broker->properties()
+            ->with(['images', 'cityRelation'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $totalProperties = $broker->properties()->count();
+
+        $approvedProperties = $broker->properties()
+            ->where('status', 'approved')
+            ->count();
+
+        $pendingProperties = $broker->properties()
+            ->where('status', 'pending')
+            ->count();
+
+        $rejectedProperties = $broker->properties()
+            ->where('status', 'rejected')
+            ->count();
+
+        return view('broker.auth.dashboard', compact(
+            'broker',
+            'properties',
+            'totalProperties',
+            'approvedProperties',
+            'pendingProperties',
+            'rejectedProperties'
+        ));
+    }
 
     // Logout
     public function logout(Request $request)

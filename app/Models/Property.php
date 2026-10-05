@@ -11,6 +11,7 @@ class Property extends Model
     protected $fillable = [
         'city_id',
         'user_id',
+        'broker_id',
         'listing_for',
 
         // Basic Property Information
@@ -102,5 +103,10 @@ class Property extends Model
     public function cityRelation()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function broker()
+    {
+        return $this->belongsTo(\App\Models\Broker::class, 'broker_id');
     }
 }

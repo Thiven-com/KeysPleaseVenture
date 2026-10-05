@@ -176,8 +176,8 @@
 
 
     <!-- =========================================
-                                 GET IN TOUCH
-                            ========================================= -->
+                                         GET IN TOUCH
+                                    ========================================= -->
 
     <section class="contact-info-section">
 
@@ -205,8 +205,8 @@
             <div class="contact-info-grid">
 
                 <!-- =================================
-                                             CONTACT METHODS
-                                        ================================= -->
+                                                     CONTACT METHODS
+                                                ================================= -->
 
                 <div class="contact-methods">
 
@@ -309,9 +309,8 @@
 
 
                 <!-- =================================
-                                             OFFICE
-                                        ================================= -->
-
+                                                     OFFICE
+                                                ================================= -->
                 <div class="office-card">
 
                     <div class="office-title">
@@ -336,17 +335,20 @@
                         Bangalore - 560102, Karnataka
                     </p>
 
-                    <a href="#" class="directions-btn">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Keysplease+Venture+Pvt.+Ltd.,+No.+45,+2nd+Floor,+17th+Cross,+HSR+Layout,+Sector+3,+Bangalore+-+560102,+Karnataka"
+                        target="_blank" rel="noopener noreferrer" class="directions-btn">
                         Get Directions
-                        <span><i class="fa-solid fa-arrow-right"></i></span>
+                        <span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
                     </a>
 
                 </div>
 
 
                 <!-- =================================
-                                             MAP
-                                        ================================= -->
+                                                     MAP
+                                                ================================= -->
 
                 <div class="contact-map">
                     <iframe src="https://www.google.com/maps?q=Bangalore%2C%20Karnataka%2C%20India&z=12&output=embed"
@@ -360,7 +362,6 @@
         </div>
 
     </section>
-
 
 
     <section class="partner-section">
@@ -389,11 +390,12 @@
 
             </div>
 
-
             <!-- CTA -->
-            <a href="#" class="partner-btn">
+            <a href="{{ route('broker.register') }}" class="partner-btn">
                 Partner With Us
-                <span><i class="fa-solid fa-arrow-right"></i></span>
+                <span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
         </div>

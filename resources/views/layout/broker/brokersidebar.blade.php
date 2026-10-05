@@ -51,12 +51,17 @@
                                 <!------schedule----->
 
                                 <li class="submenu-open">
-                                        <h6 class="submenu-hdr">Schedule</h6>
+                                        <h6 class="submenu-hdr">MY Profile</h6>
                                         <ul>
 
 
 
-
+                                                <li class="{{ Request::is('broker/profile') ? 'active' : '' }}">
+                                                        <a href="{{ route('broker.profile') }}">
+                                                                <i class="ti ti-user fs-16 me-2"></i>
+                                                                <span>My Profile</span>
+                                                        </a>
+                                                </li>
 
 
 
