@@ -29,10 +29,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="samruddhisilks">
+    <meta name="description" content="KeysPleaseVenture">
     <meta name="keywords"
-        content="samruddhisilks">
-    <meta name="author" content="samruddhisilks">
+        content="KeysPleaseVenture">
+    <meta name="author" content="KeysPleaseVenture">
     <meta name="robots" content="noindex, nofollow">
     <title>{{$site->site_name ?? ''}}</title>
 
