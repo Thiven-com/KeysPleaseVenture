@@ -283,7 +283,7 @@
                             @if($broker->profile_pic)
 
                                 <img
-                                    src="{{ asset('storage/' . $broker->profile_pic) }}"
+                                    src="{{ asset($broker->profile_pic) }}"
                                     alt="{{ $broker->name }}"
                                 >
 

@@ -148,27 +148,13 @@ class AppServiceProvider extends ServiceProvider
                 ->values()
                 ->take(10);
 
-            $searchRentRanges = Property::where('status', 'approved')
-                ->whereIn('listing_for', [
-                    'Rent',
-                    'PG',
-                    'Sell',
-                    'Lease'
-                ])
-                ->whereNotNull('price')
-                ->where('price', '>', 0)
-                ->pluck('price')
-                ->map(function ($price) {
-                    return (float) $price;
-                })
-                ->sort()
-                ->values();
+           
 
             $view->with([
                 'searchLocations' => $searchLocations,
                 'searchPropertyTypes' => $searchPropertyTypes,
                 'searchBhks' => $searchBhks,
-                'searchRentRanges' => $searchRentRanges,
+                
             ]);
         });
     }

@@ -76,10 +76,10 @@ class PageController extends Controller
         */
 
         $brokerPropertyCounts = Property::where('status', 'approved')
-            ->whereNotNull('user_id')
-            ->selectRaw('user_id, COUNT(*) as property_count')
-            ->groupBy('user_id')
-            ->pluck('property_count', 'user_id');
+            ->whereNotNull('broker_id')
+            ->selectRaw('broker_id, COUNT(*) as property_count')
+            ->groupBy('broker_id')
+            ->pluck('property_count', 'broker_id');
 
         /*
         |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ class PageController extends Controller
                 $score = 0;
 
                 // Broker popularity
-                $score += ($brokerPropertyCounts[$property->user_id] ?? 0) * 10;
+                $score += ($brokerPropertyCounts[$property->broker_id] ?? 0) * 10;
 
                 // Keyword priority
                 $searchText = strtolower(
@@ -249,25 +249,13 @@ class PageController extends Controller
         }
 
         // Rent range filter
-        if ($request->filled('rent_range')) {
+        // Maximum rent filter
+        if ($request->filled('max_rent')) {
 
-            switch ($request->rent_range) {
+            $maxRent = (float) $request->max_rent;
 
-                case '0-25000':
-                    $query->whereBetween('price', [0, 25000]);
-                    break;
-
-                case '25000-50000':
-                    $query->whereBetween('price', [25000, 50000]);
-                    break;
-
-                case '50000-75000':
-                    $query->whereBetween('price', [50000, 75000]);
-                    break;
-
-                case '75000+':
-                    $query->where('price', '>=', 75000);
-                    break;
+            if ($maxRent >= 0) {
+                $query->where('price', '<=', $maxRent);
             }
         }
 
@@ -288,6 +276,7 @@ class PageController extends Controller
         $property = Property::with([
             'images',
             'user',
+            'broker',
             'propertyAmenities',
             'cityRelation'
         ])
@@ -295,14 +284,16 @@ class PageController extends Controller
             ->where('slug', $slug)
             ->first();
 
-        // Invalid or incomplete slug → Rent page
         if (!$property) {
-            return redirect()->route('rent');
+            return redirect()
+                ->route('rent')
+                ->with('error', 'Property not found.');
         }
 
         $similarProperties = Property::with([
             'images',
             'user',
+            'broker',
             'propertyAmenities',
             'cityRelation'
         ])

@@ -78,8 +78,7 @@
                                         <div class="col-md-4 col-sm-6">
 
                                             <div class="property-image">
-                                                <img src="{{ asset($image->image_path) }}"
-                                                    alt="{{ $property->property_title }}">
+                                                <img src="{{ asset($image->image_path) }}" alt="{{ $property->property_title }}">
                                             </div>
 
                                         </div>
@@ -162,6 +161,21 @@
                                     </div>
                                 </div>
 
+                                {{-- Tenant Preference --}}
+                                <div class="col-md-4 mb-4">
+                                    <div class="detail-box">
+                                        <span>Tenant Preference</span>
+
+                                        <strong>
+                                            @if($property->tenant_preference === 'Both')
+                                                Fam & Bac
+                                            @else
+                                                {{ $property->tenant_preference ?: 'N/A' }}
+                                            @endif
+                                        </strong>
+                                    </div>
+                                </div>
+
                                 {{-- BHK --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">
@@ -232,7 +246,7 @@
                                             {{ $property->area_sqft
         ? number_format($property->area_sqft) . ' Sq.Ft'
         : 'N/A'
-                                            }}
+                                                    }}
                                         </strong>
                                     </div>
                                 </div>
@@ -245,7 +259,7 @@
                                             {{ $property->built_up_area
         ? number_format($property->built_up_area) . ' Sq.Ft'
         : 'N/A'
-                                            }}
+                                                    }}
                                         </strong>
                                     </div>
                                 </div>
@@ -258,7 +272,7 @@
                                             {{ $property->carpet_area
         ? number_format($property->carpet_area) . ' Sq.Ft'
         : 'N/A'
-                                            }}
+                                                    }}
                                         </strong>
                                     </div>
                                 </div>
@@ -271,7 +285,7 @@
                                             {{ $property->floor_number !== null
         ? $property->floor_number
         : 'N/A'
-                                            }}
+                                                    }}
                                         </strong>
                                     </div>
                                 </div>
@@ -324,7 +338,7 @@
                                             {{ $property->road_width
         ? $property->road_width . ' Ft'
         : 'N/A'
-                                            }}
+                                                    }}
                                         </strong>
                                     </div>
                                 </div>
@@ -943,10 +957,14 @@
                     {{-- =================================================
                     POSTED BY
                     ================================================== --}}
+                    {{-- =================================================
+                    POSTED BY
+                    ================================================== --}}
                     <div class="card mb-4">
 
                         <div class="card-header">
                             <h5 class="card-title mb-0">
+                                <i class="ti ti-user me-1"></i>
                                 Posted By
                             </h5>
                         </div>
@@ -956,7 +974,11 @@
                             <div class="posted-by-box">
 
                                 <div class="posted-icon">
-                                    <i class="ti ti-user-circle"></i>
+                                    @if($property->broker)
+                                        <i class="ti ti-briefcase"></i>
+                                    @else
+                                        <i class="ti ti-shield-check"></i>
+                                    @endif
                                 </div>
 
                                 <div>
@@ -965,14 +987,32 @@
                                         Property Added By
                                     </small>
 
-                                    <strong>
-                                        {{ $property->user?->name ?: 'Admin' }}
-                                    </strong>
+                                    @if($property->broker)
 
-                                    @if($property->user?->email)
+                                        <strong>
+                                            {{ $property->broker->name ?? 'Broker' }}
+                                        </strong>
+
                                         <span>
-                                            {{ $property->user->email }}
+                                            Broker
                                         </span>
+
+                                        @if($property->broker->email)
+                                            <span>
+                                                {{ $property->broker->email }}
+                                            </span>
+                                        @endif
+
+                                    @else
+
+                                        <strong>
+                                            Admin
+                                        </strong>
+
+                                        <span>
+                                            Admin Posted
+                                        </span>
+
                                     @endif
 
                                 </div>

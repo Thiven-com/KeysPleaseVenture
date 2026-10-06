@@ -943,6 +943,42 @@
 
                             </div>
 
+                            {{-- TENANT PREFERENCE --}}
+
+<div class="property-col-4">
+
+    <label class="property-form-label">
+        Tenant Preference
+        <span class="property-form-required">*</span>
+    </label>
+
+    <select name="tenant_preference"
+            class="property-form-select"
+            required>
+
+        <option value="">
+            Select Tenant Preference
+        </option>
+
+        <option value="Family"
+            {{ old('tenant_preference') == 'Family' ? 'selected' : '' }}>
+            Family
+        </option>
+
+        <option value="Bachelor"
+            {{ old('tenant_preference') == 'Bachelor' ? 'selected' : '' }}>
+            Bachelor
+        </option>
+
+        <option value="Both"
+            {{ old('tenant_preference') == 'Both' ? 'selected' : '' }}>
+            Fam & Bac
+        </option>
+
+    </select>
+
+</div>
+
 
                             {{-- BHK --}}
 
