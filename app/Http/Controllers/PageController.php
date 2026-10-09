@@ -343,4 +343,73 @@ class PageController extends Controller
             'selectedCityModel' => $city,
         ]);
     }
+
+
+
+    public function howItWorks()
+    {
+        return view('website.how-it-works');
+    }
+
+    public function faqs()
+    {
+        return view('website.faqs');
+    }
+
+
+    public function rentalGuide()
+    {
+        return view('website.rental-guide');
+    }
+
+
+
+    public function safetyTips()
+    {
+        return view('website.safety-tips');
+    }
+
+
+    public function enquirySupport()
+    {
+        return view('website.enquiry-support');
+    }
+
+
+    public function brokerBenefits()
+    {
+        return view('website.broker-benefits');
+    }
+
+
+    public function partnerWithUs()
+    {
+        return view('website.partner-with-us');
+    }
+
+
+    public function termsAndConditions()
+    {
+        return view('website.terms-and-conditions');
+    }
+
+
+    public function resources()
+    {
+        return view('website.resources');
+    }
+
+    
+public function privacyPolicy()
+{
+    return view('website.privacy-policy');
+}
+
+
+
+
+
+
+
+
 }

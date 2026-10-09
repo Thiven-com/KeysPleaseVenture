@@ -191,7 +191,7 @@
             </div> -->
 
             <a href="{{ route('rent') }}" class="view-all-cities">
-              View all 
+              View all
               <i class="fa-solid fa-chevron-right"></i>
             </a>
 
@@ -491,11 +491,11 @@
 
         <h4>For Tenants</h4>
 
-        <a href="#">How it Works</a>
-        <a href="#">FAQs</a>
-        <a href="#">Rental Guide</a>
-        <a href="#">Safety Tips</a>
-        <a href="#">Enquiry Support</a>
+        <a href="{{ route('website.how-it-works') }}">How it Works</a>
+        <a href="{{ route('website.faqs') }}">FAQs</a>
+        <a href="{{ route('website.rental-guide') }}">Rental Guide</a>
+        <a href="{{ route('website.safety-tips') }}">Safety Tips</a>
+        <a href="{{ route('website.enquiry-support') }}">Enquiry Support</a>
 
       </div>
 
@@ -506,10 +506,11 @@
         <h4>For Owners &amp; Brokers</h4>
 
         <!-- <a href="#">List Your Property</a> -->
-        <a href="#">Broker Benefits</a>
-        <a href="#">Partner with Us</a>
-        <a href="#">Resources</a>
-        <a href="#">Terms &amp; Conditions</a>
+        <a href="{{ route('website.broker-benefits') }}">Broker Benefits</a>
+        <a href="{{ route('website.partner-with-us') }}">Partner with Us</a>
+        <a href="{{ route('website.resources') }}">Resources</a>
+        <a href="{{ route('website.terms-and-conditions') }}">Terms &amp; Conditions</a>
+        <a href="{{ route('website.privacy-policy') }}">Privacy Policy</a>
 
       </div>
 
@@ -562,9 +563,17 @@
           style="text-decoration: none;color: #000;">ThiVen</a>
       </span>
 
+
       <span>
-        Privacy Policy &nbsp; | &nbsp; Terms &amp; Conditions
+        <a href="{{ route('website.privacy-policy') }}">
+          Privacy Policy
+        </a>
+        &nbsp; | &nbsp;
+        <a href="{{ route('website.terms-and-conditions') }}">
+          Terms &amp; Conditions
+        </a>
       </span>
+
 
     </div>
 
