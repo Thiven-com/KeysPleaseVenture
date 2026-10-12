@@ -186,6 +186,7 @@ class PageController extends Controller
         return view('website.contact');
     }
 
+
     public function rent(Request $request)
     {
         $query = Property::with([
@@ -202,62 +203,106 @@ class PageController extends Controller
                 'Lease'
             ]);
 
-        // Location filter
-        if ($request->filled('location')) {
-            $location = trim($request->location);
+        /*
+        |--------------------------------------------------------------------------
+        | Locality Filter
+        |--------------------------------------------------------------------------
+        | Supports URLs such as:
+        | /rent?locality=Marathahalli
+        */
 
-            $query->where(function ($q) use ($location) {
+        if ($request->filled('locality')) {
+            $locality = trim($request->query('locality'));
 
-                // Match locality
-                $q->where('locality', 'LIKE', '%' . $location . '%')
+            $query->whereRaw(
+                'LOWER(TRIM(locality)) = LOWER(?)',
+                [$locality]
+            );
+        }
 
-                    // Match city
-                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                    });
+        /*
+        |--------------------------------------------------------------------------
+        | Location Search Filter
+        |--------------------------------------------------------------------------
+        | Supports searching by locality, city, or "Locality, City".
+        */ elseif ($request->filled('location')) {
+            $location = trim($request->query('location'));
 
-                // If URL contains "Locality, City"
-                if (str_contains($location, ',')) {
+            if (str_contains($location, ',')) {
+                [$locality, $city] = array_map(
+                    'trim',
+                    explode(',', $location, 2)
+                );
 
-                    [$locality, $city] = array_map('trim', explode(',', $location, 2));
+                $query->where(function ($q) use ($locality, $city, $location) {
 
-                    $q->orWhere(function ($subQuery) use ($locality, $city) {
-
-                        $subQuery->where('locality', 'LIKE', '%' . $locality . '%')
+                    $q->where(function ($subQuery) use ($locality, $city) {
+                        $subQuery
+                            ->where('locality', 'LIKE', '%' . $locality . '%')
                             ->whereHas('cityRelation', function ($cityQuery) use ($city) {
                                 $cityQuery->where('name', 'LIKE', '%' . $city . '%');
                             });
-                    });
-                }
-            });
-        }
+                    })
+                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                        });
 
-        // Property type filter
-        if ($request->filled('type')) {
-            $query->where('property_type', $request->type);
-        }
-
-        // BHK filter
-        if ($request->filled('bhk')) {
-            $bhk = (int) $request->bhk;
-
-            if ($bhk >= 4) {
-                $query->where('bhk', 'LIKE', '4%');
+                });
             } else {
-                $query->where('bhk', 'LIKE', $bhk . '%');
+                $query->where(function ($q) use ($location) {
+                    $q->where('locality', 'LIKE', '%' . $location . '%')
+                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                        });
+                });
             }
         }
 
-        // Rent range filter
-        // Maximum rent filter
-        if ($request->filled('max_rent')) {
+        /*
+        |--------------------------------------------------------------------------
+        | Property Type Filter
+        |--------------------------------------------------------------------------
+        */
 
-            $maxRent = (float) $request->max_rent;
+        if ($request->filled('type')) {
+            $query->where('property_type', $request->query('type'));
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | BHK Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('bhk')) {
+            $bhk = (int) $request->query('bhk');
+
+            if ($bhk >= 4) {
+                $query->where('bhk', '>=', 4);
+            } elseif ($bhk > 0) {
+                $query->where('bhk', $bhk);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Maximum Rent Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('max_rent')) {
+            $maxRent = (float) $request->query('max_rent');
 
             if ($maxRent >= 0) {
                 $query->where('price', '<=', $maxRent);
             }
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Fetch Filtered Properties
+        |--------------------------------------------------------------------------
+        */
 
         $properties = $query
             ->latest()
@@ -278,7 +323,7 @@ class PageController extends Controller
             'user',
             'broker',
             'propertyAmenities',
-            'cityRelation'
+            'cityRelation',
         ])
             ->where('status', 'approved')
             ->where('slug', $slug)
@@ -295,7 +340,7 @@ class PageController extends Controller
             'user',
             'broker',
             'propertyAmenities',
-            'cityRelation'
+            'cityRelation',
         ])
             ->where('status', 'approved')
             ->where('listing_for', $property->listing_for)
@@ -309,7 +354,6 @@ class PageController extends Controller
             'similarProperties'
         ));
     }
-
 
     public function rentByCity($citySlug)
     {
@@ -399,11 +443,11 @@ class PageController extends Controller
         return view('website.resources');
     }
 
-    
-public function privacyPolicy()
-{
-    return view('website.privacy-policy');
-}
+
+    public function privacyPolicy()
+    {
+        return view('website.privacy-policy');
+    }
 
 
 

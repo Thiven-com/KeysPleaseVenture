@@ -495,7 +495,7 @@
         <a href="{{ route('website.faqs') }}">FAQs</a>
         <a href="{{ route('website.rental-guide') }}">Rental Guide</a>
         <a href="{{ route('website.safety-tips') }}">Safety Tips</a>
-        <a href="{{ route('website.enquiry-support') }}">Enquiry Support</a>
+        <!-- <a href="{{ route('website.enquiry-support') }}">Enquiry Support</a> -->
 
       </div>
 
@@ -507,7 +507,7 @@
 
         <!-- <a href="#">List Your Property</a> -->
         <a href="{{ route('website.broker-benefits') }}">Broker Benefits</a>
-        <a href="{{ route('website.partner-with-us') }}">Partner with Us</a>
+        <!-- <a href="{{ route('website.partner-with-us') }}">Partner with Us</a> -->
         <a href="{{ route('website.resources') }}">Resources</a>
         <a href="{{ route('website.terms-and-conditions') }}">Terms &amp; Conditions</a>
         <a href="{{ route('website.privacy-policy') }}">Privacy Policy</a>

@@ -504,16 +504,12 @@
 </style>
 
 
+
 <div class="rental-requirements-page">
 
-    {{-- =====================================================
-         HEADER
-    ====================================================== --}}
-
+    {{-- HEADER --}}
     <div class="rental-requirements-header">
-
         <div>
-
             <h1 class="rental-requirements-title">
                 Rental Requirements Enquiries
             </h1>
@@ -521,43 +517,23 @@
             <p class="rental-requirements-subtitle">
                 Manage customer rental requirements submitted from the website.
             </p>
-
         </div>
-
 
         <div class="rental-requirements-count">
-
             {{ $enquiries->count() }}
             {{ $enquiries->count() == 1 ? 'Enquiry' : 'Enquiries' }}
-
         </div>
-
     </div>
 
-
-
-    {{-- =====================================================
-         SUCCESS MESSAGE
-    ====================================================== --}}
-
+    {{-- SUCCESS MESSAGE --}}
     @if(session('success'))
-
         <div class="rental-requirements-alert">
-
             <i class="fa-solid fa-circle-check"></i>
-
             {{ session('success') }}
-
         </div>
-
     @endif
 
-
-
-    {{-- =====================================================
-         TABLE CARD
-    ====================================================== --}}
-
+    {{-- TABLE CARD --}}
     <div class="rental-requirements-card">
 
         @if($enquiries->count())
@@ -567,128 +543,142 @@
                 <table class="rental-requirements-table">
 
                     <thead>
-
                         <tr>
-
-                            <th class="rental-col-id">
-                                ID
-                            </th>
-
-                            <th class="rental-col-name">
-                                Customer
-                            </th>
-
-                            <th class="rental-col-phone">
-                                Phone
-                            </th>
-
-                            <th class="rental-col-email">
-                                Email
-                            </th>
-
-                            <th class="rental-col-property">
-                                Property Type
-                            </th>
-
-                            <th class="rental-col-budget">
-                                Monthly Rent
-                            </th>
-
-                            <th class="rental-col-date">
-                                Move-in Date
-                            </th>
-
-                            <th class="rental-col-furnishing">
-                                Furnishing
-                            </th>
-
-                            <th class="rental-col-contact">
-                                Contact
-                            </th>
-
-                            <th class="rental-col-message">
-                                Requirements
-                            </th>
-
-                            <th class="rental-col-status">
-                                Status
-                            </th>
-
-                            <th class="rental-col-action">
-                                Action
-                            </th>
-
+                            <th class="rental-col-id">ID</th>
+                            <th class="rental-col-name">Customer</th>
+                            <th class="rental-col-phone">Phone</th>
+                            <th class="rental-col-email">Email</th>
+                            <th class="rental-col-property">Property Type</th>
+                            <th class="rental-col-property">Property Details</th>
+                            <th class="rental-col-property">Property Owner / Broker</th>
+                            <th class="rental-col-budget">Monthly Rent</th>
+                            <th class="rental-col-date">Move-in Date</th>
+                            <th class="rental-col-furnishing">Furnishing</th>
+                            <th class="rental-col-contact">Contact</th>
+                            <th class="rental-col-message">Requirements</th>
+                            <th class="rental-col-status">Status</th>
+                            <th class="rental-col-action">Action</th>
                         </tr>
-
                     </thead>
 
-
                     <tbody>
-
                         @foreach($enquiries as $enquiry)
 
-                            <tr>
+                            @php
+                                $property = $enquiry->property;
+                            @endphp
 
-                                {{-- ID --}}
+                            <tr>
+                                {{-- ENQUIRY ID --}}
                                 <td>
                                     #{{ $enquiry->id }}
                                 </td>
 
-
                                 {{-- CUSTOMER --}}
                                 <td>
-
                                     <div class="rental-customer-name">
                                         {{ $enquiry->name }}
                                     </div>
-
                                 </td>
-
 
                                 {{-- PHONE --}}
                                 <td>
-
                                     <div class="rental-phone">
                                         {{ $enquiry->phone }}
                                     </div>
-
                                 </td>
-
 
                                 {{-- EMAIL --}}
                                 <td>
-
                                     <div class="rental-customer-email">
                                         {{ $enquiry->email }}
                                     </div>
-
                                 </td>
-
 
                                 {{-- PROPERTY TYPE --}}
                                 <td>
-
                                     <span class="rental-property-type">
-
-                                        {{ ucwords(
-                                            str_replace(
-                                                '-',
-                                                ' ',
-                                                $enquiry->property_type
-                                            )
-                                        ) }}
-
+                                        {{ $enquiry->property_type
+                                            ? ucwords(str_replace('-', ' ', $enquiry->property_type))
+                                            : 'Not specified' }}
                                     </span>
-
                                 </td>
 
-
-                                {{-- BUDGET --}}
+                                {{-- PROPERTY DETAILS --}}
                                 <td>
+                                    @if($property)
+                                        <div class="rental-customer-name">
+                                            {{ $property->property_title ?? $enquiry->property_title ?? 'Untitled Property' }}
+                                        </div>
 
+                                        <small>
+                                            Property ID: {{ $property->id }}
+                                        </small>
+
+                                        <br>
+
+                                        <small>
+                                            {{ $property->locality ?? 'Locality unavailable' }}
+                                        </small>
+
+                                        @if($property->city)
+                                            <br>
+                                            <small>{{ $property->city }}</small>
+                                        @endif
+                                    @else
+                                        <div class="rental-date empty">
+                                            {{ $enquiry->property_title ?? 'Property not linked' }}
+                                        </div>
+
+                                        <small>
+                                            Property ID:
+                                            {{ $enquiry->property_id ?? 'N/A' }}
+                                        </small>
+                                    @endif
+                                </td>
+
+                                {{-- PROPERTY OWNER / BROKER --}}
+                                <td>
+                                    @if($property)
+
+                                        @if($property->broker)
+                                            <div class="rental-customer-name">
+                                                {{ $property->broker->name ?? 'Broker name unavailable' }}
+                                            </div>
+
+                                            <small>Broker</small>
+
+                                        @elseif($property->owner_name)
+                                            <div class="rental-customer-name">
+                                                {{ $property->owner_name }}
+                                            </div>
+
+                                            <small>Property Owner</small>
+
+                                        @elseif($property->user)
+                                            <div class="rental-customer-name">
+                                                {{ $property->user->name ?? 'User name unavailable' }}
+                                            </div>
+
+                                            <small>Property User</small>
+
+                                        @else
+                                            <span class="rental-date empty">
+                                                Owner/broker unavailable
+                                            </span>
+                                        @endif
+
+                                    @else
+                                        <span class="rental-date empty">
+                                            Property not linked
+                                        </span>
+                                    @endif
+                                </td>
+
+                                {{-- MONTHLY RENT --}}
+                                <td>
                                     <span class="rental-budget">
-
-                                        @switch($enquiry->budget)
+                                        @switch($enquiry->budget ?? null)
 
                                             @case('below-10k')
                                                 Below ₹10,000
@@ -711,144 +701,94 @@
                                                 @break
 
                                             @default
-                                                <span style="color:#a0a8b8;">
-                                                    Not specified
-                                                </span>
+                                                @if($property && $property->price !== null)
+                                                    ₹{{ number_format((float) $property->price) }}
+                                                @else
+                                                    <span style="color:#a0a8b8;">
+                                                        Not specified
+                                                    </span>
+                                                @endif
 
                                         @endswitch
-
                                     </span>
-
                                 </td>
 
-
-                                {{-- MOVE IN DATE --}}
+                                {{-- MOVE-IN DATE --}}
                                 <td>
-
                                     @if($enquiry->move_in_date)
-
                                         <span class="rental-date">
-
-                                            {{ $enquiry->move_in_date->format('d M Y') }}
-
+                                            {{ \Carbon\Carbon::parse($enquiry->move_in_date)->format('d M Y') }}
                                         </span>
-
                                     @else
-
                                         <span class="rental-date empty">
                                             Not specified
                                         </span>
-
                                     @endif
-
                                 </td>
-
 
                                 {{-- FURNISHING --}}
                                 <td>
-
                                     @if($enquiry->furnishing)
-
                                         <span class="rental-furnishing">
-
-                                            {{ ucwords(
-                                                str_replace(
-                                                    '-',
-                                                    ' ',
-                                                    $enquiry->furnishing
-                                                )
-                                            ) }}
-
+                                            {{ ucwords(str_replace('-', ' ', $enquiry->furnishing)) }}
                                         </span>
-
                                     @else
-
                                         <span class="rental-date empty">
                                             Not specified
                                         </span>
-
                                     @endif
-
                                 </td>
 
-
-                                {{-- CONTACT --}}
+                                {{-- PREFERRED CONTACT --}}
                                 <td>
-
                                     <span class="rental-contact">
-
                                         @if($enquiry->preferred_contact === 'phone')
-
                                             <i class="fa-solid fa-phone"></i>
                                             Phone
-
                                         @elseif($enquiry->preferred_contact === 'whatsapp')
-
                                             <i class="fa-brands fa-whatsapp"></i>
                                             WhatsApp
-
-                                        @else
-
+                                        @elseif($enquiry->preferred_contact === 'email')
                                             <i class="fa-solid fa-envelope"></i>
                                             Email
-
+                                        @else
+                                            Not specified
                                         @endif
-
                                     </span>
-
                                 </td>
-
 
                                 {{-- REQUIREMENTS --}}
                                 <td>
-
                                     @if($enquiry->message)
-
                                         <div
                                             class="rental-message"
                                             title="{{ $enquiry->message }}"
                                         >
                                             {{ $enquiry->message }}
                                         </div>
-
                                     @else
-
                                         <div class="rental-message empty">
                                             No requirements provided
                                         </div>
-
                                     @endif
-
                                 </td>
-
 
                                 {{-- STATUS --}}
                                 <td>
-
-                                    <span
-                                        class="rental-status {{ strtolower($enquiry->status) }}"
-                                    >
-                                        {{ $enquiry->status }}
+                                    <span class="rental-status {{ strtolower($enquiry->status ?? 'new') }}">
+                                        {{ $enquiry->status ?? 'new' }}
                                     </span>
-
                                 </td>
-
 
                                 {{-- DELETE --}}
                                 <td>
-
                                     <form
-                                        action="{{ route(
-                                            'admin.rental.requirments.enquiries.destroy',
-                                            $enquiry->id
-                                        ) }}"
+                                        action="{{ route('admin.rental.requirments.enquiries.destroy', $enquiry->id) }}"
                                         method="POST"
                                         class="rental-delete-form"
                                         onsubmit="return confirm('Are you sure you want to delete this rental enquiry?');"
                                     >
-
                                         @csrf
-
                                         @method('DELETE')
 
                                         <button
@@ -859,51 +799,37 @@
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-
                                     </form>
-
                                 </td>
-
                             </tr>
 
                         @endforeach
-
                     </tbody>
 
                 </table>
-
             </div>
 
         @else
 
-            {{-- =================================================
-                 EMPTY STATE
-            ================================================== --}}
-
+            {{-- EMPTY STATE --}}
             <div class="rental-empty">
-
                 <div class="rental-empty-icon">
-
                     <i class="fa-solid fa-house-circle-exclamation"></i>
-
                 </div>
 
-                <h3>
-                    No Rental Enquiries
-                </h3>
+                <h3>No Rental Enquiries</h3>
 
                 <p>
                     Rental requirements submitted from the website
                     will appear here.
                 </p>
-
             </div>
 
         @endif
 
     </div>
-
 </div>
+
 
 
 

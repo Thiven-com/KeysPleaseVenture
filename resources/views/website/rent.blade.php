@@ -965,9 +965,9 @@
 
 
                         {{-- ENQUIRE --}}
-                        <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
+                        <!-- <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
                             Enquire Now
-                        </button>
+                        </button> -->
 
 
                         {{-- PHONE --}}
@@ -1123,7 +1123,7 @@
             <form id="enquiryForm" action="{{ route('rent.enquiry.store') }}" method="POST">
                 @csrf
 
-                <!-- Full Name -->
+                
                 <div class="enquiry-field">
                     <label for="enquiryName">
                         Full Name
@@ -1137,7 +1137,7 @@
                     </div>
                 </div>
 
-                <!-- Mobile Number -->
+                
                 <div class="enquiry-field">
                     <label for="enquiryPhone">
                         Mobile Number
@@ -1151,7 +1151,7 @@
                     </div>
                 </div>
 
-                <!-- Email Address -->
+                
                 <div class="enquiry-field">
                     <label for="enquiryEmail">
                         Email Address
@@ -1165,7 +1165,7 @@
                     </div>
                 </div>
 
-                <!-- Preferred Contact -->
+                
                 <div class="enquiry-field">
                     <label for="preferredContact">
                         Preferred Contact Details
@@ -1194,7 +1194,7 @@
                     </div>
                 </div>
 
-                <!-- Message / Enquiry -->
+               
                 <div class="enquiry-field">
                     <label for="enquiryMessage">
                         Message / Enquiry
@@ -1208,7 +1208,7 @@
                     </div>
                 </div>
 
-                <!-- Submit -->
+                
                 <button type="submit" class="enquiry-submit">
                     <i class="fa-solid fa-paper-plane"></i>
                     Send Enquiry

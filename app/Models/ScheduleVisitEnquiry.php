@@ -9,6 +9,8 @@ class ScheduleVisitEnquiry extends Model
     protected $table = 'schedule_visit_enquiries';
 
     protected $fillable = [
+        'property_id',
+        'property_title',
         'name',
         'phone',
         'visit_date',
@@ -22,4 +24,9 @@ class ScheduleVisitEnquiry extends Model
     protected $casts = [
         'visit_date' => 'date',
     ];
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class, 'property_id');
+    }
 }

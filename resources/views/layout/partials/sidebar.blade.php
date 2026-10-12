@@ -115,12 +115,12 @@
                                         <ul>
 
                                                 {{-- Rent Enquiries --}}
-                                                <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
+                                                <!-- <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.rent-enquiries.index') }}">
                                                                 <i class="ti ti-message-circle fs-16 me-2"></i>
                                                                 <span>Rent Enquiries</span>
                                                         </a>
-                                                </li>
+                                                </li> -->
 
                                                 {{-- Rental Requirements Enquiries --}}
                                                 <li
