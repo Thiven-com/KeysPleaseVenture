@@ -208,9 +208,9 @@
           Home
         </a>
 
-        <a href="{{ route('about') }}">
+        {{-- <a href="{{ route('about') }}">
           About Us
-        </a>
+        </a> --}}
 
         <!-- RENT DROPDOWN -->
         <div class="nav-dropdown">
@@ -400,10 +400,10 @@
           <span>›</span>
         </a> -->
 
-        <a href="{{ route('about') }}">
+        {{-- <a href="{{ route('about') }}">
           <span>About Us</span>
           <span>›</span>
-        </a>
+        </a> --}}
 
         <a href="{{ route('contact') }}">
           <span>Contact Us</span>
@@ -480,7 +480,7 @@
         <!-- <a href="#">Localities</a>
         <a href="#">Property Types</a> -->
         <!-- <a href="#">Brokers</a> -->
-        <a href="{{ route('about') }}">About Us</a>
+        {{-- <a href="{{ route('about') }}">About Us</a> --}}
         <a href="{{ route('contact') }}">Contact Us</a>
 
       </div>
