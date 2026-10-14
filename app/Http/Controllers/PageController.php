@@ -225,38 +225,60 @@ class PageController extends Controller
         | Location Search Filter
         |--------------------------------------------------------------------------
         | Supports searching by locality, city, or "Locality, City".
-        */ elseif ($request->filled('location')) {
+        */ 
+
+
+          if ($request->filled('locality')) {
+            $locality = trim($request->query('locality'));
+
+            $query->whereRaw(
+                'LOWER(TRIM(locality)) LIKE LOWER(?)',
+                ['%' . $locality . '%']
+            );
+
+        } elseif ($request->filled('location')) {
             $location = trim($request->query('location'));
 
-            if (str_contains($location, ',')) {
-                [$locality, $city] = array_map(
-                    'trim',
-                    explode(',', $location, 2)
-                );
-
-                $query->where(function ($q) use ($locality, $city, $location) {
-
-                    $q->where(function ($subQuery) use ($locality, $city) {
-                        $subQuery
-                            ->where('locality', 'LIKE', '%' . $locality . '%')
-                            ->whereHas('cityRelation', function ($cityQuery) use ($city) {
-                                $cityQuery->where('name', 'LIKE', '%' . $city . '%');
-                            });
-                    })
-                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                        });
-
-                });
-            } else {
-                $query->where(function ($q) use ($location) {
-                    $q->where('locality', 'LIKE', '%' . $location . '%')
-                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                        });
-                });
-            }
+            $query->where(function ($q) use ($location) {
+                $q->where('locality', 'LIKE', '%' . $location . '%')
+                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                    });
+            });
         }
+        
+        // elseif ($request->filled('location')) {
+        //     $location = trim($request->query('location'));
+
+        //     if (str_contains($location, ',')) {
+        //         [$locality, $city] = array_map(
+        //             'trim',
+        //             explode(',', $location, 2)
+        //         );
+
+        //         $query->where(function ($q) use ($locality, $city, $location) {
+
+        //             $q->where(function ($subQuery) use ($locality, $city) {
+        //                 $subQuery
+        //                     ->where('locality', 'LIKE', '%' . $locality . '%')
+        //                     ->whereHas('cityRelation', function ($cityQuery) use ($city) {
+        //                         $cityQuery->where('name', 'LIKE', '%' . $city . '%');
+        //                     });
+        //             })
+        //                 ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+        //                     $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+        //                 });
+
+        //         });
+        //     } else {
+        //         $query->where(function ($q) use ($location) {
+        //             $q->where('locality', 'LIKE', '%' . $location . '%')
+        //                 ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+        //                     $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+        //                 });
+        //         });
+        //     }
+        // }
 
         /*
         |--------------------------------------------------------------------------

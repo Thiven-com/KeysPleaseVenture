@@ -6,68 +6,86 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                 SEARCH AREA
-                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                 SEARCH AREA
+                                                                                                                                                                                                                                                                                                                            ====================================================== -->
 
     <div class="rent-container search-area">
 
         <div class="search-panel">
 
             <!-- Location -->
-            <div class="field">
+            <!-- <div class="field">
 
-                <label for="locationInput">
-                    Location / Locality
-                </label>
+                                <label for="locationInput">
+                                    Location / Locality
+                                </label>
+
+                                <div class="control location-control">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
+                                        autocomplete="off">
+
+                                    <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+
+                                </div> -->
+
+            <!-- Location Suggestions -->
+            <!-- @php
+                                    $locations = $properties
+                                        ->flatMap(function ($property) {
+                                            return [
+                                                $property->locality,
+                                                $property->landmark,
+                                                optional($property->cityRelation)->name,
+                                            ];
+                                        })
+                                        ->filter()
+                                        ->map(function ($location) {
+                                            return trim($location);
+                                        })
+                                        ->unique()
+                                        ->sort()
+                                        ->values();
+                                @endphp
+
+                                <div class="location-suggestions" id="locationSuggestions">
+
+                                    @foreach($locations as $location)
+
+                                        <button type="button" data-location="{{ $location }}">
+
+                                            <i class="fa-solid fa-location-dot"></i>
+
+                                            {{ $location }}
+
+                                        </button>
+
+                                    @endforeach
+
+                                </div>
+                            </div> -->
+
+
+            <div class="field">
+                <label for="locationInput">Location / Locality</label>
 
                 <div class="control location-control">
-
                     <i class="fa-solid fa-location-dot"></i>
 
-                    <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
+                    <input type="text" id="locationInput" name="location" placeholder="Search Locality, Area or Landmark"
                         autocomplete="off">
 
-                    <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
+                    <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location"
+                        style="display: none;">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
-
-                </div>
-
-                <!-- Location Suggestions -->
-                @php
-                    $locations = $properties
-                        ->flatMap(function ($property) {
-                            return [
-                                $property->locality,
-                                $property->landmark,
-                                optional($property->cityRelation)->name,
-                            ];
-                        })
-                        ->filter()
-                        ->map(function ($location) {
-                            return trim($location);
-                        })
-                        ->unique()
-                        ->sort()
-                        ->values();
-                @endphp
-
-                <div class="location-suggestions" id="locationSuggestions">
-
-                    @foreach($locations as $location)
-
-                        <button type="button" data-location="{{ $location }}">
-
-                            <i class="fa-solid fa-location-dot"></i>
-
-                            {{ $location }}
-
-                        </button>
-
-                    @endforeach
-
                 </div>
             </div>
+
 
 
             <!-- Property Type -->
@@ -251,15 +269,15 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                 CONTENT AREA
-                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                 CONTENT AREA
+                                                                                                                                                                                                                                                                                                                            ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                     SIDEBAR
-                                                                                                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                     SIDEBAR
+                                                                                                                                                                                                                                                                                                                                ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -371,43 +389,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                                                                                <button type="button" class="filter-title">
-                                                                                                                                                                                                                                                                                                    <span>
-                                                                                                                                                                                                                                                                                                        Rent Range
-                                                                                                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                                                                                                                <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                                                                    <span>
+                                                                                                                                                                                                                                                                                                                        Rent Range
+                                                                                                                                                                                                                                                                                                                    </span>
 
-                                                                                                                                                                                                                                                                                                    <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                                                                                </button>
-
-
-                                                                                                                                                                                                                                                                                                <div class="range">
-
-                                                                                                                                                                                                                                                                                                    <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                    <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                                                                </button>
 
 
-                                                                                                                                                                                                                                                                                                <div class="range-values">
+                                                                                                                                                                                                                                                                                                                <div class="range">
 
-                                                                                                                                                                                                                                                                                                    <div class="range-box">
-                                                                                                                                                                                                                                                                                                        ₹ 0
-                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                    <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                                                                                    <span class="range-to">
-                                                                                                                                                                                                                                                                                                        to
-                                                                                                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                                                                                    <div class="range-box">
-                                                                                                                                                                                                                                                                                                        ₹ 1,00,000+
-                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                </div>
 
-                                                                                                                                                                                                                                                                                            </div> -->
+
+                                                                                                                                                                                                                                                                                                                <div class="range-values">
+
+                                                                                                                                                                                                                                                                                                                    <div class="range-box">
+                                                                                                                                                                                                                                                                                                                        ₹ 0
+                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                    <span class="range-to">
+                                                                                                                                                                                                                                                                                                                        to
+                                                                                                                                                                                                                                                                                                                    </span>
+
+                                                                                                                                                                                                                                                                                                                    <div class="range-box">
+                                                                                                                                                                                                                                                                                                                        ₹ 1,00,000+
+                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                            </div> -->
 
 
             <!-- BHK -->
@@ -488,45 +506,45 @@
             {{-- TENANT PREFERENCE --}}
             <!-- <div class="filter-section">
 
-                    <button type="button" class="filter-title">
+                                    <button type="button" class="filter-title">
 
-                        <span>
-                            Tenant Preference
-                        </span>
+                                        <span>
+                                            Tenant Preference
+                                        </span>
 
-                        <i class="fa-solid fa-chevron-up"></i>
+                                        <i class="fa-solid fa-chevron-up"></i>
 
-                    </button>
+                                    </button>
 
-                    <div class="property-type-filters">
+                                    <div class="property-type-filters">
 
-                        <button type="button" data-tenant-filter="Family">
+                                        <button type="button" data-tenant-filter="Family">
 
-                            <span class="checkbox"></span>
+                                            <span class="checkbox"></span>
 
-                            Family
+                                            Family
 
-                        </button>
+                                        </button>
 
-                        <button type="button" data-tenant-filter="Bachelor">
+                                        <button type="button" data-tenant-filter="Bachelor">
 
-                            <span class="checkbox"></span>
+                                            <span class="checkbox"></span>
 
-                            Bachelor
+                                            Bachelor
 
-                        </button>
+                                        </button>
 
-                        <button type="button" data-tenant-filter="Both">
+                                        <button type="button" data-tenant-filter="Both">
 
-                            <span class="checkbox"></span>
+                                            <span class="checkbox"></span>
 
-                            Fam & Bac
+                                            Fam & Bac
 
-                        </button>
+                                        </button>
 
-                    </div>
+                                    </div>
 
-                </div> -->
+                                </div> -->
 
 
             <!-- PROPERTY TYPE -->
@@ -571,8 +589,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                     RESULTS
-                                                                                                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                     RESULTS
+                                                                                                                                                                                                                                                                                                                                ================================================== -->
 
         <section class="results">
 
@@ -718,8 +736,8 @@
                         @endif
 
                         <!-- <button type="button" class="heart" aria-label="Add to favourites">
-                                                                                    <i class="fa-regular fa-heart"></i>
-                                                                                </button> -->
+                                                                                                                    <i class="fa-regular fa-heart"></i>
+                                                                                                                </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -966,8 +984,8 @@
 
                         {{-- ENQUIRE --}}
                         <!-- <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
-                            Enquire Now
-                        </button> -->
+                                                            Enquire Now
+                                                        </button> -->
 
 
                         {{-- PHONE --}}
@@ -1030,8 +1048,8 @@
 
     <style>
         /* =================================================
-                                                                                                                   PAGINATION
-                                                                                                                ================================================= */
+                                                                                                                                   PAGINATION
+                                                                                                                                ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1095,8 +1113,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                 ENQUIRY MODAL
-                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                 ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                                            ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1123,7 +1141,7 @@
             <form id="enquiryForm" action="{{ route('rent.enquiry.store') }}" method="POST">
                 @csrf
 
-                
+
                 <div class="enquiry-field">
                     <label for="enquiryName">
                         Full Name
@@ -1137,7 +1155,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="enquiry-field">
                     <label for="enquiryPhone">
                         Mobile Number
@@ -1151,7 +1169,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="enquiry-field">
                     <label for="enquiryEmail">
                         Email Address
@@ -1165,7 +1183,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="enquiry-field">
                     <label for="preferredContact">
                         Preferred Contact Details
@@ -1194,7 +1212,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="enquiry-field">
                     <label for="enquiryMessage">
                         Message / Enquiry
@@ -1208,7 +1226,7 @@
                     </div>
                 </div>
 
-                
+
                 <button type="submit" class="enquiry-submit">
                     <i class="fa-solid fa-paper-plane"></i>
                     Send Enquiry
@@ -1466,76 +1484,53 @@
                LOCATION SUGGESTIONS
             ================================================= */
 
-            locationInput.addEventListener("focus", function () {
+            /*
+             * LOCATION SUGGESTIONS
+             * The suggestion panel is commented out in this Blade file.
+             * Keep these handlers optional so a missing panel cannot stop
+             * the rest of the page JavaScript (including pagination).
+             */
+            if (locationInput && locationSuggestions) {
 
-                locationSuggestions.classList.add("show");
-
-            });
-
-
-            locationInput.addEventListener("input", function () {
-
-                const searchValue =
-                    this.value.trim().toLowerCase();
-
-                const suggestions =
-                    locationSuggestions.querySelectorAll("button");
-
-
-                suggestions.forEach(function (button) {
-
-                    const location =
-                        button.dataset.location.toLowerCase();
-
-                    button.style.display =
-                        location.includes(searchValue)
-                            ? "flex"
-                            : "none";
-
+                locationInput.addEventListener("focus", function () {
+                    locationSuggestions.classList.add("show");
                 });
 
-                locationSuggestions.classList.add("show");
+                locationInput.addEventListener("input", function () {
+                    const searchValue = this.value.trim().toLowerCase();
+                    const suggestions = locationSuggestions.querySelectorAll("button");
 
-            });
-
-
-            locationSuggestions
-                .querySelectorAll("button")
-                .forEach(function (button) {
-
-                    button.addEventListener("click", function () {
-
-                        locationInput.value =
-                            this.dataset.location;
-
-                        locationSuggestions.classList.remove("show");
-
+                    suggestions.forEach(function (button) {
+                        const location = (button.dataset.location || "").toLowerCase();
+                        button.style.display = location.includes(searchValue) ? "flex" : "none";
                     });
 
+                    locationSuggestions.classList.add("show");
                 });
 
+                locationSuggestions.querySelectorAll("button").forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        locationInput.value = this.dataset.location || "";
+                        locationSuggestions.classList.remove("show");
+                    });
+                });
 
-            locationClear.addEventListener("click", function () {
+                document.addEventListener("click", function (event) {
+                    if (
+                        !event.target.closest(".location-control") &&
+                        !event.target.closest(".location-suggestions")
+                    ) {
+                        locationSuggestions.classList.remove("show");
+                    }
+                });
+            }
 
-                locationInput.value = "";
-
-                locationInput.focus();
-
-            });
-
-
-            document.addEventListener("click", function (event) {
-
-                if (
-                    !event.target.closest(".location-control") &&
-                    !event.target.closest(".location-suggestions")
-                ) {
-
-                    locationSuggestions.classList.remove("show");
-
-                }
-
-            });
+            if (locationClear && locationInput) {
+                locationClear.addEventListener("click", function () {
+                    locationInput.value = "";
+                    locationInput.focus();
+                });
+            }
 
 
             /* =================================================
@@ -2019,71 +2014,71 @@
                PROPERTY DETAILS
             ================================================= */
 
-           /* =================================================
-   PROPERTY DETAILS
-================================================= */
+            /* =================================================
+    PROPERTY DETAILS
+    ================================================= */
 
-document
-    .querySelectorAll(".view-details")
-    .forEach(function (button) {
+            document
+                .querySelectorAll(".view-details")
+                .forEach(function (button) {
 
-        button.addEventListener("click", function (event) {
+                    button.addEventListener("click", function (event) {
 
-            event.preventDefault();
-            event.stopPropagation();
+                        event.preventDefault();
+                        event.stopPropagation();
 
-            const propertySlug =
-                this.dataset.propertySlug;
+                        const propertySlug =
+                            this.dataset.propertySlug;
 
-            if (!propertySlug) {
-                console.error(
-                    "Property slug is missing."
-                );
-                return;
-            }
+                        if (!propertySlug) {
+                            console.error(
+                                "Property slug is missing."
+                            );
+                            return;
+                        }
 
-            window.location.href =
-                "{{ url('propertydetails') }}/" +
-                encodeURIComponent(propertySlug);
+                        window.location.href =
+                            "{{ url('propertydetails') }}/" +
+                            encodeURIComponent(propertySlug);
 
-        });
+                    });
 
-    });
+                });
 
 
-/* =================================================
-   CARD CLICK
-================================================= */
+            /* =================================================
+               CARD CLICK
+            ================================================= */
 
-propertyCards.forEach(function (card) {
+            propertyCards.forEach(function (card) {
 
-    card.addEventListener("click", function (event) {
+                card.addEventListener("click", function (event) {
 
-        if (
-            event.target.closest("button") ||
-            event.target.closest("select") ||
-            event.target.closest("a")
-        ) {
-            return;
-        }
+                    if (
+                        event.target.closest("button") ||
+                        event.target.closest("select") ||
+                        event.target.closest("a")
+                    ) {
+                        return;
+                    }
 
-        const propertySlug =
-            this.dataset.propertySlug;
+                    const propertySlug =
+                        this.dataset.propertySlug;
 
-        if (!propertySlug) {
-            console.error(
-                "Property slug is missing."
-            );
-            return;
-        }
+                    if (!propertySlug) {
+                        console.error(
+                            "Property slug is missing."
+                        );
+                        return;
+                    }
 
-        window.location.href =
-            "{{ url('propertydetails') }}/" +
-            encodeURIComponent(propertySlug);
+                    window.location.href =
+                        "{{ url('propertydetails') }}/" +
+                        encodeURIComponent(propertySlug);
 
-    });
+                });
 
-});
+            });
 
 
             /* =================================================
@@ -2206,8 +2201,9 @@ propertyCards.forEach(function (card) {
 
                         closeEnquiryModal();
 
-                        locationSuggestions
-                            .classList.remove("show");
+                        if (locationSuggestions) {
+                            locationSuggestions.classList.remove("show");
+                        }
 
                     }
 
@@ -2437,17 +2433,16 @@ propertyCards.forEach(function (card) {
                         this.value;
 
 
-                    const results =
-                        document.querySelector(".results");
+                    const results = document.querySelector(".results");
 
+                    if (!results) {
+                        console.error('Pagination/Sorting: ".results" container not found.');
+                        return;
+                    }
 
-                    const cards =
-                        Array.from(
-                            results.querySelectorAll(
-                                ".result-card"
-                            )
-                        );
-
+                    const cards = Array.from(
+                        results.querySelectorAll(".result-card")
+                    );
 
                     cards.sort(function (a, b) {
 
@@ -2480,10 +2475,11 @@ propertyCards.forEach(function (card) {
 
 
                     cards.forEach(function (card) {
-
                         results.appendChild(card);
-
                     });
+
+                    currentPage = 1;
+                    renderPagination();
 
                 }
             );
@@ -2615,18 +2611,25 @@ propertyCards.forEach(function (card) {
                     visibleCards.slice(startIndex, endIndex);
 
                 /* Hide all cards first */
+                // propertyCards.forEach(function (card) {
+
+                //     card.style.display = "none";
+
+                // });
+
+                // /* Show only current page cards */
+                // currentPageCards.forEach(function (card) {
+
+                //     card.style.display = "";
+
+                // });
+
+
+                /* Hide every card except those on the current page */
                 propertyCards.forEach(function (card) {
-
-                    card.style.display = "none";
-
+                    card.hidden = !currentPageCards.includes(card);
                 });
 
-                /* Show only current page cards */
-                currentPageCards.forEach(function (card) {
-
-                    card.style.display = "";
-
-                });
             }
 
 
@@ -2954,7 +2957,8 @@ propertyCards.forEach(function (card) {
                     card.dataset.filteredVisible =
                         visible ? "true" : "false";
 
-                    card.style.display = "none";
+                    // card.style.display = "none";
+                    card.hidden = true;
 
 
                     if (visible) {
@@ -3193,8 +3197,9 @@ propertyCards.forEach(function (card) {
                  * Close suggestions
                  */
 
-                locationSuggestions
-                    .classList.remove("show");
+                if (locationSuggestions) {
+                    locationSuggestions.classList.remove("show");
+                }
 
 
                 /*
@@ -3259,7 +3264,55 @@ propertyCards.forEach(function (card) {
         .enquiry-field select option {
             color: #202940;
         }
+
+
+        /* Ensure pagination can hide property cards */
+        article.result-card[hidden] {
+            display: none !important;
+        }
     </style>
+
+
+
+
+    <script>
+        let locationAutocomplete;
+
+        function initLocationAutocomplete() {
+            const input = document.getElementById('locationInput');
+            const clearButton = document.getElementById('locationClear');
+
+            if (!input || !clearButton) return;
+
+            locationAutocomplete = new google.maps.places.Autocomplete(input, {
+                componentRestrictions: { country: 'in' },
+                fields: ['formatted_address', 'name', 'geometry'],
+                types: ['geocode']
+            });
+
+            locationAutocomplete.addListener('place_changed', function () {
+                const place = locationAutocomplete.getPlace();
+
+                input.value = place.name || place.formatted_address || '';
+                clearButton.style.display = input.value ? 'inline-flex' : 'none';
+            });
+
+            input.addEventListener('input', function () {
+                clearButton.style.display = input.value ? 'inline-flex' : 'none';
+            });
+
+            clearButton.addEventListener('click', function () {
+                input.value = '';
+                clearButton.style.display = 'none';
+                input.focus();
+            });
+        }
+    </script>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocationAutocomplete">
+        </script>
+
 
 
 
