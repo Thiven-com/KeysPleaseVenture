@@ -28,6 +28,7 @@
         flex-wrap: wrap;
         gap: 16px;
         margin-bottom: 28px;
+        margin-top: 40px;
     }
 
     .kp-dashboard-title {

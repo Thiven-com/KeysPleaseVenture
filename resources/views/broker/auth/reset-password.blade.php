@@ -10,9 +10,11 @@
                         @csrf
                         <div class="login-userset">
                             <div class="final-logo logo-normal">
-                                <a href="{{ url('broker/dashboard') }}" class="logo logo-normal d-flex align-items-center">
-                                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="Logo"
-                                      style="width:400px; margin-left: 30px; ">
+                                <a href="#" class="logo logo-normal d-flex align-items-center justify-content-center w-100">
+
+                                    <img src="{{ asset('website') }}/images/venlogo.png" alt="Logo"
+                                        style="width: 200px; max-width: 100%; height: auto;">
+
                                 </a>
                             </div>
 
@@ -65,7 +67,7 @@
 
             <div class="col-lg-6 p-0">
                 <div class="login-img">
-                    <img src="{{ asset('website') }}/images/sollog.png" alt="img">
+                    <img src="{{ asset('website') }}/images/broker1.png" alt="img">
                 </div>
             </div>
         </div>
