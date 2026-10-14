@@ -2,6 +2,48 @@
 
 @section('content')
 
+
+<style>
+    .property-locality-control {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .property-locality-control > .fa-location-dot {
+        position: absolute;
+        left: 12px;
+        color: #64748b;
+        pointer-events: none;
+    }
+
+    .property-locality-control .property-form-control {
+        width: 100%;
+        padding-left: 36px;
+        padding-right: 42px;
+    }
+
+    .property-locality-clear {
+        position: absolute;
+        right: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #64748b;
+        cursor: pointer;
+    }
+
+    .property-locality-clear:hover {
+        background: #f1f5f9;
+        color: #1724c9;
+    }
+</style>
+
 <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -391,7 +433,7 @@
 </div>
 
 
-                    {{-- Locality --}}
+                    <!-- {{-- Locality --}}
                     <div class="property-col-4">
                         <label class="property-form-label">
                             Area / Locality
@@ -406,7 +448,42 @@
                             placeholder="Enter area or locality"
                             required
                         >
-                    </div>
+                    </div> -->
+
+                     {{-- LOCALITY --}}
+                           
+<div class="property-col-4">
+    <label for="localityInput" class="property-form-label">
+        Area / Locality
+        <span class="text-danger">*</span>
+    </label>
+
+    <div class="property-locality-control">
+        <i class="fa-solid fa-location-dot"></i>
+
+        <input
+            type="text"
+            id="localityInput"
+            name="locality"
+            class="form-control property-form-control"
+            value="{{ old('locality', $property->locality) }}"
+            placeholder="Search area, locality or landmark"
+            autocomplete="off"
+            required
+        >
+
+        <button
+            type="button"
+            id="localityClear"
+            class="property-locality-clear"
+            aria-label="Clear locality"
+            style="{{ old('locality', $property->locality) ? '' : 'display: none;' }}"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+</div>
+
 
 
                     {{-- Pincode --}}
@@ -2147,6 +2224,47 @@
 
     }
 
+</script>
+
+<script>
+    let localityAutocomplete;
+
+    function initLocalityAutocomplete() {
+        const input = document.getElementById("localityInput");
+        const clearButton = document.getElementById("localityClear");
+
+        if (!input || !clearButton || !window.google?.maps?.places) {
+            return;
+        }
+
+        localityAutocomplete = new google.maps.places.Autocomplete(input, {
+            componentRestrictions: { country: "in" },
+            fields: ["formatted_address", "name", "geometry"],
+            types: ["geocode"]
+        });
+
+        localityAutocomplete.addListener("place_changed", function () {
+            const place = localityAutocomplete.getPlace();
+
+            input.value = place.name || place.formatted_address || input.value;
+            clearButton.style.display = input.value ? "inline-flex" : "none";
+        });
+
+        input.addEventListener("input", function () {
+            clearButton.style.display = input.value ? "inline-flex" : "none";
+        });
+
+        clearButton.addEventListener("click", function () {
+            input.value = "";
+            clearButton.style.display = "none";
+            input.focus();
+        });
+    }
+</script>
+
+<script
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocalityAutocomplete">
 </script>
 
 @endsection

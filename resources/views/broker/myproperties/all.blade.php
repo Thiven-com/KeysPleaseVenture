@@ -676,7 +676,7 @@
 
                                         <div class="property-actions">
 
-                                            @if($property->slug)
+                                            <!-- @if($property->slug)
                                                 <a
                                                     href="{{ route('propertydetails', $property->slug) }}"
                                                     class="action-btn"
@@ -684,7 +684,7 @@
                                                 >
                                                     <i class="fa-regular fa-eye"></i>
                                                 </a>
-                                            @endif
+                                            @endif -->
 
                                             <a
                                                 href="{{ route('broker.properties.edit', $property->id) }}"
