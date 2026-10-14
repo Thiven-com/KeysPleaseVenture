@@ -2,8 +2,8 @@
 @section('content')
     <style>
         /* =========================================================
-                                                                                                                                               INFINITE LOCALITY CAROUSEL
-                                                                                                                                            ========================================================= */
+                                                                                                                                                   INFINITE LOCALITY CAROUSEL
+                                                                                                                                                ========================================================= */
 
         .locality-carousel {
             position: relative;
@@ -30,8 +30,8 @@
 
 
         /* =========================================================
-                                                                                                                                               ARROWS
-                                                                                                                                            ========================================================= */
+                                                                                                                                                   ARROWS
+                                                                                                                                                ========================================================= */
 
         .locality-controls {
             display: flex;
@@ -77,8 +77,8 @@
 
 
         /* =========================================================
-                                                                                                                                               TABLET
-                                                                                                                                            ========================================================= */
+                                                                                                                                                   TABLET
+                                                                                                                                                ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -95,8 +95,8 @@
 
 
         /* =========================================================
-                                                                                                                                               MOBILE
-                                                                                                                                            ========================================================= */
+                                                                                                                                                   MOBILE
+                                                                                                                                                ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -150,14 +150,14 @@
             <div class="rpf-search-card">
 
                 <!-- <div class="rpf-tabs">
-                                                                                                                    <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
-                                                                                                                        <i class="fa-solid fa-house"></i> Rent
-                                                                                                                    </button>
+                                                                                                                        <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                                                                                                                            <i class="fa-solid fa-house"></i> Rent
+                                                                                                                        </button>
 
-                                                                                                                    <button class="rpf-tab" type="button" data-mode="locality">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i> By Locality
-                                                                                                                    </button>
-                                                                                                                </div> -->
+                                                                                                                        <button class="rpf-tab" type="button" data-mode="locality">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i> By Locality
+                                                                                                                        </button>
+                                                                                                                    </div> -->
 
                 <div class="rpf-tabs">
                     <button class="rpf-tab rpf-tab-active" type="button">
@@ -258,41 +258,41 @@
 
                     <!-- Rent Range -->
                     <!-- <div class="rpf-field">
-                                        <label for="rpfRentRange">Rent Range</label>
+                                            <label for="rpfRentRange">Rent Range</label>
 
-                                        <div class="rpf-control" id="rpfRentRangeControl" data-target="rpfRentRangeDropdown">
-                                            <span class="rpf-control-value" id="rpfRentRangeValue">Any Range</span>
-                                            <span class="rpf-control-icon">
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </span>
+                                            <div class="rpf-control" id="rpfRentRangeControl" data-target="rpfRentRangeDropdown">
+                                                <span class="rpf-control-value" id="rpfRentRangeValue">Any Range</span>
+                                                <span class="rpf-control-icon">
+                                                    <i class="fa-solid fa-chevron-down"></i>
+                                                </span>
 
-                                            <div class="rpf-dropdown" id="rpfRentRangeDropdown">
+                                                <div class="rpf-dropdown" id="rpfRentRangeDropdown">
 
-                                                <button type="button" data-value="Any Range">
-                                                    Any Range
-                                                </button>
-
-                                                @php
-                                                    $rentRanges = [
-                                                        ['label' => '₹0 - ₹25,000', 'min' => 0, 'max' => 25000],
-                                                        ['label' => '₹25,000 - ₹50,000', 'min' => 25000, 'max' => 50000],
-                                                        ['label' => '₹50,000 - ₹75,000', 'min' => 50000, 'max' => 75000],
-                                                        ['label' => '₹75,000+', 'min' => 75000, 'max' => null],
-                                                    ];
-                                                @endphp
-
-                                                @foreach($rentRanges as $range)
-
-                                                    <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
-                                                        data-max="{{ $range['max'] }}">
-                                                        {{ $range['label'] }}
+                                                    <button type="button" data-value="Any Range">
+                                                        Any Range
                                                     </button>
 
-                                                @endforeach
+                                                    @php
+                                                        $rentRanges = [
+                                                            ['label' => '₹0 - ₹25,000', 'min' => 0, 'max' => 25000],
+                                                            ['label' => '₹25,000 - ₹50,000', 'min' => 25000, 'max' => 50000],
+                                                            ['label' => '₹50,000 - ₹75,000', 'min' => 50000, 'max' => 75000],
+                                                            ['label' => '₹75,000+', 'min' => 75000, 'max' => null],
+                                                        ];
+                                                    @endphp
 
+                                                    @foreach($rentRanges as $range)
+
+                                                        <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
+                                                            data-max="{{ $range['max'] }}">
+                                                            {{ $range['label'] }}
+                                                        </button>
+
+                                                    @endforeach
+
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> -->
 
                     <!-- Rent -->
                     <div class="rpf-field">
@@ -417,91 +417,91 @@
                 <div class="locality-grid stagger" id="localityGrid">
 
                     <!-- <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Whitefield">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Whitefield
-                                                                                                                    </div>
-                                                                                                                    <div class="count">1,250+ Properties</div>
-                                                                                                                </a>
+                                                                                                                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Whitefield">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Whitefield
+                                                                                                                        </div>
+                                                                                                                        <div class="count">1,250+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Koramangala">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Koramangala
-                                                                                                                    </div>
-                                                                                                                    <div class="count">980+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Koramangala">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Koramangala
+                                                                                                                        </div>
+                                                                                                                        <div class="count">980+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Indiranagar">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Indiranagar
-                                                                                                                    </div>
-                                                                                                                    <div class="count">850+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Indiranagar">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Indiranagar
+                                                                                                                        </div>
+                                                                                                                        <div class="count">850+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="HSR Layout">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        HSR Layout
-                                                                                                                    </div>
-                                                                                                                    <div class="count">760+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="HSR Layout">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            HSR Layout
+                                                                                                                        </div>
+                                                                                                                        <div class="count">760+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Marathahalli">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Marathahalli
-                                                                                                                    </div>
-                                                                                                                    <div class="count">680+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Marathahalli">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Marathahalli
+                                                                                                                        </div>
+                                                                                                                        <div class="count">680+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Bellandur">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Bellandur
-                                                                                                                    </div>
-                                                                                                                    <div class="count">540+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Bellandur">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Bellandur
+                                                                                                                        </div>
+                                                                                                                        <div class="count">540+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="JP Nagar">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        JP Nagar
-                                                                                                                    </div>
-                                                                                                                    <div class="count">620+ Properties</div>
-                                                                                                                </a>
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="JP Nagar">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            JP Nagar
+                                                                                                                        </div>
+                                                                                                                        <div class="count">620+ Properties</div>
+                                                                                                                    </a>
 
 
-                                                                                                                <a class="locality" href="#">
-                                                                                                                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                                                                                                        alt="Electronic City">
-                                                                                                                    <div class="name">
-                                                                                                                        <i class="fa-solid fa-location-dot"></i>
-                                                                                                                        Electronic City
-                                                                                                                    </div>
-                                                                                                                    <div class="count">1,100+ Properties</div>
-                                                                                                                </a> -->
+                                                                                                                    <a class="locality" href="#">
+                                                                                                                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                            alt="Electronic City">
+                                                                                                                        <div class="name">
+                                                                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                                            Electronic City
+                                                                                                                        </div>
+                                                                                                                        <div class="count">1,100+ Properties</div>
+                                                                                                                    </a> -->
 
 
 
@@ -597,7 +597,8 @@
                             };
                         @endphp
 
-                        <a href="{{ route('propertydetails', ['slug' => $property->slug]) }}" class="card">
+                        <a href="{{ !empty($property->slug) ? route('propertydetails', ['slug' => $property->slug]) : '#' }}"
+                            class="card">
 
                             <div class="card-image">
 
@@ -708,158 +709,158 @@
 
 
 
-<section id="types" class="reveal">
+    <section id="types" class="reveal">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="section-head">
-            <h2>Browse Rental Properties by Type</h2>
+            <div class="section-head">
+                <h2>Browse Rental Properties by Type</h2>
+            </div>
+
+            <div class="type-grid stagger">
+
+                {{-- Card 1 --}}
+                <a class="type" href="{{ isset($propertyTypes[0])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[0]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[0]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[0]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[0]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+
+                {{-- Card 2 --}}
+                <a class="type" href="{{ isset($propertyTypes[1])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[1]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[1]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[1]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[1]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+
+                {{-- Card 3 --}}
+                <a class="type" href="{{ isset($propertyTypes[2])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[2]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[2]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[2]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[2]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+
+                {{-- Card 4 --}}
+                <a class="type" href="{{ isset($propertyTypes[3])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[3]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[3]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[3]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[3]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+
+                {{-- Card 5 --}}
+                <a class="type" href="{{ isset($propertyTypes[4])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[4]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[4]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[4]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[4]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+
+                {{-- Card 6 --}}
+                <a class="type" href="{{ isset($propertyTypes[5])
+        ? route('rent') . '?type=' . urlencode($propertyTypes[5]->name)
+        : '#' }}">
+
+                    <div class="type-icon">
+                        <i class="fa-solid fa-house-chimney"></i>
+                    </div>
+
+                    <div class="type-name">
+                        {{ $propertyTypes[5]->name ?? 'NOT AVAILABLE' }}
+                    </div>
+
+                    <div class="type-count">
+                        @if(isset($propertyTypes[5]))
+                            {{ number_format($propertyTypeCounts[$propertyTypes[5]->name] ?? 0) }} Properties
+                        @else
+                            NOT AVAILABLE
+                        @endif
+                    </div>
+                </a>
+
+            </div>
+
         </div>
 
-        <div class="type-grid stagger">
-
-            {{-- Card 1 --}}
-            <a class="type" href="{{ isset($propertyTypes[0])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[0]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-building"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[0]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[0]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[0]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-
-            {{-- Card 2 --}}
-            <a class="type" href="{{ isset($propertyTypes[1])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[1]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-house"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[1]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[1]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[1]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-
-            {{-- Card 3 --}}
-            <a class="type" href="{{ isset($propertyTypes[2])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[2]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[2]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[2]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[2]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-
-            {{-- Card 4 --}}
-            <a class="type" href="{{ isset($propertyTypes[3])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[3]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-door-open"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[3]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[3]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[3]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-
-            {{-- Card 5 --}}
-            <a class="type" href="{{ isset($propertyTypes[4])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[4]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-people-roof"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[4]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[4]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[4]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-
-            {{-- Card 6 --}}
-            <a class="type" href="{{ isset($propertyTypes[5])
-                ? route('rent') . '?type=' . urlencode($propertyTypes[5]->name)
-                : '#' }}">
-
-                <div class="type-icon">
-                    <i class="fa-solid fa-house-chimney"></i>
-                </div>
-
-                <div class="type-name">
-                    {{ $propertyTypes[5]->name ?? 'NOT AVAILABLE' }}
-                </div>
-
-                <div class="type-count">
-                    @if(isset($propertyTypes[5]))
-                        {{ number_format($propertyTypeCounts[$propertyTypes[5]->name] ?? 0) }} Properties
-                    @else
-                        NOT AVAILABLE
-                    @endif
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 
     <section id="about" class="reveal">
@@ -991,8 +992,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                                                                                                                                                                             NEWSLETTER
-                                                                                                                                                                                                                                             ========================================================= -->
+                                                                                                                                                                                                                                                 NEWSLETTER
+                                                                                                                                                                                                                                                 ========================================================= -->
 
     <div class="newsletter">
 
