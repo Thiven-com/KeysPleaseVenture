@@ -44,15 +44,12 @@
                         <div class="final-logo logo-normal mb-3">
 
                             <a
-                                href="{{ url('broker/dashboard') }}"
-                                class="logo logo-normal d-flex align-items-center"
+                                href="#"
+                                class="logo logo-normal d-flex align-items-center justify-content-center w-100"
                             >
 
-                                <img
-                                    src="{{ asset('website') }}/images/solarlogo.png"
-                                    alt="Logo"
-                                    style="width:300px; margin-left:30px;"
-                                >
+                               <img src="{{ asset('website') }}/images/venlogo.png" alt="Logo"
+                                        style="width: 200px; max-width: 100%; height: auto;">
 
                             </a>
 
@@ -522,7 +519,7 @@
             <div class="login-img">
 
                 <img
-                    src="{{ asset('website') }}/images/sollog.png"
+                    src="{{ asset('website') }}/images/broker1.png"
                     alt="Broker Registration"
                 >
 

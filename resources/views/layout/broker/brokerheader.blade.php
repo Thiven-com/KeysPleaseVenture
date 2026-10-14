@@ -6,15 +6,15 @@
                 <a href="{{ url('admin/dashboard') }}"
                     class="logo logo-normal d-flex align-items-center justify-content-center w-100">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="sanjeev" style="height:60px;">
+                    <img src="{{ asset('website') }}/images/venlogo.png" alt="sanjeev" style="height:60px;">
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo logo-white">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="Sanjeev" style="height:50px;">
+                    <img src="{{ asset('website') }}/images/venlogo.png" alt="Sanjeev" style="height:50px;">
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo-small">
                     <!-- <img src="{{ asset('website') }}/images/sanjeevlogo.png" alt="Logo" style="width:50px; margin-right:-10px;"> -->
-                    <img src="{{ asset('website') }}/images/solarlogo.png" alt="Sanjeev" style="height:50px;">
+                    <img src="{{ asset('website') }}/images/venlogo.png" alt="Sanjeev" style="height:50px;">
                 </a>
             </div>
             <!-- /Logo -->

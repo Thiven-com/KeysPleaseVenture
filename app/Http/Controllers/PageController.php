@@ -76,10 +76,10 @@ class PageController extends Controller
         */
 
         $brokerPropertyCounts = Property::where('status', 'approved')
-            ->whereNotNull('user_id')
-            ->selectRaw('user_id, COUNT(*) as property_count')
-            ->groupBy('user_id')
-            ->pluck('property_count', 'user_id');
+            ->whereNotNull('broker_id')
+            ->selectRaw('broker_id, COUNT(*) as property_count')
+            ->groupBy('broker_id')
+            ->pluck('property_count', 'broker_id');
 
         /*
         |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ class PageController extends Controller
                 $score = 0;
 
                 // Broker popularity
-                $score += ($brokerPropertyCounts[$property->user_id] ?? 0) * 10;
+                $score += ($brokerPropertyCounts[$property->broker_id] ?? 0) * 10;
 
                 // Keyword priority
                 $searchText = strtolower(
@@ -186,6 +186,7 @@ class PageController extends Controller
         return view('website.contact');
     }
 
+
     public function rent(Request $request)
     {
         $query = Property::with([
@@ -202,74 +203,106 @@ class PageController extends Controller
                 'Lease'
             ]);
 
-        // Location filter
-        if ($request->filled('location')) {
-            $location = trim($request->location);
+        /*
+        |--------------------------------------------------------------------------
+        | Locality Filter
+        |--------------------------------------------------------------------------
+        | Supports URLs such as:
+        | /rent?locality=Marathahalli
+        */
 
-            $query->where(function ($q) use ($location) {
+        if ($request->filled('locality')) {
+            $locality = trim($request->query('locality'));
 
-                // Match locality
-                $q->where('locality', 'LIKE', '%' . $location . '%')
+            $query->whereRaw(
+                'LOWER(TRIM(locality)) = LOWER(?)',
+                [$locality]
+            );
+        }
 
-                    // Match city
-                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                    });
+        /*
+        |--------------------------------------------------------------------------
+        | Location Search Filter
+        |--------------------------------------------------------------------------
+        | Supports searching by locality, city, or "Locality, City".
+        */ elseif ($request->filled('location')) {
+            $location = trim($request->query('location'));
 
-                // If URL contains "Locality, City"
-                if (str_contains($location, ',')) {
+            if (str_contains($location, ',')) {
+                [$locality, $city] = array_map(
+                    'trim',
+                    explode(',', $location, 2)
+                );
 
-                    [$locality, $city] = array_map('trim', explode(',', $location, 2));
+                $query->where(function ($q) use ($locality, $city, $location) {
 
-                    $q->orWhere(function ($subQuery) use ($locality, $city) {
-
-                        $subQuery->where('locality', 'LIKE', '%' . $locality . '%')
+                    $q->where(function ($subQuery) use ($locality, $city) {
+                        $subQuery
+                            ->where('locality', 'LIKE', '%' . $locality . '%')
                             ->whereHas('cityRelation', function ($cityQuery) use ($city) {
                                 $cityQuery->where('name', 'LIKE', '%' . $city . '%');
                             });
-                    });
-                }
-            });
+                    })
+                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                        });
+
+                });
+            } else {
+                $query->where(function ($q) use ($location) {
+                    $q->where('locality', 'LIKE', '%' . $location . '%')
+                        ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                            $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                        });
+                });
+            }
         }
 
-        // Property type filter
+        /*
+        |--------------------------------------------------------------------------
+        | Property Type Filter
+        |--------------------------------------------------------------------------
+        */
+
         if ($request->filled('type')) {
-            $query->where('property_type', $request->type);
+            $query->where('property_type', $request->query('type'));
         }
 
-        // BHK filter
+        /*
+        |--------------------------------------------------------------------------
+        | BHK Filter
+        |--------------------------------------------------------------------------
+        */
+
         if ($request->filled('bhk')) {
-            $bhk = (int) $request->bhk;
+            $bhk = (int) $request->query('bhk');
 
             if ($bhk >= 4) {
-                $query->where('bhk', 'LIKE', '4%');
-            } else {
-                $query->where('bhk', 'LIKE', $bhk . '%');
+                $query->where('bhk', '>=', 4);
+            } elseif ($bhk > 0) {
+                $query->where('bhk', $bhk);
             }
         }
 
-        // Rent range filter
-        if ($request->filled('rent_range')) {
+        /*
+        |--------------------------------------------------------------------------
+        | Maximum Rent Filter
+        |--------------------------------------------------------------------------
+        */
 
-            switch ($request->rent_range) {
+        if ($request->filled('max_rent')) {
+            $maxRent = (float) $request->query('max_rent');
 
-                case '0-25000':
-                    $query->whereBetween('price', [0, 25000]);
-                    break;
-
-                case '25000-50000':
-                    $query->whereBetween('price', [25000, 50000]);
-                    break;
-
-                case '50000-75000':
-                    $query->whereBetween('price', [50000, 75000]);
-                    break;
-
-                case '75000+':
-                    $query->where('price', '>=', 75000);
-                    break;
+            if ($maxRent >= 0) {
+                $query->where('price', '<=', $maxRent);
             }
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Fetch Filtered Properties
+        |--------------------------------------------------------------------------
+        */
 
         $properties = $query
             ->latest()
@@ -288,23 +321,26 @@ class PageController extends Controller
         $property = Property::with([
             'images',
             'user',
+            'broker',
             'propertyAmenities',
-            'cityRelation'
+            'cityRelation',
         ])
             ->where('status', 'approved')
             ->where('slug', $slug)
             ->first();
 
-        // Invalid or incomplete slug → Rent page
         if (!$property) {
-            return redirect()->route('rent');
+            return redirect()
+                ->route('rent')
+                ->with('error', 'Property not found.');
         }
 
         $similarProperties = Property::with([
             'images',
             'user',
+            'broker',
             'propertyAmenities',
-            'cityRelation'
+            'cityRelation',
         ])
             ->where('status', 'approved')
             ->where('listing_for', $property->listing_for)
@@ -318,7 +354,6 @@ class PageController extends Controller
             'similarProperties'
         ));
     }
-
 
     public function rentByCity($citySlug)
     {
@@ -352,4 +387,73 @@ class PageController extends Controller
             'selectedCityModel' => $city,
         ]);
     }
+
+
+
+    public function howItWorks()
+    {
+        return view('website.how-it-works');
+    }
+
+    public function faqs()
+    {
+        return view('website.faqs');
+    }
+
+
+    public function rentalGuide()
+    {
+        return view('website.rental-guide');
+    }
+
+
+
+    public function safetyTips()
+    {
+        return view('website.safety-tips');
+    }
+
+
+    public function enquirySupport()
+    {
+        return view('website.enquiry-support');
+    }
+
+
+    public function brokerBenefits()
+    {
+        return view('website.broker-benefits');
+    }
+
+
+    public function partnerWithUs()
+    {
+        return view('website.partner-with-us');
+    }
+
+
+    public function termsAndConditions()
+    {
+        return view('website.terms-and-conditions');
+    }
+
+
+    public function resources()
+    {
+        return view('website.resources');
+    }
+
+
+    public function privacyPolicy()
+    {
+        return view('website.privacy-policy');
+    }
+
+
+
+
+
+
+
+
 }

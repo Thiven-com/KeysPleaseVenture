@@ -44,7 +44,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Icon</th>
+                                    <!-- <th>Icon</th> -->
                                     <th>Category</th>
                                     <th>Status</th>
                                     <th>Sort Order</th>
@@ -63,13 +63,13 @@
                                             <strong>{{ $amenity->name }}</strong>
                                         </td>
 
-                                        <td>
+                                        <!-- <td>
                                             @if($amenity->icon)
                                                 <i class="{{ $amenity->icon }}"></i>
                                             @else
                                                 -
                                             @endif
-                                        </td>
+                                        </td> -->
 
                                         <td>
                                             {{ $amenity->category ?: '-' }}

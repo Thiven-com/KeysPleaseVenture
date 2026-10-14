@@ -12,7 +12,9 @@ class Property extends Model
         'city_id',
         'user_id',
         'broker_id',
+        'slug',
         'listing_for',
+        'tenant_preference',
 
         // Basic Property Information
         'property_title',

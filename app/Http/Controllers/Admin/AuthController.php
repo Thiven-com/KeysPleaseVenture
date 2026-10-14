@@ -20,6 +20,12 @@ use App\Models\Services;
 use App\Models\Servicesingle;
 use App\Models\Testimonial;
 
+use App\Models\Property;
+use App\Models\ScheduleVisitEnquiry;
+use App\Models\Broker;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
 class AuthController extends Controller
 {
     public function showLoginForm()
@@ -42,12 +48,38 @@ class AuthController extends Controller
     // {
     //     return view('admin.auth.dashboard'); // create this Blade view
     // }
-    public function dashboard()
-    {
-        
-        //  $contactCount = Contact::count();
-        return view('admin.auth.dashboard');
-    }
+
+ 
+public function dashboard()
+{
+    // Total properties
+    $totalProperties = Property::count();
+
+    // Total schedule visit enquiries
+    $totalScheduleVisits = ScheduleVisitEnquiry::count();
+
+    // Total brokers
+    $totalBrokers = Broker::count();
+
+    // Total contact enquiries
+    $totalContactEnquiries = Contact::count();
+
+    // Latest 5 schedule visit enquiries
+    $recentScheduleVisits = ScheduleVisitEnquiry::with('property')
+        ->latest()
+        ->take(5)
+        ->get();
+
+    return view('admin.auth.dashboard', compact(
+        'totalProperties',
+        'totalScheduleVisits',
+        'totalBrokers',
+        'totalContactEnquiries',
+        'recentScheduleVisits'
+    ));
+}
+
+
 
     public function logout()
     {

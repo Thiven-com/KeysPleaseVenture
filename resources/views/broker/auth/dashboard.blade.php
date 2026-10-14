@@ -666,7 +666,7 @@
                                             $image = $property->images->first();
 
                                             $imageUrl = $image
-                                                ? asset('storage/' . $image->image_path)
+                                                ? asset($image->image_path)
                                                 : asset('website/images/no-image.jpg');
 
                                             $location = collect([

@@ -75,7 +75,7 @@
 
             <div class="col-lg-6 p-0">
                 <div class="login-img">
-                    <img src="{{ asset('website') }}/images/sollog.png" alt="img">
+                    <img src="{{ asset('website') }}/images/broker1.png" alt="img">
                 </div>
             </div>
         </div>

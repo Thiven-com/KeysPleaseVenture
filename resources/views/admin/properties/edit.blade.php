@@ -2,6 +2,13 @@
 
 @section('content')
 
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <div class="page-wrapper">
     <div class="content property-edit-page">
 
@@ -90,36 +97,36 @@
 
 
                     {{-- Property Type --}}
-                    <div class="property-col-6">
-                        <label class="property-form-label">
-                            Property Type
-                            <span class="text-danger">*</span>
-                        </label>
+<div class="property-col-6">
+    <label class="property-form-label">
+        Property Type
+        <span class="text-danger">*</span>
+    </label>
 
-                        <select
-                            name="property_type"
-                            class="form-select"
-                            required
-                        >
-                            <option value="">Select Property Type</option>
+    <select
+        name="property_type"
+        class="form-select"
+        required
+    >
+        <option value="">Select Property Type</option>
 
-                            @foreach([
-                                'Apartment',
-                                'Villa',
-                                'Independent House',
-                                'Plot'
-                            ] as $type)
+        @foreach(
+            \App\Models\PropertyType::where('status', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get()
+            as $type
+        )
+            <option
+                value="{{ $type->name }}"
+                {{ old('property_type', $property->property_type) == $type->name ? 'selected' : '' }}
+            >
+                {{ $type->name }}
+            </option>
+        @endforeach
 
-                                <option
-                                    value="{{ $type }}"
-                                    {{ old('property_type', $property->property_type) == $type ? 'selected' : '' }}
-                                >
-                                    {{ $type }}
-                                </option>
-
-                            @endforeach
-                        </select>
-                    </div>
+    </select>
+</div>
 
 
                     {{-- Listing For --}}
@@ -153,6 +160,40 @@
                             @endforeach
                         </select>
                     </div>
+
+
+                    {{-- TENANT PREFERENCE --}}
+<div class="property-col-4">
+
+    <label class="property-form-label">
+        Tenant Preference
+        <span class="property-form-required">*</span>
+    </label>
+
+    <select name="tenant_preference"
+            class="form-select"
+            required>
+
+        <option value="">Select Tenant Preference</option>
+
+        <option value="Family"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Family' ? 'selected' : '' }}>
+            Family
+        </option>
+
+        <option value="Bachelor"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Bachelor' ? 'selected' : '' }}>
+            Bachelor
+        </option>
+
+        <option value="Both"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Both' ? 'selected' : '' }}>
+            Fam & Bac
+        </option>
+
+    </select>
+
+</div>
 
 
                     {{-- BHK --}}
@@ -401,54 +442,115 @@
 
 
                     {{-- Google Map URL --}}
-                    <div class="property-col-6">
-                        <label class="property-form-label">
-                            Google Map Location URL
-                        </label>
+                  {{-- PROPERTY MAP --}}
+<div class="property-col-12">
 
-                        <input
-                            type="url"
-                            name="google_map_url"
-                            class="form-control"
-                            value="{{ old('google_map_url', $property->google_map_url) }}"
-                            placeholder="https://maps.google.com/..."
-                        >
-                    </div>
+    <label class="property-form-label">
+        Property Location
+    </label>
+
+    <input
+        type="text"
+        id="property-map-search"
+        class="form-control"
+        placeholder="Search property address, area, city..."
+        autocomplete="off"
+        style="margin-bottom: 10px;"
+    >
+
+    <div
+        id="map-search-results"
+        style="
+            display: none;
+            position: relative;
+            z-index: 1000;
+            background: #ffffff;
+            border: 1px solid #dfe4eb;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-height: 220px;
+            overflow-y: auto;
+        ">
+    </div>
+
+    <div
+        id="property-map"
+        style="
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #dfe4eb;
+            margin-bottom: 8px;
+        ">
+    </div>
+
+    <span class="property-form-help">
+        Search for the property location or click on the map.
+        You can also drag the marker to the exact location.
+    </span>
+
+</div>
 
 
-                    {{-- Latitude --}}
-                    <div class="property-col-6">
-                        <label class="property-form-label">
-                            Latitude
-                        </label>
+{{-- GOOGLE MAP URL --}}
+<div class="property-col-12">
 
-                        <input
-                            type="number"
-                            name="latitude"
-                            class="form-control"
-                            step="any"
-                            value="{{ old('latitude', $property->latitude) }}"
-                            placeholder="17.3850"
-                        >
-                    </div>
+    <label class="property-form-label">
+        Google Map URL
+    </label>
+
+    <input
+        type="url"
+        name="google_map_url"
+        id="google_map_url"
+        class="form-control"
+        value="{{ old('google_map_url', $property->google_map_url) }}"
+        placeholder="Google Maps URL"
+        readonly
+    >
+
+</div>
 
 
-                    {{-- Longitude --}}
-                    <div class="property-col-6">
-                        <label class="property-form-label">
-                            Longitude
-                        </label>
+{{-- LATITUDE --}}
+<div class="property-col-6">
 
-                        <input
-                            type="number"
-                            name="longitude"
-                            class="form-control"
-                            step="any"
-                            value="{{ old('longitude', $property->longitude) }}"
-                            placeholder="78.4867"
-                        >
-                    </div>
+    <label class="property-form-label">
+        Latitude
+    </label>
 
+    <input
+        type="text"
+        name="latitude"
+        id="latitude"
+        class="form-control"
+        value="{{ old('latitude', $property->latitude) }}"
+        placeholder="e.g. 14.0516"
+        readonly
+    >
+
+</div>
+
+
+{{-- LONGITUDE --}}
+<div class="property-col-6">
+
+    <label class="property-form-label">
+        Longitude
+    </label>
+
+    <input
+        type="text"
+        name="longitude"
+        id="longitude"
+        class="form-control"
+        value="{{ old('longitude', $property->longitude) }}"
+        placeholder="e.g. 79.1240"
+        readonly
+    >
+
+</div>
 
                     {{-- Detailed Address --}}
                     <div class="property-col-12">
@@ -1638,6 +1740,410 @@
             );
 
         });
+
+    }
+
+</script>
+
+<script>
+
+    let propertyMap;
+    let propertyMarker;
+
+    const defaultLatitude = 12.9716;
+    const defaultLongitude = 77.5946;
+
+
+    // =========================================================
+    // INITIALIZE MAP
+    // =========================================================
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const mapElement =
+            document.getElementById('property-map');
+
+        if (!mapElement) {
+            return;
+        }
+
+
+        let latitude =
+            parseFloat(
+                document.getElementById('latitude').value
+            );
+
+        let longitude =
+            parseFloat(
+                document.getElementById('longitude').value
+            );
+
+
+        // Default Bengaluru location
+        if (isNaN(latitude) || isNaN(longitude)) {
+
+            latitude = defaultLatitude;
+            longitude = defaultLongitude;
+        }
+
+
+        // Create Leaflet map
+        propertyMap = L.map('property-map').setView(
+            [latitude, longitude],
+            13
+        );
+
+
+        // OpenStreetMap
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                maxZoom: 19,
+                attribution:
+                    '&copy; OpenStreetMap contributors'
+            }
+        ).addTo(propertyMap);
+
+
+        // Existing property location
+        if (
+            document.getElementById('latitude').value &&
+            document.getElementById('longitude').value
+        ) {
+
+            createPropertyMarker(
+                latitude,
+                longitude
+            );
+
+        }
+
+
+        // =====================================================
+        // CLICK MAP
+        // =====================================================
+
+        propertyMap.on(
+            'click',
+            function (event) {
+
+                setPropertyLocation(
+                    event.latlng.lat,
+                    event.latlng.lng
+                );
+
+            }
+        );
+
+
+        // =====================================================
+        // SEARCH LOCATION
+        // =====================================================
+
+        const searchInput =
+            document.getElementById(
+                'property-map-search'
+            );
+
+        let searchTimeout;
+
+
+        searchInput.addEventListener(
+            'input',
+            function () {
+
+                const searchText =
+                    this.value.trim();
+
+                clearTimeout(searchTimeout);
+
+
+                if (searchText.length < 3) {
+
+                    document.getElementById(
+                        'map-search-results'
+                    ).style.display = 'none';
+
+                    return;
+                }
+
+
+                searchTimeout = setTimeout(
+                    function () {
+
+                        searchLocation(searchText);
+
+                    },
+                    700
+                );
+
+            }
+        );
+
+    });
+
+
+    // =========================================================
+    // CREATE MARKER
+    // =========================================================
+
+    function createPropertyMarker(
+        latitude,
+        longitude
+    ) {
+
+        if (propertyMarker) {
+
+            propertyMap.removeLayer(
+                propertyMarker
+            );
+
+        }
+
+
+        propertyMarker = L.marker(
+            [
+                latitude,
+                longitude
+            ],
+            {
+                draggable: true
+            }
+        ).addTo(propertyMap);
+
+
+        // Marker drag
+        propertyMarker.on(
+            'dragend',
+            function (event) {
+
+                const position =
+                    event.target.getLatLng();
+
+                setPropertyLocation(
+                    position.lat,
+                    position.lng
+                );
+
+            }
+        );
+
+    }
+
+
+    // =========================================================
+    // SET LOCATION
+    // =========================================================
+
+    function setPropertyLocation(
+        latitude,
+        longitude
+    ) {
+
+        latitude =
+            parseFloat(latitude);
+
+        longitude =
+            parseFloat(longitude);
+
+
+        // Latitude
+        document.getElementById(
+            'latitude'
+        ).value =
+            latitude.toFixed(7);
+
+
+        // Longitude
+        document.getElementById(
+            'longitude'
+        ).value =
+            longitude.toFixed(7);
+
+
+        // Google Maps URL
+        const googleMapUrl =
+            `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+
+        document.getElementById(
+            'google_map_url'
+        ).value =
+            googleMapUrl;
+
+
+        // Marker
+        createPropertyMarker(
+            latitude,
+            longitude
+        );
+
+
+        // Center map
+        propertyMap.setView(
+            [
+                latitude,
+                longitude
+            ],
+            17
+        );
+
+    }
+
+
+    // =========================================================
+    // SEARCH LOCATION
+    // =========================================================
+
+    function searchLocation(searchText) {
+
+        const url =
+            'https://nominatim.openstreetmap.org/search?' +
+            'format=json' +
+            '&addressdetails=1' +
+            '&limit=5' +
+            '&q=' +
+            encodeURIComponent(searchText);
+
+
+        fetch(url, {
+
+            headers: {
+                'Accept': 'application/json'
+            }
+
+        })
+        .then(function (response) {
+
+            return response.json();
+
+        })
+        .then(function (results) {
+
+            displaySearchResults(results);
+
+        })
+        .catch(function (error) {
+
+            console.error(
+                'Location search error:',
+                error
+            );
+
+        });
+
+    }
+
+
+    // =========================================================
+    // DISPLAY SEARCH RESULTS
+    // =========================================================
+
+    function displaySearchResults(results) {
+
+        const resultBox =
+            document.getElementById(
+                'map-search-results'
+            );
+
+
+        resultBox.innerHTML = '';
+
+
+        if (!results.length) {
+
+            resultBox.innerHTML = `
+                <div style="
+                    padding:12px;
+                    color:#777;
+                    font-size:12px;
+                ">
+                    No location found.
+                </div>
+            `;
+
+            resultBox.style.display = 'block';
+
+            return;
+        }
+
+
+        results.forEach(function (place) {
+
+            const item =
+                document.createElement('div');
+
+
+            item.style.padding = '12px';
+            item.style.cursor = 'pointer';
+            item.style.borderBottom =
+                '1px solid #edf0f4';
+            item.style.fontSize = '12px';
+            item.style.color = '#344158';
+
+
+            item.textContent =
+                place.display_name;
+
+
+            item.addEventListener(
+                'mouseenter',
+                function () {
+
+                    item.style.background =
+                        '#f5f7fa';
+
+                }
+            );
+
+
+            item.addEventListener(
+                'mouseleave',
+                function () {
+
+                    item.style.background =
+                        '#ffffff';
+
+                }
+            );
+
+
+            item.addEventListener(
+                'click',
+                function () {
+
+                    const latitude =
+                        parseFloat(place.lat);
+
+                    const longitude =
+                        parseFloat(place.lon);
+
+
+                    document.getElementById(
+                        'property-map-search'
+                    ).value =
+                        place.display_name;
+
+
+                    setPropertyLocation(
+                        latitude,
+                        longitude
+                    );
+
+
+                    resultBox.style.display =
+                        'none';
+
+                }
+            );
+
+
+            resultBox.appendChild(item);
+
+        });
+
+
+        resultBox.style.display = 'block';
 
     }
 

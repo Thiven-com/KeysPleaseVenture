@@ -84,7 +84,7 @@
                         </div>
 
                         {{-- Icon --}}
-                        <div class="col-md-6 mb-3">
+                        <!-- <div class="col-md-6 mb-3">
                             <label class="form-label">
                                 Icon Class
                             </label>
@@ -98,7 +98,7 @@
                             <small class="text-muted">
                                 Enter the icon CSS class if you want to display an icon.
                             </small>
-                        </div>
+                        </div> -->
 
                         {{-- Sort Order --}}
                         <div class="col-md-3 mb-3">

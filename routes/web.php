@@ -32,6 +32,55 @@ Route::get('login', [PageController::class, 'login'])
     ->name('login');
 
 
+    
+
+Route::get('/how-it-works', [PageController::class, 'howItWorks'])
+    ->name('website.how-it-works');
+
+
+    Route::get('/faqs', [PageController::class, 'faqs'])
+    ->name('website.faqs');
+
+    
+Route::get('/rental-guide', [PageController::class, 'rentalGuide'])
+    ->name('website.rental-guide');
+
+
+
+Route::get('/safety-tips', [PageController::class, 'safetyTips'])
+    ->name('website.safety-tips');
+
+    
+Route::get('/enquiry-support', [PageController::class, 'enquirySupport'])
+    ->name('website.enquiry-support');
+
+    
+Route::get('/broker-benefits', [PageController::class, 'brokerBenefits'])
+    ->name('website.broker-benefits');
+
+    
+Route::get('/partner-with-us', [PageController::class, 'partnerWithUs'])
+    ->name('website.partner-with-us');
+
+    
+Route::get('/terms-and-conditions', [PageController::class, 'termsAndConditions'])
+    ->name('website.terms-and-conditions');
+
+    
+Route::get('/resources', [PageController::class, 'resources'])
+    ->name('website.resources');
+
+    
+Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])
+    ->name('website.privacy-policy');
+
+
+
+
+
+
+
+
 // ========================================
 // LIST YOUR PROPERTY - VENDOR
 // ========================================

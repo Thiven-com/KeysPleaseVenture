@@ -622,6 +622,49 @@
                         </div>
 
 
+                        {{-- TENANT PREFERENCE --}}
+
+<div class="form-group">
+
+    <label class="form-label">
+        Tenant Preference
+        <span class="required">*</span>
+    </label>
+
+    <select
+        name="tenant_preference"
+        class="form-select"
+        required
+    >
+
+        <option value="">
+            Select Tenant Preference
+        </option>
+
+        <option value="Family"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Family' ? 'selected' : '' }}>
+            Family
+        </option>
+
+        <option value="Bachelor"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Bachelor' ? 'selected' : '' }}>
+            Bachelor
+        </option>
+
+        <option value="Both"
+            {{ old('tenant_preference', $property->tenant_preference) == 'Both' ? 'selected' : '' }}>
+            Fam & Bac
+        </option>
+
+    </select>
+
+    @error('tenant_preference')
+        <div class="field-error">{{ $message }}</div>
+    @enderror
+
+</div>
+
+
                         <div class="form-group">
 
                             <label class="form-label">BHK</label>
@@ -1214,7 +1257,7 @@
                                 <div class="existing-image">
 
                                     <img
-                                        src="{{ asset('storage/' . $image->image_path) }}"
+                                        src="{{ asset($image->image_path) }}"
                                         alt="Property Image"
                                     >
 

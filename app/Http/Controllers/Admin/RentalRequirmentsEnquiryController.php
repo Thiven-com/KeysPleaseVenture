@@ -12,14 +12,18 @@ class RentalRequirmentsEnquiryController extends Controller
      */
     public function index()
     {
-        $enquiries = RentalRequirmentsEnquiry::latest()->get();
+        $enquiries = RentalRequirmentsEnquiry::with([
+            'property.broker',
+            'property.user',
+        ])
+        ->latest()
+        ->get();
 
         return view(
             'admin.rentalrequirments.all',
             compact('enquiries')
         );
     }
-
 
     /**
      * Delete rental requirements enquiry.

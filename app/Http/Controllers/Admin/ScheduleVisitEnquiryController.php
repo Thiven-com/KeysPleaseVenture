@@ -12,7 +12,9 @@ class ScheduleVisitEnquiryController extends Controller
      */
     public function index()
     {
-        $enquiries = ScheduleVisitEnquiry::latest()->get();
+        $enquiries = ScheduleVisitEnquiry::with('property')
+            ->latest()
+            ->get();
 
         return view(
             'admin.schedulevisitenquiries.all',

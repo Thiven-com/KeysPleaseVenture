@@ -3,16 +3,16 @@
         <!-- Logo -->
         <div class="sidebar-logo active">
                 <a href="{{ url('admin/dashboard') }}" class="logo logo-normal d-flex align-items-center">
-                        <img src="{{asset('website')}}/images/solarlogo.png" alt="Logo"
+                        <img src="{{asset('website')}}/images/venlogo.png" alt="Logo"
                                 style="width:90px; margin-left:30px;">
 
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo logo-white">
-                        <img src="{{asset('website')}}/images/solarlogo.png" alt="Img">
+                        <img src="{{asset('website')}}/images/venlogo.png" alt="Img">
 
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo-small">
-                        <img src="{{asset('website')}}/images/solarlogo.png" alt="Img">
+                        <img src="{{asset('website')}}/images/venlogo.png" alt="Img">
 
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
@@ -115,12 +115,12 @@
                                         <ul>
 
                                                 {{-- Rent Enquiries --}}
-                                                <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
+                                                <!-- <li class="{{ Request::is('admin/rent-enquiries*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.rent-enquiries.index') }}">
                                                                 <i class="ti ti-message-circle fs-16 me-2"></i>
                                                                 <span>Rent Enquiries</span>
                                                         </a>
-                                                </li>
+                                                </li> -->
 
                                                 {{-- Rental Requirements Enquiries --}}
                                                 <li

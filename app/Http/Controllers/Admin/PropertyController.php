@@ -4,15 +4,49 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
+use App\Models\City;
 use App\Models\Property;
 use App\Models\PropertyImage;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\PropertyType;
+use Illuminate\Support\Str;
 
 class PropertyController extends Controller
 {
+    /**
+     * Generate a unique property slug.
+     */
+    private function generateUniqueSlug(string $title, ?int $propertyId = null): string
+    {
+        $baseSlug = Str::slug($title);
+
+        // Fallback in case title contains no usable characters
+        if (empty($baseSlug)) {
+            $baseSlug = 'property';
+        }
+
+        $slug = $baseSlug;
+        $count = 1;
+
+        while (
+            Property::where('slug', $slug)
+                ->when(
+                    $propertyId,
+                    function ($query) use ($propertyId) {
+                        $query->where('id', '!=', $propertyId);
+                    }
+                )
+                ->exists()
+        ) {
+            $slug = $baseSlug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
+
     /**
      * Display all properties.
      */
@@ -21,7 +55,9 @@ class PropertyController extends Controller
         $properties = Property::with([
             'images',
             'user',
-            'propertyAmenities'
+            'broker',
+            'propertyAmenities',
+            'cityRelation'
         ])
             ->latest()
             ->paginate(20);
@@ -32,19 +68,17 @@ class PropertyController extends Controller
         );
     }
 
-
     /**
      * Show Add Property form.
      */
     public function create()
     {
-
         $propertyTypes = PropertyType::where('status', true)
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
-        $cities = \App\Models\City::where('status', true)
+        $cities = City::where('status', true)
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
@@ -56,10 +90,13 @@ class PropertyController extends Controller
 
         return view(
             'admin.properties.create',
-            compact('amenities', 'cities','propertyTypes')
+            compact(
+                'amenities',
+                'cities',
+                'propertyTypes'
+            )
         );
     }
-
 
     /**
      * Store property created directly by Admin.
@@ -68,14 +105,17 @@ class PropertyController extends Controller
     {
         $validated = $request->validate([
 
-            /*
-             * BASIC PROPERTY INFORMATION
-             */
-            'property_title' => 'required|string|max:255',
+            // BASIC PROPERTY INFORMATION
+
+            'property_title' => [
+                'required',
+                'string',
+                'max:255'
+            ],
 
             'property_type' => [
                 'required',
-                'in:Apartment,Villa,Independent House,Plot'
+                'exists:property_types,name'
             ],
 
             'listing_for' => [
@@ -83,10 +123,13 @@ class PropertyController extends Controller
                 'in:Rent,Lease,PG,Sell'
             ],
 
+            'tenant_preference' => [
+                'required',
+                'in:Family,Bachelor,Both'
+            ],
 
-            /*
-             * LOCATION
-             */
+            // LOCATION
+
             'country' => 'nullable|string|max:100',
 
             'state' => 'nullable|string|max:100',
@@ -109,10 +152,8 @@ class PropertyController extends Controller
 
             'longitude' => 'nullable|numeric|between:-180,180',
 
+            // PROPERTY DETAILS
 
-            /*
-             * PROPERTY DETAILS
-             */
             'bhk' => 'nullable|string|max:50',
 
             'bathrooms' => 'nullable|integer|min:0',
@@ -141,10 +182,8 @@ class PropertyController extends Controller
 
             'possession_status' => 'nullable|string|max:100',
 
+            // RENTAL DETAILS
 
-            /*
-             * RENTAL DETAILS
-             */
             'price' => 'required|numeric|min:0',
 
             'security_deposit' => 'nullable|numeric|min:0',
@@ -153,16 +192,12 @@ class PropertyController extends Controller
 
             'available_from' => 'nullable|date',
 
+            // DESCRIPTION
 
-            /*
-             * DESCRIPTION
-             */
             'description' => 'nullable|string',
 
+            // AMENITIES
 
-            /*
-             * AMENITIES
-             */
             'amenities' => 'nullable|array',
 
             'amenities.*' => [
@@ -170,195 +205,113 @@ class PropertyController extends Controller
                 'exists:amenities,id'
             ],
 
+            // OWNER
 
-            /*
-             * OWNER / BROKER
-             */
             'owner_name' => 'required|string|max:255',
 
             'owner_phone' => 'required|string|max:20',
 
+            // PROPERTY PHOTOS
 
-            /*
-             * PROPERTY PHOTOS
-             */
             'photos' => 'nullable|array|max:10',
 
             'photos.*' => [
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120',
+                'max:5120'
             ],
         ]);
-
 
         DB::beginTransaction();
 
         try {
 
             /*
-             * CREATE PROPERTY
-             */
-            $property = Property::create([
-
-                /*
-                 * USER
-                 */
-                'user_id' => auth()->id(),
-
-
-                /*
-                 * BASIC
-                 */
-                'listing_for' =>
-                    $validated['listing_for'],
-
-                'property_title' =>
-                    $validated['property_title'],
-
-                'property_type' =>
-                    $validated['property_type'],
-
-
-                /*
-                 * LOCATION
-                 */
-                'country' =>
-                    $validated['country'] ?? null,
-
-                'state' =>
-                    $validated['state'] ?? null,
-
-                'district' =>
-                    $validated['district'] ?? null,
-
-                'city_id' =>
-                    $validated['city_id'],
-
-                'locality' =>
-                    $validated['locality'],
-
-                'pincode' =>
-                    $validated['pincode'] ?? null,
-
-                'landmark' =>
-                    $validated['landmark'] ?? null,
-
-                'address' =>
-                    $validated['address'] ?? null,
-
-                'google_map_url' =>
-                    $validated['google_map_url'] ?? null,
-
-                'latitude' =>
-                    $validated['latitude'] ?? null,
-
-                'longitude' =>
-                    $validated['longitude'] ?? null,
-
-
-                /*
-                 * PROPERTY DETAILS
-                 */
-                'bhk' =>
-                    $validated['bhk'] ?? null,
-
-                'bathrooms' =>
-                    $validated['bathrooms'] ?? null,
-
-                'balconies' =>
-                    $validated['balconies'] ?? null,
-
-                'area_sqft' =>
-                    $validated['area_sqft'] ?? null,
-
-                'built_up_area' =>
-                    $validated['built_up_area'] ?? null,
-
-                'carpet_area' =>
-                    $validated['carpet_area'] ?? null,
-
-                'floor_number' =>
-                    $validated['floor_number'] ?? null,
-
-                'total_floors' =>
-                    $validated['total_floors'] ?? null,
-
-                'property_age' =>
-                    $validated['property_age'] ?? null,
-
-                'property_condition' =>
-                    $validated['property_condition'] ?? null,
-
-                'facing' =>
-                    $validated['facing'] ?? null,
-
-                'road_width' =>
-                    $validated['road_width'] ?? null,
-
-                'car_parking' =>
-                    $validated['car_parking'] ?? null,
-
-                'possession_status' =>
-                    $validated['possession_status'] ?? null,
-
-
-                /*
-                 * RENTAL
-                 */
-                'price' =>
-                    $validated['price'],
-
-                'security_deposit' =>
-                    $validated['security_deposit'] ?? null,
-
-                'furnishing' =>
-                    $validated['furnishing'],
-
-                'available_from' =>
-                    $validated['available_from'] ?? null,
-
-
-                /*
-                 * DESCRIPTION
-                 */
-                'description' =>
-                    $validated['description'] ?? null,
-
-
-                /*
-                 * OWNER
-                 */
-                'owner_name' =>
-                    $validated['owner_name'],
-
-                'owner_phone' =>
-                    $validated['owner_phone'],
-
-
-                /*
-                 * ADMIN PROPERTY STATUS
-                 */
-                'status' => 'approved',
-
-                'admin_remark' =>
-                    'Property posted by admin.',
-            ]);
-
-
-            /*
-             * SAVE AMENITIES
+             * Admin-created property.
              *
-             * Uses property_amenities pivot table.
+             * user_id = currently logged-in admin
+             * broker_id = NULL
              */
+            $property = new Property();
+
+            $property->user_id = auth()->id();
+            $property->broker_id = null;
+
+            // BASIC
+
+            $property->listing_for = $validated['listing_for'];
+            $property->tenant_preference = $validated['tenant_preference'];
+            $property->property_title = $validated['property_title'];
+            $property->property_type = $validated['property_type'];
+
+            // SLUG
+
+            $property->slug = $this->generateUniqueSlug(
+                $validated['property_title']
+            );
+
+            // LOCATION
+
+            $property->country = $validated['country'] ?? null;
+            $property->state = $validated['state'] ?? null;
+            $property->district = $validated['district'] ?? null;
+            $property->city_id = $validated['city_id'];
+            $property->locality = $validated['locality'];
+            $property->pincode = $validated['pincode'] ?? null;
+            $property->landmark = $validated['landmark'] ?? null;
+            $property->address = $validated['address'] ?? null;
+            $property->google_map_url = $validated['google_map_url'] ?? null;
+            $property->latitude = $validated['latitude'] ?? null;
+            $property->longitude = $validated['longitude'] ?? null;
+
+            // PROPERTY DETAILS
+
+            $property->bhk = $validated['bhk'] ?? null;
+            $property->bathrooms = $validated['bathrooms'] ?? null;
+            $property->balconies = $validated['balconies'] ?? null;
+            $property->area_sqft = $validated['area_sqft'] ?? null;
+            $property->built_up_area = $validated['built_up_area'] ?? null;
+            $property->carpet_area = $validated['carpet_area'] ?? null;
+            $property->floor_number = $validated['floor_number'] ?? null;
+            $property->total_floors = $validated['total_floors'] ?? null;
+            $property->property_age = $validated['property_age'] ?? null;
+            $property->property_condition = $validated['property_condition'] ?? null;
+            $property->facing = $validated['facing'] ?? null;
+            $property->road_width = $validated['road_width'] ?? null;
+            $property->car_parking = $validated['car_parking'] ?? null;
+            $property->possession_status = $validated['possession_status'] ?? null;
+
+            // RENTAL
+
+            $property->price = $validated['price'];
+            $property->security_deposit = $validated['security_deposit'] ?? null;
+            $property->furnishing = $validated['furnishing'];
+            $property->available_from = $validated['available_from'] ?? null;
+
+            // DESCRIPTION
+
+            $property->description = $validated['description'] ?? null;
+
+            // OWNER
+
+            $property->owner_name = $validated['owner_name'];
+            $property->owner_phone = $validated['owner_phone'];
+
+            // ADMIN STATUS
+
+            $property->status = 'approved';
+            $property->admin_remark = 'Property posted by admin.';
+
+            $property->save();
+
+            // SAVE AMENITIES
+
             $property->propertyAmenities()->sync(
                 $validated['amenities'] ?? []
             );
 
+            // SAVE PROPERTY IMAGES
 
-            /*
-             * SAVE PROPERTY IMAGES
-             */
             if ($request->hasFile('photos')) {
 
                 foreach ($request->file('photos') as $photo) {
@@ -374,9 +327,7 @@ class PropertyController extends Controller
                 }
             }
 
-
             DB::commit();
-
 
             return redirect()
                 ->route('properties.all')
@@ -384,7 +335,6 @@ class PropertyController extends Controller
                     'success',
                     'Property added successfully.'
                 );
-
 
         } catch (\Throwable $e) {
 
@@ -400,7 +350,6 @@ class PropertyController extends Controller
         }
     }
 
-
     /**
      * Display property details.
      */
@@ -409,7 +358,9 @@ class PropertyController extends Controller
         $property = Property::with([
             'images',
             'user',
-            'propertyAmenities'
+            'broker',
+            'propertyAmenities',
+            'cityRelation'
         ])
             ->findOrFail($id);
 
@@ -419,7 +370,6 @@ class PropertyController extends Controller
         );
     }
 
-
     /**
      * Show edit property form.
      */
@@ -427,39 +377,43 @@ class PropertyController extends Controller
     {
         $property = Property::with([
             'images',
-            'propertyAmenities'
+            'propertyAmenities',
+            'broker',
+            'cityRelation'
         ])
             ->findOrFail($id);
 
+        // Load active property types
 
-        /*
-         * Load active amenities for edit form.
-         */
+        $propertyTypes = PropertyType::where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        // Load active amenities
+
         $amenities = Amenity::where('status', 'active')
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
+        // Load active cities
 
-        /*
-         * Load active cities for edit form.
-         */
-        $cities = \App\Models\City::where('status', true)
+        $cities = City::where('status', true)
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
-
 
         return view(
             'admin.properties.edit',
             compact(
                 'property',
                 'amenities',
-                'cities'
+                'cities',
+                'propertyTypes'
             )
         );
     }
-
 
     /**
      * Update property.
@@ -468,21 +422,19 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
 
-
-        /*
-         * VALIDATION
-         */
         $validated = $request->validate([
 
-            /*
-             * BASIC
-             */
-            'property_title' =>
-                'required|string|max:255',
+            // BASIC
+
+            'property_title' => [
+                'required',
+                'string',
+                'max:255'
+            ],
 
             'property_type' => [
                 'required',
-                'in:Apartment,Villa,Independent House,Plot'
+                'exists:property_types,name'
             ],
 
             'listing_for' => [
@@ -490,321 +442,241 @@ class PropertyController extends Controller
                 'in:Rent,Lease,PG,Sell'
             ],
 
+            'tenant_preference' => [
+                'required',
+                'in:Family,Bachelor,Both'
+            ],
 
-            /*
-             * LOCATION
-             */
-            'country' =>
-                'nullable|string|max:100',
+            // LOCATION
 
-            'state' =>
-                'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
 
-            'district' =>
-                'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
 
-            'city_id' =>
-                'required|exists:cities,id',
+            'district' => 'nullable|string|max:100',
 
-            'locality' =>
-                'required|string|max:255',
+            'city_id' => 'required|exists:cities,id',
 
-            'pincode' =>
-                'nullable|string|max:10',
+            'locality' => 'required|string|max:255',
 
-            'landmark' =>
-                'nullable|string|max:255',
+            'pincode' => 'nullable|string|max:10',
 
-            'address' =>
-                'nullable|string',
+            'landmark' => 'nullable|string|max:255',
 
-            'google_map_url' =>
-                'nullable|url|max:2048',
+            'address' => 'nullable|string',
 
-            'latitude' =>
-                'nullable|numeric|between:-90,90',
+            'google_map_url' => 'nullable|url|max:2048',
 
-            'longitude' =>
-                'nullable|numeric|between:-180,180',
+            'latitude' => 'nullable|numeric|between:-90,90',
 
+            'longitude' => 'nullable|numeric|between:-180,180',
 
-            /*
-             * PROPERTY DETAILS
-             */
-            'bhk' =>
-                'nullable|string|max:50',
+            // PROPERTY DETAILS
 
-            'bathrooms' =>
-                'nullable|integer|min:0',
+            'bhk' => 'nullable|string|max:50',
 
-            'balconies' =>
-                'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
 
-            'area_sqft' =>
-                'required|integer|min:1',
+            'balconies' => 'nullable|integer|min:0',
 
-            'built_up_area' =>
-                'nullable|integer|min:1',
+            'area_sqft' => 'required|integer|min:1',
 
-            'carpet_area' =>
-                'nullable|integer|min:1',
+            'built_up_area' => 'nullable|integer|min:1',
 
-            'floor_number' =>
-                'nullable|integer|min:0',
+            'carpet_area' => 'nullable|integer|min:1',
 
-            'total_floors' =>
-                'nullable|integer|min:0',
+            'floor_number' => 'nullable|integer|min:0',
 
-            'property_age' =>
-                'nullable|string|max:100',
+            'total_floors' => 'nullable|integer|min:0',
 
-            'property_condition' =>
-                'nullable|string|max:100',
+            'property_age' => 'nullable|string|max:100',
 
-            'facing' =>
-                'nullable|string|max:50',
+            'property_condition' => 'nullable|string|max:100',
 
-            'road_width' =>
-                'nullable|numeric|min:0',
+            'facing' => 'nullable|string|max:50',
 
-            'car_parking' =>
-                'nullable|string|max:100',
+            'road_width' => 'nullable|numeric|min:0',
 
-            'possession_status' =>
-                'nullable|string|max:100',
+            'car_parking' => 'nullable|string|max:100',
 
+            'possession_status' => 'nullable|string|max:100',
 
-            /*
-             * RENTAL
-             */
-            'price' =>
-                'required|numeric|min:0',
+            // RENTAL
 
-            'security_deposit' =>
-                'nullable|numeric|min:0',
+            'price' => 'required|numeric|min:0',
 
-            'furnishing' =>
-                'required|string|max:100',
+            'security_deposit' => 'nullable|numeric|min:0',
 
-            'available_from' =>
-                'nullable|date',
+            'furnishing' => 'required|string|max:100',
 
+            'available_from' => 'nullable|date',
 
-            /*
-             * DESCRIPTION
-             */
-            'description' =>
-                'nullable|string',
+            // DESCRIPTION
 
+            'description' => 'nullable|string',
 
-            /*
-             * AMENITIES
-             */
-            'amenities' =>
-                'nullable|array',
+            // AMENITIES
+
+            'amenities' => 'nullable|array',
 
             'amenities.*' => [
                 'integer',
                 'exists:amenities,id'
             ],
 
+            // OWNER
 
-            /*
-             * OWNER
-             */
-            'owner_name' =>
-                'required|string|max:255',
+            'owner_name' => 'required|string|max:255',
 
-            'owner_phone' =>
-                'required|string|max:20',
+            'owner_phone' => 'required|string|max:20',
 
+            // STATUS
 
-            /*
-             * STATUS
-             */
             'status' => [
                 'required',
                 'in:pending,approved,rejected,rented,inactive'
             ],
 
-            'admin_remark' =>
-                'nullable|string|max:1000',
+            'admin_remark' => 'nullable|string|max:1000',
 
+            // PHOTOS
 
-            /*
-             * PHOTOS
-             */
-            'photos' =>
-                'nullable|array|max:10',
+            'photos' => 'nullable|array|max:10',
 
             'photos.*' => [
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120',
+                'max:5120'
             ],
         ]);
-
 
         DB::beginTransaction();
 
         try {
 
             /*
-             * UPDATE PROPERTY
+             * Generate slug only if the existing property
+             * does not already have one.
+             *
+             * This prevents changing existing URLs.
              */
+            if (empty($property->slug)) {
+
+                $property->slug = $this->generateUniqueSlug(
+                    $validated['property_title'],
+                    $property->id
+                );
+            }
+
             $property->update([
 
-                /*
-                 * BASIC
-                 */
-                'property_title' =>
-                    $validated['property_title'],
+                // BASIC
 
-                'property_type' =>
-                    $validated['property_type'],
+                'property_title' => $validated['property_title'],
 
-                'listing_for' =>
-                    $validated['listing_for'],
+                'property_type' => $validated['property_type'],
 
+                'listing_for' => $validated['listing_for'],
 
-                /*
-                 * LOCATION
-                 */
-                'country' =>
-                    $validated['country'] ?? null,
+                'tenant_preference' => $validated['tenant_preference'],
 
-                'state' =>
-                    $validated['state'] ?? null,
+                // LOCATION
 
-                'district' =>
-                    $validated['district'] ?? null,
+                'country' => $validated['country'] ?? null,
 
-                'city_id' =>
-                    $validated['city_id'],
+                'state' => $validated['state'] ?? null,
 
-                'locality' =>
-                    $validated['locality'],
+                'district' => $validated['district'] ?? null,
 
-                'pincode' =>
-                    $validated['pincode'] ?? null,
+                'city_id' => $validated['city_id'],
 
-                'landmark' =>
-                    $validated['landmark'] ?? null,
+                'locality' => $validated['locality'],
 
-                'address' =>
-                    $validated['address'] ?? null,
+                'pincode' => $validated['pincode'] ?? null,
 
-                'google_map_url' =>
-                    $validated['google_map_url'] ?? null,
+                'landmark' => $validated['landmark'] ?? null,
 
-                'latitude' =>
-                    $validated['latitude'] ?? null,
+                'address' => $validated['address'] ?? null,
 
-                'longitude' =>
-                    $validated['longitude'] ?? null,
+                'google_map_url' => $validated['google_map_url'] ?? null,
 
+                'latitude' => $validated['latitude'] ?? null,
 
-                /*
-                 * PROPERTY DETAILS
-                 */
-                'bhk' =>
-                    $validated['bhk'] ?? null,
+                'longitude' => $validated['longitude'] ?? null,
 
-                'bathrooms' =>
-                    $validated['bathrooms'] ?? null,
+                // PROPERTY DETAILS
 
-                'balconies' =>
-                    $validated['balconies'] ?? null,
+                'bhk' => $validated['bhk'] ?? null,
 
-                'area_sqft' =>
-                    $validated['area_sqft'] ?? null,
+                'bathrooms' => $validated['bathrooms'] ?? null,
 
-                'built_up_area' =>
-                    $validated['built_up_area'] ?? null,
+                'balconies' => $validated['balconies'] ?? null,
 
-                'carpet_area' =>
-                    $validated['carpet_area'] ?? null,
+                'area_sqft' => $validated['area_sqft'] ?? null,
 
-                'floor_number' =>
-                    $validated['floor_number'] ?? null,
+                'built_up_area' => $validated['built_up_area'] ?? null,
 
-                'total_floors' =>
-                    $validated['total_floors'] ?? null,
+                'carpet_area' => $validated['carpet_area'] ?? null,
 
-                'property_age' =>
-                    $validated['property_age'] ?? null,
+                'floor_number' => $validated['floor_number'] ?? null,
 
-                'property_condition' =>
-                    $validated['property_condition'] ?? null,
+                'total_floors' => $validated['total_floors'] ?? null,
 
-                'facing' =>
-                    $validated['facing'] ?? null,
+                'property_age' => $validated['property_age'] ?? null,
 
-                'road_width' =>
-                    $validated['road_width'] ?? null,
+                'property_condition' => $validated['property_condition'] ?? null,
 
-                'car_parking' =>
-                    $validated['car_parking'] ?? null,
+                'facing' => $validated['facing'] ?? null,
 
-                'possession_status' =>
-                    $validated['possession_status'] ?? null,
+                'road_width' => $validated['road_width'] ?? null,
 
+                'car_parking' => $validated['car_parking'] ?? null,
 
-                /*
-                 * RENTAL
-                 */
-                'price' =>
-                    $validated['price'],
+                'possession_status' => $validated['possession_status'] ?? null,
 
-                'security_deposit' =>
-                    $validated['security_deposit'] ?? null,
+                // RENTAL
 
-                'furnishing' =>
-                    $validated['furnishing'],
+                'price' => $validated['price'],
 
-                'available_from' =>
-                    $validated['available_from'] ?? null,
+                'security_deposit' => $validated['security_deposit'] ?? null,
 
+                'furnishing' => $validated['furnishing'],
 
-                /*
-                 * DESCRIPTION
-                 */
-                'description' =>
-                    $validated['description'] ?? null,
+                'available_from' => $validated['available_from'] ?? null,
 
+                // DESCRIPTION
 
-                /*
-                 * OWNER
-                 */
-                'owner_name' =>
-                    $validated['owner_name'],
+                'description' => $validated['description'] ?? null,
 
-                'owner_phone' =>
-                    $validated['owner_phone'],
+                // OWNER
 
+                'owner_name' => $validated['owner_name'],
 
-                /*
-                 * STATUS
-                 */
-                'status' =>
-                    $validated['status'],
+                'owner_phone' => $validated['owner_phone'],
 
-                'admin_remark' =>
-                    $validated['admin_remark'] ?? null,
+                // STATUS
+
+                'status' => $validated['status'],
+
+                'admin_remark' => $validated['admin_remark'] ?? null,
+
             ]);
 
-
             /*
-             * UPDATE AMENITIES
+             * Save slug if it was generated above.
              */
+            if (!empty($property->slug)) {
+                $property->save();
+            }
+
+            // UPDATE AMENITIES
+
             $property->propertyAmenities()->sync(
                 $validated['amenities'] ?? []
             );
 
+            // ADD NEW IMAGES
 
-            /*
-             * ADD NEW IMAGES
-             */
             if ($request->hasFile('photos')) {
 
                 foreach ($request->file('photos') as $photo) {
@@ -820,9 +692,7 @@ class PropertyController extends Controller
                 }
             }
 
-
             DB::commit();
-
 
             return redirect()
                 ->route('properties.all')
@@ -830,7 +700,6 @@ class PropertyController extends Controller
                     'success',
                     'Property updated successfully.'
                 );
-
 
         } catch (\Throwable $e) {
 
@@ -841,11 +710,10 @@ class PropertyController extends Controller
                 ->withInput()
                 ->with(
                     'error',
-                    'Unable to update property.'
+                    'Unable to update property: ' . $e->getMessage()
                 );
         }
     }
-
 
     /**
      * Approve property.
@@ -854,17 +722,42 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
 
-        $property->update([
-            'status' => 'approved',
-            'admin_remark' => null,
-        ]);
+        DB::beginTransaction();
 
-        return back()->with(
-            'success',
-            'Property approved successfully.'
-        );
+        try {
+
+            // Generate slug if missing
+
+            if (empty($property->slug)) {
+
+                $property->slug = $this->generateUniqueSlug(
+                    $property->property_title,
+                    $property->id
+                );
+            }
+
+            $property->status = 'approved';
+            $property->admin_remark = null;
+
+            $property->save();
+
+            DB::commit();
+
+            return back()->with(
+                'success',
+                'Property approved successfully.'
+            );
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            return back()->with(
+                'error',
+                'Unable to approve property: ' . $e->getMessage()
+            );
+        }
     }
-
 
     /**
      * Reject property.
@@ -872,16 +765,14 @@ class PropertyController extends Controller
     public function reject(Request $request, $id)
     {
         $request->validate([
-            'admin_remark' =>
-                'nullable|string|max:1000',
+            'admin_remark' => 'nullable|string|max:1000',
         ]);
 
         $property = Property::findOrFail($id);
 
         $property->update([
             'status' => 'rejected',
-            'admin_remark' =>
-                $request->admin_remark,
+            'admin_remark' => $request->admin_remark,
         ]);
 
         return back()->with(
@@ -889,7 +780,6 @@ class PropertyController extends Controller
             'Property rejected successfully.'
         );
     }
-
 
     /**
      * Mark property as rented.
@@ -908,7 +798,6 @@ class PropertyController extends Controller
         );
     }
 
-
     /**
      * Disable property.
      */
@@ -926,7 +815,6 @@ class PropertyController extends Controller
         );
     }
 
-
     /**
      * Enable property.
      */
@@ -934,16 +822,41 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
 
-        $property->update([
-            'status' => 'approved',
-        ]);
+        DB::beginTransaction();
 
-        return back()->with(
-            'success',
-            'Property enabled successfully.'
-        );
+        try {
+
+            // Generate slug if missing
+
+            if (empty($property->slug)) {
+
+                $property->slug = $this->generateUniqueSlug(
+                    $property->property_title,
+                    $property->id
+                );
+            }
+
+            $property->status = 'approved';
+
+            $property->save();
+
+            DB::commit();
+
+            return back()->with(
+                'success',
+                'Property enabled successfully.'
+            );
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            return back()->with(
+                'error',
+                'Unable to enable property: ' . $e->getMessage()
+            );
+        }
     }
-
 
     /**
      * Delete property.
@@ -953,14 +866,12 @@ class PropertyController extends Controller
         $property = Property::with('images')
             ->findOrFail($id);
 
-
         DB::beginTransaction();
 
         try {
 
-            /*
-             * Delete physical image files.
-             */
+            // Delete physical image files
+
             foreach ($property->images as $image) {
 
                 if (
@@ -975,24 +886,16 @@ class PropertyController extends Controller
                 }
             }
 
+            // Delete property
 
-            /*
-             * Delete property.
-             *
-             * property_images and property_amenities
-             * records are deleted through cascade.
-             */
             $property->delete();
 
-
             DB::commit();
-
 
             return back()->with(
                 'success',
                 'Property deleted successfully.'
             );
-
 
         } catch (\Throwable $e) {
 
@@ -1005,14 +908,12 @@ class PropertyController extends Controller
         }
     }
 
-
     /**
      * Delete a single property image.
      */
     public function destroyImage($imageId)
     {
         $image = PropertyImage::findOrFail($imageId);
-
 
         if (
             $image->image_path &&
@@ -1025,9 +926,7 @@ class PropertyController extends Controller
             );
         }
 
-
         $image->delete();
-
 
         return back()->with(
             'success',
