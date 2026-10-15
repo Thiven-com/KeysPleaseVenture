@@ -523,9 +523,9 @@
             </div>
 
 
-            <!-- LOCATION FILTER -->
+            <!-- LOCATION FILTER
 
-            <!-- LOCATION FILTER -->
+            LOCATION FILTER -->
 
             @php
                 $locationTree = $properties
@@ -799,12 +799,9 @@
 
                     @foreach($propertyTypes as $propertyType)
 
-                        <button type="button">
-
+                        <button type="button" data-property-type="{{ $propertyType->name }}" aria-pressed="false">
                             <span class="checkbox"></span>
-
                             {{ $propertyType->name }}
-
                         </button>
 
                     @endforeach
@@ -1269,6 +1266,9 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
+            <p class="pagination-hint" id="paginationHint" aria-live="polite" style="display:none;">
+                <i class="fa-solid fa-circle-info"></i> Click the arrow to view more pages.
+            </p>
 
         </section>
 
@@ -1336,6 +1336,26 @@
         .pagination-wrapper.hidden {
             display: none;
         }
+
+        .pagination-hint {
+            text-align: center;
+            color: #667085;
+            font-size: 12px;
+            margin: 8px 0 24px;
+        }
+
+        #filters .filter-title {
+            width: 100%; display: flex; align-items: center;
+            justify-content: space-between; cursor: pointer;
+        }
+        #filters .filter-title i { transition: transform .2s ease; }
+        #filters .filter-section.collapsed > .filter-title i { transform: rotate(180deg); }
+        #filters .filter-section.collapsed > .tree,
+        #filters .filter-section.collapsed > .more,
+        #filters .filter-section.collapsed > .filter-checkbox-row,
+        #filters .filter-section.collapsed > .property-type-filters { display: none !important; }
+        #filters .city-filter-row > i { transition: transform .2s ease; }
+        #filters .city-filter-row[aria-expanded="false"] > i { transform: rotate(-90deg); }
     </style>
 
 
@@ -1484,7 +1504,7 @@
             const nextPage =
                 document.getElementById("nextPage");
 
-            const ITEMS_PER_PAGE = 3;
+            const ITEMS_PER_PAGE = 4;
 
             let currentPage = 1;
 
@@ -1654,27 +1674,31 @@
     ================================================= */
 
             cityFilterRows.forEach(function (row) {
-
-                row.addEventListener("click", function () {
-
-                    const checkbox =
-                        this.querySelector(".checkbox");
-
+                row.setAttribute("aria-expanded", "true");
+                row.addEventListener("click", function (event) {
+                    const checkbox = row.querySelector(".checkbox");
                     if (!checkbox) return;
 
+                    // Click the city row to select/deselect the city.
                     checkbox.classList.toggle("checked");
+                    row.classList.toggle("checked");
+                    checkbox.innerHTML = checkbox.classList.contains("checked")
+                        ? '<i class="fa-solid fa-check"></i>' : "";
 
-                    this.classList.toggle("checked");
-
-                    checkbox.innerHTML =
-                        checkbox.classList.contains("checked")
-                            ? '<i class="fa-solid fa-check"></i>'
-                            : "";
-
+                    // Keep its locality rows expandable via the chevron icon area.
+                    const isOpen = row.getAttribute("aria-expanded") !== "false";
+                    row.setAttribute("aria-expanded", String(!isOpen));
+                    let next = row.nextElementSibling;
+                    while (next && !next.classList.contains("city-filter-row")) {
+                        if (next.matches(".tree-line, .tree-row.child")) {
+                            const extra = next.classList.contains("extra-location");
+                            const showMore = moreAreasBtn && moreAreasBtn.classList.contains("expanded");
+                            next.style.display = (!isOpen && extra && !showMore) ? "none" : (!isOpen ? "none" : (extra && !showMore ? "none" : ""));
+                        }
+                        next = next.nextElementSibling;
+                    }
                     performSearch();
-
                 });
-
             });
 
             const moreAreasBtn =
@@ -1756,6 +1780,7 @@
             if (locationClear && locationInput) {
                 locationClear.addEventListener("click", function () {
                     locationInput.value = "";
+                if (locationClear) locationClear.style.display = "none";
                     locationInput.focus();
                 });
             }
@@ -1900,27 +1925,15 @@
                FILTER TITLE COLLAPSE
             ================================================= */
 
-            document
-                .querySelectorAll(".filter-title")
-                .forEach(function (title) {
-
-                    title.addEventListener("click", function () {
-
-                        const section =
-                            this.closest(".filter-section");
-
-                        const content =
-                            Array.from(section.children)
-                                .filter(function (child) {
-                                    return child !== title;
-                                });
-
-
-                        section.classList.toggle("collapsed");
-
-                    });
-
+            document.querySelectorAll(".filter-title").forEach(function (title) {
+                title.setAttribute("aria-expanded", "true");
+                title.addEventListener("click", function () {
+                    const section = title.closest(".filter-section");
+                    if (!section) return;
+                    const collapsed = section.classList.toggle("collapsed");
+                    title.setAttribute("aria-expanded", String(!collapsed));
                 });
+            });
 
 
             /* =================================================
@@ -1938,6 +1951,7 @@
 
                     checkbox.classList.toggle("checked");
                     this.classList.toggle("checked");
+                    this.setAttribute("aria-pressed", String(checkbox.classList.contains("checked")));
 
                     checkbox.innerHTML =
                         checkbox.classList.contains("checked")
@@ -2127,8 +2141,10 @@
                         this.querySelector(".checkbox");
 
 
+                    if (!checkbox) return;
                     checkbox.classList.toggle("checked");
-
+                    this.classList.toggle("checked");
+                    this.setAttribute("aria-pressed", String(checkbox.classList.contains("checked")));
 
                     if (
                         checkbox.classList.contains("checked")
@@ -2155,14 +2171,12 @@
             ================================================= */
 
             propertyTypeButtons.forEach(function (button) {
-
                 button.addEventListener("click", function () {
-
-                    const checkbox =
-                        this.querySelector(".checkbox");
-
-
+                    const checkbox = this.querySelector(".checkbox");
+                    if (!checkbox) return;
                     checkbox.classList.toggle("checked");
+                    this.classList.toggle("checked");
+                    this.setAttribute("aria-pressed", String(checkbox.classList.contains("checked")));
 
 
                     if (
@@ -2789,35 +2803,37 @@
                 /* Clear page buttons */
                 paginationPages.innerHTML = "";
 
-                /* Create page buttons */
-                for (let i = 1; i <= totalPages; i++) {
+                /* Show only five page numbers at a time */
+                const maxPageButtons = 5;
+                const firstPage = Math.floor((currentPage - 1) / maxPageButtons) * maxPageButtons + 1;
+                const lastPage = Math.min(firstPage + maxPageButtons - 1, totalPages);
 
+                for (let i = firstPage; i <= lastPage; i++) {
                     const button = document.createElement("button");
-
                     button.type = "button";
-
                     button.className = "pagination-page";
-
+                    button.setAttribute("aria-label", "Go to page " + i);
                     if (i === currentPage) {
                         button.classList.add("active");
+                        button.setAttribute("aria-current", "page");
                     }
-
                     button.textContent = i;
-
                     button.addEventListener("click", function () {
-
                         currentPage = i;
-
                         renderPagination();
-
-                        window.scrollTo({
-                            top: 0,
-                            behavior: "smooth"
-                        });
-
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                     });
-
                     paginationPages.appendChild(button);
+                }
+
+                const paginationHint = document.getElementById("paginationHint");
+                if (paginationHint) {
+                    paginationHint.style.display = totalPages > maxPageButtons ? "block" : "none";
+                    if (totalPages > maxPageButtons) {
+                        paginationHint.innerHTML = currentPage < totalPages
+                            ? '<i class="fa-solid fa-circle-info"></i> Click the right arrow to view more pages.'
+                            : '<i class="fa-solid fa-circle-info"></i> You are viewing the last page.';
+                    }
                 }
 
                 /* Previous button */
@@ -3012,7 +3028,7 @@
                 propertyCards.forEach(function (card) {
 
                     const cardLocation =
-                        card.dataset.location.toLowerCase();
+                        (card.dataset.location || "").toLowerCase();
 
                     const cardCity =
                         (card.dataset.city || "")
@@ -3243,7 +3259,7 @@
                ENTER TO SEARCH
             ================================================= */
 
-            locationInput.addEventListener(
+            if (locationInput) locationInput.addEventListener(
                 "keydown",
                 function (event) {
 
@@ -3266,221 +3282,89 @@
             ================================================= */
 
             function resetFilters() {
+                // Clear the top search controls.
+                if (locationInput) locationInput.value = "";
+                if (locationClear) locationClear.style.display = "none";
 
-                /*
-                 * Location
-                 */
+                const propertyTypeValue = document.getElementById("propertyTypeValue");
+                const bhkValue = document.getElementById("bhkValue");
+                if (propertyTypeValue) propertyTypeValue.textContent = "Any Type";
+                if (bhkValue) bhkValue.textContent = "Any";
 
-                locationInput.value = "";
+                // Clear custom dropdown selections.
+                document.querySelectorAll(".select-trigger").forEach(function (trigger) {
+                    delete trigger.dataset.value;
+                });
+                document.querySelectorAll(".select-menu").forEach(function (menu) {
+                    menu.classList.remove("show");
+                });
 
+                // Clear all sidebar checkbox states.
+                document.querySelectorAll("#filters .checkbox.checked").forEach(function (checkbox) {
+                    checkbox.classList.remove("checked");
+                    checkbox.innerHTML = "";
+                });
+                document.querySelectorAll("#filters .checked").forEach(function (element) {
+                    element.classList.remove("checked");
+                });
 
-                /*
-                 * Property type
-                 */
-
-                document.getElementById(
-                    "propertyTypeValue"
-                ).textContent =
-                    "Any Type";
-
-
-                /*
-                 * BHK
-                 */
-
-                document.getElementById(
-                    "bhkValue"
-                ).textContent =
-                    "Any";
-
-
-                /*
-                 * Rent
-                 */
-
-                document.getElementById(
-                    "rentValue"
-                ).textContent =
-                    "₹ 0 - ₹ 1,00,000+";
-
-                const rentTrigger =
-                    document.querySelector('[data-target="rentMenu"]');
-
-                if (rentTrigger) {
-                    rentTrigger.dataset.value =
-                        "₹ 0 - ₹ 1,00,000+";
+                // Reset city expansion and extra localities.
+                cityFilterRows.forEach(function (row) {
+                    row.setAttribute("aria-expanded", "true");
+                    const icon = row.querySelector("i");
+                    if (icon) icon.style.transform = "";
+                });
+                document.querySelectorAll(".tree-line, .tree-row.child").forEach(function (element) {
+                    element.style.display = element.classList.contains("extra-location") ? "none" : "";
+                });
+                if (moreAreasBtn) {
+                    moreAreasBtn.classList.remove("expanded");
+                    moreAreasBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Show More Areas';
                 }
 
-
-                /*
-                 * Checkboxes
-                 */
-
-                document
-                    .querySelectorAll(
-                        ".checkbox.checked"
-                    )
-                    .forEach(function (checkbox) {
-
-                        checkbox.classList.remove(
-                            "checked"
-                        );
-
-                        checkbox.innerHTML = "";
-
-                    });
-
-
-                /*
-                 * NEW: Location tree rows
-                 */
-
-                treeRows.forEach(function (row) {
-                    row.classList.remove("checked");
-
-                    const checkbox = row.querySelector(".checkbox");
-
-                    if (checkbox) {
-                        checkbox.classList.remove("checked");
-                        checkbox.innerHTML = "";
+                // Expand all filter sections and restore their arrows.
+                document.querySelectorAll("#filters .filter-section").forEach(function (section) {
+                    section.classList.remove("collapsed");
+                    const title = section.querySelector(".filter-title");
+                    if (title) {
+                        title.setAttribute("aria-expanded", "true");
+                        const content = section.querySelector(".filter-content");
+                        if (content) content.classList.remove("is-collapsed");
                     }
                 });
 
-                /* CITY FILTER ROWS */
-
-                cityFilterRows.forEach(function (row) {
-
-                    row.classList.remove("checked");
-
-                    const checkbox =
-                        row.querySelector(".checkbox");
-
-                    if (checkbox) {
-                        checkbox.classList.remove("checked");
-                        checkbox.innerHTML = "";
-                    }
-
-                });
-
-
-                /*
-                 * Favorites
-                 */
-
-                document
-                    .querySelectorAll(
-                        ".heart.active"
-                    )
-                    .forEach(function (heart) {
-
-                        heart.classList.remove(
-                            "active"
-                        );
-
-                        const icon =
-                            heart.querySelector("i");
-
-
-                        icon.classList.remove(
-                            "fa-solid"
-                        );
-
-                        icon.classList.add(
-                            "fa-regular"
-                        );
-
-                        icon.style.color = "";
-
-                    });
-
-
-                /*
-                 * NEW: Rent range slider
-                 */
-
+                // Reset the rent range sliders and their labels.
                 rentLow = RENT_MIN;
                 rentHigh = RENT_MAX;
+                if (rangeThumbLeft && rangeThumbRight && rangeProgress) updateRangeUI();
 
-                if (rangeThumbLeft && rangeThumbRight) {
-                    updateRangeUI();
-                }
-
-                // Reset the active dual range sliders as well.
                 const minRentSlider = document.getElementById("minRent");
                 const maxRentSlider = document.getElementById("maxRent");
                 const minRentInput = document.getElementById("min_rent");
                 const maxRentInput = document.getElementById("max_rent");
+                if (minRentSlider) minRentSlider.value = RENT_MIN;
+                if (maxRentSlider) maxRentSlider.value = RENT_MAX;
+                if (minRentInput) minRentInput.value = RENT_MIN;
+                if (maxRentInput) maxRentInput.value = RENT_MAX;
+                if (maxRentSlider) maxRentSlider.dispatchEvent(new Event("input", { bubbles: true }));
 
-                if (minRentSlider && maxRentSlider) {
-                    minRentSlider.value = RENT_MIN;
-                    maxRentSlider.value = RENT_MAX;
+                // Reset sorting and view state.
+                if (sortSelect) sortSelect.value = "newest";
+                if (locationSuggestions) locationSuggestions.classList.remove("show");
 
-                    if (minRentInput) minRentInput.value = RENT_MIN;
-                    if (maxRentInput) maxRentInput.value = RENT_MAX;
-
-                    // Refresh the slider labels and green progress track.
-                    maxRentSlider.dispatchEvent(new Event("input", { bubbles: true }));
-                }
-
-
-                /*
-                 * Show all properties
-                 */
-
-                propertyCards.forEach(
-                    function (card) {
-
-                        card.style.display =
-                            "";
-
-                    }
-                );
-
-
-                resultCount.textContent =
-                    propertyCards.length.toLocaleString();
-
-
-                noResults.style.display =
-                    "none";
-
-
-                /*
-                 * Sort reset
-                 */
-
-                sortSelect.value =
-                    "newest";
-
-
-                /*
-                 * Close suggestions
-                 */
-
-                if (locationSuggestions) {
-                    locationSuggestions.classList.remove("show");
-                }
-
-
-                /*
-                 * Re-run search so the grid reflects the cleared state
-                 */
-
+                // Reset to the first page and re-run all filters/pagination.
+                currentPage = 1;
                 performSearch();
+            }
 
+            if (resetFiltersBtn) {
+                resetFiltersBtn.addEventListener("click", resetFilters);
             }
 
 
-            resetFiltersBtn.addEventListener(
-                "click",
-                resetFilters
-            );
-
-
-            clearSearchBtn.addEventListener(
-                "click",
-                resetFilters
-            );
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener("click", resetFilters);
+            }
 
 
             /*
