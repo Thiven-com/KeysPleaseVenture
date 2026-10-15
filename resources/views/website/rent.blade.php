@@ -3,11 +3,144 @@
 
 
 
+    <style>
+        /* Rent range matches the existing search controls */
+        .search-panel {
+            grid-template-columns: 1.7fr 1.15fr 0.72fr 1.35fr 0.85fr;
+            align-items: end;
+        }
 
+        .rent-range-field {
+            min-width: 0;
+        }
+
+        .rent-range-field>label {
+            margin-bottom: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #30384e;
+        }
+
+        .rent-range-container {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px;
+            background: #fff;
+            border: 1px solid #d5dbe7;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .rent-range-values {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 0 0 auto;
+        }
+
+        .rent-price-box {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rent-price-box span {
+            display: none;
+        }
+
+        .rent-price-box strong {
+            color: #30384e;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .rent-slider {
+            position: relative;
+            height: 5px;
+            flex: 1;
+            min-width: 35px;
+            margin: 0 7px;
+        }
+
+        .rent-slider-track,
+        .rent-slider-progress {
+            position: absolute;
+            top: 0;
+            height: 5px;
+            border-radius: 5px;
+        }
+
+        .rent-slider-track {
+            width: 100%;
+            background: #dce2ee;
+        }
+
+        .rent-slider-progress {
+            background: #16a34a;
+        }
+
+        .rent-slider input[type="range"] {
+            position: absolute;
+            top: -8px;
+            left: 0;
+            width: 100%;
+            height: 21px;
+            margin: 0;
+            background: transparent;
+            pointer-events: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .rent-slider input[type="range"]::-webkit-slider-thumb {
+            width: 17px;
+            height: 17px;
+            border: 3px solid #16a34a;
+            border-radius: 50%;
+            background: #fff;
+            cursor: grab;
+            pointer-events: auto;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .rent-slider input[type="range"]::-moz-range-thumb {
+            width: 11px;
+            height: 11px;
+            border: 3px solid #16a34a;
+            border-radius: 50%;
+            background: #fff;
+            cursor: grab;
+            pointer-events: auto;
+        }
+
+        .rent-range-labels {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .search-panel {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .rent-range-field {
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .search-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                 SEARCH AREA
-                                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                         SEARCH AREA
+                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container search-area">
 
@@ -16,58 +149,58 @@
             <!-- Location -->
             <!-- <div class="field">
 
-                                <label for="locationInput">
-                                    Location / Locality
-                                </label>
+                                        <label for="locationInput">
+                                            Location / Locality
+                                        </label>
 
-                                <div class="control location-control">
-
-                                    <i class="fa-solid fa-location-dot"></i>
-
-                                    <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
-                                        autocomplete="off">
-
-                                    <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-
-                                </div> -->
-
-            <!-- Location Suggestions -->
-            <!-- @php
-                                    $locations = $properties
-                                        ->flatMap(function ($property) {
-                                            return [
-                                                $property->locality,
-                                                $property->landmark,
-                                                optional($property->cityRelation)->name,
-                                            ];
-                                        })
-                                        ->filter()
-                                        ->map(function ($location) {
-                                            return trim($location);
-                                        })
-                                        ->unique()
-                                        ->sort()
-                                        ->values();
-                                @endphp
-
-                                <div class="location-suggestions" id="locationSuggestions">
-
-                                    @foreach($locations as $location)
-
-                                        <button type="button" data-location="{{ $location }}">
+                                        <div class="control location-control">
 
                                             <i class="fa-solid fa-location-dot"></i>
 
-                                            {{ $location }}
+                                            <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
+                                                autocomplete="off">
 
-                                        </button>
+                                            <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
 
-                                    @endforeach
+                                        </div> -->
 
-                                </div>
-                            </div> -->
+            <!-- Location Suggestions -->
+            <!-- @php
+                                            $locations = $properties
+                                                ->flatMap(function ($property) {
+                                                    return [
+                                                        $property->locality,
+                                                        $property->landmark,
+                                                        optional($property->cityRelation)->name,
+                                                    ];
+                                                })
+                                                ->filter()
+                                                ->map(function ($location) {
+                                                    return trim($location);
+                                                })
+                                                ->unique()
+                                                ->sort()
+                                                ->values();
+                                        @endphp
+
+                                        <div class="location-suggestions" id="locationSuggestions">
+
+                                            @foreach($locations as $location)
+
+                                                <button type="button" data-location="{{ $location }}">
+
+                                                    <i class="fa-solid fa-location-dot"></i>
+
+                                                    {{ $location }}
+
+                                                </button>
+
+                                            @endforeach
+
+                                        </div>
+                                    </div> -->
 
 
             <div class="field">
@@ -185,9 +318,9 @@
 
                         @if($bhkOptions->contains(fn($value) => $value >= 4))
 
-                            <button type="button" data-value="4+ BHK">
-                                4+ BHK
-                            </button>
+                            <!-- <button type="button" data-value="4+ BHK">
+                                                4+ BHK
+                                            </button> -->
 
                         @endif
 
@@ -199,59 +332,104 @@
 
 
             <!-- Rent Range -->
-            <div class="field">
+            <!-- <div class="field">
 
-                <label>
-                    Rent Range
-                </label>
+                        <label>
+                            Rent Range
+                        </label>
 
-                <div class="custom-select">
+                        <div class="custom-select">
 
-                    <button type="button" class="control select-trigger" data-target="rentMenu">
-                        <strong id="rentValue">
-                            ₹ 0 - ₹ 1,00,000+
-                        </strong>
+                            <button type="button" class="control select-trigger" data-target="rentMenu">
+                                <strong id="rentValue">
+                                    ₹ 0 - ₹ 1,00,000+
+                                </strong>
 
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </button>
+                                <i class="fa-solid fa-chevron-down arrow"></i>
+                            </button>
 
-                    <div class="select-menu" id="rentMenu">
+                            <div class="select-menu" id="rentMenu">
 
-                        <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
-                            ₹ 0 - ₹ 1,00,000+
-                        </button>
+                                <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
+                                    ₹ 0 - ₹ 1,00,000+
+                                </button>
 
-                        <button type="button" data-value="₹ 0 - ₹ 25,000">
-                            ₹ 0 - ₹ 25,000
-                        </button>
+                                <button type="button" data-value="₹ 0 - ₹ 25,000">
+                                    ₹ 0 - ₹ 25,000
+                                </button>
 
-                        <button type="button" data-value="₹ 25,000 - ₹ 50,000">
-                            ₹ 25,000 - ₹ 50,000
-                        </button>
+                                <button type="button" data-value="₹ 25,000 - ₹ 50,000">
+                                    ₹ 25,000 - ₹ 50,000
+                                </button>
 
-                        <button type="button" data-value="₹ 50,000 - ₹ 75,000">
-                            ₹ 50,000 - ₹ 75,000
-                        </button>
+                                <button type="button" data-value="₹ 50,000 - ₹ 75,000">
+                                    ₹ 50,000 - ₹ 75,000
+                                </button>
 
-                        <button type="button" data-value="₹ 75,000+">
-                            ₹ 75,000+
-                        </button>
+                                <button type="button" data-value="₹ 75,000+">
+                                    ₹ 75,000+
+                                </button>
 
+                            </div>
+
+                        </div>
+
+                    </div> -->
+
+
+
+            <!-- Rent Range -->
+            <div class="field rent-range-field">
+                <label>Rent Range</label>
+
+                <div class="rent-range-container">
+
+                    <div class="rent-range-values">
+                        <div class="rent-price-box">
+                            <span>Minimum</span>
+                            <strong id="minRentValue">₹ 0</strong>
+                        </div>
+
+                        <div class="rent-price-box">
+                            <span>Maximum</span>
+                            <strong id="maxRentValue">₹ 1,00,000+</strong>
+                        </div>
+                    </div>
+
+                    <div class="rent-slider">
+                        <div class="rent-slider-track"></div>
+                        <div class="rent-slider-progress" id="rentSliderProgress"></div>
+
+                        <input type="range" id="minRent" min="0" max="100000" step="1" value="0" aria-label="Minimum rent">
+
+                        <input type="range" id="maxRent" min="0" max="100000" step="1" value="100000"
+                            aria-label="Maximum rent">
+                    </div>
+
+                    <div class="rent-range-labels">
+                        <span>₹0</span>
+                        <span>₹25k</span>
+                        <span>₹50k</span>
+                        <span>₹75k</span>
+                        <span>₹1L+</span>
                     </div>
 
                 </div>
 
+                <input type="hidden" name="min_rent" id="min_rent" value="0">
+                <input type="hidden" name="max_rent" id="max_rent" value="100000">
             </div>
 
 
-            <!-- More Filters -->
-            <button type="button" class="filter-action" id="moreFiltersBtn">
-                <i class="fa-solid fa-sliders"></i>
 
-                <span>
-                    More Filters
-                </span>
-            </button>
+            <!-- More Filters
+                    <button type="button" class="filter-action" id="moreFiltersBtn">
+                        <i class="fa-solid fa-sliders"></i>
+
+                        <span>
+                            More Filters
+                        </span>
+                    </button> -->
 
 
             <!-- Search -->
@@ -269,15 +447,15 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                 CONTENT AREA
-                                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                         CONTENT AREA
+                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                     SIDEBAR
-                                                                                                                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                             SIDEBAR
+                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -389,43 +567,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                                                                                                <button type="button" class="filter-title">
-                                                                                                                                                                                                                                                                                                                    <span>
-                                                                                                                                                                                                                                                                                                                        Rent Range
-                                                                                                                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                                                                                                                        <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                                                                            <span>
+                                                                                                                                                                                                                                                                                                                                Rent Range
+                                                                                                                                                                                                                                                                                                                            </span>
 
-                                                                                                                                                                                                                                                                                                                    <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                                                                                                </button>
-
-
-                                                                                                                                                                                                                                                                                                                <div class="range">
-
-                                                                                                                                                                                                                                                                                                                    <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                                                                        </button>
 
 
-                                                                                                                                                                                                                                                                                                                <div class="range-values">
+                                                                                                                                                                                                                                                                                                                        <div class="range">
 
-                                                                                                                                                                                                                                                                                                                    <div class="range-box">
-                                                                                                                                                                                                                                                                                                                        ₹ 0
-                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                            <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                                                                                                    <span class="range-to">
-                                                                                                                                                                                                                                                                                                                        to
-                                                                                                                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                    <div class="range-box">
-                                                                                                                                                                                                                                                                                                                        ₹ 1,00,000+
-                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                        </div>
 
-                                                                                                                                                                                                                                                                                                            </div> -->
+
+                                                                                                                                                                                                                                                                                                                        <div class="range-values">
+
+                                                                                                                                                                                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                ₹ 0
+                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                            <span class="range-to">
+                                                                                                                                                                                                                                                                                                                                to
+                                                                                                                                                                                                                                                                                                                            </span>
+
+                                                                                                                                                                                                                                                                                                                            <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                ₹ 1,00,000+
+                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                    </div> -->
 
 
             <!-- BHK -->
@@ -506,45 +684,45 @@
             {{-- TENANT PREFERENCE --}}
             <!-- <div class="filter-section">
 
-                                    <button type="button" class="filter-title">
+                                            <button type="button" class="filter-title">
 
-                                        <span>
-                                            Tenant Preference
-                                        </span>
+                                                <span>
+                                                    Tenant Preference
+                                                </span>
 
-                                        <i class="fa-solid fa-chevron-up"></i>
+                                                <i class="fa-solid fa-chevron-up"></i>
 
-                                    </button>
+                                            </button>
 
-                                    <div class="property-type-filters">
+                                            <div class="property-type-filters">
 
-                                        <button type="button" data-tenant-filter="Family">
+                                                <button type="button" data-tenant-filter="Family">
 
-                                            <span class="checkbox"></span>
+                                                    <span class="checkbox"></span>
 
-                                            Family
+                                                    Family
 
-                                        </button>
+                                                </button>
 
-                                        <button type="button" data-tenant-filter="Bachelor">
+                                                <button type="button" data-tenant-filter="Bachelor">
 
-                                            <span class="checkbox"></span>
+                                                    <span class="checkbox"></span>
 
-                                            Bachelor
+                                                    Bachelor
 
-                                        </button>
+                                                </button>
 
-                                        <button type="button" data-tenant-filter="Both">
+                                                <button type="button" data-tenant-filter="Both">
 
-                                            <span class="checkbox"></span>
+                                                    <span class="checkbox"></span>
 
-                                            Fam & Bac
+                                                    Fam & Bac
 
-                                        </button>
+                                                </button>
 
-                                    </div>
+                                            </div>
 
-                                </div> -->
+                                        </div> -->
 
 
             <!-- PROPERTY TYPE -->
@@ -589,8 +767,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                     RESULTS
-                                                                                                                                                                                                                                                                                                                                ================================================== -->
+                                                                                                                                                                                                                                                                                                                                             RESULTS
+                                                                                                                                                                                                                                                                                                                                        ================================================== -->
 
         <section class="results">
 
@@ -736,8 +914,8 @@
                         @endif
 
                         <!-- <button type="button" class="heart" aria-label="Add to favourites">
-                                                                                                                    <i class="fa-regular fa-heart"></i>
-                                                                                                                </button> -->
+                                                                                                                                    <i class="fa-regular fa-heart"></i>
+                                                                                                                                </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -984,8 +1162,8 @@
 
                         {{-- ENQUIRE --}}
                         <!-- <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
-                                                            Enquire Now
-                                                        </button> -->
+                                                                            Enquire Now
+                                                                        </button> -->
 
 
                         {{-- PHONE --}}
@@ -1048,8 +1226,8 @@
 
     <style>
         /* =================================================
-                                                                                                                                   PAGINATION
-                                                                                                                                ================================================= */
+                                                                                                                                           PAGINATION
+                                                                                                                                        ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1113,8 +1291,8 @@
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                 ENQUIRY MODAL
-                                                                                                                                                                                                                                                                                                                            ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                         ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1659,13 +1837,13 @@
                MORE FILTERS
             ================================================= */
 
-            moreFiltersBtn.addEventListener("click", function () {
+            // moreFiltersBtn.addEventListener("click", function () {
 
-                filters.classList.toggle("show");
+            //     filters.classList.toggle("show");
 
-                this.classList.toggle("active");
+            //     this.classList.toggle("active");
 
-            });
+            // });
 
 
             /* =================================================
@@ -2793,7 +2971,10 @@
 
                     const cardType = card.dataset.type;
                     const cardBhk = card.dataset.bhk;
-                    const cardPrice = Number(card.dataset.price);
+                    const rawCardPrice = card.dataset.price;
+                    const cardPrice = rawCardPrice === undefined || rawCardPrice.trim() === ""
+                        ? NaN
+                        : Number(rawCardPrice);
 
                     let visible = true;
 
@@ -2941,16 +3122,24 @@
 
 
                     /*
-                     * NEW: Rent range slider
+                     * Rent range filter — read the values from the active
+                     * dual sliders. The older sidebar slider is no longer used.
                      */
+                    const selectedMinRent = Number(
+                        document.getElementById("min_rent")?.value ?? RENT_MIN
+                    );
+                    const selectedMaxRent = Number(
+                        document.getElementById("max_rent")?.value ?? RENT_MAX
+                    );
 
+                    // Treat missing/invalid card prices as zero only when the
+                    // attribute is genuinely empty; normal cards have data-price.
                     if (
-                        cardPrice < rentLow ||
-                        (rentHigh < RENT_MAX && cardPrice > rentHigh)
+                        !Number.isFinite(cardPrice) ||
+                        cardPrice < selectedMinRent ||
+                        cardPrice > selectedMaxRent
                     ) {
-
                         visible = false;
-
                     }
 
 
@@ -2994,6 +3183,10 @@
                 "click",
                 performSearch
             );
+
+            // The dual-slider script dispatches this event because
+            // performSearch is private to this DOMContentLoaded callback.
+            document.addEventListener("rent-range-changed", performSearch);
 
 
             /* =================================================
@@ -3162,6 +3355,23 @@
                     updateRangeUI();
                 }
 
+                // Reset the active dual range sliders as well.
+                const minRentSlider = document.getElementById("minRent");
+                const maxRentSlider = document.getElementById("maxRent");
+                const minRentInput = document.getElementById("min_rent");
+                const maxRentInput = document.getElementById("max_rent");
+
+                if (minRentSlider && maxRentSlider) {
+                    minRentSlider.value = RENT_MIN;
+                    maxRentSlider.value = RENT_MAX;
+
+                    if (minRentInput) minRentInput.value = RENT_MIN;
+                    if (maxRentInput) maxRentInput.value = RENT_MAX;
+
+                    // Refresh the slider labels and green progress track.
+                    maxRentSlider.dispatchEvent(new Event("input", { bubbles: true }));
+                }
+
 
                 /*
                  * Show all properties
@@ -3314,6 +3524,95 @@
         </script>
 
 
+    <script>
 
+
+
+        (function () {
+            const minSlider = document.getElementById("minRent");
+            const maxSlider = document.getElementById("maxRent");
+
+            const minValue = document.getElementById("minRentValue");
+            const maxValue = document.getElementById("maxRentValue");
+            const progress = document.getElementById("rentSliderProgress");
+
+            const minInput = document.getElementById("min_rent");
+            const maxInput = document.getElementById("max_rent");
+
+            if (!minSlider || !maxSlider || !minValue || !maxValue || !progress) {
+                return;
+            }
+
+            const MAX_RENT = 100000;
+
+            function formatRent(value) {
+                return "₹ " + Number(value).toLocaleString("en-IN");
+            }
+
+            function updateRange(changedSlider) {
+                let min = Number(minSlider.value);
+                let max = Number(maxSlider.value);
+
+                // Keep the handles from crossing.
+                if (min > max) {
+                    if (changedSlider === minSlider) {
+                        min = max;
+                        minSlider.value = min;
+                    } else {
+                        max = min;
+                        maxSlider.value = max;
+                    }
+                }
+
+                // Display selected amounts.
+                minValue.textContent = formatRent(min);
+                maxValue.textContent =
+                    max >= MAX_RENT ? "₹ 1,00,000+" : formatRent(max);
+
+                // Update the green track.
+                const minPercent = (min / MAX_RENT) * 100;
+                const maxPercent = (max / MAX_RENT) * 100;
+
+                progress.style.left = minPercent + "%";
+                progress.style.width = (maxPercent - minPercent) + "%";
+
+                // Update form values.
+                if (minInput) minInput.value = min;
+                if (maxInput) maxInput.value = max;
+
+                // Bring the active handle to the front.
+                minSlider.style.zIndex =
+                    changedSlider === minSlider ? "4" : "3";
+
+                maxSlider.style.zIndex =
+                    changedSlider === maxSlider ? "4" : "3";
+            }
+
+            minSlider.addEventListener("input", function () {
+                updateRange(minSlider);
+            });
+
+            maxSlider.addEventListener("input", function () {
+                updateRange(maxSlider);
+            });
+
+            // Notify the main search script, where performSearch is scoped.
+            function notifyRentFilterChanged() {
+                document.dispatchEvent(new Event("rent-range-changed"));
+            }
+
+            minSlider.addEventListener("input", notifyRentFilterChanged);
+            maxSlider.addEventListener("input", notifyRentFilterChanged);
+            minSlider.addEventListener("change", notifyRentFilterChanged);
+            maxSlider.addEventListener("change", notifyRentFilterChanged);
+
+
+
+            // Initialize without resetting existing values.
+            updateRange();
+        })();
+
+
+    </script>
 
 @endsection
