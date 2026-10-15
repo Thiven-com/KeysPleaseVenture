@@ -1,7 +1,57 @@
 @extends('layouts.website')
 @section('content')
 
+<style>
 
+    /* Property Card Image Gallery */
+.result-card .gallery {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+/* Fixed image dimensions */
+.result-card .gallery img.main {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+/* Photo count */
+.result-card .gallery .photo-count {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 2;
+}
+
+/* New badge */
+.result-card .gallery .featured {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+}
+
+/* Responsive image height */
+@media (max-width: 768px) {
+    .result-card .gallery {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .result-card .gallery {
+        height: 180px;
+    }
+}
+</style>
 
     <style>
         /* Rent range matches the existing search controls */
