@@ -912,48 +912,52 @@ class PropertyController extends Controller
     /**
      * Delete a single property image.
      */
-    
-/**
- * Delete a single property image.
- */
-public function destroyImage($imageId)
-{
-    $image = PropertyImage::findOrFail($imageId);
 
-    try {
-        $imagePath = $image->image_path;
+    /**
+     * Delete a single property image.
+     */
+    public function destroyImage($imageId)
+    {
+        $image = PropertyImage::findOrFail($imageId);
 
-        // Delete the image record from the database.
-        $image->delete();
+        try {
+            $imagePath = $image->image_path;
 
-        // Delete the physical file from public storage.
-        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-            $deleted = Storage::disk('public')->delete($imagePath);
+            // Delete the image record from the database.
+            $image->delete();
 
-            if (!$deleted) {
-                Log::warning('Property image file could not be deleted.', [
-                    'image_id' => $imageId,
-                    'image_path' => $imagePath,
-                ]);
+            // Delete the physical file from public storage.
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                $deleted = Storage::disk('public')->delete($imagePath);
+
+                if (!$deleted) {
+                    Log::warning('Property image file could not be deleted.', [
+                        'image_id' => $imageId,
+                        'image_path' => $imagePath,
+                    ]);
+                }
             }
+            return response()->json([
+                'success' => true
+            ]);
+            // return redirect()->back()->with(
+            //     'success',
+            //     'Property image deleted successfully.'
+            // );
+
+        } catch (\Throwable $e) {
+            Log::error('Property image deletion failed.', [
+                'image_id' => $imageId,
+                'error' => $e->getMessage(),
+            ]);
+            return response()->json([
+                'success' => false
+            ]);
+            // return redirect()->back()->with(
+            //     'error',
+            //     'Unable to delete property image. Please try again.'
+            // );
         }
-
-        return redirect()->back()->with(
-            'success',
-            'Property image deleted successfully.'
-        );
-
-    } catch (\Throwable $e) {
-        Log::error('Property image deletion failed.', [
-            'image_id' => $imageId,
-            'error' => $e->getMessage(),
-        ]);
-
-        return redirect()->back()->with(
-            'error',
-            'Unable to delete property image. Please try again.'
-        );
     }
-}
 
 }
