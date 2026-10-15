@@ -362,14 +362,14 @@
           <span class="btn-icon">
             <i class="fa-solid fa-right-to-bracket"></i>
           </span>
-          <span>Login</span>
+          <span>Broker Login</span>
         </a>
 
         <a href="{{ route('broker.register') }}" class="nav-btn primary">
           <span class="btn-icon">
             <i class="fa-solid fa-user-plus"></i>
           </span>
-          <span>Register</span>
+          <span>Broker Register</span>
         </a>
       </div>
 
@@ -477,7 +477,7 @@
         <span class="btn-icon">
             <i class="fa-solid fa-right-to-bracket"></i>
         </span>
-        <span>Login</span>
+        <span>Broker Login</span>
     </button>
 
     <button
@@ -487,7 +487,7 @@
         <span class="btn-icon">
             <i class="fa-solid fa-user-plus"></i>
         </span>
-        <span>Register</span>
+        <span>Broker Register</span>
     </button>
 
 </div>
