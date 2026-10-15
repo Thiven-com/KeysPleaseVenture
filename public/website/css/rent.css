@@ -1690,13 +1690,16 @@
         .actions {
             position: relative;
 
-            padding: 75px 17px;
+            /* padding: 75px 17px; */
+            padding: 17px 17px;
 
             display: flex;
 
             flex-direction: column;
 
             align-items: stretch;
+
+            justify-content: end;
         }
 
         .age {

@@ -2665,18 +2665,25 @@
 
 </script>
 
+
 <script>
     let localityAutocomplete;
 
     function initLocalityAutocomplete() {
         const input = document.getElementById("localityInput");
-        const clearButton = document.getElementById("localityClear");
+        const dropdown = document.getElementById("localityDropdown");
+        const clear = document.getElementById("localityClear");
 
-        if (!input || !clearButton || !window.google?.maps?.places) {
-            return;
-        }
+        if (!input || !window.google?.maps?.places) return;
+
+        const bengaluruBounds = new google.maps.LatLngBounds(
+            { lat: 12.7343, lng: 77.3790 },
+            { lat: 13.1737, lng: 77.8827 }
+        );
 
         localityAutocomplete = new google.maps.places.Autocomplete(input, {
+            bounds: bengaluruBounds,
+            strictBounds: true,
             componentRestrictions: { country: "in" },
             fields: ["formatted_address", "name", "geometry"],
             types: ["geocode"]
@@ -2685,21 +2692,53 @@
         localityAutocomplete.addListener("place_changed", function () {
             const place = localityAutocomplete.getPlace();
 
-            input.value = place.name || place.formatted_address || input.value;
-            clearButton.style.display = input.value ? "inline-flex" : "none";
+            if (!place.geometry?.location) {
+                input.value = "";
+                if (clear) clear.style.display = "none";
+                alert("Please select a location within Bengaluru.");
+                return;
+            }
+
+            const location = place.geometry.location;
+
+            if (!bengaluruBounds.contains(location)) {
+                input.value = "";
+                if (clear) clear.style.display = "none";
+                alert("Please select a location within Bengaluru.");
+                return;
+            }
+
+            input.value = place.name || place.formatted_address || "";
+            
+            if (dropdown) {
+                dropdown.style.display = "none";
+            }
+
+            if (clear) {
+                clear.style.display = input.value ? "inline-flex" : "none";
+            }
         });
 
         input.addEventListener("input", function () {
-            clearButton.style.display = input.value ? "inline-flex" : "none";
+            if (dropdown) {
+                dropdown.style.display = "none";
+            }
+
+            if (clear) {
+                clear.style.display = input.value ? "inline-flex" : "none";
+            }
         });
 
-        clearButton.addEventListener("click", function () {
-            input.value = "";
-            clearButton.style.display = "none";
-            input.focus();
-        });
+        if (clear) {
+            clear.addEventListener("click", function () {
+                input.value = "";
+                clear.style.display = "none";
+                input.focus();
+            });
+        }
     }
 </script>
+
 
 <script
     async

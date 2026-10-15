@@ -109,6 +109,26 @@
         justify-content: center;
       }
     }
+
+    
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-actions a {
+    text-decoration: none;
+}
+
+.nav-actions .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
   </style>
 
 </head>
@@ -320,12 +340,12 @@
       </nav>
 
       <!-- Header Actions -->
-      <div class="nav-actions">
+      <!-- <div class="nav-actions">
 
-        <!-- <button class="nav-btn" type="button" id="lpfOpenBtn">
+        <button class="nav-btn" type="button" id="lpfOpenBtn">
           <span class="btn-icon"><i class="fa-solid fa-building"></i></span>
           <span>List Your Property</span>
-        </button> -->
+        </button>
 
         <button class="nav-btn primary" type="button">
           <span class="btn-icon">♙</span>
@@ -334,7 +354,25 @@
           </a>
         </button>
 
+      </div> -->
+
+
+      <div class="nav-actions">
+        <a href="{{ route('broker.login') }}" class="nav-btn">
+          <span class="btn-icon">
+            <i class="fa-solid fa-right-to-bracket"></i>
+          </span>
+          <span>Login</span>
+        </a>
+
+        <a href="{{ route('broker.register') }}" class="nav-btn primary">
+          <span class="btn-icon">
+            <i class="fa-solid fa-user-plus"></i>
+          </span>
+          <span>Register</span>
+        </a>
       </div>
+
 
       <!-- Mobile Menu Button -->
       <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false">
@@ -413,12 +451,12 @@
       </nav>
 
       <!-- Actions -->
-      <div class="mobile-sidebar-actions">
+      <!-- <div class="mobile-sidebar-actions">
 
-        <!-- <button class="mobile-sidebar-btn" type="button" id="lpfMobileOpenBtn">
+        <button class="mobile-sidebar-btn" type="button" id="lpfMobileOpenBtn">
           <span class="btn-icon"><i class="fa-solid fa-building"></i></span>
           <span>List Your Property</span>
-        </button> -->
+        </button>
 
         <button type="button" class="mobile-sidebar-btn primary" onclick="window.location.href='{{ route('login') }}'">
 
@@ -427,7 +465,33 @@
 
         </button>
 
-      </div>
+      </div> -->
+
+      
+<div class="mobile-sidebar-actions">
+
+    <button
+        type="button"
+        class="mobile-sidebar-btn"
+        onclick="window.location.href='{{ route('broker.login') }}'">
+        <span class="btn-icon">
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </span>
+        <span>Login</span>
+    </button>
+
+    <button
+        type="button"
+        class="mobile-sidebar-btn primary"
+        onclick="window.location.href='{{ route('broker.register') }}'">
+        <span class="btn-icon">
+            <i class="fa-solid fa-user-plus"></i>
+        </span>
+        <span>Register</span>
+    </button>
+
+</div>
+
 
     </div>
 

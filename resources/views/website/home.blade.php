@@ -693,7 +693,7 @@
                                     </span>
                                 @endif
 
-                                <div class="broker">
+                                <!-- <div class="broker">
                                     <div class="avatar">
                                         {{ $brokerInitials ?: 'PO' }}
                                     </div>
@@ -711,7 +711,7 @@
                     : 'Property Owner' }}
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
 
@@ -1593,6 +1593,8 @@
 
 
 <script>
+
+
 let rpfAutocomplete;
 
 function initRpfLocationAutocomplete() {
@@ -1600,9 +1602,16 @@ function initRpfLocationAutocomplete() {
     const dropdown = document.getElementById("rpfLocationDropdown");
     const clear = document.getElementById("rpfLocationClear");
 
-    if (!input || !dropdown) return;
+    if (!input || !dropdown || !window.google?.maps?.places) return;
+
+    const bengaluruBounds = new google.maps.LatLngBounds(
+        { lat: 12.7343, lng: 77.3790 },
+        { lat: 13.1737, lng: 77.8827 }
+    );
 
     rpfAutocomplete = new google.maps.places.Autocomplete(input, {
+        bounds: bengaluruBounds,
+        strictBounds: true,
         componentRestrictions: { country: "in" },
         fields: ["formatted_address", "name", "geometry"],
         types: ["geocode"]
@@ -1611,20 +1620,25 @@ function initRpfLocationAutocomplete() {
     rpfAutocomplete.addListener("place_changed", function () {
         const place = rpfAutocomplete.getPlace();
 
-        // if (place.formatted_address) {
-        //     input.value = place.formatted_address;
-        // } else if (place.name) {
-        //     input.value = place.name;
-        // }
+        if (!place.geometry?.location) {
+            input.value = "";
+            alert("Please select a location within Bengaluru.");
+            return;
+        }
+
+        const location = place.geometry.location;
+
+        if (!bengaluruBounds.contains(location)) {
+            input.value = "";
+            alert("Please select a location within Bengaluru.");
+            return;
+        }
 
         input.value = place.name || place.formatted_address || "";
-
         dropdown.style.display = "none";
 
         if (clear) {
-            clear.style.display = input.value
-                ? "inline-flex"
-                : "none";
+            clear.style.display = input.value ? "inline-flex" : "none";
         }
     });
 
@@ -1632,9 +1646,7 @@ function initRpfLocationAutocomplete() {
         dropdown.style.display = "none";
 
         if (clear) {
-            clear.style.display = input.value
-                ? "inline-flex"
-                : "none";
+            clear.style.display = input.value ? "inline-flex" : "none";
         }
     });
 
@@ -1646,6 +1658,8 @@ function initRpfLocationAutocomplete() {
         });
     }
 }
+
+
 </script>
 
 <script

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class PropertyController extends Controller
 {
@@ -911,26 +912,48 @@ class PropertyController extends Controller
     /**
      * Delete a single property image.
      */
-    public function destroyImage($imageId)
-    {
-        $image = PropertyImage::findOrFail($imageId);
+    
+/**
+ * Delete a single property image.
+ */
+public function destroyImage($imageId)
+{
+    $image = PropertyImage::findOrFail($imageId);
 
-        if (
-            $image->image_path &&
-            Storage::disk('public')->exists(
-                $image->image_path
-            )
-        ) {
-            Storage::disk('public')->delete(
-                $image->image_path
-            );
-        }
+    try {
+        $imagePath = $image->image_path;
 
+        // Delete the image record from the database.
         $image->delete();
 
-        return back()->with(
+        // Delete the physical file from public storage.
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            $deleted = Storage::disk('public')->delete($imagePath);
+
+            if (!$deleted) {
+                Log::warning('Property image file could not be deleted.', [
+                    'image_id' => $imageId,
+                    'image_path' => $imagePath,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with(
             'success',
             'Property image deleted successfully.'
         );
+
+    } catch (\Throwable $e) {
+        Log::error('Property image deletion failed.', [
+            'image_id' => $imageId,
+            'error' => $e->getMessage(),
+        ]);
+
+        return redirect()->back()->with(
+            'error',
+            'Unable to delete property image. Please try again.'
+        );
     }
+}
+
 }

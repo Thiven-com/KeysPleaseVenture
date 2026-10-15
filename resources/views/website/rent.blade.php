@@ -1101,7 +1101,7 @@
 
 
                         {{-- BROKER --}}
-                        <div class="broker">
+                        <!-- <div class="broker">
 
                             <div class="broker-avatar">
                                 {{ $brokerInitials }}
@@ -1131,7 +1131,7 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -1167,7 +1167,7 @@
 
 
                         {{-- PHONE --}}
-                        @if($property->owner_phone)
+                        <!-- @if($property->owner_phone)
 
                             <div class="phone">
 
@@ -1177,7 +1177,7 @@
 
                             </div>
 
-                        @endif
+                        @endif -->
 
                     </div>
 
@@ -3486,37 +3486,56 @@
 
 
     <script>
-        let locationAutocomplete;
+       
+let locationAutocomplete;
 
-        function initLocationAutocomplete() {
-            const input = document.getElementById('locationInput');
-            const clearButton = document.getElementById('locationClear');
+function initLocationAutocomplete() {
+    const input = document.getElementById("locationInput");
+    const clearButton = document.getElementById("locationClear");
 
-            if (!input || !clearButton) return;
+    if (!input || !clearButton || !window.google?.maps?.places) {
+        return;
+    }
 
-            locationAutocomplete = new google.maps.places.Autocomplete(input, {
-                componentRestrictions: { country: 'in' },
-                fields: ['formatted_address', 'name', 'geometry'],
-                types: ['geocode']
-            });
+    const bengaluruBounds = new google.maps.LatLngBounds(
+        { lat: 12.7343, lng: 77.3790 },
+        { lat: 13.1737, lng: 77.8827 }
+    );
 
-            locationAutocomplete.addListener('place_changed', function () {
-                const place = locationAutocomplete.getPlace();
+    locationAutocomplete = new google.maps.places.Autocomplete(input, {
+        bounds: bengaluruBounds,
+        strictBounds: true,
+        componentRestrictions: { country: "in" },
+        fields: ["formatted_address", "name", "geometry"],
+        types: ["geocode"]
+    });
 
-                input.value = place.name || place.formatted_address || '';
-                clearButton.style.display = input.value ? 'inline-flex' : 'none';
-            });
+    locationAutocomplete.addListener("place_changed", function () {
+        const place = locationAutocomplete.getPlace();
 
-            input.addEventListener('input', function () {
-                clearButton.style.display = input.value ? 'inline-flex' : 'none';
-            });
-
-            clearButton.addEventListener('click', function () {
-                input.value = '';
-                clearButton.style.display = 'none';
-                input.focus();
-            });
+        if (!place.geometry?.location ||
+            !bengaluruBounds.contains(place.geometry.location)) {
+            input.value = "";
+            clearButton.style.display = "none";
+            alert("Please select a location within Bengaluru.");
+            return;
         }
+
+        input.value = place.name || place.formatted_address || "";
+        clearButton.style.display = input.value ? "inline-flex" : "none";
+    });
+
+    input.addEventListener("input", function () {
+        clearButton.style.display = input.value ? "inline-flex" : "none";
+    });
+
+    clearButton.addEventListener("click", function () {
+        input.value = "";
+        clearButton.style.display = "none";
+        input.focus();
+    });
+}
+
     </script>
 
     <script async

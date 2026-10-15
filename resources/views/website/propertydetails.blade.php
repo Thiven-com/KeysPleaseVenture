@@ -4581,7 +4581,7 @@
             @endphp
 
 
-            <div class="broker-card">
+            <!-- <div class="broker-card">
 
                 <h2>
                     Broker / Vendor Details
@@ -4646,7 +4646,7 @@
                     View All Properties
                 </button>
 
-            </div>
+            </div> -->
 
 
             <div class="policy">
