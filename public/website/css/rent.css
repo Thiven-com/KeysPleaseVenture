@@ -2586,20 +2586,39 @@
                 font-size: 16px;
             }
 
-            .sort {
-                width: 100%;
+          .sort {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: stretch;
+}
 
-                display: grid;
+.sort > span {
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+}
 
-                grid-template-columns:
-                    auto minmax(0, 1fr) auto;
+.sort-select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    font-size: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #334155;
+}
 
-                gap: 7px;
-            }
-
-            .sort-select {
-                width: 100%;
-            }
+.sort .view-toggle {
+    display: none !important;
+}
 
             .result-card,
             .results.list-view .result-card {
@@ -2776,20 +2795,21 @@
             }
 
             .sort {
-                grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
 
-                gap: 7px;
-            }
+    .sort-select {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
 
-            .view-toggle {
-                width: 100%;
-            }
-
-            .view-toggle button {
-                flex: 1;
-
-                width: auto;
-            }
+    .sort .view-toggle {
+        display: none !important;
+    }
 
             .gallery,
             .results.list-view .gallery {

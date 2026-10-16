@@ -2,56 +2,282 @@
 @section('content')
 
 <style>
-
-    /* Property Card Image Gallery */
-.result-card .gallery {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-/* Fixed image dimensions */
-.result-card .gallery img.main {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 12px;
-}
-
-/* Photo count */
-.result-card .gallery .photo-count {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-    z-index: 2;
-}
-
-/* New badge */
-.result-card .gallery .featured {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 2;
-}
-
-/* Responsive image height */
-@media (max-width: 768px) {
-    .result-card .gallery {
-        height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .result-card .gallery {
-        height: 180px;
+    @media (max-width: 480px) {
+    section {
+        padding-top: 0px;
     }
 }
 </style>
+
+    <style>
+        /* Mobile search modal: hidden on desktop */
+        .mobile-filter-open,
+        .mobile-filter-modal {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .search-area>.search-panel {
+                display: none !important;
+            }
+
+            .mobile-filter-body .search-panel {
+                display: grid !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .mobile-filter-open {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                min-height: 46px;
+                margin-bottom: 12px;
+                padding: 12px 16px;
+                border: none;
+                border-radius: 8px;
+                background: #1724c9;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .mobile-filter-modal.is-open {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 99999;
+            }
+
+            .mobile-filter-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.6);
+            }
+
+            .mobile-filter-dialog {
+                position: absolute;
+                inset: 12px;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                max-width: 600px;
+                margin: auto;
+                max-height: calc(100dvh - 24px);
+                overflow: hidden;
+                background: #fff;
+                border-radius: 14px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .mobile-filter-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 16px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .mobile-filter-header h2 {
+                margin: 0;
+                font-size: 18px;
+                color: #172033;
+            }
+
+            #mobileFilterClose {
+                width: 36px;
+                height: 36px;
+                flex-shrink: 0;
+                border: none;
+                border-radius: 50%;
+                background: #f1f5f9;
+                color: #334155;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .mobile-filter-body {
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                padding: 16px;
+            }
+
+            /* Search panel becomes a vertical form inside the modal */
+            .mobile-filter-body .search-panel {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 16px;
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                box-sizing: border-box;
+            }
+
+            .mobile-filter-body .field,
+            .mobile-filter-body .rent-range-field {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .mobile-filter-body .control,
+            .mobile-filter-body .custom-select,
+            .mobile-filter-body .rent-range-container {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .mobile-filter-body .search-action {
+                width: 100%;
+                min-height: 46px;
+            }
+
+            body.mobile-filter-opened {
+                overflow: hidden;
+            }
+        }
+    </style>
+
+    <style>
+        .mobile-sort {
+            display: none;
+            position: relative;
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 767px) {
+            .sort {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                min-width: 0;
+                width: 100%;
+            }
+
+            .sort>.sort-select {
+                display: none;
+            }
+
+            .mobile-sort {
+                display: block;
+            }
+
+            #mobileSortButton {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 42px;
+                padding: 0 12px;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                background: #fff;
+                color: #334155;
+                font-size: 13px;
+                box-sizing: border-box;
+            }
+
+            .mobile-sort-options {
+                /* position: absolute;
+                        top: calc(100% + 4px);
+                        left: 0;
+                        right: 0;
+                        z-index: 999; */
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
+                border: 1px solid #dce2ed;
+                border-radius: 8px;
+                background: #fff;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            }
+
+            .mobile-sort-options[hidden] {
+                display: none;
+            }
+
+            .mobile-sort-options button {
+                display: block;
+                width: 100%;
+                padding: 12px;
+                border: 0;
+                background: #fff;
+                color: #172554;
+                text-align: left;
+                font-size: 13px;
+                white-space: normal;
+            }
+
+            .mobile-sort-options button:active {
+                background: #eef2ff;
+            }
+
+            .sort .view-toggle {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <style>
+        /* Property Card Image Gallery */
+        .result-card .gallery {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Fixed image dimensions */
+        .result-card .gallery img.main {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+        }
+
+        /* Photo count */
+        .result-card .gallery .photo-count {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            z-index: 2;
+        }
+
+        /* New badge */
+        .result-card .gallery .featured {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+        }
+
+        /* Responsive image height */
+        @media (max-width: 768px) {
+            .result-card .gallery {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .result-card .gallery {
+                height: 180px;
+            }
+        }
+    </style>
 
     <style>
         /* Rent range matches the existing search controls */
@@ -189,68 +415,72 @@
     </style>
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                         SEARCH AREA
-                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                             SEARCH AREA
+                                                                                                                                                                                                                                                                                                                                                        ====================================================== -->
 
     <div class="rent-container search-area">
+        <button type="button" class="mobile-filter-open" id="mobileFilterOpen">
+            <i class="fa-solid fa-sliders"></i>
+            Search Properties & Filters
+        </button>
 
-        <div class="search-panel">
+        <div class="search-panel" style="">
 
             <!-- Location -->
             <!-- <div class="field">
 
-                                        <label for="locationInput">
-                                            Location / Locality
-                                        </label>
+                                                            <label for="locationInput">
+                                                                Location / Locality
+                                                            </label>
 
-                                        <div class="control location-control">
+                                                            <div class="control location-control">
 
-                                            <i class="fa-solid fa-location-dot"></i>
+                                                                <i class="fa-solid fa-location-dot"></i>
 
-                                            <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
-                                                autocomplete="off">
+                                                                <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
+                                                                    autocomplete="off">
 
-                                            <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
+                                                                <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
 
-                                        </div> -->
+                                                            </div> -->
 
             <!-- Location Suggestions -->
             <!-- @php
-                                            $locations = $properties
-                                                ->flatMap(function ($property) {
-                                                    return [
-                                                        $property->locality,
-                                                        $property->landmark,
-                                                        optional($property->cityRelation)->name,
-                                                    ];
-                                                })
-                                                ->filter()
-                                                ->map(function ($location) {
-                                                    return trim($location);
-                                                })
-                                                ->unique()
-                                                ->sort()
-                                                ->values();
-                                        @endphp
+                                                                $locations = $properties
+                                                                    ->flatMap(function ($property) {
+                                                                        return [
+                                                                            $property->locality,
+                                                                            $property->landmark,
+                                                                            optional($property->cityRelation)->name,
+                                                                        ];
+                                                                    })
+                                                                    ->filter()
+                                                                    ->map(function ($location) {
+                                                                        return trim($location);
+                                                                    })
+                                                                    ->unique()
+                                                                    ->sort()
+                                                                    ->values();
+                                                            @endphp
 
-                                        <div class="location-suggestions" id="locationSuggestions">
+                                                            <div class="location-suggestions" id="locationSuggestions">
 
-                                            @foreach($locations as $location)
+                                                                @foreach($locations as $location)
 
-                                                <button type="button" data-location="{{ $location }}">
+                                                                    <button type="button" data-location="{{ $location }}">
 
-                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                        <i class="fa-solid fa-location-dot"></i>
 
-                                                    {{ $location }}
+                                                                        {{ $location }}
 
-                                                </button>
+                                                                    </button>
 
-                                            @endforeach
+                                                                @endforeach
 
-                                        </div>
-                                    </div> -->
+                                                            </div>
+                                                        </div> -->
 
 
             <div class="field">
@@ -369,8 +599,8 @@
                         @if($bhkOptions->contains(fn($value) => $value >= 4))
 
                             <!-- <button type="button" data-value="4+ BHK">
-                                                4+ BHK
-                                            </button> -->
+                                                                                        4+ BHK
+                                                                                    </button> -->
 
                         @endif
 
@@ -384,47 +614,47 @@
             <!-- Rent Range -->
             <!-- <div class="field">
 
-                        <label>
-                            Rent Range
-                        </label>
+                                            <label>
+                                                Rent Range
+                                            </label>
 
-                        <div class="custom-select">
+                                            <div class="custom-select">
 
-                            <button type="button" class="control select-trigger" data-target="rentMenu">
-                                <strong id="rentValue">
-                                    ₹ 0 - ₹ 1,00,000+
-                                </strong>
+                                                <button type="button" class="control select-trigger" data-target="rentMenu">
+                                                    <strong id="rentValue">
+                                                        ₹ 0 - ₹ 1,00,000+
+                                                    </strong>
 
-                                <i class="fa-solid fa-chevron-down arrow"></i>
-                            </button>
+                                                    <i class="fa-solid fa-chevron-down arrow"></i>
+                                                </button>
 
-                            <div class="select-menu" id="rentMenu">
+                                                <div class="select-menu" id="rentMenu">
 
-                                <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
-                                    ₹ 0 - ₹ 1,00,000+
-                                </button>
+                                                    <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
+                                                        ₹ 0 - ₹ 1,00,000+
+                                                    </button>
 
-                                <button type="button" data-value="₹ 0 - ₹ 25,000">
-                                    ₹ 0 - ₹ 25,000
-                                </button>
+                                                    <button type="button" data-value="₹ 0 - ₹ 25,000">
+                                                        ₹ 0 - ₹ 25,000
+                                                    </button>
 
-                                <button type="button" data-value="₹ 25,000 - ₹ 50,000">
-                                    ₹ 25,000 - ₹ 50,000
-                                </button>
+                                                    <button type="button" data-value="₹ 25,000 - ₹ 50,000">
+                                                        ₹ 25,000 - ₹ 50,000
+                                                    </button>
 
-                                <button type="button" data-value="₹ 50,000 - ₹ 75,000">
-                                    ₹ 50,000 - ₹ 75,000
-                                </button>
+                                                    <button type="button" data-value="₹ 50,000 - ₹ 75,000">
+                                                        ₹ 50,000 - ₹ 75,000
+                                                    </button>
 
-                                <button type="button" data-value="₹ 75,000+">
-                                    ₹ 75,000+
-                                </button>
+                                                    <button type="button" data-value="₹ 75,000+">
+                                                        ₹ 75,000+
+                                                    </button>
 
-                            </div>
+                                                </div>
 
-                        </div>
+                                            </div>
 
-                    </div> -->
+                                        </div> -->
 
 
 
@@ -473,13 +703,13 @@
 
 
             <!-- More Filters
-                    <button type="button" class="filter-action" id="moreFiltersBtn">
-                        <i class="fa-solid fa-sliders"></i>
+                                        <button type="button" class="filter-action" id="moreFiltersBtn">
+                                            <i class="fa-solid fa-sliders"></i>
 
-                        <span>
-                            More Filters
-                        </span>
-                    </button> -->
+                                            <span>
+                                                More Filters
+                                            </span>
+                                        </button> -->
 
 
             <!-- Search -->
@@ -495,17 +725,37 @@
 
     </div>
 
+    <!-- Mobile Search and Filters Modal -->
+    <div class="mobile-filter-modal" id="mobileFilterModal" aria-hidden="true">
+        <div class="mobile-filter-overlay" id="mobileFilterOverlay"></div>
+
+        <div class="mobile-filter-dialog" role="dialog" aria-modal="true" aria-labelledby="mobileFilterTitle">
+
+            <div class="mobile-filter-header">
+                <h2 id="mobileFilterTitle">Search Properties</h2>
+
+                <button type="button" id="mobileFilterClose" aria-label="Close filters">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="mobile-filter-body" id="mobileFilterBody">
+                <!-- Existing search panel will be moved here on mobile -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                         CONTENT AREA
-                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                             CONTENT AREA
+                                                                                                                                                                                                                                                                                                                                                        ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                             SIDEBAR
-                                                                                                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                 SIDEBAR
+                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -525,7 +775,7 @@
 
             <!-- LOCATION FILTER
 
-            LOCATION FILTER -->
+                                LOCATION FILTER -->
 
             @php
                 $locationTree = $properties
@@ -617,43 +867,43 @@
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                                                                                                        <button type="button" class="filter-title">
-                                                                                                                                                                                                                                                                                                                            <span>
-                                                                                                                                                                                                                                                                                                                                Rent Range
-                                                                                                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                                                                                            <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                                                                                                <span>
+                                                                                                                                                                                                                                                                                                                                                    Rent Range
+                                                                                                                                                                                                                                                                                                                                                </span>
 
-                                                                                                                                                                                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                                                                                                        </button>
-
-
-                                                                                                                                                                                                                                                                                                                        <div class="range">
-
-                                                                                                                                                                                                                                                                                                                            <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                                                                                            </button>
 
 
-                                                                                                                                                                                                                                                                                                                        <div class="range-values">
+                                                                                                                                                                                                                                                                                                                                            <div class="range">
 
-                                                                                                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                                                                                                ₹ 0
-                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                                                                                                            <span class="range-to">
-                                                                                                                                                                                                                                                                                                                                to
-                                                                                                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                                                                                                <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                                                                                                ₹ 1,00,000+
-                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                            </div>
 
-                                                                                                                                                                                                                                                                                                                    </div> -->
+
+                                                                                                                                                                                                                                                                                                                                            <div class="range-values">
+
+                                                                                                                                                                                                                                                                                                                                                <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                                    ₹ 0
+                                                                                                                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                                <span class="range-to">
+                                                                                                                                                                                                                                                                                                                                                    to
+                                                                                                                                                                                                                                                                                                                                                </span>
+
+                                                                                                                                                                                                                                                                                                                                                <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                                    ₹ 1,00,000+
+                                                                                                                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                                        </div> -->
 
 
             <!-- BHK -->
@@ -734,45 +984,45 @@
             {{-- TENANT PREFERENCE --}}
             <!-- <div class="filter-section">
 
-                                            <button type="button" class="filter-title">
+                                                                <button type="button" class="filter-title">
 
-                                                <span>
-                                                    Tenant Preference
-                                                </span>
+                                                                    <span>
+                                                                        Tenant Preference
+                                                                    </span>
 
-                                                <i class="fa-solid fa-chevron-up"></i>
+                                                                    <i class="fa-solid fa-chevron-up"></i>
 
-                                            </button>
+                                                                </button>
 
-                                            <div class="property-type-filters">
+                                                                <div class="property-type-filters">
 
-                                                <button type="button" data-tenant-filter="Family">
+                                                                    <button type="button" data-tenant-filter="Family">
 
-                                                    <span class="checkbox"></span>
+                                                                        <span class="checkbox"></span>
 
-                                                    Family
+                                                                        Family
 
-                                                </button>
+                                                                    </button>
 
-                                                <button type="button" data-tenant-filter="Bachelor">
+                                                                    <button type="button" data-tenant-filter="Bachelor">
 
-                                                    <span class="checkbox"></span>
+                                                                        <span class="checkbox"></span>
 
-                                                    Bachelor
+                                                                        Bachelor
 
-                                                </button>
+                                                                    </button>
 
-                                                <button type="button" data-tenant-filter="Both">
+                                                                    <button type="button" data-tenant-filter="Both">
 
-                                                    <span class="checkbox"></span>
+                                                                        <span class="checkbox"></span>
 
-                                                    Fam & Bac
+                                                                        Fam & Bac
 
-                                                </button>
+                                                                    </button>
 
-                                            </div>
+                                                                </div>
 
-                                        </div> -->
+                                                            </div> -->
 
 
             <!-- PROPERTY TYPE -->
@@ -814,8 +1064,8 @@
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                             RESULTS
-                                                                                                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                 RESULTS
+                                                                                                                                                                                                                                                                                                                                                            ================================================== -->
 
         <section class="results">
 
@@ -845,20 +1095,23 @@
 
 
                     <select class="sort-select" id="sortSelect">
-
-                        <option value="newest">
-                            Newest First
-                        </option>
-
-                        <option value="low">
-                            Price: Low to High
-                        </option>
-
-                        <option value="high">
-                            Price: High to Low
-                        </option>
-
+                        <option value="newest">Newest First</option>
+                        <option value="low">Price: Low to High</option>
+                        <option value="high">Price: High to Low</option>
                     </select>
+
+                    <div class="mobile-sort">
+                        <button type="button" id="mobileSortButton" aria-expanded="false">
+                            <span id="mobileSortLabel">Newest First</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                        <div class="mobile-sort-options" id="mobileSortOptions" hidden>
+                            <button type="button" data-value="newest">Newest First</button>
+                            <button type="button" data-value="low">Price: Low to High</button>
+                            <button type="button" data-value="high">Price: High to Low</button>
+                        </div>
+                    </div>
 
 
                     <div class="view-toggle">
@@ -961,8 +1214,8 @@
                         @endif
 
                         <!-- <button type="button" class="heart" aria-label="Add to favourites">
-                                                                                                                                    <i class="fa-regular fa-heart"></i>
-                                                                                                                                </button> -->
+                                                                                                                                                                            <i class="fa-regular fa-heart"></i>
+                                                                                                                                                                        </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -1150,35 +1403,35 @@
                         {{-- BROKER --}}
                         <!-- <div class="broker">
 
-                            <div class="broker-avatar">
-                                {{ $brokerInitials }}
-                            </div>
+                                                                    <div class="broker-avatar">
+                                                                        {{ $brokerInitials }}
+                                                                    </div>
 
-                            <div>
+                                                                    <div>
 
-                                <div class="broker-name">
+                                                                        <div class="broker-name">
 
-                                    {{ $brokerName }}
+                                                                            {{ $brokerName }}
 
-                                    <span class="tick">
-                                        <i class="fa-solid fa-circle-check"></i>
-                                    </span>
+                                                                            <span class="tick">
+                                                                                <i class="fa-solid fa-circle-check"></i>
+                                                                            </span>
 
-                                </div>
+                                                                        </div>
 
-                                <div class="broker-role">
+                                                                        <div class="broker-role">
 
-                                    @if($property->user)
-                                        {{ ucfirst($property->user->role ?? 'Property Owner') }}
-                                    @else
-                                        Property Owner
-                                    @endif
+                                                                            @if($property->user)
+                                                                                {{ ucfirst($property->user->role ?? 'Property Owner') }}
+                                                                            @else
+                                                                                Property Owner
+                                                                            @endif
 
-                                </div>
+                                                                        </div>
 
-                            </div>
+                                                                    </div>
 
-                        </div> -->
+                                                                </div> -->
 
                     </div>
 
@@ -1209,22 +1462,22 @@
 
                         {{-- ENQUIRE --}}
                         <!-- <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
-                                                                            Enquire Now
-                                                                        </button> -->
+                                                                                                                    Enquire Now
+                                                                                                                </button> -->
 
 
                         {{-- PHONE --}}
                         <!-- @if($property->owner_phone)
 
-                            <div class="phone">
+                                                                    <div class="phone">
 
-                                <i class="fa-solid fa-phone"></i>
+                                                                        <i class="fa-solid fa-phone"></i>
 
-                                {{ $property->owner_phone }}
+                                                                        {{ $property->owner_phone }}
 
-                            </div>
+                                                                    </div>
 
-                        @endif -->
+                                                                @endif -->
 
                     </div>
 
@@ -1276,8 +1529,8 @@
 
     <style>
         /* =================================================
-                                                                                                                                           PAGINATION
-                                                                                                                                        ================================================= */
+                                                                                                                                                               PAGINATION
+                                                                                                                                                            ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1345,24 +1598,42 @@
         }
 
         #filters .filter-title {
-            width: 100%; display: flex; align-items: center;
-            justify-content: space-between; cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
         }
-        #filters .filter-title i { transition: transform .2s ease; }
-        #filters .filter-section.collapsed > .filter-title i { transform: rotate(180deg); }
-        #filters .filter-section.collapsed > .tree,
-        #filters .filter-section.collapsed > .more,
-        #filters .filter-section.collapsed > .filter-checkbox-row,
-        #filters .filter-section.collapsed > .property-type-filters { display: none !important; }
-        #filters .city-filter-row > i { transition: transform .2s ease; }
-        #filters .city-filter-row[aria-expanded="false"] > i { transform: rotate(-90deg); }
+
+        #filters .filter-title i {
+            transition: transform .2s ease;
+        }
+
+        #filters .filter-section.collapsed>.filter-title i {
+            transform: rotate(180deg);
+        }
+
+        #filters .filter-section.collapsed>.tree,
+        #filters .filter-section.collapsed>.more,
+        #filters .filter-section.collapsed>.filter-checkbox-row,
+        #filters .filter-section.collapsed>.property-type-filters {
+            display: none !important;
+        }
+
+        #filters .city-filter-row>i {
+            transition: transform .2s ease;
+        }
+
+        #filters .city-filter-row[aria-expanded="false"]>i {
+            transform: rotate(-90deg);
+        }
     </style>
 
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                         ENQUIRY MODAL
-                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                             ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                                                                        ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -1504,7 +1775,7 @@
             const nextPage =
                 document.getElementById("nextPage");
 
-            const ITEMS_PER_PAGE = 4;
+            const ITEMS_PER_PAGE = 12;
 
             let currentPage = 1;
 
@@ -1780,7 +2051,7 @@
             if (locationClear && locationInput) {
                 locationClear.addEventListener("click", function () {
                     locationInput.value = "";
-                if (locationClear) locationClear.style.display = "none";
+                    if (locationClear) locationClear.style.display = "none";
                     locationInput.focus();
                 });
             }
@@ -2725,7 +2996,41 @@
 
                 }
             );
+            // PASTE THE NEW MOBILE SORT CODE HERE
+            const mobileSortButton = document.getElementById("mobileSortButton");
+            const mobileSortLabel = document.getElementById("mobileSortLabel");
+            const mobileSortOptions = document.getElementById("mobileSortOptions");
 
+            if (mobileSortButton && mobileSortOptions && sortSelect) {
+                mobileSortButton.addEventListener("click", function (event) {
+                    event.stopPropagation();
+
+                    const isOpening = mobileSortOptions.hidden;
+                    mobileSortOptions.hidden = !isOpening;
+                    mobileSortButton.setAttribute("aria-expanded", String(isOpening));
+                });
+
+                mobileSortOptions.querySelectorAll("button").forEach(function (option) {
+                    option.addEventListener("click", function () {
+                        sortSelect.value = this.dataset.value;
+                        mobileSortLabel.textContent = this.textContent.trim();
+
+                        mobileSortOptions.hidden = true;
+                        mobileSortButton.setAttribute("aria-expanded", "false");
+
+                        sortSelect.dispatchEvent(
+                            new Event("change", { bubbles: true })
+                        );
+                    });
+                });
+
+                document.addEventListener("click", function (event) {
+                    if (!event.target.closest(".mobile-sort")) {
+                        mobileSortOptions.hidden = true;
+                        mobileSortButton.setAttribute("aria-expanded", "false");
+                    }
+                });
+            }
 
             /* =================================================
                GRID VIEW
@@ -3373,6 +3678,68 @@
 
             performSearch();
 
+            // Mobile search/filter modal
+            const mobileFilterOpen = document.getElementById("mobileFilterOpen");
+            const mobileFilterModal = document.getElementById("mobileFilterModal");
+            const mobileFilterClose = document.getElementById("mobileFilterClose");
+            const mobileFilterOverlay = document.getElementById("mobileFilterOverlay");
+            const mobileFilterBody = document.getElementById("mobileFilterBody");
+            const searchPanel = document.querySelector(".search-area .search-panel");
+
+            if (
+                mobileFilterOpen &&
+                mobileFilterModal &&
+                mobileFilterClose &&
+                mobileFilterOverlay &&
+                mobileFilterBody &&
+                searchPanel
+            ) {
+                const originalParent = searchPanel.parentNode;
+                const originalNextSibling = searchPanel.nextSibling;
+
+                function openMobileFilter() {
+                    if (window.innerWidth > 767) return;
+
+                    mobileFilterBody.appendChild(searchPanel);
+                    mobileFilterModal.classList.add("is-open");
+                    mobileFilterModal.setAttribute("aria-hidden", "false");
+                    document.body.classList.add("mobile-filter-opened");
+
+                    mobileFilterClose.focus();
+                }
+
+                function closeMobileFilter() {
+                    mobileFilterModal.classList.remove("is-open");
+                    mobileFilterModal.setAttribute("aria-hidden", "true");
+                    document.body.classList.remove("mobile-filter-opened");
+
+                    // Restore the original search panel location.
+                    if (originalNextSibling && originalNextSibling.parentNode === originalParent) {
+                        originalParent.insertBefore(searchPanel, originalNextSibling);
+                    } else {
+                        originalParent.appendChild(searchPanel);
+                    }
+
+                    mobileFilterOpen.focus();
+                }
+
+                mobileFilterOpen.addEventListener("click", openMobileFilter);
+                mobileFilterClose.addEventListener("click", closeMobileFilter);
+                mobileFilterOverlay.addEventListener("click", closeMobileFilter);
+
+                document.addEventListener("keydown", function (event) {
+                    if (event.key === "Escape" && mobileFilterModal.classList.contains("is-open")) {
+                        closeMobileFilter();
+                    }
+                });
+
+                window.addEventListener("resize", function () {
+                    if (window.innerWidth > 767 && mobileFilterModal.classList.contains("is-open")) {
+                        closeMobileFilter();
+                    }
+                });
+            }
+
 
         });
 
@@ -3420,55 +3787,55 @@
 
 
     <script>
-       
-let locationAutocomplete;
 
-function initLocationAutocomplete() {
-    const input = document.getElementById("locationInput");
-    const clearButton = document.getElementById("locationClear");
+        let locationAutocomplete;
 
-    if (!input || !clearButton || !window.google?.maps?.places) {
-        return;
-    }
+        function initLocationAutocomplete() {
+            const input = document.getElementById("locationInput");
+            const clearButton = document.getElementById("locationClear");
 
-    const bengaluruBounds = new google.maps.LatLngBounds(
-        { lat: 12.7343, lng: 77.3790 },
-        { lat: 13.1737, lng: 77.8827 }
-    );
+            if (!input || !clearButton || !window.google?.maps?.places) {
+                return;
+            }
 
-    locationAutocomplete = new google.maps.places.Autocomplete(input, {
-        bounds: bengaluruBounds,
-        strictBounds: true,
-        componentRestrictions: { country: "in" },
-        fields: ["formatted_address", "name", "geometry"],
-        types: ["geocode"]
-    });
+            const bengaluruBounds = new google.maps.LatLngBounds(
+                { lat: 12.7343, lng: 77.3790 },
+                { lat: 13.1737, lng: 77.8827 }
+            );
 
-    locationAutocomplete.addListener("place_changed", function () {
-        const place = locationAutocomplete.getPlace();
+            locationAutocomplete = new google.maps.places.Autocomplete(input, {
+                bounds: bengaluruBounds,
+                strictBounds: true,
+                componentRestrictions: { country: "in" },
+                fields: ["formatted_address", "name", "geometry"],
+                types: ["geocode"]
+            });
 
-        if (!place.geometry?.location ||
-            !bengaluruBounds.contains(place.geometry.location)) {
-            input.value = "";
-            clearButton.style.display = "none";
-            alert("Please select a location within Bengaluru.");
-            return;
+            locationAutocomplete.addListener("place_changed", function () {
+                const place = locationAutocomplete.getPlace();
+
+                if (!place.geometry?.location ||
+                    !bengaluruBounds.contains(place.geometry.location)) {
+                    input.value = "";
+                    clearButton.style.display = "none";
+                    alert("Please select a location within Bengaluru.");
+                    return;
+                }
+
+                input.value = place.name || place.formatted_address || "";
+                clearButton.style.display = input.value ? "inline-flex" : "none";
+            });
+
+            input.addEventListener("input", function () {
+                clearButton.style.display = input.value ? "inline-flex" : "none";
+            });
+
+            clearButton.addEventListener("click", function () {
+                input.value = "";
+                clearButton.style.display = "none";
+                input.focus();
+            });
         }
-
-        input.value = place.name || place.formatted_address || "";
-        clearButton.style.display = input.value ? "inline-flex" : "none";
-    });
-
-    input.addEventListener("input", function () {
-        clearButton.style.display = input.value ? "inline-flex" : "none";
-    });
-
-    clearButton.addEventListener("click", function () {
-        input.value = "";
-        clearButton.style.display = "none";
-        input.focus();
-    });
-}
 
     </script>
 

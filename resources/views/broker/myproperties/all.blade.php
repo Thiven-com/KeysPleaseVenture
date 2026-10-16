@@ -694,14 +694,14 @@
                                                 <i class="fa-solid fa-pen"></i>
                                             </a>
 
-                                            <button
+                                            <!-- <button
                                                 type="button"
                                                 class="action-btn delete"
                                                 title="Delete"
                                                 onclick="deleteProperty({{ $property->id }})"
                                             >
                                                 <i class="fa-regular fa-trash-can"></i>
-                                            </button>
+                                            </button> -->
 
                                         </div>
 
