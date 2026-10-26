@@ -184,8 +184,11 @@
 
               @foreach($cities->where('is_popular', true) as $city)
 
-                <button type="button" class="city-option {{ request()->is('rent/' . $city->slug) ? 'active' : '' }}"
+
+                <button type="button"
+                  class="city-option {{ request()->is('rent/' . $city->slug) || request()->is('sell/' . $city->slug) ? 'active' : '' }}"
                   data-city="{{ $city->slug }}">
+
 
                   <span class="city-option-icon">
                     <i class="{{ config('city_icons.' . $city->icon) }}"></i>
@@ -331,6 +334,12 @@
           Brokers
         </a> -->
 
+
+        <a href="{{ route('sell') }}">
+          Sell
+        </a>
+
+
         <a href="{{ route('subscription.index') }}">
           Subscription Plans
         </a>
@@ -452,6 +461,17 @@
           <span>About Us</span>
           <span>›</span>
         </a> --}}
+
+        <a href="{{ route('sell') }}">
+          <span>Sell</span>
+          <span>›</span>
+        </a>
+
+        <a href="{{ route('subscription.index') }}">
+          <span>Subscription Plans</span>
+          <span>›</span>
+        </a>
+
 
         <a href="{{ route('contact') }}">
           <span>Contact Us</span>
@@ -1248,7 +1268,27 @@
             return;
           }
 
-          window.location.href = '/rent/' + citySlug;
+
+          const cityOptions = document.querySelectorAll('.city-option');
+
+          cityOptions.forEach(function (option) {
+            option.addEventListener('click', function () {
+              const citySlug = this.dataset.city;
+
+              if (!citySlug) {
+                return;
+              }
+
+              const currentPath = window.location.pathname;
+
+              const isSell = currentPath.startsWith('/sell');
+
+              const baseUrl = isSell ? '/sell/' : '/rent/';
+
+              window.location.href = baseUrl + citySlug;
+            });
+          });
+
 
         });
 

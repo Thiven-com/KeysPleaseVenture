@@ -12,12 +12,17 @@ class Customer extends Authenticatable
 
     protected $table = 'customers';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'mobile',
-        'password',
-    ];
+   
+protected $fillable = [
+    'name',
+    'email',
+    'mobile',
+    'password',
+    'otp',
+    'otp_expires_at',
+    'otp_attempts',
+];
+
 
     protected $hidden = [
         'password',
@@ -29,6 +34,7 @@ class Customer extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'otp_expires_at' => 'datetime',
         ];
     }
 }

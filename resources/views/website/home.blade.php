@@ -601,7 +601,8 @@
 
                     @foreach($popularLocalities as $index => $locality)
 
-                        <a class="locality" href="{{ url('rent') }}?locality={{ urlencode($locality->locality) }}">
+                       <a class="locality"
+   href="{{ route('rent') }}?location={{ urlencode($locality->locality) }}">
 
                             <img src="{{ $localityImages[$index] }}" alt="{{ $locality->locality }}">
 
@@ -631,7 +632,7 @@
         <div class="container">
 
             <div class="section-head">
-                <h2>Featured Rental Properties</h2>
+                <h2>Featured Properties</h2>
 
                 <a class="view" href="{{ route('rent') }}">
                     View all properties
@@ -1777,20 +1778,20 @@ function rpfSearchProperties() {
 
     // Rent and Sell both use the same listing page
 
-    var url = '/rent';
+    // =========================
+// REDIRECT TO RENT / SELL
+// =========================
 
-    var query = params.toString();
+var url = mode === 'sell' ? '/sell' : '/rent';
 
-    if (query) {
+var query = params.toString();
 
-        url += '?' + query;
+if (query) {
+    url += '?' + query;
+}
 
-    }
-
-
-    // Redirect
-
-    window.location.href = url;
+// Redirect
+window.location.href = url;
 
 }
 </script>

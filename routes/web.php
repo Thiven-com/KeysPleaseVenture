@@ -10,7 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\User\AuthController as CustomerAuthController;
+use App\Http\Controllers\Customer\AuthController as CustomerAuthController;
 
 
 Route::get('/', [PageController::class, 'home'])
@@ -27,10 +27,33 @@ Route::get('subscription', [PageController::class, 'subscription'])
     ->name('subscription.index');
 
 
-Route::get('rent', [PageController::class, 'rent'])
+
+
+ // ========================================
+ // RENT PROPERTIES
+ // ========================================
+
+Route::get('/rent', [PageController::class, 'rent'])
     ->name('rent');
- Route::get('/rent/{citySlug}', [PageController::class, 'rentByCity'])
+
+
+// ========================================
+// SELL PROPERTIES
+// ========================================
+
+Route::get('/sell', [PageController::class, 'sell'])
+    ->name('sell');
+
+
+// ========================================
+// RENT PROPERTIES BY CITY
+// ========================================
+
+Route::get('/rent/{citySlug}', [PageController::class, 'rentByCity'])
     ->name('rent.city');
+
+
+    
 
 Route::get('propertydetails/{slug}', [PageController::class, 'propertydetails'])
     ->name('propertydetails');
@@ -47,17 +70,29 @@ Route::get('login', [PageController::class, 'login'])
  // CUSTOMER LOGIN
  // ========================================
 
+// CUSTOMER LOGIN
+
 Route::post('/login', [CustomerAuthController::class, 'login'])
     ->name('login.submit');
 
-
-// ========================================
 // CUSTOMER LOGOUT
-// ========================================
 
 Route::post('/logout', [CustomerAuthController::class, 'logout'])
     ->middleware('auth:customer')
     ->name('customer.logout');
+
+    Route::post('/register', [CustomerAuthController::class, 'register'])
+    ->name('customer.register');
+
+   Route::post('/customer/send-otp', [
+    CustomerAuthController::class,
+    'sendOtp'
+])->name('customer.otp.send');
+
+Route::post('/customer/verify-otp', [
+    CustomerAuthController::class,
+    'verifyOtp'
+])->name('customer.otp.verify');
 
 
 

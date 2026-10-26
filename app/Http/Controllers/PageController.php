@@ -188,35 +188,18 @@ class PageController extends Controller
 
 
 
+
+
 public function rent(Request $request)
 {
-    // Selected mode: rent or sell
-    $mode = $request->query('mode', 'rent');
-
-    // Allow only rent or sell
-    if (!in_array($mode, ['rent', 'sell'])) {
-        $mode = 'rent';
-    }
-
-    // Base property query
     $query = Property::with([
         'images',
         'user',
         'propertyAmenities',
         'cityRelation'
     ])
-    ->where('status', 'approved');
-
-    // Rent / Sell filter
-    if ($mode === 'sell') {
-        $query->where('listing_for', 'Sell');
-    } else {
-        $query->whereIn('listing_for', [
-            'Rent',
-            'PG',
-            'Lease'
-        ]);
-    }
+        ->where('status', 'approved')
+        ->whereIn('listing_for', ['Rent', 'PG', 'Lease']);
 
     // Locality filter
     if ($request->filled('locality')) {
@@ -234,18 +217,15 @@ public function rent(Request $request)
 
         $query->where(function ($q) use ($location) {
             $q->where('locality', 'LIKE', '%' . $location . '%')
-              ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                  $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-              });
+                ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                    $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                });
         });
     }
 
     // Property type filter
     if ($request->filled('type')) {
-        $query->where(
-            'property_type',
-            $request->query('type')
-        );
+        $query->where('property_type', $request->query('type'));
     }
 
     // BHK filter
@@ -253,62 +233,122 @@ public function rent(Request $request)
         $bhk = (int) $request->query('bhk');
 
         if ($bhk >= 4) {
-            $query->where('bhk', '>=', 4);
+            $query->whereRaw(
+                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
+                [4]
+            );
         } elseif ($bhk > 0) {
-            $query->where('bhk', $bhk);
+            $query->whereRaw(
+                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
+                [$bhk]
+            );
         }
     }
 
-    // Price filters
-    if ($mode === 'sell') {
+    // Minimum rent
+    if ($request->filled('min_rent')) {
+        $minRent = (float) $request->query('min_rent');
 
-        // Minimum sale price
-        if ($request->filled('min_price')) {
-            $minPrice = (float) $request->query('min_price');
-
-            if ($minPrice >= 0) {
-                $query->where('price', '>=', $minPrice);
-            }
-        }
-
-        // Maximum sale price
-        if ($request->filled('max_price')) {
-            $maxPrice = (float) $request->query('max_price');
-
-            if ($maxPrice >= 0) {
-                $query->where('price', '<=', $maxPrice);
-            }
-        }
-
-    } else {
-
-        // Minimum rent
-        if ($request->filled('min_rent')) {
-            $minRent = (float) $request->query('min_rent');
-
-            if ($minRent >= 0) {
-                $query->where('price', '>=', $minRent);
-            }
-        }
-
-        // Maximum rent
-        if ($request->filled('max_rent')) {
-            $maxRent = (float) $request->query('max_rent');
-
-            if ($maxRent >= 0) {
-                $query->where('price', '<=', $maxRent);
-            }
+        if ($minRent >= 0) {
+            $query->where('price', '>=', $minRent);
         }
     }
 
-    // Fetch filtered properties
-    $properties = $query
-        ->latest()
-        ->get();
+    // Maximum rent
+    if ($request->filled('max_rent')) {
+        $maxRent = (float) $request->query('max_rent');
 
-    // Same listing page for Rent and Sell
+        if ($maxRent >= 0) {
+            $query->where('price', '<=', $maxRent);
+        }
+    }
+
+    $properties = $query->latest()->get();
+
     return view('website.rent', compact('properties'));
 }
+
+
+public function sell(Request $request)
+{
+    $query = Property::with([
+        'images',
+        'user',
+        'propertyAmenities',
+        'cityRelation'
+    ])
+        ->where('status', 'approved')
+        ->whereRaw("LOWER(TRIM(listing_for)) = ?", ['sell']);
+
+    // Locality filter
+    if ($request->filled('locality')) {
+        $locality = trim($request->query('locality'));
+
+        $query->whereRaw(
+            'LOWER(TRIM(locality)) LIKE LOWER(?)',
+            ['%' . $locality . '%']
+        );
+    }
+
+    // Location filter
+    elseif ($request->filled('location')) {
+        $location = trim($request->query('location'));
+
+        $query->where(function ($q) use ($location) {
+            $q->where('locality', 'LIKE', '%' . $location . '%')
+                ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                    $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                });
+        });
+    }
+
+    // Property type filter
+    if ($request->filled('type')) {
+        $query->where('property_type', $request->query('type'));
+    }
+
+    // BHK filter
+    if ($request->filled('bhk')) {
+        $bhk = (int) $request->query('bhk');
+
+        if ($bhk >= 4) {
+            $query->whereRaw(
+                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
+                [4]
+            );
+        } elseif ($bhk > 0) {
+            $query->whereRaw(
+                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
+                [$bhk]
+            );
+        }
+    }
+
+    // Minimum sale price
+    if ($request->filled('min_price')) {
+        $minPrice = (float) $request->query('min_price');
+
+        if ($minPrice >= 0) {
+            $query->where('price', '>=', $minPrice);
+        }
+    }
+
+    // Maximum sale price
+    if ($request->filled('max_price')) {
+        $maxPrice = (float) $request->query('max_price');
+
+        if ($maxPrice >= 0) {
+            $query->where('price', '<=', $maxPrice);
+        }
+    }
+
+    $properties = $query->latest()->get();
+
+return view('website.rent', compact('properties'))
+    ->with('listingMode', 'rent');
+}
+
+
 
 
     public function login()
@@ -452,10 +492,10 @@ public function rent(Request $request)
 
 
 
-public function subscription()
-{
-    return view('website.subscription');
-}
+    public function subscription()
+    {
+        return view('website.subscription');
+    }
 
 
 

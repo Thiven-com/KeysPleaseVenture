@@ -1,6 +1,8 @@
 @extends('layouts.website')
 @section('content')
 
+
+
 <style>
     @media (max-width: 480px) {
     section {
@@ -3496,22 +3498,60 @@
                      * Rent range filter — read the values from the active
                      * dual sliders. The older sidebar slider is no longer used.
                      */
-                    const selectedMinRent = Number(
-                        document.getElementById("min_rent")?.value ?? RENT_MIN
-                    );
-                    const selectedMaxRent = Number(
-                        document.getElementById("max_rent")?.value ?? RENT_MAX
-                    );
+                    
+/* PRICE FILTER — RENT / SELL */
 
-                    // Treat missing/invalid card prices as zero only when the
-                    // attribute is genuinely empty; normal cards have data-price.
-                    if (
-                        !Number.isFinite(cardPrice) ||
-                        cardPrice < selectedMinRent ||
-                        cardPrice > selectedMaxRent
-                    ) {
-                        visible = false;
-                    }
+const urlParams = new URLSearchParams(window.location.search);
+
+const mode = window.location.pathname
+    .toLowerCase()
+    .replace(/\/+$/, '')
+    .endsWith('/sell')
+        ? 'sell'
+        : 'rent';
+
+if (mode === "sell") {
+
+    // Read Sell price range from the URL
+    const selectedMinPrice = Number(
+        urlParams.get("min_price") ?? 0
+    );
+
+    const selectedMaxPrice = Number(
+        urlParams.get("max_price") ?? Number.MAX_SAFE_INTEGER
+    );
+
+    // Apply Sell price filter
+    if (
+        !Number.isFinite(cardPrice) ||
+        cardPrice < selectedMinPrice ||
+        cardPrice > selectedMaxPrice
+    ) {
+        visible = false;
+    }
+
+} else {
+
+    // Read Rent price range from the existing sliders
+    const selectedMinRent = Number(
+        document.getElementById("min_rent")?.value ?? RENT_MIN
+    );
+
+    const selectedMaxRent = Number(
+        document.getElementById("max_rent")?.value ?? RENT_MAX
+    );
+
+    // Apply Rent price filter
+    if (
+        !Number.isFinite(cardPrice) ||
+        cardPrice < selectedMinRent ||
+        cardPrice > selectedMaxRent
+    ) {
+        visible = false;
+    }
+
+}
+
 
 
                     card.dataset.filteredVisible =
