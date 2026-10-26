@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,40 +6,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rental Properties in Bangalore | Keys Please Venture</title>
+    <title>Login | Keys Please Venture</title>
 
     <meta name="description"
-        content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with Keys Please Venture.">
-
-    <meta name="keywords"
-        content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, Keys Please Venture">
+        content="Login to Keys Please Venture to continue your search for rental properties in Bangalore.">
 
     <meta name="author" content="Keys Please Venture">
-
-    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="robots" content="noindex, nofollow">
 
     <link rel="canonical" href="{{ url()->current() }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('website/css/login.css') }}">
 
-    
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/venlogo.png') }}">
+    <!-- Favicon -->
+    <link rel="shortcut icon"
+        type="image/x-icon"
+        href="{{ asset('website/images/venlogo.png') }}">
 </head>
 
 <body>
 
     <!-- =====================================================
-         LOGIN / REGISTER OVERLAY
+         LOGIN OVERLAY
     ====================================================== -->
 
-    <div class="login-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Login and registration">
+    <div class="login-overlay"
+        id="loginOverlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Login">
 
         <div class="login-modal">
 
@@ -61,7 +66,6 @@
 
                 </div>
 
-
                 <!-- Buildings -->
 
                 <div class="buildings">
@@ -75,7 +79,6 @@
                 </div>
 
                 <div class="city-ground"></div>
-
 
                 <!-- Features -->
 
@@ -93,7 +96,6 @@
 
                     </div>
 
-
                     <div class="feature">
 
                         <span class="feature-icon">
@@ -101,11 +103,10 @@
                         </span>
 
                         <span>
-                            Trusted Brokers
+                            Trusted Owners
                         </span>
 
                     </div>
-
 
                     <div class="feature">
 
@@ -132,8 +133,12 @@
 
                 <!-- Back to Home -->
 
-                <a href="{{ route('home') }}" class="close" aria-label="Back to Home">
+                <a href="{{ route('home') }}"
+                    class="close"
+                    aria-label="Back to Home">
+
                     &times;
+
                 </a>
 
 
@@ -146,18 +151,23 @@
                 </p>
 
 
-                <!-- Login Method Tabs -->
+                <!-- =================================================
+                     LOGIN METHOD TABS
+                ================================================== -->
 
                 <div class="login-method-tabs">
 
-                    <button type="button" class="login-method active" id="mobileLoginTab">
+                    <button type="button"
+                        class="login-method active"
+                        id="mobileLoginTab">
 
                         Login with Mobile
 
                     </button>
 
-
-                    <button type="button" class="login-method" id="emailLoginTab">
+                    <button type="button"
+                        class="login-method"
+                        id="emailLoginTab">
 
                         Login with Email
 
@@ -170,7 +180,8 @@
                      MOBILE LOGIN
                 ================================================== -->
 
-                <div id="mobileLoginForm" class="login-method-form active">
+                <div id="mobileLoginForm"
+                    class="login-method-form active">
 
                     <div class="form-group">
 
@@ -180,7 +191,8 @@
 
                         <div class="mobile-row">
 
-                            <select id="loginCountryCode" name="country_code">
+                            <select id="loginCountryCode"
+                                name="country_code">
 
                                 <option value="+91">
                                     +91
@@ -200,9 +212,13 @@
 
                             </select>
 
-
-                            <input type="tel" id="loginMobile" name="mobile" placeholder="Enter mobile number"
-                                maxlength="10" inputmode="numeric" autocomplete="tel">
+                            <input type="tel"
+                                id="loginMobile"
+                                name="mobile"
+                                placeholder="Enter mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                autocomplete="tel">
 
                         </div>
 
@@ -215,7 +231,8 @@
                      EMAIL LOGIN
                 ================================================== -->
 
-                <div id="emailLoginForm" class="login-method-form">
+                <div id="emailLoginForm"
+                    class="login-method-form">
 
                     <div class="form-group">
 
@@ -223,7 +240,10 @@
                             Email Address
                         </label>
 
-                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email address"
+                        <input type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="Enter your email address"
                             autocomplete="email">
 
                     </div>
@@ -243,11 +263,19 @@
 
                     <div class="password-wrap">
 
-                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password"
+                        <input type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Enter your password"
                             autocomplete="current-password">
 
-                        <button type="button" class="eye" id="loginPasswordEye" aria-label="Show password">
+                        <button type="button"
+                            class="eye"
+                            id="loginPasswordEye"
+                            aria-label="Show password">
+
                             <i class="fa-solid fa-eye"></i>
+
                         </button>
 
                     </div>
@@ -255,261 +283,61 @@
                 </div>
 
 
-                <!-- Login Button -->
+                <!-- Forgot Password -->
 
-                <button type="button" class="login-submit" id="loginSubmit">
+                <div class="forgot-password">
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- =================================================
+                     LOGIN BUTTON
+                ================================================== -->
+
+                <button type="button"
+                    class="login-submit"
+                    id="loginSubmit">
 
                     Login
 
                 </button>
 
 
-                <!-- Social Login -->
+                <!-- =================================================
+                     SOCIAL LOGIN
+                ================================================== -->
 
                 <div class="continue">
                     or continue with
                 </div>
 
-
                 <div class="socials">
 
-                    <button type="button" class="social google" aria-label="Login with Google">
+                    <button type="button"
+                        class="social google"
+                        aria-label="Login with Google">
+
                         <i class="fa-brands fa-google"></i>
+
                     </button>
 
-                    <button type="button" class="social facebook" aria-label="Login with Facebook">
+                    <button type="button"
+                        class="social facebook"
+                        aria-label="Login with Facebook">
+
                         <i class="fa-brands fa-facebook-f"></i>
+
                     </button>
 
-                    <button type="button" class="social apple" aria-label="Login with Apple">
+                    <button type="button"
+                        class="social apple"
+                        aria-label="Login with Apple">
+
                         <i class="fa-brands fa-apple"></i>
-                    </button>
-
-                </div>
-
-
-                <!-- Register -->
-
-                <div class="register">
-
-                    Don't have an account?
-
-                    <button type="button" id="showRegister">
-
-                        Register Now
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 REGISTER PANEL
-            ================================================== -->
-
-            <section class="register-panel">
-
-                <!-- Back to Home -->
-
-                <a href="{{ route('home') }}" class="close register-close" aria-label="Back to Home">
-
-                    &times;
-
-                </a>
-
-
-                <h2 class="form-title">
-                    Create your account
-                </h2>
-
-                <p class="form-description">
-                    Register with Keys Please Venture
-                </p>
-
-
-                <!-- Register Type -->
-
-                <div class="register-tabs">
-
-                    <button type="button" class="register-tab active" data-register-type="tenant">
-
-                        Tenant
-
-                    </button>
-
-
-                    <button type="button" class="register-tab" data-register-type="owner">
-
-                        Owner / Broker
-
-                    </button>
-
-                </div>
-
-
-                <!-- Register Form -->
-
-                <form class="register-form" id="registerForm">
-
-
-                    <!-- Full Name -->
-
-                    <div class="form-group">
-
-                        <label for="registerName">
-                            Full Name
-                        </label>
-
-                        <input id="registerName" name="name" type="text" placeholder="Enter your full name"
-                            autocomplete="name" required>
-
-                    </div>
-
-
-                    <!-- Email -->
-
-                    <div class="form-group">
-
-                        <label for="registerEmail">
-                            Email Address
-                        </label>
-
-                        <input id="registerEmail" name="email" type="email" placeholder="Enter your email address"
-                            autocomplete="email" required>
-
-                    </div>
-
-
-                    <!-- Mobile -->
-
-                    <div class="form-group">
-
-                        <label for="registerMobile">
-                            Mobile Number
-                        </label>
-
-                        <div class="mobile-row">
-
-                            <select class="country" name="country_code">
-
-                                <option value="+91">
-                                    +91
-                                </option>
-
-                                <option value="+1">
-                                    +1
-                                </option>
-
-                                <option value="+44">
-                                    +44
-                                </option>
-
-                                <option value="+61">
-                                    +61
-                                </option>
-
-                            </select>
-
-
-                            <input id="registerMobile" name="mobile" type="tel" inputmode="numeric" maxlength="10"
-                                placeholder="Enter mobile number" autocomplete="tel" required>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Password -->
-
-                    <div class="form-group">
-
-                        <label for="registerPassword">
-                            Password
-                        </label>
-
-                        <div class="password-wrap">
-
-                            <input id="registerPassword" name="password" type="password" placeholder="Create a password"
-                                autocomplete="new-password" required>
-
-                            <button class="eye" type="button" aria-label="Show password">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Confirm Password -->
-
-                    <div class="form-group">
-
-                        <label for="confirmPassword">
-                            Confirm Password
-                        </label>
-
-                        <div class="password-wrap">
-
-                            <input id="confirmPassword" name="password_confirmation" type="password"
-                                placeholder="Confirm your password" autocomplete="new-password" required>
-
-                            <button class="eye" type="button" aria-label="Show password">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Terms -->
-
-                    <label class="terms">
-
-                        <input type="checkbox" name="terms" required>
-
-                        <span>
-
-                            I agree to the
-
-                            <a href="#">
-                                Terms &amp; Conditions
-                            </a>
-
-                            and
-
-                            <a href="#">
-                                Privacy Policy
-                            </a>
-
-                        </span>
-
-                    </label>
-
-
-                    <!-- Register Button -->
-
-                    <button class="register-submit" type="submit">
-
-                        Create Account
-
-                    </button>
-
-                </form>
-
-
-                <!-- Login -->
-
-                <div class="already-account">
-
-                    Already have an account?
-
-                    <button type="button" id="showLogin">
-
-                        Login Now
 
                     </button>
 
@@ -522,59 +350,57 @@
     </div>
 
 
-    <!-- Toast -->
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
 
-    <div class="toast" id="toast" aria-live="polite">
+    <div class="toast"
+        id="toast"
+        aria-live="polite">
+
     </div>
 
 
     <!-- =====================================================
-         LOGIN / REGISTER SCRIPT
+         LOGIN SCRIPT
     ====================================================== -->
 
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
 
-            /* =================================================
-               ELEMENTS
-            ================================================= */
+            /*
+            ==================================================
+            ELEMENTS
+            ==================================================
+            */
 
-            const overlay =
-                document.getElementById('loginOverlay');
+            const overlay = document.getElementById('loginOverlay');
 
-            const modal =
-                document.querySelector('.login-modal');
+            const modal = document.querySelector('.login-modal');
 
-            const formPanel =
-                document.querySelector('.form-panel');
+            const mobileTab = document.getElementById('mobileLoginTab');
 
-            const registerPanel =
-                document.querySelector('.register-panel');
+            const emailTab = document.getElementById('emailLoginTab');
 
-            const showRegister =
-                document.getElementById('showRegister');
+            const mobileForm = document.getElementById('mobileLoginForm');
 
-            const showLogin =
-                document.getElementById('showLogin');
+            const emailForm = document.getElementById('emailLoginForm');
+
+            const loginMobile = document.getElementById('loginMobile');
+
+            const loginEmail = document.getElementById('loginEmail');
+
+            const loginPassword = document.getElementById('loginPassword');
+
+            const loginSubmit = document.getElementById('loginSubmit');
 
 
-            /* =================================================
-               LOGIN TABS
-            ================================================= */
-
-            const mobileTab =
-                document.getElementById('mobileLoginTab');
-
-            const emailTab =
-                document.getElementById('emailLoginTab');
-
-            const mobileForm =
-                document.getElementById('mobileLoginForm');
-
-            const emailForm =
-                document.getElementById('emailLoginForm');
-
+            /*
+            ==================================================
+            LOGIN METHOD TABS
+            ==================================================
+            */
 
             function setLoginMethod(type) {
 
@@ -590,450 +416,167 @@
                 if (type === 'email') {
 
                     emailTab.classList.add('active');
+
                     mobileTab.classList.remove('active');
 
                     emailForm.classList.add('active');
+
                     mobileForm.classList.remove('active');
 
-                    document.getElementById(
-                        'loginEmail'
-                    ).required = true;
+                    loginEmail.required = true;
 
-                    document.getElementById(
-                        'loginMobile'
-                    ).required = false;
+                    loginMobile.required = false;
 
                 } else {
 
                     mobileTab.classList.add('active');
+
                     emailTab.classList.remove('active');
 
                     mobileForm.classList.add('active');
+
                     emailForm.classList.remove('active');
 
-                    document.getElementById(
-                        'loginMobile'
-                    ).required = true;
+                    loginMobile.required = true;
 
-                    document.getElementById(
-                        'loginEmail'
-                    ).required = false;
+                    loginEmail.required = false;
 
                 }
 
             }
 
 
+            /*
+            ==================================================
+            MOBILE LOGIN TAB
+            ==================================================
+            */
+
             if (mobileTab) {
-                mobileTab.addEventListener(
-                    'click',
-                    function () {
-                        setLoginMethod('mobile');
-                    }
-                );
+
+                mobileTab.addEventListener('click', function () {
+
+                    setLoginMethod('mobile');
+
+                });
+
             }
 
+
+            /*
+            ==================================================
+            EMAIL LOGIN TAB
+            ==================================================
+            */
 
             if (emailTab) {
-                emailTab.addEventListener(
-                    'click',
-                    function () {
-                        setLoginMethod('email');
-                    }
-                );
+
+                emailTab.addEventListener('click', function () {
+
+                    setLoginMethod('email');
+
+                });
+
             }
 
 
-            /* =================================================
-               SHOW REGISTER
-            ================================================= */
+            /*
+            ==================================================
+            PASSWORD SHOW / HIDE
+            ==================================================
+            */
 
-            if (showRegister) {
-                showRegister.addEventListener(
-                    'click',
-                    function () {
+            document.querySelectorAll('.eye').forEach(function (button) {
 
-                        if (!modal) return;
+                button.addEventListener('click', function () {
 
-                        modal.classList.add('register-active');
+                    const input = this
+                        .closest('.password-wrap')
+                        .querySelector('input');
 
-                        if (registerPanel) {
-                            registerPanel.scrollTop = 0;
-                        }
-
-                        const firstField =
-                            document.getElementById('registerName');
-
-                        if (firstField) {
-                            setTimeout(function () {
-                                firstField.focus({ preventScroll: true });
-                            }, 180);
-                        }
+                    if (!input) {
+                        return;
                     }
-                );
-            }
 
+                    const icon = this.querySelector('i');
 
-            /* =================================================
-               SHOW LOGIN
-            ================================================= */
+                    if (input.type === 'password') {
 
-            if (showLogin) {
-                showLogin.addEventListener(
-                    'click',
-                    function () {
+                        input.type = 'text';
 
-                        if (!modal) return;
-
-                        modal.classList.remove('register-active');
-
-                        setLoginMethod('mobile');
-
-                        const mobileField =
-                            document.getElementById('loginMobile');
-
-                        if (mobileField) {
-                            setTimeout(function () {
-                                mobileField.focus({ preventScroll: true });
-                            }, 180);
-                        }
-                    }
-                );
-            }
-
-
-            /* =================================================
-               REGISTER TYPE
-            ================================================= */
-
-            const registerTabs =
-                document.querySelectorAll(
-                    '.register-tab'
-                );
-
-
-            registerTabs.forEach(function (tab) {
-
-                tab.addEventListener(
-                    'click',
-                    function () {
-
-                        registerTabs.forEach(
-                            function (item) {
-
-                                item.classList.remove(
-                                    'active'
-                                );
-
-                            }
+                        this.setAttribute(
+                            'aria-label',
+                            'Hide password'
                         );
 
-                        this.classList.add(
-                            'active'
+                        if (icon) {
+
+                            icon.classList.remove('fa-eye');
+
+                            icon.classList.add('fa-eye-slash');
+
+                        }
+
+                    } else {
+
+                        input.type = 'password';
+
+                        this.setAttribute(
+                            'aria-label',
+                            'Show password'
                         );
 
+                        if (icon) {
+
+                            icon.classList.remove('fa-eye-slash');
+
+                            icon.classList.add('fa-eye');
+
+                        }
+
                     }
-                );
+
+                });
 
             });
 
 
-            /* =================================================
-               PASSWORD SHOW / HIDE
-            ================================================= */
-
-            document
-                .querySelectorAll('.eye')
-                .forEach(function (button) {
-
-                    button.addEventListener(
-                        'click',
-                        function () {
-
-                            const input =
-                                this
-                                    .closest(
-                                        '.password-wrap'
-                                    )
-                                    .querySelector(
-                                        'input'
-                                    );
-
-                            if (!input) {
-                                return;
-                            }
-
-
-                            const icon = this.querySelector('i');
-
-                            if (input.type === 'password') {
-
-                                input.type = 'text';
-
-                                this.setAttribute(
-                                    'aria-label',
-                                    'Hide password'
-                                );
-
-                                if (icon) {
-                                    icon.classList.remove('fa-eye');
-                                    icon.classList.add('fa-eye-slash');
-                                }
-
-                            } else {
-
-                                input.type = 'password';
-
-                                this.setAttribute(
-                                    'aria-label',
-                                    'Show password'
-                                );
-
-                                if (icon) {
-                                    icon.classList.remove('fa-eye-slash');
-                                    icon.classList.add('fa-eye');
-                                }
-                            }
-
-                        }
-                    );
-
-                });
-
-
-            /* =================================================
-               MOBILE NUMBER VALIDATION
-            ================================================= */
-
-            const loginMobile =
-                document.getElementById(
-                    'loginMobile'
-                );
-
-            const registerMobile =
-                document.getElementById(
-                    'registerMobile'
-                );
-
+            /*
+            ==================================================
+            MOBILE NUMBER VALIDATION
+            ==================================================
+            */
 
             if (loginMobile) {
 
-                loginMobile.addEventListener(
-                    'input',
-                    function () {
+                loginMobile.addEventListener('input', function () {
 
-                        this.value =
-                            this.value
-                                .replace(/\D/g, '')
-                                .slice(0, 10);
+                    this.value = this.value
+                        .replace(/\D/g, '')
+                        .slice(0, 10);
 
-                    }
-                );
+                });
 
             }
 
 
-            if (registerMobile) {
-
-                registerMobile.addEventListener(
-                    'input',
-                    function () {
-
-                        this.value =
-                            this.value
-                                .replace(/\D/g, '')
-                                .slice(0, 10);
-
-                    }
-                );
-
-            }
-
-
-            /* =================================================
-               LOGIN
-            ================================================= */
-
-            const loginSubmit =
-                document.getElementById(
-                    'loginSubmit'
-                );
-
+            /*
+            ==================================================
+            LOGIN
+            ==================================================
+            */
 
             if (loginSubmit) {
-                loginSubmit.addEventListener(
-                    'click',
-                    function () {
 
-                        const password =
-                            document.getElementById(
-                                'loginPassword'
-                            );
+                loginSubmit.addEventListener('click', function () {
 
+                    /*
+                    EMAIL LOGIN
+                    */
 
-                        /* Email Login */
+                    if (emailForm.classList.contains('active')) {
 
-                        if (
-                            emailForm.classList.contains(
-                                'active'
-                            )
-                        ) {
-
-                            const email =
-                                document.getElementById(
-                                    'loginEmail'
-                                );
-
-
-                            if (
-                                !email.value.trim()
-                            ) {
-
-                                showMessage(
-                                    'Please enter your email address.'
-                                );
-
-                                email.focus();
-
-                                return;
-
-                            }
-
-
-                            const emailPattern =
-                                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-                            if (
-                                !emailPattern.test(
-                                    email.value.trim()
-                                )
-                            ) {
-
-                                showMessage(
-                                    'Please enter a valid email address.'
-                                );
-
-                                email.focus();
-
-                                return;
-
-                            }
-
-                        }
-
-
-                        /* Mobile Login */
-
-                        else {
-
-                            const mobile =
-                                document.getElementById(
-                                    'loginMobile'
-                                );
-
-
-                            if (
-                                !/^[0-9]{10}$/.test(
-                                    mobile.value.trim()
-                                )
-                            ) {
-
-                                showMessage(
-                                    'Please enter a valid 10-digit mobile number.'
-                                );
-
-                                mobile.focus();
-
-                                return;
-
-                            }
-
-                        }
-
-
-                        /* Password */
-
-                        if (
-                            !password.value
-                        ) {
-
-                            showMessage(
-                                'Please enter your password.'
-                            );
-
-                            password.focus();
-
-                            return;
-
-                        }
-
-
-                        showMessage(
-                            'Login details validated successfully.'
-                        );
-
-                    }
-                );
-            }
-
-
-            /* =================================================
-               REGISTER
-            ================================================= */
-
-            const registerForm =
-                document.getElementById(
-                    'registerForm'
-                );
-
-
-            if (registerForm) {
-                registerForm.addEventListener(
-                    'submit',
-                    function (event) {
-
-                        event.preventDefault();
-
-
-                        const name =
-                            document.getElementById(
-                                'registerName'
-                            );
-
-                        const email =
-                            document.getElementById(
-                                'registerEmail'
-                            );
-
-                        const mobile =
-                            document.getElementById(
-                                'registerMobile'
-                            );
-
-                        const password =
-                            document.getElementById(
-                                'registerPassword'
-                            );
-
-                        const confirmPassword =
-                            document.getElementById(
-                                'confirmPassword'
-                            );
-
-
-                        if (!name.value.trim()) {
-
-                            showMessage(
-                                'Please enter your full name.'
-                            );
-
-                            name.focus();
-
-                            return;
-
-                        }
-
+                        const email = loginEmail;
 
                         if (!email.value.trim()) {
 
@@ -1047,12 +590,13 @@
 
                         }
 
+                        const emailPattern =
+                            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                         if (
-                            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                                .test(
-                                    email.value.trim()
-                                )
+                            !emailPattern.test(
+                                email.value.trim()
+                            )
                         ) {
 
                             showMessage(
@@ -1065,6 +609,16 @@
 
                         }
 
+                    }
+
+
+                    /*
+                    MOBILE LOGIN
+                    */
+
+                    else {
+
+                        const mobile = loginMobile;
 
                         if (
                             !/^[0-9]{10}$/.test(
@@ -1082,134 +636,153 @@
 
                         }
 
-
-                        if (
-                            password.value.length < 6
-                        ) {
-
-                            showMessage(
-                                'Password must be at least 6 characters.'
-                            );
-
-                            password.focus();
-
-                            return;
-
-                        }
+                    }
 
 
-                        if (
-                            password.value !==
-                            confirmPassword.value
-                        ) {
+                    /*
+                    PASSWORD VALIDATION
+                    */
 
-                            showMessage(
-                                'Passwords do not match.'
-                            );
-
-                            confirmPassword.focus();
-
-                            return;
-
-                        }
-
+                    if (!loginPassword.value) {
 
                         showMessage(
-                            'Registration submitted successfully.'
+                            'Please enter your password.'
                         );
 
+                        loginPassword.focus();
+
+                        return;
+
                     }
-                );
+
+
+                    /*
+                    FRONTEND VALIDATION ONLY
+                    */
+
+                    showMessage(
+                        'Login details validated successfully.'
+                    );
+
+                    /*
+                    IMPORTANT:
+                    This does not authenticate the user.
+
+                    Connect this button to your Laravel login
+                    route/controller to verify credentials.
+                    */
+
+                });
+
             }
 
 
-            /* =================================================
-               TOAST MESSAGE
-            ================================================= */
+            /*
+            ==================================================
+            TOAST MESSAGE
+            ==================================================
+            */
 
             function showMessage(message) {
 
-                const toast =
-                    document.getElementById(
-                        'toast'
-                    );
+                const toast = document.getElementById('toast');
 
-                if (!toast) return;
+                if (!toast) {
+                    return;
+                }
 
-                toast.textContent =
-                    message;
+                toast.textContent = message;
 
-                toast.classList.add(
-                    'show'
-                );
+                toast.classList.add('show');
 
+                clearTimeout(window.toastTimer);
 
-                clearTimeout(
-                    window.toastTimer
-                );
+                window.toastTimer = setTimeout(function () {
 
+                    toast.classList.remove('show');
 
-                window.toastTimer =
-                    setTimeout(
-                        function () {
-
-                            toast.classList.remove(
-                                'show'
-                            );
-
-                        },
-                        2500
-                    );
+                }, 2500);
 
             }
 
 
-            /* =================================================
-               MODAL SCROLL / BODY LOCK
-            ================================================= */
+            /*
+            ==================================================
+            MODAL SCROLL / BODY LOCK
+            ==================================================
+            */
 
             function setBodyLock(locked) {
+
                 document.documentElement.classList.toggle(
                     'login-modal-open',
                     locked
                 );
+
                 document.body.classList.toggle(
                     'login-modal-open',
                     locked
                 );
+
             }
+
+
+            /*
+            ==================================================
+            INITIAL LOGIN METHOD
+            ==================================================
+            */
+
+            setLoginMethod('mobile');
+
+
+            /*
+            ==================================================
+            BODY LOCK
+            ==================================================
+            */
 
             setBodyLock(true);
 
+
+            /*
+            ==================================================
+            OVERLAY CLICK
+            ==================================================
+            */
+
             if (overlay) {
+
                 overlay.addEventListener('click', function (event) {
+
                     if (event.target === overlay) {
+
                         window.location.href =
                             "{{ route('home') }}";
+
                     }
+
                 });
+
             }
 
-            /* =================================================
-               ESCAPE KEY
-            ================================================= */
 
-            document.addEventListener(
-                'keydown',
-                function (event) {
+            /*
+            ==================================================
+            ESCAPE KEY
+            ==================================================
+            */
 
-                    if (
-                        event.key === 'Escape'
-                    ) {
+            document.addEventListener('keydown', function (event) {
 
-                        if (modal) {
-                            modal.classList.remove('register-active');
-                        }
+                if (event.key === 'Escape') {
 
-                    }
+                    window.location.href =
+                        "{{ route('home') }}";
 
                 }
-            );
+
+            });
 
         });
 

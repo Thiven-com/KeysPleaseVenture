@@ -187,131 +187,111 @@ class PageController extends Controller
     }
 
 
-    public function rent(Request $request)
-    {
-        $query = Property::with([
-            'images',
-            'user',
-            'propertyAmenities',
-            'cityRelation'
-        ])
-            ->where('status', 'approved')
-            ->whereIn('listing_for', [
-                'Rent',
-                'PG',
-                'Sell',
-                'Lease'
-            ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Locality Filter
-        |--------------------------------------------------------------------------
-        | Supports URLs such as:
-        | /rent?locality=Marathahalli
-        */
+public function rent(Request $request)
+{
+    // Selected mode: rent or sell
+    $mode = $request->query('mode', 'rent');
 
-        if ($request->filled('locality')) {
-            $locality = trim($request->query('locality'));
+    // Allow only rent or sell
+    if (!in_array($mode, ['rent', 'sell'])) {
+        $mode = 'rent';
+    }
 
-            $query->whereRaw(
-                'LOWER(TRIM(locality)) = LOWER(?)',
-                [$locality]
-            );
+    // Base property query
+    $query = Property::with([
+        'images',
+        'user',
+        'propertyAmenities',
+        'cityRelation'
+    ])
+    ->where('status', 'approved');
+
+    // Rent / Sell filter
+    if ($mode === 'sell') {
+        $query->where('listing_for', 'Sell');
+    } else {
+        $query->whereIn('listing_for', [
+            'Rent',
+            'PG',
+            'Lease'
+        ]);
+    }
+
+    // Locality filter
+    if ($request->filled('locality')) {
+        $locality = trim($request->query('locality'));
+
+        $query->whereRaw(
+            'LOWER(TRIM(locality)) LIKE LOWER(?)',
+            ['%' . $locality . '%']
+        );
+    }
+
+    // Location filter
+    elseif ($request->filled('location')) {
+        $location = trim($request->query('location'));
+
+        $query->where(function ($q) use ($location) {
+            $q->where('locality', 'LIKE', '%' . $location . '%')
+              ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                  $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+              });
+        });
+    }
+
+    // Property type filter
+    if ($request->filled('type')) {
+        $query->where(
+            'property_type',
+            $request->query('type')
+        );
+    }
+
+    // BHK filter
+    if ($request->filled('bhk')) {
+        $bhk = (int) $request->query('bhk');
+
+        if ($bhk >= 4) {
+            $query->where('bhk', '>=', 4);
+        } elseif ($bhk > 0) {
+            $query->where('bhk', $bhk);
         }
+    }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Location Search Filter
-        |--------------------------------------------------------------------------
-        | Supports searching by locality, city, or "Locality, City".
-        */ 
+    // Price filters
+    if ($mode === 'sell') {
 
+        // Minimum sale price
+        if ($request->filled('min_price')) {
+            $minPrice = (float) $request->query('min_price');
 
-          if ($request->filled('locality')) {
-            $locality = trim($request->query('locality'));
-
-            $query->whereRaw(
-                'LOWER(TRIM(locality)) LIKE LOWER(?)',
-                ['%' . $locality . '%']
-            );
-
-        } elseif ($request->filled('location')) {
-            $location = trim($request->query('location'));
-
-            $query->where(function ($q) use ($location) {
-                $q->where('locality', 'LIKE', '%' . $location . '%')
-                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                    });
-            });
-        }
-        
-        // elseif ($request->filled('location')) {
-        //     $location = trim($request->query('location'));
-
-        //     if (str_contains($location, ',')) {
-        //         [$locality, $city] = array_map(
-        //             'trim',
-        //             explode(',', $location, 2)
-        //         );
-
-        //         $query->where(function ($q) use ($locality, $city, $location) {
-
-        //             $q->where(function ($subQuery) use ($locality, $city) {
-        //                 $subQuery
-        //                     ->where('locality', 'LIKE', '%' . $locality . '%')
-        //                     ->whereHas('cityRelation', function ($cityQuery) use ($city) {
-        //                         $cityQuery->where('name', 'LIKE', '%' . $city . '%');
-        //                     });
-        //             })
-        //                 ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-        //                     $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-        //                 });
-
-        //         });
-        //     } else {
-        //         $query->where(function ($q) use ($location) {
-        //             $q->where('locality', 'LIKE', '%' . $location . '%')
-        //                 ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-        //                     $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-        //                 });
-        //         });
-        //     }
-        // }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Property Type Filter
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->filled('type')) {
-            $query->where('property_type', $request->query('type'));
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | BHK Filter
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->filled('bhk')) {
-            $bhk = (int) $request->query('bhk');
-
-            if ($bhk >= 4) {
-                $query->where('bhk', '>=', 4);
-            } elseif ($bhk > 0) {
-                $query->where('bhk', $bhk);
+            if ($minPrice >= 0) {
+                $query->where('price', '>=', $minPrice);
             }
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Maximum Rent Filter
-        |--------------------------------------------------------------------------
-        */
+        // Maximum sale price
+        if ($request->filled('max_price')) {
+            $maxPrice = (float) $request->query('max_price');
 
+            if ($maxPrice >= 0) {
+                $query->where('price', '<=', $maxPrice);
+            }
+        }
+
+    } else {
+
+        // Minimum rent
+        if ($request->filled('min_rent')) {
+            $minRent = (float) $request->query('min_rent');
+
+            if ($minRent >= 0) {
+                $query->where('price', '>=', $minRent);
+            }
+        }
+
+        // Maximum rent
         if ($request->filled('max_rent')) {
             $maxRent = (float) $request->query('max_rent');
 
@@ -319,19 +299,17 @@ class PageController extends Controller
                 $query->where('price', '<=', $maxRent);
             }
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Fetch Filtered Properties
-        |--------------------------------------------------------------------------
-        */
-
-        $properties = $query
-            ->latest()
-            ->get();
-
-        return view('website.rent', compact('properties'));
     }
+
+    // Fetch filtered properties
+    $properties = $query
+        ->latest()
+        ->get();
+
+    // Same listing page for Rent and Sell
+    return view('website.rent', compact('properties'));
+}
+
 
     public function login()
     {
@@ -473,6 +451,11 @@ class PageController extends Controller
 
 
 
+
+public function subscription()
+{
+    return view('website.subscription');
+}
 
 
 

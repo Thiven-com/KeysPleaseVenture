@@ -10,6 +10,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\User\AuthController as CustomerAuthController;
+
 
 Route::get('/', [PageController::class, 'home'])
     ->name('home');
@@ -19,6 +21,11 @@ Route::get('about', [PageController::class, 'about'])
 
 Route::get('contact', [PageController::class, 'contact'])
     ->name('contact');
+
+    
+Route::get('subscription', [PageController::class, 'subscription'])
+    ->name('subscription.index');
+
 
 Route::get('rent', [PageController::class, 'rent'])
     ->name('rent');
@@ -30,6 +37,28 @@ Route::get('propertydetails/{slug}', [PageController::class, 'propertydetails'])
 
 Route::get('login', [PageController::class, 'login'])
     ->name('login');
+
+    // ========================================
+// USER LOGIN
+// ========================================
+
+
+ // ========================================
+ // CUSTOMER LOGIN
+ // ========================================
+
+Route::post('/login', [CustomerAuthController::class, 'login'])
+    ->name('login.submit');
+
+
+// ========================================
+// CUSTOMER LOGOUT
+// ========================================
+
+Route::post('/logout', [CustomerAuthController::class, 'logout'])
+    ->middleware('auth:customer')
+    ->name('customer.logout');
+
 
 
     

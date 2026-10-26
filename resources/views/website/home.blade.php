@@ -2,8 +2,8 @@
 @section('content')
     <style>
         /* =========================================================
-                                                                                                                                                       INFINITE LOCALITY CAROUSEL
-                                                                                                                                                    ========================================================= */
+                                                                                                                                                                                       INFINITE LOCALITY CAROUSEL
+                                                                                                                                                                                    ========================================================= */
 
         .locality-carousel {
             position: relative;
@@ -30,8 +30,8 @@
 
 
         /* =========================================================
-                                                                                                                                                       ARROWS
-                                                                                                                                                    ========================================================= */
+                                                                                                                                                                                       ARROWS
+                                                                                                                                                                                    ========================================================= */
 
         .locality-controls {
             display: flex;
@@ -77,8 +77,8 @@
 
 
         /* =========================================================
-                                                                                                                                                       TABLET
-                                                                                                                                                    ========================================================= */
+                                                                                                                                                                                       TABLET
+                                                                                                                                                                                    ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -95,8 +95,8 @@
 
 
         /* =========================================================
-                                                                                                                                                       MOBILE
-                                                                                                                                                    ========================================================= */
+                                                                                                                                                                                       MOBILE
+                                                                                                                                                                                    ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -150,55 +150,71 @@
             <div class="rpf-search-card">
 
                 <!-- <div class="rpf-tabs">
-                                                                                                                            <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
-                                                                                                                                <i class="fa-solid fa-house"></i> Rent
-                                                                                                                            </button>
+                                                                                                                                                            <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                                                                                                                                                                <i class="fa-solid fa-house"></i> Rent
+                                                                                                                                                            </button>
 
-                                                                                                                            <button class="rpf-tab" type="button" data-mode="locality">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i> By Locality
-                                                                                                                            </button>
-                                                                                                                        </div> -->
+                                                                                                                                                            <button class="rpf-tab" type="button" data-mode="locality">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i> By Locality
+                                                                                                                                                            </button>
+                                                                                                                                                        </div> -->
+
+                <!-- <div class="rpf-tabs">
+                                            <button class="rpf-tab rpf-tab-active" type="button">
+                                                <i class="fa-solid fa-house"></i>
+                                                Rent
+                                                <span class="rpf-tab-divider">|</span>
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                By Locality
+                                            </button>
+                                        </div> -->
+
 
                 <div class="rpf-tabs">
-                    <button class="rpf-tab rpf-tab-active" type="button">
+                    <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent" onclick="rpfSetMode('rent')">
+
                         <i class="fa-solid fa-house"></i>
                         Rent
-                        <span class="rpf-tab-divider">|</span>
-                        <i class="fa-solid fa-location-dot"></i>
-                        By Locality
+                    </button>
+
+                    <button class="rpf-tab" type="button" data-mode="sell" onclick="rpfSetMode('sell')">
+
+                        <i class="fa-solid fa-tag"></i>
+                        Sell
                     </button>
                 </div>
+
 
                 <div class="rpf-form-grid">
 
                     <!-- Location -->
                     <!-- <div class="rpf-field">
-                            <label for="rpfLocation">Location</label>
+                                                            <label for="rpfLocation">Location</label>
 
-                            <div class="rpf-control" id="rpfLocationControl">
-                                <i class="fa-solid fa-location-dot"></i>
+                                                            <div class="rpf-control" id="rpfLocationControl">
+                                                                <i class="fa-solid fa-location-dot"></i>
 
-                                <input type="text" id="rpfLocation" name="rpfLocation"
-                                    placeholder="Search Locality, Area or Landmark" autocomplete="off">
+                                                                <input type="text" id="rpfLocation" name="rpfLocation"
+                                                                    placeholder="Search Locality, Area or Landmark" autocomplete="off">
 
-                                <span class="rpf-control-icon rpf-clear-icon" id="rpfLocationClear" style="display:none;">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </span>
+                                                                <span class="rpf-control-icon rpf-clear-icon" id="rpfLocationClear" style="display:none;">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </span>
 
-                                <div class="rpf-dropdown" id="rpfLocationDropdown">
+                                                                <div class="rpf-dropdown" id="rpfLocationDropdown">
 
-                                    @foreach($searchLocations as $location)
+                                                                    @foreach($searchLocations as $location)
 
-                                        <button type="button" data-value="{{ $location }}">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            {{ $location }}
-                                        </button>
+                                                                        <button type="button" data-value="{{ $location }}">
+                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                            {{ $location }}
+                                                                        </button>
 
-                                    @endforeach
+                                                                    @endforeach
 
-                                </div>
-                            </div>
-                        </div> -->
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
 
 
                     <div class="rpf-field">
@@ -277,55 +293,99 @@
                     </div>
 
                     <!-- Rent Range -->
-                    <!-- <div class="rpf-field">
-                                                <label for="rpfRentRange">Rent Range</label>
 
-                                                <div class="rpf-control" id="rpfRentRangeControl" data-target="rpfRentRangeDropdown">
-                                                    <span class="rpf-control-value" id="rpfRentRangeValue">Any Range</span>
-                                                    <span class="rpf-control-icon">
-                                                        <i class="fa-solid fa-chevron-down"></i>
-                                                    </span>
-
-                                                    <div class="rpf-dropdown" id="rpfRentRangeDropdown">
-
-                                                        <button type="button" data-value="Any Range">
-                                                            Any Range
-                                                        </button>
-
-                                                        @php
-                                                            $rentRanges = [
-                                                                ['label' => '₹0 - ₹25,000', 'min' => 0, 'max' => 25000],
-                                                                ['label' => '₹25,000 - ₹50,000', 'min' => 25000, 'max' => 50000],
-                                                                ['label' => '₹50,000 - ₹75,000', 'min' => 50000, 'max' => 75000],
-                                                                ['label' => '₹75,000+', 'min' => 75000, 'max' => null],
-                                                            ];
-                                                        @endphp
-
-                                                        @foreach($rentRanges as $range)
-
-                                                            <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
-                                                                data-max="{{ $range['max'] }}">
-                                                                {{ $range['label'] }}
-                                                            </button>
-
-                                                        @endforeach
-
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                    <!-- Rent -->
+                    <!-- Rent Range -->
                     <div class="rpf-field">
-                        <label for="rpfRent">Budget</label>
 
-                        <div class="rpf-control" id="rpfRentControl">
+                        <label for="rpfRentRange">
+                            Rent Range
+                        </label>
 
-                            <span class="rpf-rent-symbol">₹</span>
+                        <div class="rpf-control" id="rpfRentRangeControl" data-target="rpfRentRangeDropdown">
 
-                            <input type="number" id="rpfRent" name="rpfRent" placeholder="Enter maximum rent" min="0">
+                            <span class="rpf-control-value" id="rpfRentRangeValue">
+                                Any Range
+                            </span>
+
+                            <span class="rpf-control-icon">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+
+                            <div class="rpf-dropdown" id="rpfRentRangeDropdown">
+
+                                <button type="button" data-value="Any Range" data-min="" data-max="">
+                                    Any Range
+                                </button>
+
+
+                                @php
+                                    $rentRanges = [
+                                        [
+                                            'label' => '₹0 - ₹25,000',
+                                            'min' => 0,
+                                            'max' => 25000
+                                        ],
+                                        [
+                                            'label' => '₹25,000 - ₹50,000',
+                                            'min' => 25000,
+                                            'max' => 50000
+                                        ],
+                                        [
+                                            'label' => '₹50,000 - ₹75,000',
+                                            'min' => 50000,
+                                            'max' => 75000
+                                        ],
+                                        [
+                                            'label' => '₹75,000 - ₹1,00,000',
+                                            'min' => 75000,
+                                            'max' => 100000
+                                        ],
+                                        [
+                                            'label' => '₹1,00,000 - ₹5,00,000+',
+                                            'min' => 100000,
+                                            'max' => 500000
+                                        ],
+                                    ];
+                                @endphp
+
+
+                                @foreach($rentRanges as $range)
+
+                                    <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
+                                        data-max="{{ $range['max'] }}">
+
+                                        {{ $range['label'] }}
+
+                                    </button>
+
+                                @endforeach
+
+                            </div>
 
                         </div>
+
+
+                        {{-- Selected rent values --}}
+                        <input type="hidden" id="rpfMinRent" value="">
+
+                        <input type="hidden" id="rpfMaxRent" value="">
+
                     </div>
+
+
+                    <!-- Rent -->
+                    <!-- <div class="rpf-field">
+                                                        <label for="rpfRent">Budget</label>
+
+                                                        <div class="rpf-control" id="rpfRentControl">
+
+                                                            <span class="rpf-rent-symbol">₹</span>
+
+                                                            <input type="number" id="rpfRent" name="rpfRent" placeholder="Enter maximum rent" min="0">
+
+                                                        </div>
+                                                    </div> -->
 
                 </div>
 
@@ -437,91 +497,91 @@
                 <div class="locality-grid stagger" id="localityGrid">
 
                     <!-- <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Whitefield">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Whitefield
-                                                                                                                            </div>
-                                                                                                                            <div class="count">1,250+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Whitefield">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Whitefield
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">1,250+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Koramangala">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Koramangala
-                                                                                                                            </div>
-                                                                                                                            <div class="count">980+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Koramangala">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Koramangala
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">980+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Indiranagar">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Indiranagar
-                                                                                                                            </div>
-                                                                                                                            <div class="count">850+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Indiranagar">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Indiranagar
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">850+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="HSR Layout">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                HSR Layout
-                                                                                                                            </div>
-                                                                                                                            <div class="count">760+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="HSR Layout">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                HSR Layout
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">760+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Marathahalli">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Marathahalli
-                                                                                                                            </div>
-                                                                                                                            <div class="count">680+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Marathahalli">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Marathahalli
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">680+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Bellandur">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Bellandur
-                                                                                                                            </div>
-                                                                                                                            <div class="count">540+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Bellandur">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Bellandur
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">540+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="JP Nagar">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                JP Nagar
-                                                                                                                            </div>
-                                                                                                                            <div class="count">620+ Properties</div>
-                                                                                                                        </a>
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="JP Nagar">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                JP Nagar
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">620+ Properties</div>
+                                                                                                                                                        </a>
 
 
-                                                                                                                        <a class="locality" href="#">
-                                                                                                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
-                                                                                                                                alt="Electronic City">
-                                                                                                                            <div class="name">
-                                                                                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                                                                                Electronic City
-                                                                                                                            </div>
-                                                                                                                            <div class="count">1,100+ Properties</div>
-                                                                                                                        </a> -->
+                                                                                                                                                        <a class="locality" href="#">
+                                                                                                                                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                alt="Electronic City">
+                                                                                                                                                            <div class="name">
+                                                                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                Electronic City
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="count">1,100+ Properties</div>
+                                                                                                                                                        </a> -->
 
 
 
@@ -694,24 +754,24 @@
                                 @endif
 
                                 <!-- <div class="broker">
-                                    <div class="avatar">
-                                        {{ $brokerInitials ?: 'PO' }}
-                                    </div>
+                                                                                                                                    <div class="avatar">
+                                                                                                                                        {{ $brokerInitials ?: 'PO' }}
+                                                                                                                                    </div>
 
-                                    <div class="broker-info">
-                                        <div class="broker-name">
-                                            {{ $brokerName }}
-                                        </div>
+                                                                                                                                    <div class="broker-info">
+                                                                                                                                        <div class="broker-name">
+                                                                                                                                            {{ $brokerName }}
+                                                                                                                                        </div>
 
-                                        <div class="verified">
-                                            <i class="fa-solid fa-circle-check"></i>
+                                                                                                                                        <div class="verified">
+                                                                                                                                            <i class="fa-solid fa-circle-check"></i>
 
-                                            {{ $property->user
-                    ? 'Verified'
-                    : 'Property Owner' }}
-                                        </div>
-                                    </div>
-                                </div> -->
+                                                                                                                                            {{ $property->user
+                                                                                                                    ? 'Verified'
+                                                                                                                    : 'Property Owner' }}
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div> -->
 
                             </div>
 
@@ -1012,8 +1072,8 @@
     </div>
 
     <!-- =========================================================
-                                                                                                                                                                                                                                                     NEWSLETTER
-                                                                                                                                                                                                                                                     ========================================================= -->
+                                                                                                                                                                                                                                                                                     NEWSLETTER
+                                                                                                                                                                                                                                                                                     ========================================================= -->
 
     <div class="newsletter">
 
@@ -1052,178 +1112,690 @@
 
 
 
-    <script>
-        (function () {
 
-            // ---- Tabs ----
-            var rpfTabs = document.querySelectorAll('.rpf-tab');
-            rpfTabs.forEach(function (tab) {
-                tab.addEventListener('click', function () {
-                    rpfTabs.forEach(function (t) { t.classList.remove('rpf-tab-active'); });
-                    tab.classList.add('rpf-tab-active');
-                });
-            });
+<script>
+(function () {
+    'use strict';
 
-            // ---- Generic dropdown controls (Property Type, BHK, Rent Range) ----
-            var rpfControls = document.querySelectorAll('.rpf-control[data-target]');
+    // =========================
+    // RENT / SELL MODE
+    // =========================
 
-            function rpfCloseAllDropdowns(except) {
-                document.querySelectorAll('.rpf-dropdown').forEach(function (dd) {
-                    if (dd !== except) {
-                        dd.classList.remove('rpf-dropdown-open');
-                    }
-                });
-                document.querySelectorAll('.rpf-control').forEach(function (c) {
-                    var dd = c.querySelector('.rpf-dropdown');
-                    if (!dd || dd !== except) {
-                        c.classList.remove('rpf-control-open');
-                    }
-                });
+    var rpfMode = 'rent';
+
+    var rpfTabs = document.querySelectorAll('.rpf-tab');
+
+    var rpfMinRent = document.getElementById('rpfMinRent');
+    var rpfMaxRent = document.getElementById('rpfMaxRent');
+
+    var rpfRentRangeValue = document.getElementById('rpfRentRangeValue');
+    var rpfRentRangeDropdown = document.getElementById('rpfRentRangeDropdown');
+
+
+    // =========================
+    // PRICE RANGE DATA
+    // =========================
+
+    var rentRanges = [
+        { label: '₹0 - ₹25,000', min: 0, max: 25000 },
+        { label: '₹25,000 - ₹50,000', min: 25000, max: 50000 },
+        { label: '₹50,000 - ₹75,000', min: 50000, max: 75000 },
+        { label: '₹75,000 - ₹1,00,000', min: 75000, max: 100000 },
+        { label: '₹1,00,000 - ₹5,00,000+', min: 100000, max: 500000 }
+    ];
+
+    var sellRanges = [
+        { label: '₹20L - ₹50L', min: 2000000, max: 5000000 },
+        { label: '₹50L - ₹1Cr', min: 5000000, max: 10000000 },
+        { label: '₹1Cr - ₹5Cr', min: 10000000, max: 50000000 },
+        { label: '₹5Cr - ₹10Cr+', min: 50000000, max: 100000000 }
+    ];
+
+
+    // =========================
+    // CLOSE DROPDOWNS
+    // =========================
+
+    function rpfCloseAllDropdowns(except) {
+
+        document.querySelectorAll('.rpf-dropdown').forEach(function (dropdown) {
+
+            if (dropdown !== except) {
+                dropdown.classList.remove('rpf-dropdown-open');
             }
 
-            rpfControls.forEach(function (control) {
-                var dropdownId = control.getAttribute('data-target');
-                var dropdown = document.getElementById(dropdownId);
-                var valueEl = control.querySelector('.rpf-control-value');
+        });
 
-                control.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    var isOpen = dropdown.classList.contains('rpf-dropdown-open');
-                    rpfCloseAllDropdowns();
-                    if (!isOpen) {
-                        dropdown.classList.add('rpf-dropdown-open');
-                        control.classList.add('rpf-control-open');
-                    }
-                });
+        document.querySelectorAll('.rpf-control').forEach(function (control) {
 
-                dropdown.querySelectorAll('button').forEach(function (btn) {
-                    btn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        valueEl.textContent = btn.textContent.trim();
-                        dropdown.classList.remove('rpf-dropdown-open');
-                        control.classList.remove('rpf-control-open');
-                    });
-                });
+            var dropdown = control.querySelector('.rpf-dropdown');
+
+            if (!dropdown || dropdown !== except) {
+                control.classList.remove('rpf-control-open');
+            }
+
+        });
+
+    }
+
+
+    // =========================
+    // UPDATE PRICE DROPDOWN
+    // =========================
+
+    function rpfUpdatePriceDropdown() {
+
+        if (!rpfRentRangeDropdown) return;
+
+        rpfRentRangeDropdown.innerHTML = '';
+
+        var ranges = rpfMode === 'sell'
+            ? sellRanges
+            : rentRanges;
+
+
+        // Any Range button
+
+        var anyButton = document.createElement('button');
+
+        anyButton.type = 'button';
+
+        anyButton.setAttribute('data-value', 'Any Range');
+        anyButton.setAttribute('data-min', '');
+        anyButton.setAttribute('data-max', '');
+
+        anyButton.textContent = 'Any Range';
+
+        rpfRentRangeDropdown.appendChild(anyButton);
+
+
+        // Add price range buttons
+
+        ranges.forEach(function (range) {
+
+            var button = document.createElement('button');
+
+            button.type = 'button';
+
+            button.setAttribute('data-value', range.label);
+            button.setAttribute('data-min', range.min);
+            button.setAttribute('data-max', range.max);
+
+            button.textContent = range.label;
+
+            rpfRentRangeDropdown.appendChild(button);
+
+        });
+
+    }
+
+
+    // =========================
+    // SET RENT / SELL MODE
+    // =========================
+
+    function rpfSetMode(mode) {
+
+        if (mode !== 'rent' && mode !== 'sell') {
+            mode = 'rent';
+        }
+
+        rpfMode = mode;
+
+        rpfTabs.forEach(function (tab) {
+
+            tab.classList.remove('rpf-tab-active');
+
+            if (tab.getAttribute('data-mode') === mode) {
+                tab.classList.add('rpf-tab-active');
+            }
+
+        });
+
+
+        // Reset selected price range
+
+        if (rpfMinRent) {
+            rpfMinRent.value = '';
+        }
+
+        if (rpfMaxRent) {
+            rpfMaxRent.value = '';
+        }
+
+        if (rpfRentRangeValue) {
+            rpfRentRangeValue.textContent = 'Any Range';
+        }
+
+
+        // Close dropdowns
+
+        rpfCloseAllDropdowns();
+
+
+        // Update available price ranges
+
+        rpfUpdatePriceDropdown();
+
+    }
+
+
+    // Support existing inline onclick buttons
+
+    window.rpfSetMode = rpfSetMode;
+
+
+    // =========================
+    // RENT / SELL TAB CLICK
+    // =========================
+
+    rpfTabs.forEach(function (tab) {
+
+        tab.addEventListener('click', function (e) {
+
+            e.stopPropagation();
+
+            var mode = tab.getAttribute('data-mode') || 'rent';
+
+            rpfSetMode(mode);
+
+        });
+
+    });
+
+
+    // =========================
+    // GENERIC DROPDOWNS
+    // PROPERTY TYPE / BHK / PRICE
+    // =========================
+
+    var rpfControls = document.querySelectorAll(
+        '.rpf-control[data-target]'
+    );
+
+    rpfControls.forEach(function (control) {
+
+        var dropdownId = control.getAttribute('data-target');
+
+        var dropdown = document.getElementById(dropdownId);
+
+        var valueEl = control.querySelector('.rpf-control-value');
+
+        if (!dropdown || !valueEl) return;
+
+
+        // Open / close dropdown
+
+        control.addEventListener('click', function (e) {
+
+            e.stopPropagation();
+
+            var isOpen = dropdown.classList.contains(
+                'rpf-dropdown-open'
+            );
+
+            rpfCloseAllDropdowns();
+
+            if (!isOpen) {
+
+                dropdown.classList.add('rpf-dropdown-open');
+
+                control.classList.add('rpf-control-open');
+
+            }
+
+        });
+
+
+        // Dropdown option click
+        // Event delegation supports dynamic price buttons
+
+        dropdown.addEventListener('click', function (e) {
+
+            var btn = e.target.closest('button');
+
+            if (!btn || !dropdown.contains(btn)) return;
+
+            e.stopPropagation();
+
+
+            // Update displayed value
+
+            valueEl.textContent =
+                btn.getAttribute('data-value') || '';
+
+
+            // Price range selection
+
+            if (dropdownId === 'rpfRentRangeDropdown') {
+
+                var minPrice =
+                    btn.getAttribute('data-min') || '';
+
+                var maxPrice =
+                    btn.getAttribute('data-max') || '';
+
+
+                if (rpfMinRent) {
+                    rpfMinRent.value = minPrice;
+                }
+
+                if (rpfMaxRent) {
+                    rpfMaxRent.value = maxPrice;
+                }
+
+            }
+
+
+            // Close dropdown
+
+            dropdown.classList.remove('rpf-dropdown-open');
+
+            control.classList.remove('rpf-control-open');
+
+        });
+
+    });
+
+
+    // =========================
+    // LOCATION INPUT
+    // =========================
+
+    var rpfLocationControl =
+        document.getElementById('rpfLocationControl');
+
+    var rpfLocationInput =
+        document.getElementById('rpfLocation');
+
+    var rpfLocationDropdown =
+        document.getElementById('rpfLocationDropdown');
+
+    var rpfLocationClear =
+        document.getElementById('rpfLocationClear');
+
+
+    if (
+        rpfLocationControl &&
+        rpfLocationInput &&
+        rpfLocationDropdown
+    ) {
+
+
+        // Location input focus
+
+        rpfLocationInput.addEventListener('focus', function () {
+
+            rpfCloseAllDropdowns(rpfLocationDropdown);
+
+            rpfLocationDropdown.classList.add(
+                'rpf-dropdown-open'
+            );
+
+            rpfLocationControl.classList.add(
+                'rpf-control-open'
+            );
+
+        });
+
+
+        // Location search
+
+        rpfLocationInput.addEventListener('input', function () {
+
+            var searchText = rpfLocationInput.value
+                .toLowerCase()
+                .trim();
+
+
+            // Show / hide clear button
+
+            if (rpfLocationClear) {
+
+                rpfLocationClear.style.display =
+                    searchText ? 'flex' : 'none';
+
+            }
+
+
+            // Filter location options
+
+            var locationButtons =
+                rpfLocationDropdown.querySelectorAll('button');
+
+            locationButtons.forEach(function (btn) {
+
+                var locationName = (
+                    btn.getAttribute('data-value') || ''
+                ).toLowerCase();
+
+
+                if (
+                    searchText === '' ||
+                    locationName.includes(searchText)
+                ) {
+
+                    btn.style.display = 'flex';
+
+                } else {
+
+                    btn.style.display = 'none';
+
+                }
+
             });
 
-            // ---- Location input + dropdown ----
-            var rpfLocationControl = document.getElementById('rpfLocationControl');
-            var rpfLocationInput = document.getElementById('rpfLocation');
-            var rpfLocationDropdown = document.getElementById('rpfLocationDropdown');
-            var rpfLocationClear = document.getElementById('rpfLocationClear');
 
-            rpfLocationInput.addEventListener('focus', function () {
-                rpfCloseAllDropdowns(rpfLocationDropdown);
-                rpfLocationDropdown.classList.add('rpf-dropdown-open');
-                rpfLocationControl.classList.add('rpf-control-open');
-            });
+            // Keep dropdown open while searching
 
-            rpfLocationInput.addEventListener('input', function () {
+            rpfLocationDropdown.classList.add(
+                'rpf-dropdown-open'
+            );
 
-                var searchText = rpfLocationInput.value
-                    .toLowerCase()
-                    .trim();
+            rpfLocationControl.classList.add(
+                'rpf-control-open'
+            );
 
-                rpfLocationClear.style.display = searchText ? 'flex' : 'none';
+        });
+
+
+        // Clear location
+
+        if (rpfLocationClear) {
+
+            rpfLocationClear.addEventListener('click', function (e) {
+
+                e.stopPropagation();
+
+                rpfLocationInput.value = '';
+
+                rpfLocationClear.style.display = 'none';
+
+
+                // Reset location options
 
                 var locationButtons =
                     rpfLocationDropdown.querySelectorAll('button');
 
                 locationButtons.forEach(function (btn) {
 
-                    var locationName = btn
-                        .getAttribute('data-value')
-                        .toLowerCase();
-
-                    if (
-                        searchText === '' ||
-                        locationName.includes(searchText)
-                    ) {
-                        btn.style.display = 'flex';
-                    } else {
-                        btn.style.display = 'none';
-                    }
+                    btn.style.display = 'flex';
 
                 });
 
-                // Keep dropdown open while searching
-                rpfLocationDropdown.classList.add('rpf-dropdown-open');
-                rpfLocationControl.classList.add('rpf-control-open');
-            });
 
-            rpfLocationClear.addEventListener('click', function (e) {
-                e.stopPropagation();
-                rpfLocationInput.value = '';
-                rpfLocationClear.style.display = 'none';
+                // Keep location dropdown open
+
                 rpfLocationInput.focus();
+
             });
 
-            rpfLocationDropdown.querySelectorAll('button').forEach(function (btn) {
-                btn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    rpfLocationInput.value = btn.getAttribute('data-value');
-                    rpfLocationClear.style.display = 'flex';
-                    rpfLocationDropdown.classList.remove('rpf-dropdown-open');
-                    rpfLocationControl.classList.remove('rpf-control-open');
-                });
-            });
-
-            // ---- Close dropdowns when clicking outside ----
-            document.addEventListener('click', function () {
-                rpfCloseAllDropdowns();
-            });
-
-        })();
-
-        function rpfSearchProperties() {
-
-            var location =
-                document.getElementById('rpfLocation').value.trim();
-
-            var propertyType =
-                document.getElementById('rpfPropertyTypeValue').textContent.trim();
-
-            var bhk =
-                document.getElementById('rpfBhkValue').textContent.trim();
-
-            var maxRent =
-                document.getElementById('rpfRent').value.trim();
-
-            var params = new URLSearchParams();
-
-            // Location
-            if (location) {
-                params.set('location', location);
-            }
-
-            // Property Type
-            if (propertyType && propertyType !== 'Any Type') {
-                params.set('type', propertyType);
-            }
-
-            // BHK
-            if (bhk && bhk !== 'Any') {
-                params.set('bhk', bhk.replace(' BHK', ''));
-            }
-
-            // Maximum Rent
-            // Example: 25000 => properties <= 25000
-            if (maxRent) {
-                params.set('max_rent', maxRent);
-            }
-
-            // Go to Rent page
-            var url = '/rent';
-
-            var query = params.toString();
-
-            if (query) {
-                url += '?' + query;
-            }
-
-            window.location.href = url;
         }
-    </script>
+
+
+        // Location option selection
+
+        rpfLocationDropdown.addEventListener('click', function (e) {
+
+            var btn = e.target.closest('button');
+
+            if (!btn || !rpfLocationDropdown.contains(btn)) {
+                return;
+            }
+
+            e.stopPropagation();
+
+
+            // Set selected location
+
+            rpfLocationInput.value =
+                btn.getAttribute('data-value') || '';
+
+
+            // Show clear button
+
+            if (rpfLocationClear) {
+                rpfLocationClear.style.display = 'flex';
+            }
+
+
+            // Reset location options
+
+            var locationButtons =
+                rpfLocationDropdown.querySelectorAll('button');
+
+            locationButtons.forEach(function (locationButton) {
+
+                locationButton.style.display = 'flex';
+
+            });
+
+
+            // Close dropdown
+
+            rpfLocationDropdown.classList.remove(
+                'rpf-dropdown-open'
+            );
+
+            rpfLocationControl.classList.remove(
+                'rpf-control-open'
+            );
+
+        });
+
+    }
+
+
+    // =========================
+    // CLOSE WHEN CLICKING OUTSIDE
+    // =========================
+
+    document.addEventListener('click', function () {
+
+        rpfCloseAllDropdowns();
+
+    });
+
+
+    // =========================
+    // INITIALIZE
+    // =========================
+
+    var initialActiveTab = document.querySelector(
+        '.rpf-tab.rpf-tab-active'
+    );
+
+    if (initialActiveTab) {
+
+        rpfMode = initialActiveTab.getAttribute('data-mode') || 'rent';
+
+    }
+
+
+    // Generate initial price options
+
+    rpfUpdatePriceDropdown();
+
+
+})();
+
+
+// =========================
+// SEARCH PROPERTIES
+// =========================
+
+function rpfSearchProperties() {
+
+    // =========================
+    // LOCATION
+    // =========================
+
+    var locationInput = document.getElementById('rpfLocation');
+
+    var location = locationInput
+        ? locationInput.value.trim()
+        : '';
+
+
+    // =========================
+    // PROPERTY TYPE
+    // =========================
+
+    var propertyTypeEl = document.getElementById(
+        'rpfPropertyTypeValue'
+    );
+
+    var propertyType = propertyTypeEl
+        ? propertyTypeEl.textContent.trim()
+        : '';
+
+
+    // =========================
+    // BHK
+    // =========================
+
+    var bhkEl = document.getElementById('rpfBhkValue');
+
+    var bhk = bhkEl
+        ? bhkEl.textContent.trim()
+        : '';
+
+
+    // =========================
+    // PRICE
+    // =========================
+
+    var minPriceEl = document.getElementById('rpfMinRent');
+
+    var maxPriceEl = document.getElementById('rpfMaxRent');
+
+    var minPrice = minPriceEl
+        ? minPriceEl.value
+        : '';
+
+    var maxPrice = maxPriceEl
+        ? maxPriceEl.value
+        : '';
+
+
+    // =========================
+    // SELECTED MODE
+    // =========================
+
+    var activeTab = document.querySelector(
+        '.rpf-tab.rpf-tab-active'
+    );
+
+    var mode = activeTab
+        ? activeTab.getAttribute('data-mode')
+        : 'rent';
+
+
+    // Validate mode
+
+    if (mode !== 'rent' && mode !== 'sell') {
+        mode = 'rent';
+    }
+
+
+    // =========================
+    // URL PARAMETERS
+    // =========================
+
+    var params = new URLSearchParams();
+
+
+    // IMPORTANT:
+    // Send mode to Laravel controller
+
+    params.set('mode', mode);
+
+
+    // =========================
+    // LOCATION
+    // =========================
+
+    if (location) {
+
+        params.set('location', location);
+
+    }
+
+
+    // =========================
+    // PROPERTY TYPE
+    // =========================
+
+    if (propertyType && propertyType !== 'Any Type') {
+
+        params.set('type', propertyType);
+
+    }
+
+
+    // =========================
+    // BHK
+    // =========================
+
+    if (bhk && bhk !== 'Any') {
+
+        params.set(
+            'bhk',
+            bhk.replace(' BHK', '')
+        );
+
+    }
+
+
+    // =========================
+    // PRICE FILTERS
+    // =========================
+
+    if (minPrice !== '') {
+
+        params.set(
+            mode === 'sell' ? 'min_price' : 'min_rent',
+            minPrice
+        );
+
+    }
+
+
+    if (maxPrice !== '') {
+
+        params.set(
+            mode === 'sell' ? 'max_price' : 'max_rent',
+            maxPrice
+        );
+
+    }
+
+
+    // =========================
+    // REDIRECT
+    // =========================
+
+    // Rent and Sell both use the same listing page
+
+    var url = '/rent';
+
+    var query = params.toString();
+
+    if (query) {
+
+        url += '?' + query;
+
+    }
+
+
+    // Redirect
+
+    window.location.href = url;
+
+}
+</script>
+
+
 
 
     <script>
@@ -1592,80 +2164,79 @@
 
 
 
-<script>
+    <script>
 
 
-let rpfAutocomplete;
+        let rpfAutocomplete;
 
-function initRpfLocationAutocomplete() {
-    const input = document.getElementById("rpfLocation");
-    const dropdown = document.getElementById("rpfLocationDropdown");
-    const clear = document.getElementById("rpfLocationClear");
+        function initRpfLocationAutocomplete() {
+            const input = document.getElementById("rpfLocation");
+            const dropdown = document.getElementById("rpfLocationDropdown");
+            const clear = document.getElementById("rpfLocationClear");
 
-    if (!input || !dropdown || !window.google?.maps?.places) return;
+            if (!input || !dropdown || !window.google?.maps?.places) return;
 
-    const bengaluruBounds = new google.maps.LatLngBounds(
-        { lat: 12.7343, lng: 77.3790 },
-        { lat: 13.1737, lng: 77.8827 }
-    );
+            const bengaluruBounds = new google.maps.LatLngBounds(
+                { lat: 12.7343, lng: 77.3790 },
+                { lat: 13.1737, lng: 77.8827 }
+            );
 
-    rpfAutocomplete = new google.maps.places.Autocomplete(input, {
-        bounds: bengaluruBounds,
-        strictBounds: true,
-        componentRestrictions: { country: "in" },
-        fields: ["formatted_address", "name", "geometry"],
-        types: ["geocode"]
-    });
+            rpfAutocomplete = new google.maps.places.Autocomplete(input, {
+                bounds: bengaluruBounds,
+                strictBounds: true,
+                componentRestrictions: { country: "in" },
+                fields: ["formatted_address", "name", "geometry"],
+                types: ["geocode"]
+            });
 
-    rpfAutocomplete.addListener("place_changed", function () {
-        const place = rpfAutocomplete.getPlace();
+            rpfAutocomplete.addListener("place_changed", function () {
+                const place = rpfAutocomplete.getPlace();
 
-        if (!place.geometry?.location) {
-            input.value = "";
-            alert("Please select a location within Bengaluru.");
-            return;
+                if (!place.geometry?.location) {
+                    input.value = "";
+                    alert("Please select a location within Bengaluru.");
+                    return;
+                }
+
+                const location = place.geometry.location;
+
+                if (!bengaluruBounds.contains(location)) {
+                    input.value = "";
+                    alert("Please select a location within Bengaluru.");
+                    return;
+                }
+
+                input.value = place.name || place.formatted_address || "";
+                dropdown.style.display = "none";
+
+                if (clear) {
+                    clear.style.display = input.value ? "inline-flex" : "none";
+                }
+            });
+
+            input.addEventListener("input", function () {
+                dropdown.style.display = "none";
+
+                if (clear) {
+                    clear.style.display = input.value ? "inline-flex" : "none";
+                }
+            });
+
+            if (clear) {
+                clear.addEventListener("click", function () {
+                    input.value = "";
+                    clear.style.display = "none";
+                    input.focus();
+                });
+            }
         }
 
-        const location = place.geometry.location;
 
-        if (!bengaluruBounds.contains(location)) {
-            input.value = "";
-            alert("Please select a location within Bengaluru.");
-            return;
-        }
+    </script>
 
-        input.value = place.name || place.formatted_address || "";
-        dropdown.style.display = "none";
-
-        if (clear) {
-            clear.style.display = input.value ? "inline-flex" : "none";
-        }
-    });
-
-    input.addEventListener("input", function () {
-        dropdown.style.display = "none";
-
-        if (clear) {
-            clear.style.display = input.value ? "inline-flex" : "none";
-        }
-    });
-
-    if (clear) {
-        clear.addEventListener("click", function () {
-            input.value = "";
-            clear.style.display = "none";
-            input.focus();
-        });
-    }
-}
-
-
-</script>
-
-<script
-    async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initRpfLocationAutocomplete">
-</script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initRpfLocationAutocomplete">
+        </script>
 
 
 

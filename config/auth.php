@@ -51,6 +51,11 @@ return [
             'driver' => 'session',
             'provider' => 'brokers',
         ],
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -84,6 +89,11 @@ return [
         'brokers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Broker::class,
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
         ],
 
         // 'users' => [
