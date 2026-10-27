@@ -9,6 +9,9 @@ use App\Models\City;
 use App\Models\Amenity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\RentalRequirmentsEnquiry;
+use App\Models\ScheduleVisitEnquiry;
+
 
 class BrokerController extends Controller
 {
@@ -588,21 +591,52 @@ class BrokerController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function enquiries()
-    {
-        return view('broker.enquiries');
-    }
+public function enquiries()
+{
+    $broker = auth('broker')->user();
 
-    /*
-    |--------------------------------------------------------------------------
-    | Schedule
-    |--------------------------------------------------------------------------
-    */
+    $propertyIds = $broker->properties()
+        ->select('properties.id');
 
-    public function schedule()
-    {
-        return view('broker.schedule');
-    }
+    $enquiries = RentalRequirmentsEnquiry::with('property')
+        ->whereIn('property_id', $propertyIds)
+        ->latest()
+        ->paginate(10);
+
+    $enquiriesCount = RentalRequirmentsEnquiry::whereIn(
+        'property_id',
+        $propertyIds
+    )->count();
+
+    return view('broker.enquiries', compact(
+        'broker',
+        'enquiries',
+        'enquiriesCount'
+    ));
+}
+
+public function schedule()
+{
+    $broker = auth('broker')->user();
+
+    $propertyIds = $broker->properties()->select('properties.id');
+
+    $scheduledVisits = ScheduleVisitEnquiry::with('property')
+        ->whereIn('property_id', $propertyIds)
+        ->latest()
+        ->paginate(10);
+
+    $scheduledVisitsCount = ScheduleVisitEnquiry::whereIn(
+        'property_id',
+        $broker->properties()->select('properties.id')
+    )->count();
+
+    return view('broker.schedule', compact(
+        'broker',
+        'scheduledVisits',
+        'scheduledVisitsCount'
+    ));
+}
 
     /*
     |--------------------------------------------------------------------------

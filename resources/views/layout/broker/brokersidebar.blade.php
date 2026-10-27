@@ -48,6 +48,26 @@
                                         </ul>
                                 </li>
 
+                                <!-- Enquiries & Visits -->
+                                <li class="submenu-open">
+                                        <h6 class="submenu-hdr">Enquiries & Visits</h6>
+                                        <ul>
+                                                <li class="{{ Request::is('broker/enquiries*') ? 'active' : '' }}">
+                                                        <a href="{{ route('broker.enquiries') }}">
+                                                                <i class="ti ti-message-circle fs-16 me-2"></i>
+                                                                <span>Property Enquiries</span>
+                                                        </a>
+                                                </li>
+
+                                                <li class="{{ Request::is('broker/schedule*') ? 'active' : '' }}">
+                                                        <a href="{{ route('broker.schedule') }}">
+                                                                <i class="ti ti-calendar-event fs-16 me-2"></i>
+                                                                <span>Scheduled Visits</span>
+                                                        </a>
+                                                </li>
+                                        </ul>
+                                </li>
+
                                 <!------schedule----->
 
                                 <li class="submenu-open">

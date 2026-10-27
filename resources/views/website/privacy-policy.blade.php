@@ -482,7 +482,7 @@
                     At Keys Please Venture, we understand the importance of
                     your personal information. Learn how information may be
                     collected, used, and protected when you explore rental
-                    properties or connect with property owners and brokers.
+                    properties or connect with property owners. 
                 </p>
 
                 <div class="privacy-updated">

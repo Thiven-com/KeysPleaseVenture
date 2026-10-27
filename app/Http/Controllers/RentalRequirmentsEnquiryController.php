@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RentalRequirmentsEnquiry;
 use App\Models\Property;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class RentalRequirmentsEnquiryController extends Controller
 {
     public function store(Request $request)
@@ -59,6 +59,8 @@ class RentalRequirmentsEnquiryController extends Controller
         */
 
         $enquiry = RentalRequirmentsEnquiry::create([
+
+        'customer_id' => Auth::guard('customer')->id(),
             'property_id' => $property->id,
 
             'property_title' => $property->property_title,

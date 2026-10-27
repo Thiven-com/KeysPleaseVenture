@@ -225,7 +225,7 @@
 
         <p>
             Discover properties that match your needs, connect with
-            owners or brokers, and arrange a visit with ease.
+            owners, and arrange a visit with ease.
             Your next rental home starts here.
         </p>
     </section>
@@ -261,7 +261,7 @@
                 <p>
                     Interested in a property? Submit an enquiry
                     through our website to request more information
-                    from the owner or broker.
+                    from the owner.
                 </p>
             </article>
 

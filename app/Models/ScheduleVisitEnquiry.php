@@ -10,6 +10,7 @@ class ScheduleVisitEnquiry extends Model
 
     protected $fillable = [
         'property_id',
+        'customer_id',
         'property_title',
         'name',
         'phone',

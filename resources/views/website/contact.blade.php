@@ -378,12 +378,12 @@
                 <div class="partner-text">
 
                     <h2>
-                        Are you a Property Owner or Broker?
+                        Are you a Property Owner?
                     </h2>
 
                     <p>
                         Partner with us and grow your business.
-                        List properties or join our broker network today.
+                        List properties or join our owner network today.
                     </p>
 
                 </div>

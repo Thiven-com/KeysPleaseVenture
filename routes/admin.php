@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrokerController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\PropertyTypeController;
+use App\Http\Controllers\Admin\CustomerController;
 
 
 
@@ -59,9 +60,12 @@ Route::delete('cities/{id}', [CityController::class, 'destroy'])
     ->name('admin.cities.destroy');
 
 
+// Customer Management
+Route::get('/customers', [CustomerController::class, 'index'])
+    ->name('admin.customers.index');
 
-
-
+Route::get('/customers/{id}', [CustomerController::class, 'show'])
+    ->name('admin.customers.show');
 
 Route::get('/brokers', [BrokerController::class, 'index'])
     ->name('admin.brokers.index');

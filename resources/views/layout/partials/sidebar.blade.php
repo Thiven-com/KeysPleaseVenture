@@ -111,7 +111,7 @@
 
 
                                 <li class="submenu-open">
-                                        <h6 class="submenu-hdr">Customer Enquries</h6>
+                                        <h6 class="submenu-hdr">Customer Management</h6>
                                         <ul>
 
                                                 {{-- Rent Enquiries --}}
@@ -121,6 +121,16 @@
                                                                 <span>Rent Enquiries</span>
                                                         </a>
                                                 </li> -->
+
+                                               
+                                                {{-- Customer Management --}}
+                                                <li class="{{ Request::is('admin/customers*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.customers.index') }}">
+                                                                <i class="ti ti-users fs-16 me-2"></i>
+                                                                <span>Customers</span>
+                                                        </a>
+                                                </li>
+                                                
 
                                                 {{-- Rental Requirements Enquiries --}}
                                                 <li

@@ -28,12 +28,13 @@ class AppServiceProvider extends ServiceProvider
 
 
             // APPROVED RENT PROPERTIES
+
+            /* APPROVED RENT MENU PROPERTIES */
             $rentMenuProperties = Property::with('cityRelation')
                 ->where('status', 'approved')
                 ->whereIn('listing_for', [
                     'Rent',
                     'PG',
-                    'Sell',
                     'Lease'
                 ])
                 ->get([
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
                     'bhk',
                     'city_id'
                 ]);
+
 
             // PROPERTY TYPES - MAX 5
             $rentMenuTypes = PropertyType::where('status', true)
@@ -148,13 +150,13 @@ class AppServiceProvider extends ServiceProvider
                 ->values()
                 ->take(10);
 
-           
+
 
             $view->with([
                 'searchLocations' => $searchLocations,
                 'searchPropertyTypes' => $searchPropertyTypes,
                 'searchBhks' => $searchBhks,
-                
+
             ]);
         });
     }

@@ -376,19 +376,28 @@
           </span>
           <span>Broker Login</span>
         </a> -->
-        <a href="{{ route('login') }}" class="nav-btn">
-          <span class="btn-icon">
-            <i class="fa-solid fa-right-to-bracket"></i>
-          </span>
-          <span>User Login</span>
-        </a>
+        @auth('customer')
+          <a href="{{ route('customer.account') }}" class="nav-btn">
+            <span class="btn-icon">
+              <i class="fa-solid fa-user"></i>
+            </span>
+            <span>My Account</span>
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="nav-btn">
+            <span class="btn-icon">
+              <i class="fa-solid fa-right-to-bracket"></i>
+            </span>
+            <span>User Login</span>
+          </a>
+        @endauth
 
 
         <a href="{{ route('broker.register') }}" class="nav-btn primary">
           <span class="btn-icon">
             <i class="fa-solid fa-user-plus"></i>
           </span>
-          <span>Owner Register</span>
+          <span>Post Free Property</span>
         </a>
       </div>
 
@@ -510,12 +519,34 @@
         <span>Broker Login</span>
     </button> -->
 
+
+
+        @auth('customer')
+          <button type="button" class="mobile-sidebar-btn"
+            onclick="window.location.href='{{ route('customer.account') }}'">
+
+            <span class="btn-icon">
+              <i class="fa-solid fa-user"></i>
+            </span>
+
+            <span>My Account</span>
+          </button>
+        @else
+          <button type="button" class="mobile-sidebar-btn" onclick="window.location.href='{{ route('login') }}'">
+
+            <span class="btn-icon">
+              <i class="fa-solid fa-right-to-bracket"></i>
+            </span>
+
+            <span>User Login</span>
+          </button>
+        @endauth
         <button type="button" class="mobile-sidebar-btn primary"
           onclick="window.location.href='{{ route('broker.register') }}'">
           <span class="btn-icon">
             <i class="fa-solid fa-user-plus"></i>
           </span>
-          <span>Broker Register</span>
+          <span>Owner Register</span>
         </button>
 
       </div>
@@ -548,7 +579,7 @@
 
         <div class="footer-copy">
           Bangalore's trusted platform for rental properties.
-          Find verified listings, connect with trusted brokers,
+          Find verified listings, connect with trusted owners,
           and move into your dream rental home.
         </div>
 
@@ -595,10 +626,10 @@
       <!-- Owners & Brokers -->
       <div class="footer-col">
 
-        <h4>For Owners &amp; Brokers</h4>
+        <h4>For Owners</h4>
 
         <!-- <a href="#">List Your Property</a> -->
-        <a href="{{ route('website.broker-benefits') }}">Broker Benefits</a>
+        <a href="{{ route('website.broker-benefits') }}">Owner Benefits</a>
         <!-- <a href="{{ route('website.partner-with-us') }}">Partner with Us</a> -->
         <a href="{{ route('website.resources') }}">Resources</a>
         <a href="{{ route('website.terms-and-conditions') }}">Terms &amp; Conditions</a>
@@ -863,6 +894,7 @@
 
   <!-- ================= JAVASCRIPT ================= -->
 
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -870,6 +902,8 @@
 
       /* Scroll Header */
       function updateScrollUI() {
+        if (!header) return;
+
         if (window.scrollY > 15) {
           header.classList.add('scrolled');
         } else {
@@ -893,7 +927,6 @@
 
       document.body.appendChild(backTop);
 
-
       function updateBackTop() {
         if (window.scrollY > 450) {
           backTop.classList.add('show');
@@ -906,43 +939,32 @@
         passive: true
       });
 
-
       backTop.addEventListener('click', function () {
-
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
         });
-
       });
 
 
       /* Smooth Anchor Navigation */
       document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-
         link.addEventListener('click', function (e) {
-
           const id = link.getAttribute('href');
 
           if (id && id !== '#') {
-
             const target = document.querySelector(id);
 
             if (target) {
-
               e.preventDefault();
 
               target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
               });
-
             }
-
           }
-
         });
-
       });
 
 
@@ -952,22 +974,14 @@
       );
 
       if ('IntersectionObserver' in window) {
-
         const observer = new IntersectionObserver(
           function (entries) {
-
             entries.forEach(function (entry) {
-
               if (entry.isIntersecting) {
-
                 entry.target.classList.add('visible');
-
                 observer.unobserve(entry.target);
-
               }
-
             });
-
           },
           {
             threshold: 0.14,
@@ -978,15 +992,12 @@
         revealItems.forEach(function (item) {
           observer.observe(item);
         });
-
       }
 
 
       /* Heart Interaction */
       document.querySelectorAll('.heart').forEach(function (heart) {
-
         heart.addEventListener('click', function (e) {
-
           e.preventDefault();
           e.stopPropagation();
 
@@ -995,34 +1006,22 @@
           heart.dataset.liked = String(!liked);
           heart.textContent = liked ? '♡' : '♥';
 
-          heart.style.color = liked
-            ? '#677089'
-            : '#e52e5f';
+          heart.style.color = liked ? '#677089' : '#e52e5f';
 
           if (heart.animate) {
-
             heart.animate(
               [
-                {
-                  transform: 'scale(1)'
-                },
-                {
-                  transform: 'scale(1.25)'
-                },
-                {
-                  transform: 'scale(1)'
-                }
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.25)' },
+                { transform: 'scale(1)' }
               ],
               {
                 duration: 300,
                 easing: 'ease-out'
               }
             );
-
           }
-
         });
-
       });
 
 
@@ -1030,25 +1029,17 @@
       document.querySelectorAll(
         '.search-btn, .cta button, .subscribe button'
       ).forEach(function (btn) {
-
         btn.addEventListener('click', function (e) {
-
           const rect = this.getBoundingClientRect();
-
           const ripple = document.createElement('span');
 
           ripple.className = 'ripple';
-
-          ripple.style.left =
-            (e.clientX - rect.left - 6) + 'px';
-
-          ripple.style.top =
-            (e.clientY - rect.top - 6) + 'px';
+          ripple.style.left = (e.clientX - rect.left - 6) + 'px';
+          ripple.style.top = (e.clientY - rect.top - 6) + 'px';
 
           this.appendChild(ripple);
 
           if (ripple.animate) {
-
             ripple.animate(
               [
                 {
@@ -1067,265 +1058,139 @@
             ).onfinish = function () {
               ripple.remove();
             };
-
           } else {
-
             setTimeout(function () {
               ripple.remove();
             }, 550);
-
           }
-
         });
-
       });
 
 
-
-      /* =========================================================
-   MOBILE SIDEBAR MENU
-   ========================================================= */
-
-      const mobileMenuBtn =
-        document.querySelector('.mobile-menu-btn');
-
-      const mobileSidebar =
-        document.querySelector('.mobile-sidebar');
-
-      const mobileOverlay =
-        document.querySelector('.mobile-overlay');
-
-      const mobileCloseBtn =
-        document.querySelector('.mobile-close-btn');
-
-      const mobileSidebarLinks =
-        document.querySelectorAll('.mobile-sidebar-menu a');
-
+      /* Mobile Sidebar Menu */
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileSidebar = document.querySelector('.mobile-sidebar');
+      const mobileOverlay = document.querySelector('.mobile-overlay');
+      const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+      const mobileSidebarLinks = document.querySelectorAll(
+        '.mobile-sidebar-menu a'
+      );
 
       function openMobileMenu() {
-
-        if (!mobileSidebar) return;
+        if (!mobileSidebar || !mobileOverlay || !mobileMenuBtn) return;
 
         mobileSidebar.classList.add('active');
-
         mobileOverlay.classList.add('active');
-
         mobileMenuBtn.classList.add('active');
 
-        mobileMenuBtn.setAttribute(
-          'aria-expanded',
-          'true'
-        );
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        mobileSidebar.setAttribute('aria-hidden', 'false');
 
-        mobileSidebar.setAttribute(
-          'aria-hidden',
-          'false'
-        );
-
-        document.body.classList.add(
-          'menu-open'
-        );
+        document.body.classList.add('menu-open');
       }
-
 
       function closeMobileMenu() {
-
-        if (!mobileSidebar) return;
+        if (!mobileSidebar || !mobileOverlay || !mobileMenuBtn) return;
 
         mobileSidebar.classList.remove('active');
-
         mobileOverlay.classList.remove('active');
-
         mobileMenuBtn.classList.remove('active');
 
-        mobileMenuBtn.setAttribute(
-          'aria-expanded',
-          'false'
-        );
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileSidebar.setAttribute('aria-hidden', 'true');
 
-        mobileSidebar.setAttribute(
-          'aria-hidden',
-          'true'
-        );
-
-        document.body.classList.remove(
-          'menu-open'
-        );
+        document.body.classList.remove('menu-open');
       }
 
-
-      /* OPEN */
-
-      if (mobileMenuBtn) {
-
-        mobileMenuBtn.addEventListener(
-          'click',
-          function () {
-
-            const isOpen =
-              mobileSidebar.classList.contains(
-                'active'
-              );
-
-            if (isOpen) {
-              closeMobileMenu();
-            } else {
-              openMobileMenu();
-            }
-
+      if (mobileMenuBtn && mobileSidebar) {
+        mobileMenuBtn.addEventListener('click', function () {
+          if (mobileSidebar.classList.contains('active')) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
           }
-        );
-
+        });
       }
-
-
-      /* CLOSE BUTTON */
 
       if (mobileCloseBtn) {
-
-        mobileCloseBtn.addEventListener(
-          'click',
-          closeMobileMenu
-        );
-
+        mobileCloseBtn.addEventListener('click', closeMobileMenu);
       }
-
-
-      /* OVERLAY */
 
       if (mobileOverlay) {
-
-        mobileOverlay.addEventListener(
-          'click',
-          closeMobileMenu
-        );
-
+        mobileOverlay.addEventListener('click', closeMobileMenu);
       }
 
+      mobileSidebarLinks.forEach(function (link) {
+        link.addEventListener('click', closeMobileMenu);
+      });
 
-      /* CLOSE AFTER CLICKING LINK */
-
-      mobileSidebarLinks.forEach(
-        function (link) {
-
-          link.addEventListener(
-            'click',
-            function () {
-
-              closeMobileMenu();
-
-            }
-          );
-
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
         }
-      );
+      });
 
-
-      /* ESC KEY */
-
-      document.addEventListener(
-        'keydown',
-        function (e) {
-
-          if (e.key === 'Escape') {
-
-            closeMobileMenu();
-
-          }
-
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 1024) {
+          closeMobileMenu();
         }
-      );
+      });
 
-
-      /* CLOSE WHEN RESIZING TO DESKTOP */
-
-      window.addEventListener(
-        'resize',
-        function () {
-
-          if (window.innerWidth > 1024) {
-
-            closeMobileMenu();
-
-          }
-
-        }
-      );
 
       /* =========================================================
-   CITY SELECTION
-========================================================= */
+         CITY SELECTION - RENT AND SELL
+      ========================================================= */
 
       const cityOptions = document.querySelectorAll('.city-option');
 
       cityOptions.forEach(function (option) {
-
         option.addEventListener('click', function () {
-
           const citySlug = this.dataset.city;
 
-          if (!citySlug) {
-            return;
-          }
+          if (!citySlug) return;
 
+          const currentPath = window.location.pathname
+            .toLowerCase()
+            .replace(/\/+$/, '');
 
-          const cityOptions = document.querySelectorAll('.city-option');
+          const isSell =
+            currentPath === '/sell' ||
+            currentPath.startsWith('/sell/');
 
-          cityOptions.forEach(function (option) {
-            option.addEventListener('click', function () {
-              const citySlug = this.dataset.city;
+          const baseUrl = isSell ? '/sell/' : '/rent/';
 
-              if (!citySlug) {
-                return;
-              }
-
-              const currentPath = window.location.pathname;
-
-              const isSell = currentPath.startsWith('/sell');
-
-              const baseUrl = isSell ? '/sell/' : '/rent/';
-
-              window.location.href = baseUrl + citySlug;
-            });
-          });
-
-
+          window.location.href =
+            baseUrl + encodeURIComponent(citySlug);
         });
-
       });
 
 
       /* =========================================================
-   CITY SEARCH
-========================================================= */
+         CITY SEARCH
+      ========================================================= */
 
       const citySearchInput = document.getElementById('citySearchInput');
 
-
       if (citySearchInput) {
         citySearchInput.addEventListener('input', function () {
-
           const searchText = this.value.toLowerCase().trim();
 
           cityOptions.forEach(function (option) {
-
             const cityName = option
               .querySelector('span:last-child')
               .textContent
               .toLowerCase();
 
-            if (cityName.includes(searchText)) {
-              option.style.display = 'flex';
-            } else {
-              option.style.display = 'none';
-            }
-
+            option.style.display = cityName.includes(searchText)
+              ? 'flex'
+              : 'none';
           });
         });
       }
 
     });
   </script>
+
 
 
 

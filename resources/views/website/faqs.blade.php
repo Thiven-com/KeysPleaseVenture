@@ -317,7 +317,7 @@
                 </summary>
                 <div class="faq-answer">
                     Browse property listings, review the details,
-                    contact the owner or broker, and arrange a visit
+                    contact the owner, and arrange a visit
                     to a property you are interested in.
                 </div>
             </details>
@@ -354,7 +354,7 @@
                 <div class="faq-answer">
                     Visit the property details page and use the
                     available enquiry form to request further
-                    information from the owner or broker.
+                    information from the owner.
                 </div>
             </details>
 
@@ -365,7 +365,7 @@
                 </summary>
                 <div class="faq-answer">
                     Submit a visit request through the property page.
-                    Confirm the date and time with the owner or broker
+                    Confirm the date and time with the owner
                     before travelling to the property.
                 </div>
             </details>

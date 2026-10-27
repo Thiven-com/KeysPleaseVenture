@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ScheduleVisitEnquiry;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleVisitEnquiryController extends Controller
 {
@@ -29,6 +30,7 @@ class ScheduleVisitEnquiryController extends Controller
 
         $enquiry = ScheduleVisitEnquiry::create([
             'property_id' => $property->id,
+            'customer_id' => Auth::guard('customer')->id(),
             'property_title' => $property->property_title,
             'name' => $validated['name'],
             'phone' => $validated['phone'],

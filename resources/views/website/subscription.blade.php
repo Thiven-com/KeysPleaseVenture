@@ -5,6 +5,391 @@
 
 @section('content')
 
+
+<style>
+    
+/* KEYS PLEASE VENTURE - LAUNCHING SOON */
+
+.kp-launch-page {
+    --launch-blue: #00068a;
+    --launch-purple: #343bd0;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 76vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 75px 22px;
+    background:
+        radial-gradient(ellipse at 50% 0%, #e8eaff 0%, transparent 48%),
+        linear-gradient(145deg, #f9faff 0%, #eef0ff 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #171a36;
+}
+
+.kp-launch-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 720px;
+    margin: auto;
+    text-align: center;
+    animation: kp-launch-enter .9s ease both;
+}
+
+.kp-launch-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    margin-bottom: 40px;
+    color: var(--launch-blue);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+}
+
+.kp-launch-logo strong {
+    font-weight: 800;
+}
+
+.kp-logo-mark {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--launch-blue);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0;
+    box-shadow: 0 8px 20px #00068a2b;
+}
+
+.kp-launch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 17px;
+    border: 1px solid #d9dcff;
+    border-radius: 40px;
+    background: #ffffffb8;
+    color: var(--launch-blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.kp-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #555ce8;
+    animation: kp-live-pulse 1.7s infinite;
+}
+
+.kp-launch-icon {
+    width: 108px;
+    height: 108px;
+    margin: 30px auto 23px;
+    padding: 23px;
+    border: 1px solid #ffffff;
+    border-radius: 32px;
+    background: linear-gradient(145deg, #fff, #e5e8ff);
+    color: var(--launch-blue);
+    box-shadow: 0 18px 50px #00068a12;
+    animation: kp-icon-float 3.5s ease-in-out infinite;
+}
+
+.kp-launch-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.kp-launch-eyebrow {
+    margin: 0 0 13px;
+    color: #575ec3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.kp-launch-page h1 {
+    margin: 0;
+    color: #181b39;
+    font-size: clamp(35px, 5.5vw, 57px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.18;
+}
+
+.kp-launch-page h1 span {
+    display: block;
+    color: var(--launch-blue);
+}
+
+.kp-launch-description {
+    max-width: 570px;
+    margin: 22px auto 0;
+    color: #666d86;
+    font-size: 14px;
+    line-height: 1.95;
+}
+
+.kp-launch-progress {
+    max-width: 380px;
+    margin: 35px auto 0;
+    text-align: left;
+}
+
+.kp-progress-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 11px;
+    color: #515773;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.kp-loading-dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.kp-loading-dots i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #3d45cc;
+    animation: kp-dot-bounce .8s infinite alternate;
+}
+
+.kp-loading-dots i:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.kp-loading-dots i:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.kp-progress-track {
+    height: 6px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #dfe2fa;
+}
+
+.kp-progress-fill {
+    width: 40%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #00068a, #777dff);
+    animation: kp-progress-glow 2.5s ease-in-out infinite alternate;
+}
+
+.kp-launch-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    color: #7b8099;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.kp-footer-star {
+    color: #6268d7;
+    font-size: 15px;
+}
+
+.kp-launch-glow {
+    position: absolute;
+    z-index: -1;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .38;
+    pointer-events: none;
+    animation: kp-glow-drift 8s ease-in-out infinite alternate;
+}
+
+.kp-launch-glow-one {
+    top: 4%;
+    left: -100px;
+    background: #bfc5ff;
+}
+
+.kp-launch-glow-two {
+    right: -100px;
+    bottom: 0;
+    background: #d8c9ff;
+    animation-delay: -4s;
+}
+
+@keyframes kp-launch-enter {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes kp-icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+@keyframes kp-live-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 #555ce84d; }
+    50% { box-shadow: 0 0 0 7px #555ce800; }
+}
+
+@keyframes kp-dot-bounce {
+    from { transform: translateY(0); opacity: .45; }
+    to { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes kp-progress-glow {
+    from { width: 32%; }
+    to { width: 68%; }
+}
+
+@keyframes kp-glow-drift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(35px, -25px); }
+}
+
+@media (max-width: 576px) {
+    .kp-launch-page {
+        min-height: 72vh;
+        padding: 50px 20px;
+    }
+
+    .kp-launch-logo {
+        margin-bottom: 30px;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .kp-launch-badge {
+        font-size: 8px;
+        letter-spacing: .7px;
+        padding: 9px 12px;
+    }
+
+    .kp-launch-icon {
+        width: 88px;
+        height: 88px;
+        padding: 19px;
+        border-radius: 26px;
+    }
+
+    .kp-launch-page h1 {
+        letter-spacing: -1.3px;
+    }
+
+    .kp-launch-description {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .kp-launch-footer {
+        gap: 7px;
+        font-size: 8px;
+        letter-spacing: .7px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kp-launch-page *,
+    .kp-launch-page *::before,
+    .kp-launch-page *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+{{-- COMING SOON PAGE --}}
+<div class="kp-launch-page">
+    <div class="kp-launch-glow kp-launch-glow-one"></div>
+    <div class="kp-launch-glow kp-launch-glow-two"></div>
+
+    <div class="kp-launch-content">
+
+        <div class="kp-launch-logo">
+            <span class="kp-logo-mark">KP</span>
+            <span>KEYS PLEASE <strong>VENTURE</strong></span>
+        </div>
+
+        <div class="kp-launch-badge">
+            <span class="kp-live-dot"></span>
+            SOMETHING EXCITING IS ON THE WAY
+        </div>
+
+        <div class="kp-launch-icon">
+            <svg viewBox="0 0 64 64" fill="none"
+                 stroke="currentColor" stroke-width="1.7"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 29 32 10l22 19"/>
+                <path d="M17 26v27h30V26"/>
+                <path d="M26 53V37h12v16"/>
+                <path d="M23 29h18"/>
+                <path d="M32 20v6"/>
+                <circle cx="32" cy="32" r="28"
+                        stroke-dasharray="3 6"
+                        opacity=".45"/>
+            </svg>
+        </div>
+
+        <p class="kp-launch-eyebrow">A NEW CHAPTER BEGINS</p>
+
+        <h1>
+            Your Next Big Thing
+            <span>Is Almost Here.</span>
+        </h1>
+
+        <p class="kp-launch-description">
+            We're building something special to help property owners
+            showcase their properties, reach more customers, and grow
+            with Keys Please Venture.
+        </p>
+
+        <div class="kp-launch-progress">
+            <div class="kp-progress-label">
+                <span>Building something amazing</span>
+                <span class="kp-loading-dots">
+                    <i></i><i></i><i></i>
+                </span>
+            </div>
+
+            <div class="kp-progress-track">
+                <div class="kp-progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="kp-launch-footer">
+            <span class="kp-footer-star">✦</span>
+            BETTER LISTINGS. BIGGER POSSIBILITIES.
+            <span class="kp-footer-star">✦</span>
+        </div>
+
+    </div>
+</div>
+
+@if(false)
 <div class="subscription-page">
 
     {{-- PAGE HEADER --}}
@@ -335,7 +720,7 @@
 
 
 </div>
-
+@endif
 
 
 {{-- SUBSCRIPTION PAGE CSS --}}

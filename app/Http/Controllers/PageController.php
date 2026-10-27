@@ -265,7 +265,8 @@ public function rent(Request $request)
 
     $properties = $query->latest()->get();
 
-    return view('website.rent', compact('properties'));
+return view('website.rent', compact('properties'))
+    ->with('listingMode', 'rent');
 }
 
 
@@ -345,7 +346,7 @@ public function sell(Request $request)
     $properties = $query->latest()->get();
 
 return view('website.rent', compact('properties'))
-    ->with('listingMode', 'rent');
+    ->with('listingMode', 'sell');
 }
 
 
@@ -414,19 +415,56 @@ return view('website.rent', compact('properties'))
             ->where('status', 'approved')
             ->where('city_id', $city->id)
             ->whereIn('listing_for', [
-                'Rent',
-                'PG',
-                'Sell',
-                'Lease'
-            ])
+    'Rent',
+    'PG',
+    'Lease'
+])
             ->latest()
             ->get();
 
         return view('website.rent', [
-            'properties' => $properties,
-            'selectedCityModel' => $city,
-        ]);
+    'properties' => $properties,
+    'selectedCityModel' => $city,
+    'listingMode' => 'rent',
+]);
     }
+
+
+    
+public function sellByCity($citySlug)
+{
+    $city = City::where('slug', $citySlug)
+        ->where('status', true)
+        ->first();
+
+    if (!$city) {
+        return redirect()->route('sell');
+    }
+
+    $properties = Property::with([
+        'images',
+        'user',
+        'propertyAmenities',
+        'cityRelation'
+    ])
+        ->where('status', 'approved')
+        ->where('city_id', $city->id)
+        ->whereRaw(
+            'LOWER(TRIM(listing_for)) = ?',
+            ['sell']
+        )
+        ->latest()
+        ->get();
+
+        
+
+    return view('website.rent', [
+        'properties' => $properties,
+        'selectedCityModel' => $city,
+        'listingMode' => 'sell',
+    ]);
+}
+
 
 
 

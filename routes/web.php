@@ -9,6 +9,7 @@ use App\Http\Controllers\RentalPropertyReportController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscribeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\AuthController;
 
 use App\Http\Controllers\Customer\AuthController as CustomerAuthController;
 
@@ -24,7 +25,40 @@ Route::get('contact', [PageController::class, 'contact'])
 
     
 Route::get('subscription', [PageController::class, 'subscription'])
+    ->middleware('auth:customer')
     ->name('subscription.index');
+
+ // CUSTOMER ACCOUNT
+Route::get('/my-account', [CustomerAuthController::class, 'account'])
+    ->middleware('auth:customer')
+    ->name('customer.account');
+
+// CUSTOMER EDIT PROFILE
+Route::middleware('auth:customer')->group(function () {
+
+    Route::get('/my-account/edit', [
+        CustomerAuthController::class,
+        'editProfile'
+    ])->name('customer.profile.edit');
+
+    Route::put('/my-account/update', [
+        CustomerAuthController::class,
+        'updateProfile'
+    ])->name('customer.profile.update');
+
+   Route::get('/my-account/enquiries', [
+    CustomerAuthController::class,
+    'myEnquiries'
+])->name('customer.enquiries');
+
+
+Route::get('/my-account/site-visits', [
+    CustomerAuthController::class,
+    'mySiteVisits'
+])->name('customer.site-visits');
+
+
+});
 
 
 
@@ -51,6 +85,10 @@ Route::get('/sell', [PageController::class, 'sell'])
 
 Route::get('/rent/{citySlug}', [PageController::class, 'rentByCity'])
     ->name('rent.city');
+
+
+Route::get('/sell/{citySlug}', [PageController::class, 'sellByCity'])
+    ->name('sell.city');
 
 
     
