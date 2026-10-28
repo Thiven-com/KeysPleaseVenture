@@ -67,6 +67,11 @@ Route::name('broker.')->group(function () {
         Route::put('/properties/{id}', [BrokerController::class, 'updateProperty'])
             ->name('properties.update');
 
+
+        Route::post('/properties/{id}/repost', [BrokerController::class, 'repostProperty'])
+            ->name('properties.repost');
+
+
         Route::get('/enquiries', [BrokerController::class, 'enquiries'])
             ->name('enquiries');
 

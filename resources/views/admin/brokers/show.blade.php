@@ -138,8 +138,8 @@
 
                             @if($broker->profile_pic)
 
-                                <img src="{{ asset($broker->profile_pic) }}" alt="Broker"
-                                    class="img-fluid rounded-circle mb-3" style="width:150px;height:150px;object-fit:cover;">
+                                <img src="{{ asset($broker->profile_pic) }}" alt="Broker" class="img-fluid rounded-circle mb-3"
+                                    style="width:150px;height:150px;object-fit:cover;">
 
                             @else
 
@@ -244,10 +244,22 @@
                                     </p>
                                 </div>
 
+                                <!-- <div class="col-md-6 mb-3">
+                                        <strong>License Number</strong>
+                                        <p class="mb-0">
+                                            {{ $broker->license_number ?: '-' }}
+                                        </p>
+                                    </div> -->
+
+                                {{-- Aadhaar Card --}}
                                 <div class="col-md-6 mb-3">
-                                    <strong>License Number</strong>
+                                    <strong>Aadhaar Card</strong>
                                     <p class="mb-0">
-                                        {{ $broker->license_number ?: '-' }}
+                                        @if($broker->aadhaar_number)
+                                            XXXX-XXXX-{{ substr($broker->aadhaar_number, -4) }}
+                                        @else
+                                            -
+                                        @endif
                                     </p>
                                 </div>
 

@@ -187,7 +187,7 @@
                         </div>
 
 
-                        <div class="col-md-6 mb-3">
+                        <!-- <div class="col-md-6 mb-3">
 
                             <label class="form-label">
                                 License Number
@@ -200,7 +200,34 @@
                                 value="{{ old('license_number', $broker->license_number) }}"
                             >
 
-                        </div>
+                        </div> -->
+
+                        
+<div class="col-md-6 mb-3">
+    <label class="form-label">
+        Aadhaar Card
+    </label>
+
+    <input
+        type="text"
+        name="aadhaar_number"
+        class="form-control"
+        value="{{ old('aadhaar_number', $broker->aadhaar_number) }}"
+        placeholder="Enter 12-digit Aadhaar number"
+        inputmode="numeric"
+        maxlength="12"
+        pattern="[0-9]{12}"
+        title="Enter a valid 12-digit Aadhaar number"
+        autocomplete="off"
+    >
+
+    @error('aadhaar_number')
+        <div class="text-danger small mt-1">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
+
 
                     </div>
 

@@ -110,6 +110,7 @@ class BrokerController extends Controller
             'agency_name' => 'nullable|string|max:255',
 
             'license_number' => 'nullable|string|max:255',
+            'aadhaar_number' => 'nullable|digits:12',
 
             'address' => 'required|string',
 
@@ -130,6 +131,7 @@ class BrokerController extends Controller
         $broker->broker_type = $request->broker_type;
         $broker->agency_name = $request->agency_name;
         $broker->license_number = $request->license_number;
+        $broker->aadhaar_number = $request->aadhaar_number;
         $broker->address = $request->address;
         $broker->city = $request->city;
         $broker->state = $request->state;
@@ -257,6 +259,7 @@ class BrokerController extends Controller
             'agency_name' => 'nullable|string|max:255',
 
             'license_number' => 'nullable|string|max:255',
+            'aadhaar_number' => 'nullable|digits:12',
 
             'address' => 'required|string',
 
@@ -278,6 +281,7 @@ class BrokerController extends Controller
             'broker_type' => $request->broker_type,
             'agency_name' => $request->agency_name,
             'license_number' => $request->license_number,
+            'aadhaar_number' => $request->aadhaar_number,
             'address' => $request->address,
             'city' => $request->city,
             'state' => $request->state,

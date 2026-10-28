@@ -13,12 +13,41 @@ use App\Models\ScheduleVisitEnquiry;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Customer Login - Email and Password
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Redirect customer after successful authentication.
+     * Only allow local paths to prevent external redirects.
+     */
+    private function redirectAfterAuthentication(
+        Request $request,
+        string $message
+    ) {
+        $redirect = $request->input('redirect');
 
+        if (is_string($redirect) && $redirect !== '') {
+            $parts = parse_url($redirect);
+
+            $path = $parts['path'] ?? '';
+
+            $isSafeLocalPath =
+                str_starts_with($path, '/') &&
+                !str_starts_with($path, '//') &&
+                !isset($parts['scheme']) &&
+                !isset($parts['host']) &&
+                !str_contains($path, '\\');
+
+            if ($isSafeLocalPath) {
+                return redirect()->to($redirect)->with('success', $message);
+            }
+        }
+
+        return redirect()
+            ->route('home')
+            ->with('success', $message);
+    }
+
+    /**
+     * Customer Login - Email and Password
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -29,31 +58,23 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('customer')->attempt($credentials)) {
-
             $request->session()->regenerate();
 
-            return redirect()
-                ->route('home')
-                ->with('success', 'Login successful.');
+            return $this->redirectAfterAuthentication(
+                $request,
+                'Login successful.'
+            );
         }
 
         return back()
             ->withErrors([
                 'email' => 'Invalid email or password.',
             ])
-            ->onlyInput('email');
+            ->withInput($request->only('email', 'redirect'));
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Send OTP - Database
-    |--------------------------------------------------------------------------
-    */
-
-
     /**
-     * Send 4-digit OTP
+     * Send 4-digit OTP.
      */
     public function sendOtp(Request $request)
     {
@@ -62,52 +83,39 @@ class AuthController extends Controller
             'mobile' => ['required', 'digits:10'],
         ]);
 
-        // Combine country code and mobile number
         $mobile = $request->country_code . $request->mobile;
 
-        // Find customer
         $customer = Customer::where('mobile', $mobile)->first();
 
-        // Create customer if not exists
         if (!$customer) {
             $customer = Customer::create([
                 'name' => 'Customer',
                 'mobile' => $mobile,
-                'password' => Hash::make(
-                    bin2hex(random_bytes(16))
-                ),
+                'password' => Hash::make(bin2hex(random_bytes(16))),
             ]);
         }
 
-        // Generate 4-digit OTP
-        // $otp = (string) random_int(1000, 9999);
-        // Default OTP for development only
+        // Development only. Replace with secure OTP generation
+        // and SMS delivery before production.
         $otp = '1234';
 
-        // Save OTP
         $customer->otp = $otp;
-
-        // OTP expires after 5 minutes
         $customer->otp_expires_at = now()->addMinutes(5);
-
-        // Reset attempts
         $customer->otp_attempts = 0;
-
         $customer->save();
 
-        // Return OTP login session
         return back()->with([
             'otp_sent' => true,
             'otp_mobile' => $request->mobile,
             'otp_country_code' => $request->country_code,
             'dev_otp' => $otp,
+            'redirect' => $request->input('redirect'),
             'success' => '4-digit OTP generated successfully.',
         ]);
     }
 
-
     /**
-     * Verify 4-digit OTP
+     * Verify 4-digit OTP.
      */
     public function verifyOtp(Request $request)
     {
@@ -117,78 +125,90 @@ class AuthController extends Controller
             'otp' => ['required', 'digits:4'],
         ]);
 
-        // Combine country code and mobile number
         $mobile = $request->country_code . $request->mobile;
 
-        // Find customer
         $customer = Customer::where('mobile', $mobile)->first();
 
         if (!$customer) {
-            return back()->withErrors([
-                'otp' => 'Customer not found.',
-            ]);
+            return back()
+                ->withErrors([
+                    'otp' => 'Customer not found.',
+                ])
+                ->withInput($request->only(
+                    'mobile',
+                    'country_code',
+                    'redirect'
+                ));
         }
 
-        // Check attempts
         if ($customer->otp_attempts >= 5) {
-            return back()->withErrors([
-                'otp' => 'Maximum OTP attempts reached. Please request a new OTP.',
-            ]);
+            return back()
+                ->withErrors([
+                    'otp' => 'Maximum OTP attempts reached. Please request a new OTP.',
+                ])
+                ->withInput($request->only(
+                    'mobile',
+                    'country_code',
+                    'redirect'
+                ));
         }
 
-        // Check expiration
         if (
             !$customer->otp_expires_at ||
             $customer->otp_expires_at->isPast()
         ) {
-            return back()->withErrors([
-                'otp' => 'OTP expired. Please request a new OTP.',
-            ]);
+            return back()
+                ->withErrors([
+                    'otp' => 'OTP expired. Please request a new OTP.',
+                ])
+                ->withInput($request->only(
+                    'mobile',
+                    'country_code',
+                    'redirect'
+                ));
         }
 
-        // Increment attempts
         $customer->otp_attempts++;
         $customer->save();
 
-        // Verify OTP
-        if ($customer->otp !== $request->otp) {
-            return back()->withErrors([
-                'otp' => 'Invalid OTP. Please try again.',
-            ]);
+        if ((string) $customer->otp !== (string) $request->otp) {
+            return back()
+                ->withErrors([
+                    'otp' => 'Invalid OTP. Please try again.',
+                ])
+                ->withInput($request->only(
+                    'mobile',
+                    'country_code',
+                    'redirect'
+                ));
         }
 
-        // Clear OTP after successful verification
+        // Clear OTP after successful verification.
         $customer->otp = null;
         $customer->otp_expires_at = null;
         $customer->otp_attempts = 0;
-
         $customer->save();
 
-        // Login customer
+        // Log in the customer.
         Auth::guard('customer')->login($customer);
 
-        // Regenerate session
+        // Regenerate the session.
         $request->session()->regenerate();
 
-        return redirect()
-            ->route('home')
-            ->with('success', 'Login successful.');
+        return $this->redirectAfterAuthentication(
+            $request,
+            'Login successful.'
+        );
     }
 
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Customer Logout
-    |--------------------------------------------------------------------------
-    */
-
+    /**
+     * Customer Logout.
+     */
     public function logout(Request $request)
     {
         Auth::guard('customer')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()
@@ -196,13 +216,9 @@ class AuthController extends Controller
             ->with('success', 'Logged out successfully.');
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Customer Registration
-    |--------------------------------------------------------------------------
-    */
-
+    /**
+     * Customer Registration.
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -241,52 +257,45 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()
-            ->route('home')
-            ->with('success', 'Registration successful.');
+        return $this->redirectAfterAuthentication(
+            $request,
+            'Registration successful.'
+        );
     }
 
-
     /**
-     * Customer Account Dashboard
+     * Customer Account Dashboard.
      */
-    /**
- * Customer Account Dashboard
- */
+    public function account()
+    {
+        $customer = Auth::guard('customer')->user();
 
-public function account()
-{
-    $customer = Auth::guard('customer')->user();
+        $recentEnquiries = RentalRequirmentsEnquiry::where(
+            'customer_id',
+            $customer->id
+        )
+            ->latest()
+            ->take(5)
+            ->get();
 
-    // Latest 5 property enquiries
-    $recentEnquiries = \App\Models\RentalRequirmentsEnquiry::where(
-        'customer_id',
-        $customer->id
-    )
-        ->latest()
-        ->take(5)
-        ->get();
+        $recentSiteVisits = ScheduleVisitEnquiry::where(
+            'customer_id',
+            $customer->id
+        )
+            ->orderByDesc('visit_date')
+            ->orderByDesc('visit_time')
+            ->take(3)
+            ->get();
 
-    // Latest 3 site visits
-    $recentSiteVisits = \App\Models\ScheduleVisitEnquiry::where(
-        'customer_id',
-        $customer->id
-    )
-        ->orderByDesc('visit_date')
-        ->orderByDesc('visit_time')
-        ->take(3)
-        ->get();
-
-    return view('website.account.index', compact(
-        'customer',
-        'recentEnquiries',
-        'recentSiteVisits'
-    ));
-}
-
+        return view('website.account.index', compact(
+            'customer',
+            'recentEnquiries',
+            'recentSiteVisits'
+        ));
+    }
 
     /**
-     * Edit Customer Profile
+     * Edit Customer Profile.
      */
     public function editProfile()
     {
@@ -296,7 +305,7 @@ public function account()
     }
 
     /**
-     * Update Customer Profile
+     * Update Customer Profile.
      */
     public function updateProfile(Request $request)
     {
@@ -320,7 +329,6 @@ public function account()
 
         $customer->name = $validated['name'];
         $customer->email = $validated['email'] ?? null;
-
         $customer->save();
 
         return redirect()
@@ -328,12 +336,17 @@ public function account()
             ->with('success', 'Your profile has been updated successfully.');
     }
 
-
+    /**
+     * Customer Enquiry History.
+     */
     public function myEnquiries()
     {
         $customer = Auth::guard('customer')->user();
 
-        $enquiries = RentalRequirmentsEnquiry::where('customer_id', $customer->id)
+        $enquiries = RentalRequirmentsEnquiry::where(
+            'customer_id',
+            $customer->id
+        )
             ->latest()
             ->paginate(10);
 
@@ -343,26 +356,24 @@ public function account()
         ));
     }
 
-    
-/**
- * Customer Site Visits
- */
-public function mySiteVisits()
-{
-    $customer = Auth::guard('customer')->user();
+    /**
+     * Customer Site Visits.
+     */
+    public function mySiteVisits()
+    {
+        $customer = Auth::guard('customer')->user();
 
-    $siteVisits = ScheduleVisitEnquiry::where(
-        'customer_id',
-        $customer->id
-    )
-        ->orderByDesc('visit_date')
-        ->orderByDesc('visit_time')
-        ->paginate(10);
+        $siteVisits = ScheduleVisitEnquiry::where(
+            'customer_id',
+            $customer->id
+        )
+            ->orderByDesc('visit_date')
+            ->orderByDesc('visit_time')
+            ->paginate(10);
 
-    return view('website.account.site-visits', compact(
-        'customer',
-        'siteVisits'
-    ));
-}
-
+        return view('website.account.site-visits', compact(
+            'customer',
+            'siteVisits'
+        ));
+    }
 }

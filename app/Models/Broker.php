@@ -25,6 +25,7 @@ class Broker extends Authenticatable
         'agency_name',
         'broker_type',
         'license_number',
+        'aadhaar_number',
         'address',
         'city',
         'state',

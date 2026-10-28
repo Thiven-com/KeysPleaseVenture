@@ -6,6 +6,7 @@ use App\Models\RentalRequirmentsEnquiry;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class RentalRequirmentsEnquiryController extends Controller
 {
     public function store(Request $request)
@@ -38,8 +39,10 @@ class RentalRequirmentsEnquiryController extends Controller
             ],
 
             'message' => 'nullable|string|max:2000',
-        ]);
 
+            // Terms & Conditions must be accepted
+            'terms_accepted' => ['required', 'accepted'],
+        ]);
 
         /*
         |--------------------------------------------------------------------------
@@ -51,7 +54,6 @@ class RentalRequirmentsEnquiryController extends Controller
             $validated['property_id']
         );
 
-
         /*
         |--------------------------------------------------------------------------
         | Create Property Enquiry
@@ -59,8 +61,8 @@ class RentalRequirmentsEnquiryController extends Controller
         */
 
         $enquiry = RentalRequirmentsEnquiry::create([
+            'customer_id' => Auth::guard('customer')->id(),
 
-        'customer_id' => Auth::guard('customer')->id(),
             'property_id' => $property->id,
 
             'property_title' => $property->property_title,
@@ -86,8 +88,12 @@ class RentalRequirmentsEnquiryController extends Controller
                 $validated['message'] ?? null,
 
             'status' => 'new',
-        ]);
 
+            // Save Terms & Conditions acceptance
+            'terms_accepted' => true,
+
+            'terms_accepted_at' => now(),
+        ]);
 
         /*
         |--------------------------------------------------------------------------

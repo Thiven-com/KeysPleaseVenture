@@ -22,10 +22,14 @@ class RentalRequirmentsEnquiry extends Model
         'preferred_contact',
         'message',
         'status',
+        'terms_accepted',
+        'terms_accepted_at',
     ];
 
     protected $casts = [
         'move_in_date' => 'date',
+        'terms_accepted' => 'boolean',
+        'terms_accepted_at' => 'datetime',
     ];
 
     public function property()

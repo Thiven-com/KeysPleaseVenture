@@ -68,7 +68,11 @@ class Property extends Model
         // Status
         'status',
         'admin_remark',
+
+        // Property Expiry
+        'expires_at',
     ];
+
 
     protected $casts = [
         'amenities' => 'array',
@@ -77,12 +81,14 @@ class Property extends Model
         'security_deposit' => 'decimal:2',
 
         'available_from' => 'date',
+        'expires_at' => 'datetime',
 
         'latitude' => 'decimal:7',
         'longitude' => 'decimal:7',
 
         'road_width' => 'decimal:2',
     ];
+
 
     public function images()
     {

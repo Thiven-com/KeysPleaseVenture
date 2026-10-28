@@ -351,17 +351,33 @@
                             </div>
 
 
-                            <div class="broker-profile-info">
+                            <!-- <div class="broker-profile-info">
 
+                                    <span class="broker-profile-label">
+                                        License Number
+                                    </span>
+
+                                    <div class="broker-profile-value">
+                                        {{ $broker->license_number ?: 'Not provided' }}
+                                    </div>
+
+                                </div> -->
+
+                            {{-- Aadhaar Card --}}
+                            <div class="broker-profile-info">
                                 <span class="broker-profile-label">
-                                    License Number
+                                    Aadhaar Card
                                 </span>
 
                                 <div class="broker-profile-value">
-                                    {{ $broker->license_number ?: 'Not provided' }}
+                                    @if($broker->aadhaar_number)
+                                        XXXX-XXXX-{{ substr($broker->aadhaar_number, -4) }}
+                                    @else
+                                        Not provided
+                                    @endif
                                 </div>
-
                             </div>
+
 
 
                             <div class="broker-profile-info">

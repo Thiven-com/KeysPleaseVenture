@@ -4,9 +4,9 @@
 
     <style>
         /* =========================================================
-           PROPERTY MANAGEMENT PAGE
-           Same layout/UI structure as Contact Enquiries
-        ========================================================= */
+                       PROPERTY MANAGEMENT PAGE
+                       Same layout/UI structure as Contact Enquiries
+                    ========================================================= */
 
         .properties-page {
             position: relative;
@@ -24,8 +24,8 @@
 
 
         /* =========================================================
-           MAIN
-        ========================================================= */
+                       MAIN
+                    ========================================================= */
 
         .properties-main {
             width: 100%;
@@ -43,8 +43,8 @@
 
 
         /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+                       PAGE HEADER
+                    ========================================================= */
 
         .properties-header {
             width: 100%;
@@ -85,8 +85,8 @@
 
 
         /* =========================================================
-           ADD BUTTON
-        ========================================================= */
+                       ADD BUTTON
+                    ========================================================= */
 
         .add-property-btn {
             display: inline-flex;
@@ -124,8 +124,8 @@
 
 
         /* =========================================================
-           ALERTS
-        ========================================================= */
+                       ALERTS
+                    ========================================================= */
 
         .properties-alert {
             display: flex;
@@ -165,8 +165,8 @@
 
 
         /* =========================================================
-           CARD
-        ========================================================= */
+                       CARD
+                    ========================================================= */
 
         .properties-card {
             width: 100%;
@@ -193,8 +193,8 @@
 
 
         /* =========================================================
-           TABLE SCROLL
-        ========================================================= */
+                       TABLE SCROLL
+                    ========================================================= */
 
         .properties-table-scroll {
             width: 100%;
@@ -218,8 +218,8 @@
 
 
         /* =========================================================
-           SCROLLBAR
-        ========================================================= */
+                       SCROLLBAR
+                    ========================================================= */
 
         .properties-table-scroll::-webkit-scrollbar {
             width: 8px;
@@ -242,8 +242,8 @@
 
 
         /* =========================================================
-           TABLE
-        ========================================================= */
+                       TABLE
+                    ========================================================= */
 
         .properties-table {
             width: 100%;
@@ -265,8 +265,8 @@
 
 
         /* =========================================================
-           TABLE HEADER
-        ========================================================= */
+                       TABLE HEADER
+                    ========================================================= */
 
         .properties-table thead {
             background: #f3f6fa;
@@ -305,8 +305,8 @@
 
 
         /* =========================================================
-           CENTER HEADER
-        ========================================================= */
+                       CENTER HEADER
+                    ========================================================= */
 
         .properties-table thead th:nth-child(1),
         .properties-table thead th:nth-child(7),
@@ -316,8 +316,8 @@
 
 
         /* =========================================================
-           BODY
-        ========================================================= */
+                       BODY
+                    ========================================================= */
 
         .properties-table tbody tr {
             background: #ffffff;
@@ -362,8 +362,8 @@
 
 
         /* =========================================================
-           COLUMN WIDTHS
-        ========================================================= */
+                       COLUMN WIDTHS
+                    ========================================================= */
 
         .properties-table th:nth-child(1),
         .properties-table td:nth-child(1) {
@@ -413,8 +413,8 @@
 
 
         /* =========================================================
-           NUMBER
-        ========================================================= */
+                       NUMBER
+                    ========================================================= */
 
         .property-number {
             display: inline-flex;
@@ -437,8 +437,8 @@
 
 
         /* =========================================================
-           PROPERTY
-        ========================================================= */
+                       PROPERTY
+                    ========================================================= */
 
         .property-wrapper {
             display: flex;
@@ -511,8 +511,8 @@
 
 
         /* =========================================================
-           LOCATION
-        ========================================================= */
+                       LOCATION
+                    ========================================================= */
 
         .property-location {
             color: #687389 !important;
@@ -534,8 +534,8 @@
 
 
         /* =========================================================
-           RENT
-        ========================================================= */
+                       RENT
+                    ========================================================= */
 
         .property-rent {
             color: #071b3d !important;
@@ -557,8 +557,8 @@
 
 
         /* =========================================================
-           DETAILS
-        ========================================================= */
+                       DETAILS
+                    ========================================================= */
 
         .property-details {
             color: #687389;
@@ -574,8 +574,8 @@
 
 
         /* =========================================================
-           POSTED BY
-        ========================================================= */
+                       POSTED BY
+                    ========================================================= */
 
         .posted-name {
             display: block;
@@ -599,8 +599,8 @@
 
 
         /* =========================================================
-           STATUS
-        ========================================================= */
+                       STATUS
+                    ========================================================= */
 
         .status-badge {
             display: inline-flex;
@@ -655,8 +655,8 @@
 
 
         /* =========================================================
-           ACTIONS
-        ========================================================= */
+                       ACTIONS
+                    ========================================================= */
 
         .property-actions {
             display: flex;
@@ -768,8 +768,8 @@
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================= */
+                       EMPTY STATE
+                    ========================================================= */
 
         .properties-empty {
             height: 180px;
@@ -801,8 +801,8 @@
 
 
         /* =========================================================
-           PAGINATION
-        ========================================================= */
+                       PAGINATION
+                    ========================================================= */
 
         .properties-pagination {
             padding: 18px;
@@ -812,8 +812,8 @@
 
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+                       TABLET
+                    ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -828,8 +828,8 @@
 
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+                       MOBILE
+                    ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -856,6 +856,85 @@
             .properties-table {
                 min-width: 1250px;
             }
+        }
+    </style>
+
+    <style>
+        .property-filters {
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) 180px 180px auto auto;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #fff;
+            border: 1px solid #e5eaf1;
+            border-radius: 12px;
+        }
+
+        .property-filters input,
+        .property-filters select {
+            width: 100%;
+            min-width: 0;
+            height: 42px;
+            padding: 0 12px;
+            color: #071b3d;
+            background: #fff;
+            border: 1px solid #dce3ed;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .property-filter-btn,
+        .property-reset-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 42px;
+            padding: 0 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .property-filter-btn {
+            color: #fff;
+            background: #071b3d;
+            border: 1px solid #071b3d;
+        }
+
+        .property-reset-btn {
+            color: #071b3d;
+            background: #f3f6fa;
+            border: 1px solid #dce3ed;
+        }
+
+        @media (max-width: 900px) {
+            .property-filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .property-filters input {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .property-filters {
+                grid-template-columns: 1fr;
+            }
+
+            .property-filters input {
+                grid-column: auto;
+            }
+        }
+
+        .status-expired {
+            background: #fff1f2;
+            color: #e52229 !important;
         }
     </style>
 
@@ -893,6 +972,40 @@
                 </a>
 
             </div>
+
+
+
+            {{-- PROPERTY FILTERS --}}
+            <form method="GET" action="{{ route('properties.all') }}" class="property-filters">
+
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="Search property, location or broker..." aria-label="Search properties">
+
+                <select name="status" aria-label="Filter by status">
+                    <option value="">All Statuses</option>
+                    <option value="approved" @selected(request('status') === 'approved')>Approved</option>
+                    <option value="pending" @selected(request('status') === 'pending')>Pending</option>
+                    <option value="rejected" @selected(request('status') === 'rejected')>Rejected</option>
+                    <option value="rented" @selected(request('status') === 'rented')>Rented</option>
+                    <option value="inactive" @selected(request('status') === 'inactive')>Inactive</option>
+                    <option value="expired" @selected(request('status') === 'expired')>Expired</option>
+                </select>
+
+                <select name="posted_by" aria-label="Filter by poster">
+                    <option value="">All Posted By</option>
+                    <option value="admin" @selected(request('posted_by') === 'admin')>Admin</option>
+                    <option value="broker" @selected(request('posted_by') === 'broker')>Broker</option>
+                </select>
+
+                <button type="submit" class="property-filter-btn">
+                    <i class="ti ti-filter"></i> Filter
+                </button>
+
+                <a href="{{ route('properties.all') }}" class="property-reset-btn">
+                    Reset
+                </a>
+            </form>
+
 
 
             {{-- =====================================================
@@ -1147,7 +1260,7 @@
                                         $property->area_sqft
                                     )
                                     : '-'
-                                                                        }}
+                                                                                                                                                            }}
 
                                                                 </strong>
 
@@ -1193,37 +1306,28 @@
 
                                                         <td>
 
-                                                            @php
 
-                                                                $status = strtolower(
-                                                                    trim(
-                                                                        $property->status ?? 'pending'
-                                                                    )
-                                                                );
+                                                            @php
+                                                                $expiryDate = $property->expires_at
+                                                                    ?? $property->created_at?->copy()->addDays(60);
+
+                                                                $isExpired = $expiryDate && $expiryDate->isPast();
+
+                                                                $status = $isExpired
+                                                                    ? 'expired'
+                                                                    : strtolower(trim($property->status ?? 'pending'));
 
                                                                 $statusClass = match ($status) {
-
-                                                                    'approved' =>
-                                                                        'status-approved',
-
-                                                                    'pending' =>
-                                                                        'status-pending',
-
-                                                                    'rejected' =>
-                                                                        'status-rejected',
-
-                                                                    'rented' =>
-                                                                        'status-rented',
-
-                                                                    'inactive' =>
-                                                                        'status-inactive',
-
-                                                                    default =>
-                                                                        'status-inactive',
-
+                                                                    'approved' => 'status-approved',
+                                                                    'pending' => 'status-pending',
+                                                                    'rejected' => 'status-rejected',
+                                                                    'rented' => 'status-rented',
+                                                                    'expired' => 'status-expired',
+                                                                    'inactive' => 'status-inactive',
+                                                                    default => 'status-inactive',
                                                                 };
-
                                                             @endphp
+
 
 
                                                             <span class="status-badge {{ $statusClass }}">
@@ -1282,9 +1386,10 @@
                                                                                                 <form action="{{ route(
                                                                         'properties.approve',
                                                                         $property->id
-                                                                    ) }}" method="POST" class="property-action-form" onsubmit="return confirm(
-                                                                                                                'Approve this property?'
-                                                                                                            );">
+                                                                    ) }}" method="POST" class="property-action-form"
+                                                                                                    onsubmit="return confirm(
+                                                                                                                                                                                                                                                                                                    'Approve this property?'
+                                                                                                                                                                                                                                                                                                );">
 
                                                                                                     @csrf
 
@@ -1303,7 +1408,8 @@
                                                                                                 <form action="{{ route(
                                                                         'properties.reject',
                                                                         $property->id
-                                                                    ) }}" method="POST" class="property-action-form reject-form">
+                                                                    ) }}" method="POST"
+                                                                                                    class="property-action-form reject-form">
 
                                                                                                     @csrf
 
@@ -1331,9 +1437,10 @@
                                                                                                 <form action="{{ route(
                                                                         'properties.rented',
                                                                         $property->id
-                                                                    ) }}" method="POST" class="property-action-form" onsubmit="return confirm(
-                                                                                                                'Mark this property as rented?'
-                                                                                                            );">
+                                                                    ) }}" method="POST" class="property-action-form"
+                                                                                                    onsubmit="return confirm(
+                                                                                                                                                                                                                                                                                                    'Mark this property as rented?'
+                                                                                                                                                                                                                                                                                                );">
 
                                                                                                     @csrf
 
@@ -1352,9 +1459,10 @@
                                                                                                 <form action="{{ route(
                                                                         'properties.disable',
                                                                         $property->id
-                                                                    ) }}" method="POST" class="property-action-form" onsubmit="return confirm(
-                                                                                                                'Disable this property?'
-                                                                                                            );">
+                                                                    ) }}" method="POST" class="property-action-form"
+                                                                                                    onsubmit="return confirm(
+                                                                                                                                                                                                                                                                                                    'Disable this property?'
+                                                                                                                                                                                                                                                                                                );">
 
                                                                                                     @csrf
 
@@ -1383,9 +1491,10 @@
                                                                                                 <form action="{{ route(
                                                                         'properties.enable',
                                                                         $property->id
-                                                                    ) }}" method="POST" class="property-action-form" onsubmit="return confirm(
-                                                                                                                'Enable this property?'
-                                                                                                            );">
+                                                                    ) }}" method="POST" class="property-action-form"
+                                                                                                    onsubmit="return confirm(
+                                                                                                                                                                                                                                                                                                    'Enable this property?'
+                                                                                                                                                                                                                                                                                                );">
 
                                                                                                     @csrf
 

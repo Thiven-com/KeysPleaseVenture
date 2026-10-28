@@ -51,23 +51,75 @@ class PropertyController extends Controller
     /**
      * Display all properties.
      */
-    public function index()
+
+
+    public function index(Request $request)
     {
-        $properties = Property::with([
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+            'status' => 'nullable|in:approved,pending,rejected,rented,inactive,expired',
+            'posted_by' => 'nullable|in:admin,broker',
+        ]);
+
+        $query = Property::with([
             'images',
             'user',
             'broker',
             'propertyAmenities',
-            'cityRelation'
-        ])
+            'cityRelation',
+        ]);
+
+        // Search property title, location, address, or property type.
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+
+            $query->where(function ($q) use ($search) {
+                $q->where('property_title', 'like', "%{$search}%")
+                    ->orWhere('locality', 'like', "%{$search}%")
+                    ->orWhere('address', 'like', "%{$search}%")
+                    ->orWhere('property_type', 'like', "%{$search}%")
+                    ->orWhereHas('cityRelation', function ($cityQuery) use ($search) {
+                        $cityQuery->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Filter by property status and expiry.
+        if ($request->filled('status')) {
+            $status = $request->status;
+
+            if ($status === 'expired') {
+                $query->whereRaw(
+                    'COALESCE(expires_at, DATE_ADD(created_at, INTERVAL 60 DAY)) <= ?',
+                    [now()]
+                );
+            } else {
+                $query->where('status', $status)
+                    ->whereRaw(
+                        'COALESCE(expires_at, DATE_ADD(created_at, INTERVAL 60 DAY)) > ?',
+                        [now()]
+                    );
+            }
+        }
+
+        // Admin-created properties have no broker_id.
+        if ($request->posted_by === 'admin') {
+            $query->whereNull('broker_id');
+        } elseif ($request->posted_by === 'broker') {
+            $query->whereNotNull('broker_id');
+        }
+
+        $properties = $query
             ->latest()
-            ->paginate(20);
+            ->paginate(20)
+            ->withQueryString();
 
         return view(
             'admin.properties.all',
             compact('properties')
         );
     }
+
 
     /**
      * Show Add Property form.

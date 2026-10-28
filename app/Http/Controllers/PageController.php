@@ -29,6 +29,13 @@ class PageController extends Controller
             ->get();
 
         $popularLocalities = Property::where('status', 'approved')
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->whereNotNull('locality')
             ->where('locality', '!=', '')
             ->selectRaw('locality, COUNT(*) as property_count')
@@ -44,6 +51,13 @@ class PageController extends Controller
             ->values();
 
         $propertyTypeCounts = Property::where('status', 'approved')
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->whereIn('listing_for', ['Rent', 'PG', 'Lease'])
             ->selectRaw('property_type, COUNT(*) as property_count')
             ->groupBy('property_type')
@@ -54,6 +68,7 @@ class PageController extends Controller
         | Featured Properties
         |--------------------------------------------------------------------------
         */
+
 
         $approvedProperties = Property::with([
             'images',
@@ -67,7 +82,15 @@ class PageController extends Controller
                 'PG',
                 'Sell',
             ])
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->get();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -75,11 +98,20 @@ class PageController extends Controller
         |--------------------------------------------------------------------------
         */
 
+
         $brokerPropertyCounts = Property::where('status', 'approved')
             ->whereNotNull('broker_id')
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->selectRaw('broker_id, COUNT(*) as property_count')
             ->groupBy('broker_id')
             ->pluck('property_count', 'broker_id');
+
 
         /*
         |--------------------------------------------------------------------------
@@ -190,164 +222,184 @@ class PageController extends Controller
 
 
 
-public function rent(Request $request)
-{
-    $query = Property::with([
-        'images',
-        'user',
-        'propertyAmenities',
-        'cityRelation'
-    ])
-        ->where('status', 'approved')
-        ->whereIn('listing_for', ['Rent', 'PG', 'Lease']);
+    public function rent(Request $request)
+    {
 
-    // Locality filter
-    if ($request->filled('locality')) {
-        $locality = trim($request->query('locality'));
+        $query = Property::with([
+            'images',
+            'user',
+            'propertyAmenities',
+            'cityRelation'
+        ])
+            ->where('status', 'approved')
+            ->whereIn('listing_for', ['Rent', 'PG', 'Lease'])
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            });
 
-        $query->whereRaw(
-            'LOWER(TRIM(locality)) LIKE LOWER(?)',
-            ['%' . $locality . '%']
-        );
-    }
 
-    // Location filter
-    elseif ($request->filled('location')) {
-        $location = trim($request->query('location'));
+        // Locality filter
+        if ($request->filled('locality')) {
+            $locality = trim($request->query('locality'));
 
-        $query->where(function ($q) use ($location) {
-            $q->where('locality', 'LIKE', '%' . $location . '%')
-                ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                    $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                });
-        });
-    }
-
-    // Property type filter
-    if ($request->filled('type')) {
-        $query->where('property_type', $request->query('type'));
-    }
-
-    // BHK filter
-    if ($request->filled('bhk')) {
-        $bhk = (int) $request->query('bhk');
-
-        if ($bhk >= 4) {
             $query->whereRaw(
-                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
-                [4]
-            );
-        } elseif ($bhk > 0) {
-            $query->whereRaw(
-                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
-                [$bhk]
+                'LOWER(TRIM(locality)) LIKE LOWER(?)',
+                ['%' . $locality . '%']
             );
         }
-    }
 
-    // Minimum rent
-    if ($request->filled('min_rent')) {
-        $minRent = (float) $request->query('min_rent');
+        // Location filter
+        elseif ($request->filled('location')) {
+            $location = trim($request->query('location'));
 
-        if ($minRent >= 0) {
-            $query->where('price', '>=', $minRent);
+            $query->where(function ($q) use ($location) {
+                $q->where('locality', 'LIKE', '%' . $location . '%')
+                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                    });
+            });
         }
-    }
 
-    // Maximum rent
-    if ($request->filled('max_rent')) {
-        $maxRent = (float) $request->query('max_rent');
-
-        if ($maxRent >= 0) {
-            $query->where('price', '<=', $maxRent);
+        // Property type filter
+        if ($request->filled('type')) {
+            $query->where('property_type', $request->query('type'));
         }
+
+        // BHK filter
+        if ($request->filled('bhk')) {
+            $bhk = (int) $request->query('bhk');
+
+            if ($bhk >= 4) {
+                $query->whereRaw(
+                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
+                    [4]
+                );
+            } elseif ($bhk > 0) {
+                $query->whereRaw(
+                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
+                    [$bhk]
+                );
+            }
+        }
+
+        // Minimum rent
+        if ($request->filled('min_rent')) {
+            $minRent = (float) $request->query('min_rent');
+
+            if ($minRent >= 0) {
+                $query->where('price', '>=', $minRent);
+            }
+        }
+
+        // Maximum rent
+        if ($request->filled('max_rent')) {
+            $maxRent = (float) $request->query('max_rent');
+
+            if ($maxRent >= 0) {
+                $query->where('price', '<=', $maxRent);
+            }
+        }
+
+        $properties = $query->latest()->get();
+
+        return view('website.rent', compact('properties'))
+            ->with('listingMode', 'rent');
     }
 
-    $properties = $query->latest()->get();
 
-return view('website.rent', compact('properties'))
-    ->with('listingMode', 'rent');
-}
+    public function sell(Request $request)
+    {
 
 
-public function sell(Request $request)
-{
-    $query = Property::with([
-        'images',
-        'user',
-        'propertyAmenities',
-        'cityRelation'
-    ])
-        ->where('status', 'approved')
-        ->whereRaw("LOWER(TRIM(listing_for)) = ?", ['sell']);
+        $query = Property::with([
+            'images',
+            'user',
+            'propertyAmenities',
+            'cityRelation'
+        ])
+            ->where('status', 'approved')
+            ->whereRaw("LOWER(TRIM(listing_for)) = ?", ['sell'])
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            });
 
-    // Locality filter
-    if ($request->filled('locality')) {
-        $locality = trim($request->query('locality'));
 
-        $query->whereRaw(
-            'LOWER(TRIM(locality)) LIKE LOWER(?)',
-            ['%' . $locality . '%']
-        );
-    }
 
-    // Location filter
-    elseif ($request->filled('location')) {
-        $location = trim($request->query('location'));
+        // Locality filter
+        if ($request->filled('locality')) {
+            $locality = trim($request->query('locality'));
 
-        $query->where(function ($q) use ($location) {
-            $q->where('locality', 'LIKE', '%' . $location . '%')
-                ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
-                    $cityQuery->where('name', 'LIKE', '%' . $location . '%');
-                });
-        });
-    }
-
-    // Property type filter
-    if ($request->filled('type')) {
-        $query->where('property_type', $request->query('type'));
-    }
-
-    // BHK filter
-    if ($request->filled('bhk')) {
-        $bhk = (int) $request->query('bhk');
-
-        if ($bhk >= 4) {
             $query->whereRaw(
-                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
-                [4]
-            );
-        } elseif ($bhk > 0) {
-            $query->whereRaw(
-                "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
-                [$bhk]
+                'LOWER(TRIM(locality)) LIKE LOWER(?)',
+                ['%' . $locality . '%']
             );
         }
-    }
 
-    // Minimum sale price
-    if ($request->filled('min_price')) {
-        $minPrice = (float) $request->query('min_price');
+        // Location filter
+        elseif ($request->filled('location')) {
+            $location = trim($request->query('location'));
 
-        if ($minPrice >= 0) {
-            $query->where('price', '>=', $minPrice);
+            $query->where(function ($q) use ($location) {
+                $q->where('locality', 'LIKE', '%' . $location . '%')
+                    ->orWhereHas('cityRelation', function ($cityQuery) use ($location) {
+                        $cityQuery->where('name', 'LIKE', '%' . $location . '%');
+                    });
+            });
         }
-    }
 
-    // Maximum sale price
-    if ($request->filled('max_price')) {
-        $maxPrice = (float) $request->query('max_price');
-
-        if ($maxPrice >= 0) {
-            $query->where('price', '<=', $maxPrice);
+        // Property type filter
+        if ($request->filled('type')) {
+            $query->where('property_type', $request->query('type'));
         }
+
+        // BHK filter
+        if ($request->filled('bhk')) {
+            $bhk = (int) $request->query('bhk');
+
+            if ($bhk >= 4) {
+                $query->whereRaw(
+                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
+                    [4]
+                );
+            } elseif ($bhk > 0) {
+                $query->whereRaw(
+                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
+                    [$bhk]
+                );
+            }
+        }
+
+        // Minimum sale price
+        if ($request->filled('min_price')) {
+            $minPrice = (float) $request->query('min_price');
+
+            if ($minPrice >= 0) {
+                $query->where('price', '>=', $minPrice);
+            }
+        }
+
+        // Maximum sale price
+        if ($request->filled('max_price')) {
+            $maxPrice = (float) $request->query('max_price');
+
+            if ($maxPrice >= 0) {
+                $query->where('price', '<=', $maxPrice);
+            }
+        }
+
+        $properties = $query->latest()->get();
+
+        return view('website.rent', compact('properties'))
+            ->with('listingMode', 'sell');
     }
-
-    $properties = $query->latest()->get();
-
-return view('website.rent', compact('properties'))
-    ->with('listingMode', 'sell');
-}
 
 
 
@@ -359,6 +411,7 @@ return view('website.rent', compact('properties'))
 
     public function propertydetails($slug)
     {
+
         $property = Property::with([
             'images',
             'user',
@@ -368,13 +421,22 @@ return view('website.rent', compact('properties'))
         ])
             ->where('status', 'approved')
             ->where('slug', $slug)
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->first();
+
 
         if (!$property) {
             return redirect()
                 ->route('rent')
                 ->with('error', 'Property not found.');
         }
+
 
         $similarProperties = Property::with([
             'images',
@@ -386,9 +448,17 @@ return view('website.rent', compact('properties'))
             ->where('status', 'approved')
             ->where('listing_for', $property->listing_for)
             ->where('id', '!=', $property->id)
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->latest()
             ->take(8)
             ->get();
+
 
         return view('website.propertydetails', compact(
             'property',
@@ -412,58 +482,76 @@ return view('website.rent', compact('properties'))
             'propertyAmenities',
             'cityRelation'
         ])
+
             ->where('status', 'approved')
             ->where('city_id', $city->id)
             ->whereIn('listing_for', [
-    'Rent',
-    'PG',
-    'Lease'
-])
+                'Rent',
+                'PG',
+                'Lease'
+            ])
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
             ->latest()
+
             ->get();
 
         return view('website.rent', [
-    'properties' => $properties,
-    'selectedCityModel' => $city,
-    'listingMode' => 'rent',
-]);
+            'properties' => $properties,
+            'selectedCityModel' => $city,
+            'listingMode' => 'rent',
+        ]);
     }
 
 
-    
-public function sellByCity($citySlug)
-{
-    $city = City::where('slug', $citySlug)
-        ->where('status', true)
-        ->first();
 
-    if (!$city) {
-        return redirect()->route('sell');
+    public function sellByCity($citySlug)
+    {
+        $city = City::where('slug', $citySlug)
+            ->where('status', true)
+            ->first();
+
+        if (!$city) {
+            return redirect()->route('sell');
+        }
+
+        $properties = Property::with([
+            'images',
+            'user',
+            'propertyAmenities',
+            'cityRelation'
+        ])
+
+            ->where('status', 'approved')
+            ->where('city_id', $city->id)
+            ->whereRaw(
+                'LOWER(TRIM(listing_for)) = ?',
+                ['sell']
+            )
+            ->where(function ($q) {
+                $q->where('expires_at', '>', now())
+                    ->orWhere(function ($legacy) {
+                        $legacy->whereNull('expires_at')
+                            ->where('created_at', '>', now()->subDays(60));
+                    });
+            })
+            ->latest()
+
+            ->get();
+
+
+
+        return view('website.rent', [
+            'properties' => $properties,
+            'selectedCityModel' => $city,
+            'listingMode' => 'sell',
+        ]);
     }
-
-    $properties = Property::with([
-        'images',
-        'user',
-        'propertyAmenities',
-        'cityRelation'
-    ])
-        ->where('status', 'approved')
-        ->where('city_id', $city->id)
-        ->whereRaw(
-            'LOWER(TRIM(listing_for)) = ?',
-            ['sell']
-        )
-        ->latest()
-        ->get();
-
-        
-
-    return view('website.rent', [
-        'properties' => $properties,
-        'selectedCityModel' => $city,
-        'listingMode' => 'sell',
-    ]);
-}
 
 
 

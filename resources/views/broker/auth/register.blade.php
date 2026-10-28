@@ -299,24 +299,42 @@
 
 
                             {{-- License --}}
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
 
-                                <label class="form-label">
-                                    License Number
-                                </label>
+                                    <label class="form-label">
+                                        License Number
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <input type="text" name="license_number" class="form-control border-end-0"
+                                            value="{{ old('license_number') }}" placeholder="Enter license number">
+
+                                        <span class="input-group-text border-start-0">
+                                            <i class="ti ti-certificate"></i>
+                                        </span>
+
+                                    </div>
+
+                                </div> -->
+
+
+                            {{-- Aadhaar Card --}}
+                            <div class="mb-3">
+                                <label class="form-label">Aadhaar Card</label>
 
                                 <div class="input-group">
-
-                                    <input type="text" name="license_number" class="form-control border-end-0"
-                                        value="{{ old('license_number') }}" placeholder="Enter license number">
+                                    <input type="text" name="aadhaar_number" class="form-control border-end-0"
+                                        value="{{ old('aadhaar_number') }}" placeholder="Enter Aadhaar number"
+                                        inputmode="numeric" maxlength="12" pattern="[0-9]{12}"
+                                        title="Please enter a valid 12-digit Aadhaar number" autocomplete="off">
 
                                     <span class="input-group-text border-start-0">
-                                        <i class="ti ti-certificate"></i>
+                                        <i class="ti ti-id-badge"></i>
                                     </span>
-
                                 </div>
-
                             </div>
+
 
 
                             {{-- ========================================= --}}
@@ -347,12 +365,13 @@
 
                             {{-- City --}}
                             {{-- City --}}
+                            {{-- City / Bengaluru Area --}}
                             <div class="mb-3 position-relative">
-                                <label class="form-label">City</label>
+                                <label class="form-label">City / Area</label>
 
                                 <div class="input-group">
                                     <input type="text" name="city" id="city" class="form-control border-end-0"
-                                        value="{{ old('city') }}" placeholder="Enter or search city" autocomplete="off"
+                                        value="{{ old('city') }}" placeholder="Search Bengaluru area" autocomplete="off"
                                         required>
 
                                     <span class="input-group-text border-start-0">
@@ -364,22 +383,18 @@
                             </div>
 
                             {{-- State --}}
-                            <div class="mb-3 position-relative">
+                            <div class="mb-3">
                                 <label class="form-label">State</label>
 
                                 <div class="input-group">
                                     <input type="text" name="state" id="state" class="form-control border-end-0"
-                                        value="{{ old('state', 'Karnataka') }}" placeholder="Enter or search state"
-                                        autocomplete="off" required>
+                                        value="{{ old('state', 'Karnataka') }}" readonly required>
 
                                     <span class="input-group-text border-start-0">
                                         <i class="ti ti-map"></i>
                                     </span>
                                 </div>
-
-                                <div id="stateSuggestions" class="location-suggestions"></div>
                             </div>
-
 
                             {{-- Pincode --}}
                             <div class="mb-3">
@@ -486,20 +501,20 @@
                             {{-- Login --}}
                             <!-- <div class="signinform">
 
-                                    <h4>
+                                                <h4>
 
-                                        Already have an account?
+                                                    Already have an account?
 
-                                        <a
-                                            href="{{ route('broker.login') }}"
-                                            class="hover-a"
-                                        >
-                                            Sign In
-                                        </a>
+                                                    <a
+                                                        href="{{ route('broker.login') }}"
+                                                        class="hover-a"
+                                                    >
+                                                        Sign In
+                                                    </a>
 
-                                    </h4>
+                                                </h4>
 
-                                </div> -->
+                                            </div> -->
 
                         </div>
 
@@ -528,282 +543,93 @@
 
     </div>
 
+    <script>
+        let localityAutocomplete;
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+        function initLocalityAutocomplete() {
+            const input = document.getElementById('city');
+            const dropdown = document.getElementById('citySuggestions');
+            const stateInput = document.getElementById('state');
 
-    const cities = [
-        // Main city
-        'Bengaluru',
-        'Bangalore',
-
-        // East Bengaluru
-        'Whitefield',
-        'Brookefield',
-        'Marathahalli',
-        'Bellandur',
-        'Kadubeesanahalli',
-        'Panathur',
-        'Varthur',
-        'Hoodi',
-        'Mahadevapura',
-        'KR Puram',
-        'ITPL',
-        'AECS Layout',
-        'Doddanekkundi',
-        'Kaggadasapura',
-        'CV Raman Nagar',
-        'Ramamurthy Nagar',
-        'Harlur',
-        'Sarjapur Road',
-        'Munnekollal',
-
-        // South Bengaluru
-        'Electronic City',
-        'Electronic City Phase 1',
-        'Electronic City Phase 2',
-        'HSR Layout',
-        'BTM Layout',
-        'Bommanahalli',
-        'Begur',
-        'Bannerghatta Road',
-        'JP Nagar',
-        'Jayanagar',
-        'Basavanagudi',
-        'Banashankari',
-        'Kumaraswamy Layout',
-        'Arekere',
-        'Gottigere',
-        'Hulimavu',
-        'Akshayanagar',
-        'Hongasandra',
-        'Kudlu Gate',
-        'Singasandra',
-        'Uttarahalli',
-        'Konanakunte',
-        'Kanakapura Road',
-        'Doddakallasandra',
-        'Anjanapura',
-
-        // Central Bengaluru
-        'MG Road',
-        'Brigade Road',
-        'Indiranagar',
-        'Domlur',
-        'Ulsoor',
-        'Richmond Town',
-        'Residency Road',
-        'Shanti Nagar',
-        'Langford Town',
-        'Ashok Nagar',
-        'Vasanth Nagar',
-        'Cunningham Road',
-        'Frazer Town',
-        'Cox Town',
-        'Commercial Street',
-        'Church Street',
-        'Lavelle Road',
-
-        // West Bengaluru
-        'Rajajinagar',
-        'Vijayanagar',
-        'Nagarbhavi',
-        'Nandini Layout',
-        'Mahalakshmi Layout',
-        'Basaveshwaranagar',
-        'Vijayanagar Extension',
-        'Kengeri',
-        'Kengeri Satellite Town',
-        'Attiguppe',
-        'Mysore Road',
-        'Magadi Road',
-        'Peenya',
-        'Yeshwanthpur',
-        'Mathikere',
-        'Jalahalli',
-        'Nagasandra',
-        'Laggere',
-        'Sunkadakatte',
-
-        // North Bengaluru
-        'Hebbal',
-        'Yelahanka',
-        'Thanisandra',
-        'Hennur',
-        'Kalyan Nagar',
-        'HRBR Layout',
-        'Kammanahalli',
-        'Nagawara',
-        'Jakkur',
-        'Sahakara Nagar',
-        'RMV Extension',
-        'RT Nagar',
-        'Vidyaranyapura',
-        'HBR Layout',
-        'Banaswadi',
-        'Horamavu',
-        'Bagalur',
-        'Devanahalli',
-        'Yelahanka New Town',
-        'Kannur',
-        'Kothanur',
-        'Ganganagar',
-        'Byatarayanapura',
-
-        // Other popular localities
-        'Koramangala',
-        'Ejipura',
-        'Wilson Garden',
-        'Adugodi',
-        'Sanjay Nagar',
-        'Malleshwaram',
-        'Sadashivanagar',
-        'Srirampura',
-        'Chamrajpet',
-        'KR Market',
-        'Jeevan Bima Nagar',
-        'New Thippasandra',
-        'Kodihalli',
-        'Murugeshpalya',
-        'Old Airport Road',
-        'HAL',
-        'Chikkalasandra',
-        'Kaggalipura',
-        'Hoskote'
-    ];
-
-    const states = [
-        'Andhra Pradesh',
-        'Arunachal Pradesh',
-        'Assam',
-        'Bihar',
-        'Chhattisgarh',
-        'Goa',
-        'Gujarat',
-        'Haryana',
-        'Himachal Pradesh',
-        'Jharkhand',
-        'Karnataka',
-        'Kerala',
-        'Madhya Pradesh',
-        'Maharashtra',
-        'Manipur',
-        'Meghalaya',
-        'Mizoram',
-        'Nagaland',
-        'Odisha',
-        'Punjab',
-        'Rajasthan',
-        'Sikkim',
-        'Tamil Nadu',
-        'Telangana',
-        'Tripura',
-        'Uttar Pradesh',
-        'Uttarakhand',
-        'West Bengal'
-    ];
-
-    function setupAutocomplete(inputId, dropdownId, options, fieldName) {
-        const input = document.getElementById(inputId);
-        const dropdown = document.getElementById(dropdownId);
-
-        if (!input || !dropdown) {
-            return;
-        }
-
-        function renderSuggestions() {
-            const query = input.value.trim().toLowerCase();
-
-            dropdown.innerHTML = '';
-
-            if (!query) {
-                dropdown.style.display = 'none';
+            if (!input || !window.google?.maps?.places) {
+                console.error('Google Maps Places API is not loaded.');
                 return;
             }
 
-            const matches = options
-                .filter(function (item) {
-                    return item.toLowerCase().includes(query);
-                })
-                .slice(0, 8);
+            if (stateInput) {
+                stateInput.value = 'Karnataka';
+                stateInput.readOnly = true;
+            }
 
-            // Display matching suggestions
-            matches.forEach(function (item) {
-                const button = document.createElement('button');
+            const bengaluruBounds = new google.maps.LatLngBounds(
+                { lat: 12.7343, lng: 77.3790 },
+                { lat: 13.1737, lng: 77.8827 }
+            );
 
-                button.type = 'button';
-                button.className = 'suggestion-item';
-                button.textContent = item;
-
-                button.addEventListener('click', function () {
-                    input.value = item;
-                    dropdown.style.display = 'none';
-
-                    input.dispatchEvent(new Event('change', {
-                        bubbles: true
-                    }));
-                });
-
-                dropdown.appendChild(button);
+            localityAutocomplete = new google.maps.places.Autocomplete(input, {
+                bounds: bengaluruBounds,
+                strictBounds: true,
+                componentRestrictions: { country: 'in' },
+                fields: ['formatted_address', 'name', 'geometry', 'address_components'],
+                types: ['geocode']
             });
 
-            // Allow manual entry when no suggestion matches
-            if (matches.length === 0) {
-                const message = document.createElement('div');
+            localityAutocomplete.addListener('place_changed', function () {
+                const place = localityAutocomplete.getPlace();
 
-                message.className = 'suggestion-item';
-                message.style.cursor = 'default';
-                message.textContent =
-                    'No matching ' + fieldName +
-                    ' found. You can enter it manually.';
+                if (!place.geometry?.location) {
+                    input.value = '';
+                    alert('Please select a suggested location within Bengaluru.');
+                    return;
+                }
 
-                dropdown.appendChild(message);
-            }
+                const location = place.geometry.location;
 
-            dropdown.style.display = 'block';
+                if (!bengaluruBounds.contains(location)) {
+                    input.value = '';
+                    alert('Please select a location within Bengaluru.');
+                    return;
+                }
+
+                // Ensure the selected address belongs to Karnataka.
+                const components = place.address_components || [];
+
+                const isKarnataka = components.some(component =>
+                    component.types.includes('administrative_area_level_1') &&
+                    component.long_name === 'Karnataka'
+                );
+
+                if (!isKarnataka) {
+                    input.value = '';
+                    alert('Please select a location in Karnataka.');
+                    return;
+                }
+
+                input.value = place.name || place.formatted_address || '';
+
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+
+            input.addEventListener('input', function () {
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            // Keep focus and selection behavior consistent with the existing form.
+            input.addEventListener('focus', function () {
+                // Google displays its own autocomplete suggestions.
+            });
         }
+    </script>
 
-        // Update suggestions while typing
-        input.addEventListener('input', renderSuggestions);
 
-        // Show suggestions when the field receives focus
-        input.addEventListener('focus', renderSuggestions);
-
-        // Hide dropdown when clicking outside
-        document.addEventListener('click', function (event) {
-            if (
-                !input.contains(event.target) &&
-                !dropdown.contains(event.target)
-            ) {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        // Keep manual input valid even if it is not in the list
-        input.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                dropdown.style.display = 'none';
-            }
-        });
-    }
-
-    // Initialize City and State autocomplete
-    setupAutocomplete(
-        'city',
-        'citySuggestions',
-        cities,
-        'city'
-    );
-
-    setupAutocomplete(
-        'state',
-        'stateSuggestions',
-        states,
-        'state'
-    );
-
-});
-</script>
-
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocalityAutocomplete">
+        </script>
 
 @endsection

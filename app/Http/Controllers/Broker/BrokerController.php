@@ -368,6 +368,9 @@ class BrokerController extends Controller
 
         $property->admin_remark = null;
 
+        // Property expires 60 days after upload.
+        $property->expires_at = now()->addDays(60);
+
         $property->save();
 
         /*
@@ -591,52 +594,52 @@ class BrokerController extends Controller
     |--------------------------------------------------------------------------
     */
 
-public function enquiries()
-{
-    $broker = auth('broker')->user();
+    public function enquiries()
+    {
+        $broker = auth('broker')->user();
 
-    $propertyIds = $broker->properties()
-        ->select('properties.id');
+        $propertyIds = $broker->properties()
+            ->select('properties.id');
 
-    $enquiries = RentalRequirmentsEnquiry::with('property')
-        ->whereIn('property_id', $propertyIds)
-        ->latest()
-        ->paginate(10);
+        $enquiries = RentalRequirmentsEnquiry::with('property')
+            ->whereIn('property_id', $propertyIds)
+            ->latest()
+            ->paginate(10);
 
-    $enquiriesCount = RentalRequirmentsEnquiry::whereIn(
-        'property_id',
-        $propertyIds
-    )->count();
+        $enquiriesCount = RentalRequirmentsEnquiry::whereIn(
+            'property_id',
+            $propertyIds
+        )->count();
 
-    return view('broker.enquiries', compact(
-        'broker',
-        'enquiries',
-        'enquiriesCount'
-    ));
-}
+        return view('broker.enquiries', compact(
+            'broker',
+            'enquiries',
+            'enquiriesCount'
+        ));
+    }
 
-public function schedule()
-{
-    $broker = auth('broker')->user();
+    public function schedule()
+    {
+        $broker = auth('broker')->user();
 
-    $propertyIds = $broker->properties()->select('properties.id');
+        $propertyIds = $broker->properties()->select('properties.id');
 
-    $scheduledVisits = ScheduleVisitEnquiry::with('property')
-        ->whereIn('property_id', $propertyIds)
-        ->latest()
-        ->paginate(10);
+        $scheduledVisits = ScheduleVisitEnquiry::with('property')
+            ->whereIn('property_id', $propertyIds)
+            ->latest()
+            ->paginate(10);
 
-    $scheduledVisitsCount = ScheduleVisitEnquiry::whereIn(
-        'property_id',
-        $broker->properties()->select('properties.id')
-    )->count();
+        $scheduledVisitsCount = ScheduleVisitEnquiry::whereIn(
+            'property_id',
+            $broker->properties()->select('properties.id')
+        )->count();
 
-    return view('broker.schedule', compact(
-        'broker',
-        'scheduledVisits',
-        'scheduledVisitsCount'
-    ));
-}
+        return view('broker.schedule', compact(
+            'broker',
+            'scheduledVisits',
+            'scheduledVisitsCount'
+        ));
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -711,6 +714,11 @@ public function schedule()
             'license_number' =>
                 'nullable|string|max:255',
 
+            'aadhaar_number' => [
+                'nullable',
+                'digits:12',
+            ],
+
             'address' =>
                 'nullable|string|max:1000',
 
@@ -744,6 +752,8 @@ public function schedule()
 
         $broker->license_number =
             $request->license_number;
+
+        $broker->aadhaar_number = $request->aadhaar_number;
 
         $broker->address =
             $request->address;
@@ -779,4 +789,48 @@ public function schedule()
                 'Profile updated successfully.'
             );
     }
+
+
+
+    public function repostProperty($id)
+    {
+        // Step 1: Get the logged-in broker
+        $broker = auth('broker')->user();
+
+        // Step 2: Find the property belonging to this broker
+        $property = \App\Models\Property::where('id', $id)
+            ->where('broker_id', $broker->id)
+            ->firstOrFail();
+
+        // Step 3: Calculate the expiry date
+        // Older properties may not have an expires_at value.
+        $expiryDate = $property->expires_at
+            ?? $property->created_at?->copy()->addDays(60);
+
+        // Step 4: Allow reposting only if the property has expired
+        if (!$expiryDate || !$expiryDate->isPast()) {
+            return redirect()
+                ->route('broker.properties')
+                ->with('error', 'Only expired properties can be reposted.');
+        }
+
+        // Step 5: Give the property a fresh 60-day period
+        $property->expires_at = now()->addDays(60);
+
+        // Step 6: Send it for admin approval again
+        $property->status = 'pending';
+        $property->admin_remark = null;
+
+        // Step 7: Save the changes
+        $property->save();
+
+        // Step 8: Return to the properties page
+        return redirect()
+            ->route('broker.properties')
+            ->with(
+                'success',
+                'Property reposted successfully and sent for admin approval.'
+            );
+    }
+
 }
