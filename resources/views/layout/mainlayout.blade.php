@@ -37,7 +37,7 @@
     <title>{{$site->site_name ?? ''}}</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/venlogo.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys4.png') }}">
 
     @include('layout.partials.head')
 </head>

@@ -325,14 +325,14 @@ header.scrolled {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 0 0 12px 12px;
+    border-radius: 10px
 }
 
 .logo img {
     width: 92%;
     height: 95%;
     object-fit: contain;
-    /* border-radius: 25px; */
+    border-radius: 25px;
 }
 
 .logo:hover {
@@ -1771,7 +1771,7 @@ footer {
 .mobile-sidebar-logo img {
     width: 100%;
 
-    height: 100%;
+    height: 170%;
 
     object-fit: contain;
 }
@@ -5080,5 +5080,129 @@ footer::after {
     .back-top {
         animation: none !important;
         transition: none !important;
+    }
+}
+
+
+
+
+/* MOBILE HEADER — LOGO + MENU IN SAME ROW */
+
+@media (max-width: 768px) {
+
+    header {
+        height: 70px !important;
+        min-height: 70px;
+        background: #01068a;
+    }
+
+    header .container.nav {
+        height: 70px !important;
+        min-height: 70px;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 0;
+        padding-bottom: 0;
+        gap: 0;
+    }
+
+    /* Logo on the left */
+    header .container.nav > a.logo {
+        order: 1;
+        display: flex;
+        flex: 0 1 auto;
+        width: 180px;
+        max-width: calc(100% - 55px);
+        height: 64px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        border-radius: 0;
+        box-shadow: none;
+        transform: none;
+    }
+
+    header .container.nav > a.logo img {
+        display: block;
+        width: 100%;
+        max-width: 180px;
+        height: 60px;
+        object-fit: contain;
+        object-position: left center;
+        border-radius: 0;
+    }
+
+    /* Hamburger on the right */
+    header .container.nav > .mobile-menu-btn {
+        order: 2;
+        display: flex;
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        margin-left: auto;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        color: #00068a;
+        border: none;
+        border-radius: 8px;
+        font-size: 22px;
+    }
+
+    /* Hide desktop elements */
+    header .container.nav > .city-selector,
+    header .container.nav > .menu,
+    header .container.nav > .nav-actions {
+        display: none !important;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    header,
+    header .container.nav {
+        height: 65px !important;
+        min-height: 65px;
+    }
+
+    header .container.nav > a.logo {
+        width: 155px;
+        height: 60px;
+    }
+
+    header .container.nav > a.logo img {
+        width: 100%;
+        height: 108px;
+    }
+}
+
+/* Desktop logo */
+.logo .desktop-logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo .mobile-logo {
+    display: none;
+}
+
+/* Mobile logo */
+@media (max-width: 768px) {
+    header .logo .desktop-logo {
+        display: none !important;
+    }
+
+    header .logo .mobile-logo {
+        display: block !important;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: left center;
     }
 }

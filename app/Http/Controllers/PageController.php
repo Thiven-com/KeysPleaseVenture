@@ -120,7 +120,7 @@ class PageController extends Controller
         */
 
         $featuredKeywords = [
-            'premium',
+            'premium', 
             'luxury',
             'modern',
             'spacious',

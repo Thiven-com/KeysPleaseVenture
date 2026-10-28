@@ -666,6 +666,478 @@
 
     </style>
 
+
+
+<style>
+    
+/* =========================================
+   RESPONSIVE ACCOUNT PAGE
+   Desktop, Tablet & Mobile
+========================================= */
+
+/* Prevent horizontal overflow */
+.kp-account {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.kp-account .container {
+    width: 100%;
+}
+
+/* Desktop layout */
+.kp-account-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.kp-sidebar {
+    width: 100%;
+    min-width: 0;
+}
+
+.kp-main {
+    width: 100%;
+    min-width: 0;
+}
+
+.kp-panel {
+    min-width: 0;
+}
+
+.kp-profile-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kp-profile-item {
+    min-width: 0;
+}
+
+.kp-enquiry-list,
+.kp-recent-visits {
+    min-width: 0;
+}
+
+/* =========================================
+   TABLET VIEW: 768px–1024px
+========================================= */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .kp-account-hero {
+        padding: 24px 0 20px;
+    }
+
+    .kp-account-layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 16px;
+        padding-top: 20px;
+    }
+
+    .kp-sidebar {
+        position: sticky;
+        top: 15px;
+    }
+
+    .kp-user {
+        padding: 20px 16px;
+    }
+
+    .kp-avatar {
+        width: 58px;
+        height: 58px;
+        font-size: 23px;
+    }
+
+    .kp-user h3 {
+        font-size: 16px;
+    }
+
+    .kp-sidebar-nav {
+        padding: 0 8px 12px;
+    }
+
+    .kp-nav-link {
+        gap: 9px;
+        padding: 12px 9px;
+        font-size: 12px;
+    }
+
+    .kp-panel {
+        padding: 18px;
+    }
+
+    .kp-panel-head {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .kp-panel-title {
+        gap: 10px;
+    }
+
+    .kp-icon-box {
+        width: 40px;
+        height: 40px;
+    }
+
+    .kp-panel-title h2 {
+        font-size: 15px;
+    }
+
+    .kp-profile-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 10px;
+    }
+
+    .kp-profile-item {
+        padding: 12px 8px;
+    }
+
+    .kp-profile-item + .kp-profile-item {
+        border-left: 0;
+        border-top: 1px solid #dce3f0;
+    }
+
+    .kp-enquiry-list,
+    .kp-recent-visits {
+        padding: 0 16px;
+    }
+
+    .kp-enquiry-item,
+    .kp-recent-visit-item {
+        gap: 12px;
+    }
+}
+
+/* =========================================
+   MOBILE VIEW: 767px AND BELOW
+========================================= */
+@media (max-width: 767px) {
+    .kp-account {
+        padding-bottom: 30px;
+    }
+
+    .kp-account-hero {
+        padding: 20px 0;
+    }
+
+    .kp-breadcrumb {
+        flex-wrap: wrap;
+        font-size: 11px;
+    }
+
+    .kp-account-hero h1 {
+        font-size: 25px;
+        line-height: 1.3;
+        letter-spacing: -0.4px;
+    }
+
+    .kp-account-hero p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* Stack sidebar and main content */
+    .kp-account-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 16px;
+    }
+
+    .kp-sidebar,
+    .kp-main {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .kp-sidebar {
+        position: static;
+        border-radius: 12px;
+    }
+
+    /* User information */
+    .kp-user {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 16px;
+    }
+
+    .kp-avatar {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        font-size: 21px;
+        margin: 0;
+    }
+
+    .kp-user h3 {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .kp-user-email {
+        font-size: 11px;
+        overflow-wrap: anywhere;
+    }
+
+    /* Two-column navigation */
+    .kp-sidebar-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+        padding: 0 10px 12px;
+    }
+
+    .kp-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        min-height: 43px;
+        margin: 0;
+        padding: 10px;
+        font-size: 11px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    .kp-nav-link svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .kp-sidebar-divider {
+        grid-column: 1 / -1;
+        margin: 8px 0;
+    }
+
+    .kp-logout-form {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .kp-logout {
+        text-align: left;
+    }
+
+    /* Panels */
+    .kp-panel {
+        padding: 16px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+
+    .kp-panel-head {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .kp-panel-title {
+        flex: 1 1 100%;
+        gap: 10px;
+    }
+
+    .kp-icon-box {
+        width: 39px;
+        height: 39px;
+        min-width: 39px;
+        border-radius: 10px;
+    }
+
+    .kp-icon-box svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .kp-panel-title h2 {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .kp-panel-title p {
+        font-size: 11px;
+    }
+
+    .kp-panel-head > .kp-outline-btn,
+    .kp-panel-head > .kp-primary-btn {
+        margin-left: 0;
+        width: 100%;
+        white-space: normal;
+    }
+
+    .kp-outline-btn,
+    .kp-primary-btn {
+        min-height: 40px;
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    /* Profile information */
+    .kp-profile-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        padding: 8px 12px;
+    }
+
+    .kp-profile-item {
+        padding: 13px 0;
+        gap: 11px;
+    }
+
+    .kp-profile-item + .kp-profile-item {
+        border-left: 0;
+        border-top: 1px solid #dce3f0;
+    }
+
+    .kp-mini-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+    }
+
+    .kp-mini-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .kp-field-label {
+        font-size: 11px;
+    }
+
+    .kp-field-value {
+        font-size: 12px;
+    }
+
+    /* Empty states */
+    .kp-empty {
+        flex-direction: column;
+        gap: 14px;
+        padding: 20px 14px;
+        text-align: center;
+    }
+
+    .kp-empty-art {
+        width: 65px;
+        height: 65px;
+        border-radius: 16px;
+    }
+
+    .kp-empty-art svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .kp-empty-content h3 {
+        font-size: 14px;
+    }
+
+    .kp-empty-content p {
+        font-size: 12px;
+    }
+
+    /* Subscription */
+    .kp-subscription-status {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .kp-subscription-copy {
+        flex: 1 1 calc(100% - 55px);
+    }
+
+    .kp-subscription-status > .kp-outline-btn {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Enquiry and visit lists */
+    .kp-enquiry-list,
+    .kp-recent-visits {
+        padding: 0 12px;
+    }
+
+    .kp-enquiry-item,
+    .kp-recent-visit-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 16px 0;
+    }
+
+    .kp-enquiry-info,
+    .kp-recent-visit-info {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .kp-enquiry-info h3,
+    .kp-recent-visit-info h3 {
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .kp-enquiry-info p,
+    .kp-recent-visit-info p {
+        font-size: 11px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    .kp-enquiry-status,
+    .kp-recent-visit-status {
+        align-self: flex-start;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE: 360px AND BELOW
+========================================= */
+@media (max-width: 360px) {
+    .kp-account-hero h1 {
+        font-size: 22px;
+    }
+
+    .kp-panel {
+        padding: 12px;
+    }
+
+    .kp-user {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .kp-avatar {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        font-size: 19px;
+    }
+
+    .kp-nav-link {
+        gap: 6px;
+        padding: 9px 7px;
+        font-size: 10px;
+    }
+
+    .kp-enquiry-list,
+    .kp-recent-visits {
+        padding: 0 8px;
+    }
+}
+
+</style>
     @php
         $customer = auth('customer')->user();
 

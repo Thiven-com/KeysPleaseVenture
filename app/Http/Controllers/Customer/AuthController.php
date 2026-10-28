@@ -94,7 +94,8 @@ class AuthController extends Controller
                 'password' => Hash::make(bin2hex(random_bytes(16))),
             ]);
         }
-
+        // Generate 4-digit OTP
+        // $otp = (string) random_int(1000, 9999);
         // Development only. Replace with secure OTP generation
         // and SMS delivery before production.
         $otp = '1234';
