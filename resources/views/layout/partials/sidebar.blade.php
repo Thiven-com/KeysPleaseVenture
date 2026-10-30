@@ -8,7 +8,7 @@
 
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo logo-white">
-                        <img src="{{asset('website')}}/images/keys5.png" alt="Img">
+                        <img src="{{asset('website')}}/images/keys8.png" alt="Img">
 
                 </a>
                 <a href="{{url('admin/dashboard')}}" class="logo-small">

@@ -1221,13 +1221,13 @@
                         </a>
 
 
-                        <a href="{{ route('subscription.index') }}" class="kp-nav-link">
+                        <!-- <a href="{{ route('subscription.index') }}" class="kp-nav-link">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                                 <rect x="3" y="5" width="18" height="14" rx="2" />
                                 <path d="M3 10h18" />
                             </svg>
                             My Subscription
-                        </a>
+                        </a> -->
 
                         <div class="kp-sidebar-divider"></div>
 
@@ -1540,7 +1540,7 @@
 
 
                     {{-- Subscription --}}
-                    <section class="kp-panel" id="subscription">
+                    <!-- <section class="kp-panel" id="subscription">
 
                         <div class="kp-panel-head">
                             <div class="kp-panel-title">
@@ -1580,7 +1580,7 @@
                             </a>
                         </div>
 
-                    </section>
+                    </section> -->
 
                 </main>
             </div>

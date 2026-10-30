@@ -145,7 +145,7 @@
       <a class="logo" href="{{ route('home') }}">
         {{-- Desktop logo --}}
     <img
-        src="{{ asset('website/images/keys5.png') }}"
+        src="{{ asset('website/images/keys8.png') }}"
         alt="Keys Please Venture"
         class="desktop-logo"
     >
@@ -354,9 +354,9 @@
         </a>
 
 
-        <a href="{{ route('subscription.index') }}">
+        <!-- <a href="{{ route('subscription.index') }}">
           Subscription Plans
-        </a>
+        </a> -->
 
 
         <a href="{{ route('contact') }}">
@@ -434,7 +434,7 @@
     <div class="mobile-sidebar-header">
 
       <a class="mobile-sidebar-logo" href="{{ route('home') }}">
-        <img src="{{ asset('website/images/keys5.png') }}" alt="Keys Please Venture">
+        <img src="{{ asset('website/images/keys8.png') }}" alt="Keys Please Venture">
       </a>
 
       <button class="mobile-close-btn" type="button" aria-label="Close menu">
@@ -490,10 +490,10 @@
           <span>›</span>
         </a>
 
-        <a href="{{ route('subscription.index') }}">
+        <!-- <a href="{{ route('subscription.index') }}">
           <span>Subscription Plans</span>
           <span>›</span>
-        </a>
+        </a> -->
 
 
         <a href="{{ route('contact') }}">
@@ -588,7 +588,7 @@
       <div class="footer-company">
 
         <a class="logo" href="{{ route('home') }}">
-          <img src="{{ asset('website/images/keys5.png') }}" alt="Keys Please Venture">
+          <img src="{{ asset('website/images/keys8.png') }}" alt="Keys Please Venture">
         </a>
 
         <div class="footer-copy">
