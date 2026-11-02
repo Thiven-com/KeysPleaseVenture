@@ -11,6 +11,44 @@
                 padding-top: 0px;
             }
         }
+
+
+
+        
+/* =========================================
+   GLOBAL FIX – LOCATION INPUT BLUE BORDER
+   Applies across all website screens
+========================================= */
+
+/* Home page, Rent page, Search modal and other screens */
+#rpfLocationControl input,
+#mobileFilterModal input[placeholder*="Locality"],
+input[placeholder*="Locality"],
+input[placeholder*="locality"],
+input[placeholder*="Landmark"],
+input[placeholder*="landmark"] {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Remove additional focus styling from these inputs */
+#rpfLocationControl input:focus,
+#rpfLocationControl input:focus-visible,
+#mobileFilterModal input:focus,
+#mobileFilterModal input:focus-visible,
+input[placeholder*="Locality"]:focus,
+input[placeholder*="Locality"]:focus-visible,
+input[placeholder*="Landmark"]:focus,
+input[placeholder*="Landmark"]:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    background: transparent !important;
+}
+
     </style>
 
     <style>

@@ -119,6 +119,60 @@
             }
 
         }
+
+
+        /* Remove the inner input focus border */
+#rpfLocationControl input,
+#rpfLocationControl input:focus,
+#rpfLocationControl input:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+
+
+
+/* =========================================
+   GLOBAL INPUT BORDER FIX
+   Location fields + Newsletter Subscribe
+========================================= */
+
+/* Location inputs across website */
+#rpfLocationControl input,
+#mobileFilterModal input[placeholder*="Locality"],
+input[placeholder*="Locality"],
+input[placeholder*="locality"],
+input[placeholder*="Landmark"],
+input[placeholder*="landmark"] {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Newsletter subscribe email input */
+.subscribe input,
+.subscribe input[type="email"],
+.subscribe input:focus,
+.subscribe input:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Keep newsletter outer container */
+.subscribe {
+    box-sizing: border-box;
+}
+
+/* Prevent unwanted browser focus outline */
+.subscribe input:focus-visible {
+    outline: none !important;
+}
+
     </style>
 
     <section class="hero">

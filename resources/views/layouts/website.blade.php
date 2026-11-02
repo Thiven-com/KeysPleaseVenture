@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="{{ asset('website/css/propertydetails.css') }}">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys4.png') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys10.png') }}">
 
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -145,14 +145,14 @@
       <a class="logo" href="{{ route('home') }}">
         {{-- Desktop logo --}}
     <img
-        src="{{ asset('website/images/keys8.png') }}"
+        src="{{ asset('website/images/keys10.png') }}"
         alt="Keys Please Venture"
         class="desktop-logo"
     >
 
     {{-- Mobile logo --}}
     <img
-        src="{{ asset('website/images/keys2.png') }}"
+        src="{{ asset('website/images/keys9.png') }}"
         alt="Keys Please Venture"
         class="mobile-logo"
     >
@@ -434,7 +434,7 @@
     <div class="mobile-sidebar-header">
 
       <a class="mobile-sidebar-logo" href="{{ route('home') }}">
-        <img src="{{ asset('website/images/keys8.png') }}" alt="Keys Please Venture">
+        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture">
       </a>
 
       <button class="mobile-close-btn" type="button" aria-label="Close menu">
@@ -588,7 +588,7 @@
       <div class="footer-company">
 
         <a class="logo" href="{{ route('home') }}">
-          <img src="{{ asset('website/images/keys8.png') }}" alt="Keys Please Venture">
+          <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture">
         </a>
 
         <div class="footer-copy">
