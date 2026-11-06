@@ -177,7 +177,8 @@ class PropertyController extends Controller
             ],
 
             'tenant_preference' => [
-                'required',
+                'nullable',
+                'required_if:listing_for,Rent,Lease,PG',
                 'in:Family,Bachelor,Both'
             ],
 
@@ -293,7 +294,16 @@ class PropertyController extends Controller
             // BASIC
 
             $property->listing_for = $validated['listing_for'];
-            $property->tenant_preference = $validated['tenant_preference'];
+
+            $isRental = in_array(
+                $validated['listing_for'],
+                ['Rent', 'Lease', 'PG'],
+                true
+            );
+
+            $property->tenant_preference = $isRental
+                ? ($validated['tenant_preference'] ?? null)
+                : null;
             $property->property_title = $validated['property_title'];
             $property->property_type = $validated['property_type'];
 
@@ -336,10 +346,19 @@ class PropertyController extends Controller
 
             // RENTAL
 
+            // PRICE AND PROPERTY DETAILS
+
             $property->price = $validated['price'];
-            $property->security_deposit = $validated['security_deposit'] ?? null;
+
+            $property->security_deposit = $isRental
+                ? ($validated['security_deposit'] ?? null)
+                : null;
+
             $property->furnishing = $validated['furnishing'];
-            $property->available_from = $validated['available_from'] ?? null;
+
+            $property->available_from = $isRental
+                ? ($validated['available_from'] ?? null)
+                : null;
 
             // DESCRIPTION
 
@@ -496,7 +515,8 @@ class PropertyController extends Controller
             ],
 
             'tenant_preference' => [
-                'required',
+                'nullable',
+                'required_if:listing_for,Rent,Lease,PG',
                 'in:Family,Bachelor,Both'
             ],
 
@@ -621,6 +641,12 @@ class PropertyController extends Controller
                 );
             }
 
+            $isRental = in_array(
+                $validated['listing_for'],
+                ['Rent', 'Lease', 'PG'],
+                true
+            );
+
             $property->update([
 
                 // BASIC
@@ -631,7 +657,9 @@ class PropertyController extends Controller
 
                 'listing_for' => $validated['listing_for'],
 
-                'tenant_preference' => $validated['tenant_preference'],
+                'tenant_preference' => $isRental
+                    ? ($validated['tenant_preference'] ?? null)
+                    : null,
 
                 // LOCATION
 
@@ -689,13 +717,19 @@ class PropertyController extends Controller
 
                 // RENTAL
 
-                'price' => $validated['price'],
+                // PRICE AND PROPERTY DETAILS
 
-                'security_deposit' => $validated['security_deposit'] ?? null,
+'price' => $validated['price'],
 
-                'furnishing' => $validated['furnishing'],
+'security_deposit' => $isRental
+    ? ($validated['security_deposit'] ?? null)
+    : null,
 
-                'available_from' => $validated['available_from'] ?? null,
+'furnishing' => $validated['furnishing'],
+
+'available_from' => $isRental
+    ? ($validated['available_from'] ?? null)
+    : null,
 
                 // DESCRIPTION
 

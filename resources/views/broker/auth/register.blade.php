@@ -217,13 +217,15 @@
                             <div class="mb-3">
 
                                 <label class="form-label">
-                                    Mobile Number
+                                    Mobile Number <span class="text-danger">*</span>
                                 </label>
 
                                 <div class="input-group">
 
-                                    <input type="text" name="mobile" class="form-control border-end-0"
-                                        value="{{ old('mobile') }}" placeholder="Enter mobile number" required>
+                                    <input type="tel" name="mobile" id="mobile" class="form-control border-end-0"
+                                        value="{{ old('mobile') }}" placeholder="Enter 10-digit mobile number"
+                                        inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" required>
 
                                     <span class="input-group-text border-start-0">
                                         <i class="ti ti-phone"></i>
@@ -301,22 +303,22 @@
                             {{-- License --}}
                             <!-- <div class="mb-3">
 
-                                    <label class="form-label">
-                                        License Number
-                                    </label>
+                                        <label class="form-label">
+                                            License Number
+                                        </label>
 
-                                    <div class="input-group">
+                                        <div class="input-group">
 
-                                        <input type="text" name="license_number" class="form-control border-end-0"
-                                            value="{{ old('license_number') }}" placeholder="Enter license number">
+                                            <input type="text" name="license_number" class="form-control border-end-0"
+                                                value="{{ old('license_number') }}" placeholder="Enter license number">
 
-                                        <span class="input-group-text border-start-0">
-                                            <i class="ti ti-certificate"></i>
-                                        </span>
+                                            <span class="input-group-text border-start-0">
+                                                <i class="ti ti-certificate"></i>
+                                            </span>
 
-                                    </div>
+                                        </div>
 
-                                </div> -->
+                                    </div> -->
 
 
                             {{-- Aadhaar Card --}}
@@ -501,20 +503,20 @@
                             {{-- Login --}}
                             <!-- <div class="signinform">
 
-                                                <h4>
+                                                    <h4>
 
-                                                    Already have an account?
+                                                        Already have an account?
 
-                                                    <a
-                                                        href="{{ route('broker.login') }}"
-                                                        class="hover-a"
-                                                    >
-                                                        Sign In
-                                                    </a>
+                                                        <a
+                                                            href="{{ route('broker.login') }}"
+                                                            class="hover-a"
+                                                        >
+                                                            Sign In
+                                                        </a>
 
-                                                </h4>
+                                                    </h4>
 
-                                            </div> -->
+                                                </div> -->
 
                         </div>
 

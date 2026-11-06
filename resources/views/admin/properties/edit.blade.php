@@ -2,6 +2,16 @@
 
 @section('content')
 
+@php
+    $currentListingFor = old('listing_for', $property->listing_for ?? 'Rent');
+    $isSaleListing = strtolower(trim($currentListingFor)) === 'sell';
+    $isRentalListing = in_array(
+        strtolower(trim($currentListingFor)),
+        ['rent', 'lease', 'pg'],
+        true
+    );
+@endphp
+
 
 <style>
     .property-locality-control {
@@ -59,7 +69,7 @@
         ========================================================== --}}
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div>
-                <h4 class="mb-1">Edit Rental Property</h4>
+                <h4 class="mb-1" id="propertyPageTitle">{{ $isSaleListing ? "Edit Sale Property" : "Edit Rental Property" }}</h4>
                 <p class="text-muted mb-0">
                     Update property information and listing details.
                 </p>
@@ -180,6 +190,7 @@
 
                         <select
                             name="listing_for"
+                            id="listingForSelect"
                             class="form-select"
                             required
                         >
@@ -205,7 +216,8 @@
 
 
                     {{-- TENANT PREFERENCE --}}
-<div class="property-col-4">
+<div class="property-col-4" id="tenantPreferenceField"
+     style="{{ $isRentalListing ? '' : 'display: none;' }}">
 
     <label class="property-form-label">
         Tenant Preference
@@ -213,8 +225,9 @@
     </label>
 
     <select name="tenant_preference"
+            id="tenantPreferenceInput"
             class="form-select"
-            required>
+            {{ $isRentalListing ? 'required' : 'disabled' }}>
 
         <option value="">Select Tenant Preference</option>
 
@@ -658,8 +671,14 @@
                     </div>
 
                     <div>
-                        <h5>Rent & Property Details</h5>
-                        <p>Update pricing, size and property specifications.</p>
+                        <h5 id="propertyDetailsTitle">
+                            {{ $isSaleListing ? 'Sale & Property Details' : 'Rent & Property Details' }}
+                        </h5>
+                        <p id="propertyDetailsSubtitle">
+                            {{ $isSaleListing
+                                ? 'Update sale price, size and property specifications.'
+                                : 'Update rental price, size and property specifications.' }}
+                        </p>
                     </div>
                 </div>
 
@@ -668,26 +687,28 @@
 
                     {{-- Monthly Rent --}}
                     <div class="property-col-6">
-                        <label class="property-form-label">
-                            Monthly Rent
+                        <label class="property-form-label" id="propertyPriceLabel">
+                            {{ $isSaleListing ? 'Expected Sale Price' : 'Monthly Rent' }}
                             <span class="text-danger">*</span>
                         </label>
 
                         <input
                             type="number"
                             name="price"
+                            id="propertyPriceInput"
                             class="form-control"
                             min="0"
                             step="0.01"
                             value="{{ old('price', $property->price) }}"
-                            placeholder="25000"
+                            placeholder="{{ $isSaleListing ? '7500000' : '25000' }}"
                             required
                         >
                     </div>
 
 
                     {{-- Security Deposit --}}
-                    <div class="property-col-6">
+                    <div class="property-col-6" id="securityDepositField"
+                         style="{{ $isRentalListing ? '' : 'display: none;' }}">
                         <label class="property-form-label">
                             Security Deposit
                         </label>
@@ -695,7 +716,9 @@
                         <input
                             type="number"
                             name="security_deposit"
+                            id="securityDepositInput"
                             class="form-control"
+                            {{ $isRentalListing ? '' : 'disabled' }}
                             min="0"
                             step="0.01"
                             value="{{ old('security_deposit', $property->security_deposit) }}"
@@ -791,7 +814,8 @@
 
 
                     {{-- Available From --}}
-                    <div class="property-col-4">
+                    <div class="property-col-4" id="availableFromField"
+                         style="{{ $isRentalListing ? '' : 'display: none;' }}">
                         <label class="property-form-label">
                             Available From
                         </label>
@@ -799,7 +823,9 @@
                         <input
                             type="date"
                             name="available_from"
+                            id="availableFromInput"
                             class="form-control"
+                            {{ $isRentalListing ? '' : 'disabled' }}
                             value="{{ old(
                                 'available_from',
                                 optional($property->available_from)->format('Y-m-d')
@@ -1427,7 +1453,9 @@
                     class="btn btn-primary"
                 >
                     <i class="ti ti-device-floppy me-1"></i>
-                    Update Property
+                    <span id="propertySubmitLabel">
+                        {{ $isSaleListing ? 'Update Sale Property' : 'Update Rental Property' }}
+                    </span>
                 </button>
 
             </div>
@@ -1754,6 +1782,98 @@
 
 </style>
 
+
+{{-- =============================================================
+    RENT / SELL EDIT FORM SWITCHING
+============================================================== --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const listingFor = document.getElementById('listingForSelect');
+
+    if (!listingFor) return;
+
+    const pageTitle = document.getElementById('propertyPageTitle');
+    const detailsTitle = document.getElementById('propertyDetailsTitle');
+    const detailsSubtitle = document.getElementById('propertyDetailsSubtitle');
+    const priceLabel = document.getElementById('propertyPriceLabel');
+    const priceInput = document.getElementById('propertyPriceInput');
+
+    const depositField = document.getElementById('securityDepositField');
+    const tenantField = document.getElementById('tenantPreferenceField');
+    const availableField = document.getElementById('availableFromField');
+
+    const depositInput = document.getElementById('securityDepositInput');
+    const tenantInput = document.getElementById('tenantPreferenceInput');
+    const availableInput = document.getElementById('availableFromInput');
+
+    const submitLabel = document.getElementById('propertySubmitLabel');
+
+    function updatePropertyForm() {
+        const selectedType = listingFor.value.trim().toLowerCase();
+        const isSell = selectedType === 'sell';
+        const isRental = ['rent', 'lease', 'pg'].includes(selectedType);
+
+        if (isSell) {
+            if (pageTitle) pageTitle.textContent = 'Edit Sale Property';
+            if (detailsTitle) detailsTitle.textContent = 'Sale & Property Details';
+            if (detailsSubtitle) {
+                detailsSubtitle.textContent =
+                    'Update sale price, size and property specifications.';
+            }
+            if (priceLabel) {
+                priceLabel.innerHTML =
+                    'Expected Sale Price <span class="text-danger">*</span>';
+            }
+            if (priceInput) priceInput.placeholder = '7500000';
+
+            if (depositField) depositField.style.display = 'none';
+            if (tenantField) tenantField.style.display = 'none';
+            if (availableField) availableField.style.display = 'none';
+
+            if (depositInput) depositInput.disabled = true;
+            if (tenantInput) {
+                tenantInput.disabled = true;
+                tenantInput.required = false;
+            }
+            if (availableInput) availableInput.disabled = true;
+
+            if (submitLabel) submitLabel.textContent = 'Update Sale Property';
+        } else {
+            if (pageTitle) pageTitle.textContent = 'Edit Rental Property';
+            if (detailsTitle) detailsTitle.textContent = 'Rent & Property Details';
+            if (detailsSubtitle) {
+                detailsSubtitle.textContent =
+                    'Update rental price, size and property specifications.';
+            }
+            if (priceLabel) {
+                priceLabel.innerHTML =
+                    'Monthly Rent <span class="text-danger">*</span>';
+            }
+            if (priceInput) priceInput.placeholder = '25000';
+
+            if (depositField) depositField.style.display = isRental ? '' : 'none';
+            if (tenantField) tenantField.style.display = isRental ? '' : 'none';
+            if (availableField) availableField.style.display = isRental ? '' : 'none';
+
+            if (depositInput) depositInput.disabled = !isRental;
+            if (tenantInput) {
+                tenantInput.disabled = !isRental;
+                tenantInput.required = isRental;
+            }
+            if (availableInput) availableInput.disabled = !isRental;
+
+            if (submitLabel) {
+                submitLabel.textContent = isRental
+                    ? 'Update Rental Property'
+                    : 'Update Property';
+            }
+        }
+    }
+
+    listingFor.addEventListener('change', updatePropertyForm);
+    updatePropertyForm();
+});
+</script>
 
 {{-- =============================================================
     DELETE PROPERTY IMAGE

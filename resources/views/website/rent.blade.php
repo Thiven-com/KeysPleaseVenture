@@ -3,6 +3,13 @@
 
     @php
         $isSellPage = ($listingMode ?? 'rent') === 'sell';
+
+        $priceRangeMin = $isSellPage ? 0 : 10000;
+        $priceRangeMax = $isSellPage ? 50000000 : 500000;
+
+        $priceRangeMaxLabel = $isSellPage
+            ? '₹ 5,00,00,000+'
+            : '₹ 5,00,000+';
     @endphp
 
     <style>
@@ -14,41 +21,40 @@
 
 
 
-        
-/* =========================================
-   GLOBAL FIX – LOCATION INPUT BLUE BORDER
-   Applies across all website screens
-========================================= */
 
-/* Home page, Rent page, Search modal and other screens */
-#rpfLocationControl input,
-#mobileFilterModal input[placeholder*="Locality"],
-input[placeholder*="Locality"],
-input[placeholder*="locality"],
-input[placeholder*="Landmark"],
-input[placeholder*="landmark"] {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
+        /* =========================================
+                           GLOBAL FIX – LOCATION INPUT BLUE BORDER
+                           Applies across all website screens
+                        ========================================= */
 
-/* Remove additional focus styling from these inputs */
-#rpfLocationControl input:focus,
-#rpfLocationControl input:focus-visible,
-#mobileFilterModal input:focus,
-#mobileFilterModal input:focus-visible,
-input[placeholder*="Locality"]:focus,
-input[placeholder*="Locality"]:focus-visible,
-input[placeholder*="Landmark"]:focus,
-input[placeholder*="Landmark"]:focus-visible {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transform: none !important;
-    background: transparent !important;
-}
+        /* Home page, Rent page, Search modal and other screens */
+        #rpfLocationControl input,
+        #mobileFilterModal input[placeholder*="Locality"],
+        input[placeholder*="Locality"],
+        input[placeholder*="locality"],
+        input[placeholder*="Landmark"],
+        input[placeholder*="landmark"] {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
 
+        /* Remove additional focus styling from these inputs */
+        #rpfLocationControl input:focus,
+        #rpfLocationControl input:focus-visible,
+        #mobileFilterModal input:focus,
+        #mobileFilterModal input:focus-visible,
+        input[placeholder*="Locality"]:focus,
+        input[placeholder*="Locality"]:focus-visible,
+        input[placeholder*="Landmark"]:focus,
+        input[placeholder*="Landmark"]:focus-visible {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+            background: transparent !important;
+        }
     </style>
 
     <style>
@@ -230,10 +236,10 @@ input[placeholder*="Landmark"]:focus-visible {
 
             .mobile-sort-options {
                 /* position: absolute;
-                                    top: calc(100% + 4px);
-                                    left: 0;
-                                    right: 0;
-                                    z-index: 999; */
+                                                            top: calc(100% + 4px);
+                                                            left: 0;
+                                                            right: 0;
+                                                            z-index: 999; */
                 width: 100%;
                 max-width: 100%;
                 box-sizing: border-box;
@@ -457,8 +463,8 @@ input[placeholder*="Landmark"]:focus-visible {
     </style>
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                                                         SEARCH AREA
-                                                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                 SEARCH AREA
+                                                                                                                                                                                                                                                                                                                                                                                            ====================================================== -->
 
     <div class="rent-container search-area">
         <button type="button" class="mobile-filter-open" id="mobileFilterOpen">
@@ -471,58 +477,58 @@ input[placeholder*="Landmark"]:focus-visible {
             <!-- Location -->
             <!-- <div class="field">
 
-                                                                        <label for="locationInput">
-                                                                            Location / Locality
-                                                                        </label>
+                                                                                                <label for="locationInput">
+                                                                                                    Location / Locality
+                                                                                                </label>
 
-                                                                        <div class="control location-control">
+                                                                                                <div class="control location-control">
 
-                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                                                    <i class="fa-solid fa-location-dot"></i>
 
-                                                                            <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
-                                                                                autocomplete="off">
+                                                                                                    <input type="text" id="locationInput" placeholder="Search Locality, Area or Landmark"
+                                                                                                        autocomplete="off">
 
-                                                                            <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
-                                                                                <i class="fa-solid fa-xmark"></i>
-                                                                            </button>
+                                                                                                    <button type="button" class="control-icon-btn" id="locationClear" aria-label="Clear location">
+                                                                                                        <i class="fa-solid fa-xmark"></i>
+                                                                                                    </button>
 
-                                                                        </div> -->
+                                                                                                </div> -->
 
             <!-- Location Suggestions -->
             <!-- @php
-                                                                            $locations = $properties
-                                                                                ->flatMap(function ($property) {
-                                                                                    return [
-                                                                                        $property->locality,
-                                                                                        $property->landmark,
-                                                                                        optional($property->cityRelation)->name,
-                                                                                    ];
-                                                                                })
-                                                                                ->filter()
-                                                                                ->map(function ($location) {
-                                                                                    return trim($location);
-                                                                                })
-                                                                                ->unique()
-                                                                                ->sort()
-                                                                                ->values();
-                                                                        @endphp
+                                                                                                    $locations = $properties
+                                                                                                        ->flatMap(function ($property) {
+                                                                                                            return [
+                                                                                                                $property->locality,
+                                                                                                                $property->landmark,
+                                                                                                                optional($property->cityRelation)->name,
+                                                                                                            ];
+                                                                                                        })
+                                                                                                        ->filter()
+                                                                                                        ->map(function ($location) {
+                                                                                                            return trim($location);
+                                                                                                        })
+                                                                                                        ->unique()
+                                                                                                        ->sort()
+                                                                                                        ->values();
+                                                                                                @endphp
 
-                                                                        <div class="location-suggestions" id="locationSuggestions">
+                                                                                                <div class="location-suggestions" id="locationSuggestions">
 
-                                                                            @foreach($locations as $location)
+                                                                                                    @foreach($locations as $location)
 
-                                                                                <button type="button" data-location="{{ $location }}">
+                                                                                                        <button type="button" data-location="{{ $location }}">
 
-                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                            <i class="fa-solid fa-location-dot"></i>
 
-                                                                                    {{ $location }}
+                                                                                                            {{ $location }}
 
-                                                                                </button>
+                                                                                                        </button>
 
-                                                                            @endforeach
+                                                                                                    @endforeach
 
-                                                                        </div>
-                                                                    </div> -->
+                                                                                                </div>
+                                                                                            </div> -->
 
 
             <div class="field">
@@ -641,8 +647,8 @@ input[placeholder*="Landmark"]:focus-visible {
                         @if($bhkOptions->contains(fn($value) => $value >= 4))
 
                             <!-- <button type="button" data-value="4+ BHK">
-                                                                                                                4+ BHK
-                                                                                                            </button> -->
+                                                                                                                                                                4+ BHK
+                                                                                                                                                            </button> -->
 
                         @endif
 
@@ -656,47 +662,47 @@ input[placeholder*="Landmark"]:focus-visible {
             <!-- Rent Range -->
             <!-- <div class="field">
 
-                                                        <label>
-                                                            Rent Range
-                                                        </label>
+                                                                                <label>
+                                                                                    Rent Range
+                                                                                </label>
 
-                                                        <div class="custom-select">
+                                                                                <div class="custom-select">
 
-                                                            <button type="button" class="control select-trigger" data-target="rentMenu">
-                                                                <strong id="rentValue">
-                                                                    ₹ 0 - ₹ 1,00,000+
-                                                                </strong>
+                                                                                    <button type="button" class="control select-trigger" data-target="rentMenu">
+                                                                                        <strong id="rentValue">
+                                                                                            ₹ 0 - ₹ 1,00,000+
+                                                                                        </strong>
 
-                                                                <i class="fa-solid fa-chevron-down arrow"></i>
-                                                            </button>
+                                                                                        <i class="fa-solid fa-chevron-down arrow"></i>
+                                                                                    </button>
 
-                                                            <div class="select-menu" id="rentMenu">
+                                                                                    <div class="select-menu" id="rentMenu">
 
-                                                                <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
-                                                                    ₹ 0 - ₹ 1,00,000+
-                                                                </button>
+                                                                                        <button type="button" data-value="₹ 0 - ₹ 1,00,000+">
+                                                                                            ₹ 0 - ₹ 1,00,000+
+                                                                                        </button>
 
-                                                                <button type="button" data-value="₹ 0 - ₹ 25,000">
-                                                                    ₹ 0 - ₹ 25,000
-                                                                </button>
+                                                                                        <button type="button" data-value="₹ 0 - ₹ 25,000">
+                                                                                            ₹ 0 - ₹ 25,000
+                                                                                        </button>
 
-                                                                <button type="button" data-value="₹ 25,000 - ₹ 50,000">
-                                                                    ₹ 25,000 - ₹ 50,000
-                                                                </button>
+                                                                                        <button type="button" data-value="₹ 25,000 - ₹ 50,000">
+                                                                                            ₹ 25,000 - ₹ 50,000
+                                                                                        </button>
 
-                                                                <button type="button" data-value="₹ 50,000 - ₹ 75,000">
-                                                                    ₹ 50,000 - ₹ 75,000
-                                                                </button>
+                                                                                        <button type="button" data-value="₹ 50,000 - ₹ 75,000">
+                                                                                            ₹ 50,000 - ₹ 75,000
+                                                                                        </button>
 
-                                                                <button type="button" data-value="₹ 75,000+">
-                                                                    ₹ 75,000+
-                                                                </button>
+                                                                                        <button type="button" data-value="₹ 75,000+">
+                                                                                            ₹ 75,000+
+                                                                                        </button>
 
-                                                            </div>
+                                                                                    </div>
 
-                                                        </div>
+                                                                                </div>
 
-                                                    </div> -->
+                                                                            </div> -->
 
 
 
@@ -711,12 +717,16 @@ input[placeholder*="Landmark"]:focus-visible {
                     <div class="rent-range-values">
                         <div class="rent-price-box">
                             <span>Minimum</span>
-                            <strong id="minRentValue">₹ 0</strong>
+                            <strong id="minRentValue">
+                                ₹ {{ number_format($priceRangeMin) }}
+                            </strong>
                         </div>
 
                         <div class="rent-price-box">
                             <span>Maximum</span>
-                            <strong id="maxRentValue">₹ 1,00,000+</strong>
+                            <strong id="maxRentValue">
+                                {{ $priceRangeMaxLabel }}
+                            </strong>
                         </div>
                     </div>
 
@@ -724,36 +734,30 @@ input[placeholder*="Landmark"]:focus-visible {
                         <div class="rent-slider-track"></div>
                         <div class="rent-slider-progress" id="rentSliderProgress"></div>
 
-                        <input type="range" id="minRent" min="0" max="100000" step="1" value="0" aria-label="Minimum rent">
+                        <input type="range" id="minRent" min="{{ $priceRangeMin }}" max="{{ $priceRangeMax }}" step="1000"
+                            value="{{ $priceRangeMin }}" aria-label="Minimum price">
 
-                        <input type="range" id="maxRent" min="0" max="100000" step="1" value="100000"
-                            aria-label="Maximum rent">
-                    </div>
-
-                    <div class="rent-range-labels">
-                        <span>₹0</span>
-                        <span>₹25k</span>
-                        <span>₹50k</span>
-                        <span>₹75k</span>
-                        <span>₹1L+</span>
+                        <input type="range" id="maxRent" min="{{ $priceRangeMin }}" max="{{ $priceRangeMax }}" step="1000"
+                            value="{{ $priceRangeMax }}" aria-label="Maximum price">
                     </div>
 
                 </div>
 
-                <input type="hidden" name="min_rent" id="min_rent" value="0">
-                <input type="hidden" name="max_rent" id="max_rent" value="100000">
+                <input type="hidden" name="min_rent" id="min_rent" value="{{ $priceRangeMin }}">
+
+                <input type="hidden" name="max_rent" id="max_rent" value="{{ $priceRangeMax }}">
             </div>
 
 
 
             <!-- More Filters
-                                                    <button type="button" class="filter-action" id="moreFiltersBtn">
-                                                        <i class="fa-solid fa-sliders"></i>
+                                                                            <button type="button" class="filter-action" id="moreFiltersBtn">
+                                                                                <i class="fa-solid fa-sliders"></i>
 
-                                                        <span>
-                                                            More Filters
-                                                        </span>
-                                                    </button> -->
+                                                                                <span>
+                                                                                    More Filters
+                                                                                </span>
+                                                                            </button> -->
 
 
             <!-- Search -->
@@ -791,15 +795,15 @@ input[placeholder*="Landmark"]:focus-visible {
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                                                         CONTENT AREA
-                                                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                 CONTENT AREA
+                                                                                                                                                                                                                                                                                                                                                                                            ====================================================== -->
 
     <div class="rent-container content">
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                                                             SIDEBAR
-                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                     SIDEBAR
+                                                                                                                                                                                                                                                                                                                                                                                                ================================================== -->
 
         <aside class="sidebar" id="filters">
 
@@ -819,7 +823,7 @@ input[placeholder*="Landmark"]:focus-visible {
 
             <!-- LOCATION FILTER
 
-                                            LOCATION FILTER -->
+                                                                    LOCATION FILTER -->
 
             @php
                 $locationTree = $properties
@@ -911,43 +915,43 @@ input[placeholder*="Landmark"]:focus-visible {
 
             <!-- <div class="filter-section">
 
-                                                                                                                                                                                                                                                                                                                                                        <button type="button" class="filter-title">
-                                                                                                                                                                                                                                                                                                                                                            <span>
-                                                                                                                                                                                                                                                                                                                                                                Rent Range
-                                                                                                                                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                                                                                                                                <button type="button" class="filter-title">
+                                                                                                                                                                                                                                                                                                                                                                                    <span>
+                                                                                                                                                                                                                                                                                                                                                                                        Rent Range
+                                                                                                                                                                                                                                                                                                                                                                                    </span>
 
-                                                                                                                                                                                                                                                                                                                                                            <i class="fa-solid fa-chevron-up"></i>
-                                                                                                                                                                                                                                                                                                                                                        </button>
-
-
-                                                                                                                                                                                                                                                                                                                                                        <div class="range">
-
-                                                                                                                                                                                                                                                                                                                                                            <span class="range-progress"></span>
-
-                                                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                                                            <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
-
-                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                    <i class="fa-solid fa-chevron-up"></i>
+                                                                                                                                                                                                                                                                                                                                                                                </button>
 
 
-                                                                                                                                                                                                                                                                                                                                                        <div class="range-values">
+                                                                                                                                                                                                                                                                                                                                                                                <div class="range">
 
-                                                                                                                                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                                                                                                                                ₹ 0
-                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                    <span class="range-progress"></span>
 
-                                                                                                                                                                                                                                                                                                                                                            <span class="range-to">
-                                                                                                                                                                                                                                                                                                                                                                to
-                                                                                                                                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb left" aria-label="Minimum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                                                            <div class="range-box">
-                                                                                                                                                                                                                                                                                                                                                                ₹ 1,00,000+
-                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                    <button type="button" class="range-thumb right" aria-label="Maximum rent"></button>
 
-                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                </div>
 
-                                                                                                                                                                                                                                                                                                                                                    </div> -->
+
+                                                                                                                                                                                                                                                                                                                                                                                <div class="range-values">
+
+                                                                                                                                                                                                                                                                                                                                                                                    <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                                                                        ₹ 0
+                                                                                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                    <span class="range-to">
+                                                                                                                                                                                                                                                                                                                                                                                        to
+                                                                                                                                                                                                                                                                                                                                                                                    </span>
+
+                                                                                                                                                                                                                                                                                                                                                                                    <div class="range-box">
+                                                                                                                                                                                                                                                                                                                                                                                        ₹ 1,00,000+
+                                                                                                                                                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                                                            </div> -->
 
 
             <!-- BHK -->
@@ -1028,45 +1032,45 @@ input[placeholder*="Landmark"]:focus-visible {
             {{-- TENANT PREFERENCE --}}
             <!-- <div class="filter-section">
 
-                                                                            <button type="button" class="filter-title">
+                                                                                                    <button type="button" class="filter-title">
 
-                                                                                <span>
-                                                                                    Tenant Preference
-                                                                                </span>
+                                                                                                        <span>
+                                                                                                            Tenant Preference
+                                                                                                        </span>
 
-                                                                                <i class="fa-solid fa-chevron-up"></i>
+                                                                                                        <i class="fa-solid fa-chevron-up"></i>
 
-                                                                            </button>
+                                                                                                    </button>
 
-                                                                            <div class="property-type-filters">
+                                                                                                    <div class="property-type-filters">
 
-                                                                                <button type="button" data-tenant-filter="Family">
+                                                                                                        <button type="button" data-tenant-filter="Family">
 
-                                                                                    <span class="checkbox"></span>
+                                                                                                            <span class="checkbox"></span>
 
-                                                                                    Family
+                                                                                                            Family
 
-                                                                                </button>
+                                                                                                        </button>
 
-                                                                                <button type="button" data-tenant-filter="Bachelor">
+                                                                                                        <button type="button" data-tenant-filter="Bachelor">
 
-                                                                                    <span class="checkbox"></span>
+                                                                                                            <span class="checkbox"></span>
 
-                                                                                    Bachelor
+                                                                                                            Bachelor
 
-                                                                                </button>
+                                                                                                        </button>
 
-                                                                                <button type="button" data-tenant-filter="Both">
+                                                                                                        <button type="button" data-tenant-filter="Both">
 
-                                                                                    <span class="checkbox"></span>
+                                                                                                            <span class="checkbox"></span>
 
-                                                                                    Fam & Bac
+                                                                                                            Fam & Bac
 
-                                                                                </button>
+                                                                                                        </button>
 
-                                                                            </div>
+                                                                                                    </div>
 
-                                                                        </div> -->
+                                                                                                </div> -->
 
 
             <!-- PROPERTY TYPE -->
@@ -1108,8 +1112,8 @@ input[placeholder*="Landmark"]:focus-visible {
 
 
         <!-- =================================================
-                                                                                                                                                                                                                                                                                                                                                                             RESULTS
-                                                                                                                                                                                                                                                                                                                                                                        ================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                     RESULTS
+                                                                                                                                                                                                                                                                                                                                                                                                ================================================== -->
 
         <section class="results">
 
@@ -1260,8 +1264,8 @@ input[placeholder*="Landmark"]:focus-visible {
                         @endif
 
                         <!-- <button type="button" class="heart" aria-label="Add to favourites">
-                                                                                                                                                                                                    <i class="fa-regular fa-heart"></i>
-                                                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                    <i class="fa-regular fa-heart"></i>
+                                                                                                                                                                                                                                                </button> -->
 
                         <img class="main" src="{{ $propertyImage }}" alt="{{ $property->property_title }}" loading="lazy">
 
@@ -1336,30 +1340,31 @@ input[placeholder*="Landmark"]:focus-visible {
 
                         {{-- PRICE --}}
                         {{-- PRICE --}}
-                        
-{{-- PRICE --}}
-<div class="price">
-    @if($property->price)
-        ₹ {{ number_format((float) $property->price) }}
 
-        @php
-            $listingFor = strtolower(trim($property->listing_for ?? ''));
-        @endphp
+                        {{-- PRICE --}}
+                        <div class="price">
+                            @if($property->price)
+                                ₹ {{ number_format((float) $property->price) }}
 
-        @if($listingFor === 'rent' || $listingFor === 'pg')
-            <span>/month</span>
-        @elseif($listingFor === 'lease')
-            <span>/lease</span>
-        @endif
-    @else
-        Contact for Price
-    @endif
-</div>
+                                @php
+                                    $listingFor = strtolower(trim($property->listing_for ?? ''));
+                                @endphp
+
+                                @if($listingFor === 'rent' || $listingFor === 'pg')
+                                    <span>/month</span>
+                                @elseif($listingFor === 'lease')
+                                    <span>/lease</span>
+                                @endif
+                            @else
+                                Contact for Price
+                            @endif
+                        </div>
 
 
 
                         {{-- SECURITY DEPOSIT --}}
-                        @if($property->security_deposit !== null)
+                        {{-- SECURITY DEPOSIT - RENT ONLY --}}
+                        @if(!$isSellPage && $property->security_deposit !== null)
 
                             <div class="deposit">
 
@@ -1454,35 +1459,35 @@ input[placeholder*="Landmark"]:focus-visible {
                         {{-- BROKER --}}
                         <!-- <div class="broker">
 
-                                                                                            <div class="broker-avatar">
-                                                                                                {{ $brokerInitials }}
-                                                                                            </div>
+                                                                                                                                            <div class="broker-avatar">
+                                                                                                                                                {{ $brokerInitials }}
+                                                                                                                                            </div>
 
-                                                                                            <div>
+                                                                                                                                            <div>
 
-                                                                                                <div class="broker-name">
+                                                                                                                                                <div class="broker-name">
 
-                                                                                                    {{ $brokerName }}
+                                                                                                                                                    {{ $brokerName }}
 
-                                                                                                    <span class="tick">
-                                                                                                        <i class="fa-solid fa-circle-check"></i>
-                                                                                                    </span>
+                                                                                                                                                    <span class="tick">
+                                                                                                                                                        <i class="fa-solid fa-circle-check"></i>
+                                                                                                                                                    </span>
 
-                                                                                                </div>
+                                                                                                                                                </div>
 
-                                                                                                <div class="broker-role">
+                                                                                                                                                <div class="broker-role">
 
-                                                                                                    @if($property->user)
-                                                                                                        {{ ucfirst($property->user->role ?? 'Property Owner') }}
-                                                                                                    @else
-                                                                                                        Property Owner
-                                                                                                    @endif
+                                                                                                                                                    @if($property->user)
+                                                                                                                                                        {{ ucfirst($property->user->role ?? 'Property Owner') }}
+                                                                                                                                                    @else
+                                                                                                                                                        Property Owner
+                                                                                                                                                    @endif
 
-                                                                                                </div>
+                                                                                                                                                </div>
 
-                                                                                            </div>
+                                                                                                                                            </div>
 
-                                                                                        </div> -->
+                                                                                                                                        </div> -->
 
                     </div>
 
@@ -1513,22 +1518,22 @@ input[placeholder*="Landmark"]:focus-visible {
 
                         {{-- ENQUIRE --}}
                         <!-- <button type="button" class="action-btn enquire-btn" data-property-slug="{{ $property->slug }}">
-                                                                                                                                            Enquire Now
-                                                                                                                                        </button> -->
+                                                                                                                                                                                            Enquire Now
+                                                                                                                                                                                        </button> -->
 
 
                         {{-- PHONE --}}
                         <!-- @if($property->owner_phone)
 
-                                                                                            <div class="phone">
+                                                                                                                                            <div class="phone">
 
-                                                                                                <i class="fa-solid fa-phone"></i>
+                                                                                                                                                <i class="fa-solid fa-phone"></i>
 
-                                                                                                {{ $property->owner_phone }}
+                                                                                                                                                {{ $property->owner_phone }}
 
-                                                                                            </div>
+                                                                                                                                            </div>
 
-                                                                                        @endif -->
+                                                                                                                                        @endif -->
 
                     </div>
 
@@ -1580,8 +1585,8 @@ input[placeholder*="Landmark"]:focus-visible {
 
     <style>
         /* =================================================
-                                                                                                                                                                           PAGINATION
-                                                                                                                                                                        ================================================= */
+                                                                                                                                                                                                   PAGINATION
+                                                                                                                                                                                                ================================================= */
 
         .pagination-wrapper {
             display: flex;
@@ -1683,8 +1688,8 @@ input[placeholder*="Landmark"]:focus-visible {
 
 
     <!-- =====================================================
-                                                                                                                                                                                                                                                                                                                                                                         ENQUIRY MODAL
-                                                                                                                                                                                                                                                                                                                                                                    ====================================================== -->
+                                                                                                                                                                                                                                                                                                                                                                                                 ENQUIRY MODAL
+                                                                                                                                                                                                                                                                                                                                                                                            ====================================================== -->
     <div class="enquiry-modal" id="enquiryModal" aria-hidden="true">
 
         <div class="enquiry-overlay"></div>
@@ -2041,8 +2046,8 @@ input[placeholder*="Landmark"]:focus-visible {
             const rangeBoxes =
                 document.querySelectorAll(".range-box");
 
-            const RENT_MIN = 0;
-            const RENT_MAX = 100000;
+            const RENT_MIN = @json($priceRangeMin);
+            const RENT_MAX = @json($priceRangeMax);
 
             let rentLow = RENT_MIN;
             let rentHigh = RENT_MAX;
@@ -2344,7 +2349,10 @@ input[placeholder*="Landmark"]:focus-visible {
             }
 
             function formatRent(value) {
-                if (value >= RENT_MAX) return "₹ 1,00,000+";
+                if (value >= RENT_MAX) {
+                    return @json($priceRangeMaxLabel);
+                }
+
                 return "₹ " + value.toLocaleString("en-IN");
             }
 
@@ -3550,27 +3558,27 @@ input[placeholder*="Landmark"]:focus-visible {
 
                     /* PRICE FILTER — RENT / SELL */
 
-                   
-const currentPath = window.location.pathname
-    .toLowerCase()
-    .replace(/\/+$/, '');
 
-const mode =
-    currentPath === '/sell' ||
-    currentPath.startsWith('/sell/')
-        ? 'sell'
-        : 'rent';
+                    const currentPath = window.location.pathname
+                        .toLowerCase()
+                        .replace(/\/+$/, '');
+
+                    const mode =
+                        currentPath === '/sell' ||
+                            currentPath.startsWith('/sell/')
+                            ? 'sell'
+                            : 'rent';
 
 
                     if (mode === "sell") {
 
                         // Read Sell price range from the URL
                         const selectedMinPrice = Number(
-                            urlParams.get("min_price") ?? 0
+                            document.getElementById("min_rent")?.value ?? 0
                         );
 
                         const selectedMaxPrice = Number(
-                            urlParams.get("max_price") ?? Number.MAX_SAFE_INTEGER
+                            document.getElementById("max_rent")?.value ?? RENT_MAX
                         );
 
                         // Apply Sell price filter
@@ -3955,7 +3963,9 @@ const mode =
                 return;
             }
 
-            const MAX_RENT = 100000;
+            const MAX_RENT = @json($priceRangeMax);
+            const MIN_RENT = @json($priceRangeMin);
+            const MAX_RENT_LABEL = @json($priceRangeMaxLabel);
 
             function formatRent(value) {
                 return "₹ " + Number(value).toLocaleString("en-IN");
@@ -3979,7 +3989,7 @@ const mode =
                 // Display selected amounts.
                 minValue.textContent = formatRent(min);
                 maxValue.textContent =
-                    max >= MAX_RENT ? "₹ 1,00,000+" : formatRent(max);
+                    max >= MAX_RENT ? MAX_RENT_LABEL : formatRent(max);
 
                 // Update the green track.
                 const minPercent = (min / MAX_RENT) * 100;

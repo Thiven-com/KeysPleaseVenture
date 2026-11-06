@@ -591,11 +591,16 @@
           <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture">
         </a>
 
-        <div class="footer-copy">
+
+        <div class="footer-copy" style="font-size:13px;">
+          Bangalore's trusted platform for properties. Find verified listings, connect with owners, and move into your dream home.
+        </div>
+
+        <!-- <div class="footer-copy">
           Bangalore's trusted platform for rental properties.
           Find verified listings, connect with trusted owners,
           and move into your dream rental home.
-        </div>
+        </div> -->
 
         <div class="social">
           <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>

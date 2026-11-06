@@ -777,16 +777,12 @@
 
             <div class="property-create-header">
 
-                <h3 class="property-create-title">
-
-                    Add Rent Property
-
+                <h3 class="property-create-title" id="propertyPageTitle">
+                    Add Property
                 </h3>
 
-                <p class="property-create-subtitle">
-
-                    Publish a rental property directly from the admin portal.
-
+                <p class="property-create-subtitle" id="propertyPageSubtitle">
+                    Add a property for rent, lease, PG or sale from the admin portal.
                 </p>
 
             </div>
@@ -891,7 +887,7 @@
 
                                 <p class="property-form-section-subtitle">
 
-                                    Enter the main information about the rental property.
+                                    Enter the main information about the property.
 
                                 </p>
 
@@ -965,7 +961,7 @@
 
                                 </label>
 
-                                <select name="listing_for" class="property-form-select" required>
+                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
 
                                     <option value="">
                                         Select Listing For
@@ -993,7 +989,7 @@
 
 
                             {{-- TENANT PREFERENCE --}}
-<div class="property-col-4">
+<div class="property-col-4" id="tenantPreferenceField">
 
     <label class="property-form-label">
         Tenant Preference
@@ -1417,12 +1413,12 @@
 
                             <div>
 
-                                <h5 class="property-form-section-title">
-                                    Rent & Property Details
+                                <h5 class="property-form-section-title" id="propertyDetailsTitle">
+                                    Property Details
                                 </h5>
 
-                                <p class="property-form-section-subtitle">
-                                    Add rental price, property size, furnishing and property specifications.
+                                <p class="property-form-section-subtitle" id="propertyDetailsSubtitle">
+                                    Add price, property size, furnishing and property specifications.
                                 </p>
 
                             </div>
@@ -1439,16 +1435,14 @@
 
                             <div class="property-col-4">
 
-                                <label class="property-form-label">
-
+                                <label class="property-form-label" id="propertyPriceLabel">
                                     Monthly Rent
-
                                     <span class="property-form-required">*</span>
-
                                 </label>
 
-                                <input type="number" name="price" class="property-form-control" value="{{ old('price') }}"
-                                    min="0" step="0.01" placeholder="₹ 45,000" required>
+                                <input type="number" name="price" id="propertyPriceInput" class="property-form-control"
+                                    value="{{ old('price') }}" min="1" step="0.01"
+                                    placeholder="₹ 45,000" required>
 
                             </div>
 
@@ -1457,7 +1451,7 @@
                             SECURITY DEPOSIT
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <div class="property-col-4" id="securityDepositField">
 
                                 <label class="property-form-label">
                                     Security Deposit
@@ -1562,7 +1556,7 @@
                             AVAILABLE FROM
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <div class="property-col-4" id="availableFromField">
 
                                 <label class="property-form-label">
                                     Available From
@@ -2115,7 +2109,7 @@
 
                             <i class="ti ti-check me-1"></i>
 
-                            Publish Rent Property
+                            <span id="propertySubmitLabel">Publish Property</span>
 
                         </button>
 
@@ -2743,6 +2737,74 @@
 <script
     async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocalityAutocomplete">
+</script>
+
+
+<script>
+// Switch the property form fields according to the selected listing type.
+document.addEventListener('DOMContentLoaded', function () {
+    const listingFor = document.getElementById('listingForSelect');
+    if (!listingFor) return;
+
+    const pageTitle = document.getElementById('propertyPageTitle');
+    const pageSubtitle = document.getElementById('propertyPageSubtitle');
+    const detailsTitle = document.getElementById('propertyDetailsTitle');
+    const detailsSubtitle = document.getElementById('propertyDetailsSubtitle');
+    const priceLabel = document.getElementById('propertyPriceLabel');
+    const priceInput = document.getElementById('propertyPriceInput');
+    const submitLabel = document.getElementById('propertySubmitLabel');
+
+    const securityDepositField = document.getElementById('securityDepositField');
+    const tenantPreferenceField = document.getElementById('tenantPreferenceField');
+    const availableFromField = document.getElementById('availableFromField');
+
+    const securityDepositInput = document.querySelector('[name="security_deposit"]');
+    const tenantPreferenceInput = document.querySelector('[name="tenant_preference"]');
+    const availableFromInput = document.querySelector('[name="available_from"]');
+
+    function setFieldVisibility(wrapper, input, visible) {
+        if (wrapper) wrapper.style.display = visible ? '' : 'none';
+        if (input) input.disabled = !visible;
+    }
+
+    function updatePropertyForm() {
+        const listingType = (listingFor.value || 'rent').trim().toLowerCase();
+        const isSell = listingType === 'sell';
+        const isPg = listingType === 'pg';
+
+        if (isSell) {
+            if (pageTitle) pageTitle.textContent = 'Add Sell Property';
+            if (pageSubtitle) pageSubtitle.textContent = 'Publish a property for sale directly from the admin portal.';
+            if (detailsTitle) detailsTitle.textContent = 'Sale & Property Details';
+            if (detailsSubtitle) detailsSubtitle.textContent = 'Add the expected sale price, property size and property specifications.';
+            if (priceLabel) priceLabel.innerHTML = 'Expected Sale Price <span class="property-form-required">*</span>';
+            if (priceInput) priceInput.placeholder = '₹ 75,00,000';
+            if (submitLabel) submitLabel.textContent = 'Publish Sell Property';
+
+            setFieldVisibility(securityDepositField, securityDepositInput, false);
+            setFieldVisibility(tenantPreferenceField, tenantPreferenceInput, false);
+            setFieldVisibility(availableFromField, availableFromInput, false);
+        } else {
+            const isLease = listingType === 'lease';
+            const label = isPg ? 'PG' : (isLease ? 'Lease' : 'Rent');
+
+            if (pageTitle) pageTitle.textContent = 'Add ' + label + ' Property';
+            if (pageSubtitle) pageSubtitle.textContent = 'Publish a ' + label.toLowerCase() + ' property directly from the admin portal.';
+            if (detailsTitle) detailsTitle.textContent = (isPg ? 'PG' : label) + ' & Property Details';
+            if (detailsSubtitle) detailsSubtitle.textContent = 'Add rental price, security deposit, property size and specifications.';
+            if (priceLabel) priceLabel.innerHTML = (isPg ? 'Monthly Rent / PG Price' : 'Monthly Rent') + ' <span class="property-form-required">*</span>';
+            if (priceInput) priceInput.placeholder = '₹ 45,000';
+            if (submitLabel) submitLabel.textContent = 'Publish ' + label + ' Property';
+
+            setFieldVisibility(securityDepositField, securityDepositInput, true);
+            setFieldVisibility(tenantPreferenceField, tenantPreferenceInput, true);
+            setFieldVisibility(availableFromField, availableFromInput, true);
+        }
+    }
+
+    listingFor.addEventListener('change', updatePropertyForm);
+    updatePropertyForm();
+});
 </script>
 
 @endsection

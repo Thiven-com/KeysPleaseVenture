@@ -29,19 +29,37 @@ class AuthController extends Controller
     // Broker Registration
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:brokers,email',
-            'mobile' => 'required|string|max:20',
-            'broker_type' => 'required|string|max:100',
-            'agency_name' => 'nullable|string|max:255',
-            'license_number' => 'nullable|string|max:255',
-            'address' => 'required|string',
-            'city' => 'required|string|max:100',
-            'state' => 'required|string|max:100',
-            'pincode' => 'required|string|max:10',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:brokers,email',
+                'mobile' => [
+                    'required',
+                    'digits:10',
+                    'regex:/^[6-9][0-9]{9}$/',
+                    'unique:brokers,mobile',
+                ],
+                'broker_type' => 'required|string|max:100',
+                'agency_name' => 'nullable|string|max:255',
+                'license_number' => 'nullable|string|max:255',
+                'address' => 'required|string',
+                'city' => 'required|string|max:100',
+                'state' => 'required|string|max:100',
+                'pincode' => 'required|string|max:10',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+
+                'mobile.required' => 'Mobile number is mandatory.',
+
+                'mobile.digits' => 'Mobile number must contain exactly 10 digits.',
+
+                'mobile.regex' => 'Enter a valid Indian mobile number.',
+
+                'mobile.unique' => 'This mobile number is already registered.',
+
+            ]
+        );
 
         Broker::create([
             'name' => $request->name,
