@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <style>
     .property-locality-control {
         position: relative;
@@ -66,7 +65,6 @@
             overflow-x: hidden;
         }
 
-
         /* =========================================================
                MAIN
             ========================================================= */
@@ -86,7 +84,6 @@
 
             margin-top: 50px;
         }
-
 
         /* =========================================================
                PAGE HEADER
@@ -122,7 +119,6 @@
 
             line-height: 1.5 !important;
         }
-
 
         /* =========================================================
                ALERT
@@ -173,7 +169,6 @@
             font-weight: 400;
         }
 
-
         /* =========================================================
                CARD
             ========================================================= */
@@ -202,7 +197,6 @@
                 0 12px 35px rgba(7, 27, 61, 0.04);
         }
 
-
         /* =========================================================
                FORM
             ========================================================= */
@@ -215,7 +209,6 @@
 
             box-sizing: border-box;
         }
-
 
         /* =========================================================
                FORM SECTION
@@ -235,7 +228,6 @@
         .property-form-section:last-child {
             border-bottom: 0;
         }
-
 
         /* =========================================================
                SECTION HEADER
@@ -297,7 +289,6 @@
             line-height: 1.4;
         }
 
-
         /* =========================================================
                LABEL
             ========================================================= */
@@ -321,7 +312,6 @@
 
             margin-left: 2px;
         }
-
 
         /* =========================================================
                INPUTS
@@ -386,7 +376,6 @@
             color: #344158;
         }
 
-
         /* =========================================================
                FORM HELP TEXT
             ========================================================= */
@@ -402,7 +391,6 @@
 
             line-height: 1.4;
         }
-
 
         /* =========================================================
                GRID
@@ -432,7 +420,6 @@
         .property-col-4 {
             grid-column: span 4;
         }
-
 
         /* =========================================================
                AMENITIES
@@ -502,7 +489,6 @@
 
             color: #071b3d;
         }
-
 
         /* =========================================================
                IMAGE UPLOAD
@@ -589,7 +575,6 @@
 
             cursor: pointer;
         }
-
 
         /* =========================================================
                ACTIONS
@@ -679,7 +664,6 @@
             transform: translateY(-1px);
         }
 
-
         /* =========================================================
                TABLET
             ========================================================= */
@@ -704,7 +688,6 @@
             }
 
         }
-
 
         /* =========================================================
                MOBILE
@@ -759,11 +742,9 @@
         }
     </style>
 
-
     <div class="property-create-page">
 
         <div class="property-create-main">
-
 
             {{-- =====================================================
             PAGE HEADER
@@ -771,20 +752,14 @@
 
             <div class="property-create-header">
 
-                <h3 class="property-create-title">
-
-                    Add Rent Property
-
+                <h3 class="property-create-title" id="propertyPageTitle">
+                    {{ old('listing_for') === 'Sell' ? 'Add Sale Property' : 'Add Rent Property' }}
                 </h3>
-
-                <p class="property-create-subtitle">
-
-                    Publish a rental property directly from your broker portal.
-
+                <p class="property-create-subtitle" id="propertyPageSubtitle">
+                    {{ old('listing_for') === 'Sell' ? 'Publish a sale property directly from your broker portal.' : 'Publish a rental property directly from your broker portal.' }}
                 </p>
 
             </div>
-
 
             {{-- =====================================================
             VALIDATION ERRORS
@@ -820,7 +795,6 @@
 
             @endif
 
-
             {{-- =====================================================
             SUCCESS MESSAGE
             ====================================================== --}}
@@ -836,7 +810,6 @@
                 </div>
 
             @endif
-
 
             @if(session('error'))
                 <div class="property-create-alert property-create-alert-danger">
@@ -859,7 +832,6 @@
     class="property-create-form">
 
                     @csrf
-
 
                     {{-- =================================================
                     BASIC PROPERTY INFORMATION
@@ -885,7 +857,7 @@
 
                                 <p class="property-form-section-subtitle">
 
-                                    Enter the main information about the rental property.
+                                    Enter the main information about the property.
 
                                 </p>
 
@@ -893,9 +865,7 @@
 
                         </div>
 
-
                         <div class="property-form-row">
-
 
                             {{-- PROPERTY TITLE --}}
 
@@ -914,7 +884,6 @@
                                     required>
 
                             </div>
-
 
                             {{-- PROPERTY TYPE --}}
 
@@ -946,7 +915,6 @@
 
                             </div>
 
-
                             {{-- LISTING FOR --}}
 
                             <div class="property-col-4">
@@ -959,7 +927,7 @@
 
                                 </label>
 
-                                <select name="listing_for" class="property-form-select" required>
+                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
 
                                     <option value="">
                                         Select Listing For
@@ -987,7 +955,7 @@
 
                             {{-- TENANT PREFERENCE --}}
 
-<div class="property-col-4">
+<div class="property-col-4" id="tenantPreferenceGroup">
 
     <label class="property-form-label">
         Tenant Preference
@@ -996,7 +964,7 @@
 
     <select name="tenant_preference"
             class="property-form-select"
-            required>
+            id="tenantPreferenceSelect">
 
         <option value="">
             Select Tenant Preference
@@ -1020,7 +988,6 @@
     </select>
 
 </div>
-
 
                             {{-- BHK --}}
 
@@ -1062,7 +1029,6 @@
 
                             </div>
 
-
                             {{-- BATHROOMS --}}
 
                             <div class="property-col-4">
@@ -1081,7 +1047,6 @@
                         </div>
 
                     </div>
-
 
                     {{-- =================================================
                     LOCATION
@@ -1115,7 +1080,6 @@
 
                         </div>
 
-
                         <div class="property-form-row">
 
                             {{-- COUNTRY --}}
@@ -1136,7 +1100,6 @@
                                 </select>
 
                             </div>
-
 
                             {{-- STATE --}}
                             <div class="property-col-4">
@@ -1173,7 +1136,6 @@
 
                             </div>
 
-
                             {{-- DISTRICT --}}
                             <div class="property-col-4">
 
@@ -1186,7 +1148,6 @@
                                     value="{{ old('district') }}" placeholder="e.g. Annamayya" required>
 
                             </div>
-
 
                             {{-- CITY --}}
                             <div class="property-col-4">
@@ -1207,9 +1168,8 @@
 
                             </div>
 
-
                             {{-- LOCALITY --}}
-                            
+
 <div class="property-col-4">
     <label for="localityInput" class="property-form-label">
         Area / Locality
@@ -1242,8 +1202,6 @@
     </div>
 </div>
 
-
-
                             {{-- PINCODE --}}
                             <div class="property-col-4">
 
@@ -1255,7 +1213,6 @@
                                     placeholder="e.g. 516115" maxlength="6">
 
                             </div>
-
 
                             {{-- LANDMARK --}}
                             <div class="property-col-4">
@@ -1269,7 +1226,6 @@
 
                             </div>
 
-
                             {{-- ADDRESS --}}
                             <div class="property-col-8">
 
@@ -1281,7 +1237,6 @@
                                     placeholder="Enter complete property address">{{ old('address') }}</textarea>
 
                             </div>
-
 
                             {{-- GOOGLE MAP --}}
                             <div class="property-col-12">
@@ -1299,7 +1254,6 @@
 
                             </div>
 
-
                             {{-- LATITUDE --}}
                             <div class="property-col-6">
 
@@ -1311,7 +1265,6 @@
                                     value="{{ old('latitude') }}" placeholder="e.g. 14.0516">
 
                             </div>
-
 
                             {{-- LONGITUDE --}}
                             <div class="property-col-6">
@@ -1328,7 +1281,6 @@
                         </div>
                     </div>
 
-
                     {{-- =================================================
                     RENT & PROPERTY DETAILS
                     ================================================== --}}
@@ -1343,11 +1295,11 @@
 
                             <div>
 
-                                <h5 class="property-form-section-title">
+                                <h5 class="property-form-section-title" id="priceSectionTitle">
                                     Rent & Property Details
                                 </h5>
 
-                                <p class="property-form-section-subtitle">
+                                <p class="property-form-section-subtitle" id="priceSectionSubtitle">
                                     Add rental price, property size, furnishing and property specifications.
                                 </p>
 
@@ -1355,9 +1307,7 @@
 
                         </div>
 
-
                         <div class="property-form-row">
-
 
                             {{-- =================================================
                             MONTHLY RENT
@@ -1367,23 +1317,21 @@
 
                                 <label class="property-form-label">
 
-                                    Monthly Rent
-
+                                    <span id="priceLabel">Monthly Rent</span>
                                     <span class="property-form-required">*</span>
 
                                 </label>
 
-                                <input type="number" name="price" class="property-form-control" value="{{ old('price') }}"
+                                <input type="number" name="price" id="propertyPrice" class="property-form-control" value="{{ old('price') }}"
                                     min="0" step="0.01" placeholder="₹ 45,000" required>
 
                             </div>
-
 
                             {{-- =================================================
                             SECURITY DEPOSIT
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <div class="property-col-4" id="securityDepositGroup">
 
                                 <label class="property-form-label">
                                     Security Deposit
@@ -1393,7 +1341,6 @@
                                     value="{{ old('security_deposit') }}" min="0" step="0.01" placeholder="₹ 2,50,000">
 
                             </div>
-
 
                             {{-- =================================================
                             PROPERTY AREA
@@ -1414,7 +1361,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             BUILT-UP AREA
                             ================================================== --}}
@@ -1430,7 +1376,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             CARPET AREA
                             ================================================== --}}
@@ -1445,7 +1390,6 @@
                                     value="{{ old('carpet_area') }}" min="1" placeholder="e.g. 1250">
 
                             </div>
-
 
                             {{-- =================================================
                             FURNISHING
@@ -1483,12 +1427,11 @@
 
                             </div>
 
-
                             {{-- =================================================
                             AVAILABLE FROM
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <div class="property-col-4" id="availableFromGroup">
 
                                 <label class="property-form-label">
                                     Available From
@@ -1498,7 +1441,6 @@
                                     value="{{ old('available_from') }}">
 
                             </div>
-
 
                             {{-- =================================================
                             BALCONIES
@@ -1515,7 +1457,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             FLOOR NUMBER
                             ================================================== --}}
@@ -1531,7 +1472,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             TOTAL FLOORS
                             ================================================== --}}
@@ -1546,7 +1486,6 @@
                                     value="{{ old('total_floors') }}" min="0" placeholder="e.g. 10">
 
                             </div>
-
 
                             {{-- =================================================
                             PROPERTY AGE
@@ -1588,7 +1527,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             PROPERTY CONDITION
                             ================================================== --}}
@@ -1624,7 +1562,6 @@
                                 </select>
 
                             </div>
-
 
                             {{-- =================================================
                             FACING
@@ -1678,7 +1615,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                             ROAD WIDTH
                             ================================================== --}}
@@ -1693,7 +1629,6 @@
                                     value="{{ old('road_width') }}" min="0" step="0.1" placeholder="e.g. 30">
 
                             </div>
-
 
                             {{-- =================================================
                             CAR PARKING
@@ -1730,7 +1665,6 @@
                                 </select>
 
                             </div>
-
 
                             {{-- =================================================
                             POSSESSION STATUS
@@ -1800,7 +1734,6 @@
 
                         </div>
 
-
                         <div class="property-form-row">
 
                             <div class="property-col-12">
@@ -1820,11 +1753,9 @@
 
                     </div>
 
-
                     {{-- =================================================
                     AMENITIES
                     ================================================== --}}
-
 
                     <div class="property-form-section">
 
@@ -1880,7 +1811,6 @@
 
                     </div>
 
-
                     {{-- =================================================
                     PROPERTY IMAGES
                     ================================================== --}}
@@ -1913,7 +1843,6 @@
 
                         </div>
 
-
                         <div class="property-image-upload">
 
                             <div class="property-image-upload-icon">
@@ -1922,13 +1851,11 @@
 
                             </div>
 
-
                             <p class="property-image-upload-title">
 
                                 Upload Property Images
 
                             </p>
-
 
                             <p class="property-image-upload-text">
 
@@ -1936,14 +1863,12 @@
 
                             </p>
 
-
                             <input type="file" name="photos[]" class="property-image-input" accept=".jpg,.jpeg,.png,.webp"
                                 multiple>
 
                         </div>
 
                     </div>
-
 
                     {{-- =================================================
                     OWNER / BROKER DETAILS
@@ -1977,9 +1902,7 @@
 
                         </div>
 
-
                         <div class="property-form-row">
-
 
                             {{-- OWNER NAME --}}
 
@@ -1997,7 +1920,6 @@
                                     value="{{ old('owner_name') }}" placeholder="Enter owner or broker name" required>
 
                             </div>
-
 
                             {{-- OWNER PHONE --}}
 
@@ -2020,13 +1942,11 @@
 
                     </div>
 
-
                     {{-- =================================================
                     ACTIONS
                     ================================================== --}}
 
                     <div class="property-create-actions">
-
 
                         <a href="{{ route('broker.properties') }}" class="property-btn-cancel">
 
@@ -2036,15 +1956,13 @@
 
                         </a>
 
-
                         <button type="submit" class="property-btn-submit">
 
                             <i class="ti ti-check me-1"></i>
 
-                            Publish Rent Property
+                            <span id="publishButtonText">Publish Rent Property</span>
 
                         </button>
-
 
                     </div>
 
@@ -2056,11 +1974,9 @@
 
     </div>
 
-
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-
 
             /* =========================================================
                SIDEBAR RESPONSIVE SYNC
@@ -2072,16 +1988,13 @@
             const propertyCreatePage =
                 document.querySelector('.property-create-page');
 
-
             if (!sidebar || !propertyCreatePage) {
 
                 return;
 
             }
 
-
             function syncPropertyCreatePageWithSidebar() {
-
 
                 /*
                  * Mobile
@@ -2097,7 +2010,6 @@
 
                 }
 
-
                 /*
                  * Get actual sidebar width
                  */
@@ -2107,14 +2019,12 @@
                         sidebar.getBoundingClientRect().width
                     );
 
-
                 /*
                  * Move page after sidebar
                  */
 
                 propertyCreatePage.style.marginLeft =
                     sidebarWidth + 'px';
-
 
                 /*
                  * Keep page inside viewport
@@ -2127,13 +2037,11 @@
 
             }
 
-
             /*
              * Initial position
              */
 
             syncPropertyCreatePageWithSidebar();
-
 
             /*
              * Detect sidebar width changes
@@ -2152,7 +2060,6 @@
 
             }
 
-
             /*
              * Backup for sidebar
              * class-based animations
@@ -2166,7 +2073,6 @@
 
                 }, 100);
 
-
                 setTimeout(function () {
 
                     syncPropertyCreatePageWithSidebar();
@@ -2175,21 +2081,71 @@
 
             });
 
-
             /*
              * Browser resize
              */
 
             window.addEventListener('resize', function () {
-
                 syncPropertyCreatePageWithSidebar();
-
             });
 
+            // Switch form fields and labels between Rent/Lease/PG and Sell.
+            const listingSelect = document.getElementById('listingForSelect');
+            const tenantGroup = document.getElementById('tenantPreferenceGroup');
+            const tenantSelect = document.getElementById('tenantPreferenceSelect');
+            const depositGroup = document.getElementById('securityDepositGroup');
+            const availableGroup = document.getElementById('availableFromGroup');
+            const priceLabel = document.getElementById('priceLabel');
+            const sectionTitle = document.getElementById('priceSectionTitle');
+            const sectionSubtitle = document.getElementById('priceSectionSubtitle');
+            const pageTitle = document.getElementById('propertyPageTitle');
+            const pageSubtitle = document.getElementById('propertyPageSubtitle');
+            const publishText = document.getElementById('publishButtonText');
+            const priceInput = document.getElementById('propertyPrice');
+
+            function updateListingFields() {
+                if (!listingSelect) return;
+                const isSale = listingSelect.value.toLowerCase() === 'sell';
+
+                [tenantGroup, depositGroup, availableGroup].forEach(function (group) {
+                    if (group) group.style.display = isSale ? 'none' : '';
+                });
+
+                if (tenantSelect) {
+                    tenantSelect.required = !isSale;
+                    tenantSelect.disabled = isSale;
+                    if (isSale) tenantSelect.value = '';
+                }
+
+                const depositInput = document.querySelector('[name="security_deposit"]');
+                const availableInput = document.querySelector('[name="available_from"]');
+                [depositInput, availableInput].forEach(function (input) {
+                    if (input) {
+                        input.disabled = isSale;
+                        if (isSale) input.value = '';
+                    }
+                });
+
+                if (priceLabel) priceLabel.textContent = isSale ? 'Expected Sale Price' : 'Monthly Rent';
+                if (sectionTitle) sectionTitle.textContent = isSale ? 'Sale & Property Details' : 'Rent & Property Details';
+                if (sectionSubtitle) sectionSubtitle.textContent = isSale
+                    ? 'Add sale price, property size, furnishing and property specifications.'
+                    : 'Add rental price, property size, furnishing and property specifications.';
+                if (pageTitle) pageTitle.textContent = isSale ? 'Add Sale Property' : 'Add Rent Property';
+                if (pageSubtitle) pageSubtitle.textContent = isSale
+                    ? 'Publish a sale property directly from your broker portal.'
+                    : 'Publish a rental property directly from your broker portal.';
+                if (publishText) publishText.textContent = isSale ? 'Publish Sale Property' : 'Publish Rent Property';
+                if (priceInput) priceInput.placeholder = isSale ? '₹ 75,00,000' : '₹ 45,000';
+            }
+
+            if (listingSelect) {
+                listingSelect.addEventListener('change', updateListingFields);
+                updateListingFields();
+            }
         });
 
     </script>
-
 
 <script>
     let localityAutocomplete;
@@ -2234,7 +2190,7 @@
             }
 
             input.value = place.name || place.formatted_address || "";
-            
+
             if (dropdown) {
                 dropdown.style.display = "none";
             }

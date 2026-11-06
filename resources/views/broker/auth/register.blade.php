@@ -303,22 +303,22 @@
                             {{-- License --}}
                             <!-- <div class="mb-3">
 
-                                        <label class="form-label">
-                                            License Number
-                                        </label>
+                                                <label class="form-label">
+                                                    License Number
+                                                </label>
 
-                                        <div class="input-group">
+                                                <div class="input-group">
 
-                                            <input type="text" name="license_number" class="form-control border-end-0"
-                                                value="{{ old('license_number') }}" placeholder="Enter license number">
+                                                    <input type="text" name="license_number" class="form-control border-end-0"
+                                                        value="{{ old('license_number') }}" placeholder="Enter license number">
 
-                                            <span class="input-group-text border-start-0">
-                                                <i class="ti ti-certificate"></i>
-                                            </span>
+                                                    <span class="input-group-text border-start-0">
+                                                        <i class="ti ti-certificate"></i>
+                                                    </span>
 
-                                        </div>
+                                                </div>
 
-                                    </div> -->
+                                            </div> -->
 
 
                             {{-- Aadhaar Card --}}
@@ -343,25 +343,13 @@
                             {{-- ADDRESS DETAILS --}}
                             {{-- ========================================= --}}
 
-                            <div class="mb-3 mt-4">
-
-                                <h5 class="mb-3">
-                                    Address Details
-                                </h5>
-
-                            </div>
-
-
                             {{-- Address --}}
-                            <div class="mb-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Address</label>
 
-                                <label class="form-label">
-                                    Address
-                                </label>
-
-                                <textarea name="address" class="form-control" rows="1"
-                                    placeholder="Enter your complete address" required>{{ old('address') }}</textarea>
-
+                                <input type="text" name="address" id="address" class="form-control"
+                                    value="{{ old('address') }}" placeholder="Search your complete address"
+                                    autocomplete="off" required>
                             </div>
 
 
@@ -503,20 +491,20 @@
                             {{-- Login --}}
                             <!-- <div class="signinform">
 
-                                                    <h4>
+                                                            <h4>
 
-                                                        Already have an account?
+                                                                Already have an account?
 
-                                                        <a
-                                                            href="{{ route('broker.login') }}"
-                                                            class="hover-a"
-                                                        >
-                                                            Sign In
-                                                        </a>
+                                                                <a
+                                                                    href="{{ route('broker.login') }}"
+                                                                    class="hover-a"
+                                                                >
+                                                                    Sign In
+                                                                </a>
 
-                                                    </h4>
+                                                            </h4>
 
-                                                </div> -->
+                                                        </div> -->
 
                         </div>
 
@@ -626,6 +614,56 @@
             input.addEventListener('focus', function () {
                 // Google displays its own autocomplete suggestions.
             });
+
+
+
+            // Address Autocomplete
+            const addressInput = document.getElementById('address');
+
+            if (addressInput) {
+                const addressAutocomplete = new google.maps.places.Autocomplete(
+                    addressInput,
+                    {
+                        bounds: bengaluruBounds,
+                        strictBounds: true,
+                        componentRestrictions: { country: 'in' },
+                        fields: [
+                            'formatted_address',
+                            'name',
+                            'geometry',
+                            'address_components'
+                        ],
+                        types: ['geocode']
+                    }
+                );
+
+                addressAutocomplete.addListener('place_changed', function () {
+                    const place = addressAutocomplete.getPlace();
+
+                    if (!place.geometry?.location ||
+                        !bengaluruBounds.contains(place.geometry.location)) {
+                        addressInput.value = '';
+                        alert('Please select an address within Bengaluru.');
+                        return;
+                    }
+
+                    const components = place.address_components || [];
+
+                    const isKarnataka = components.some(component =>
+                        component.types.includes('administrative_area_level_1') &&
+                        component.long_name === 'Karnataka'
+                    );
+
+                    if (!isKarnataka) {
+                        addressInput.value = '';
+                        alert('Please select an address in Karnataka.');
+                        return;
+                    }
+
+                    addressInput.value = place.formatted_address || place.name || '';
+                    addressInput.dispatchEvent(new Event('change', { bubbles: true }));
+                });
+            }
         }
     </script>
 
