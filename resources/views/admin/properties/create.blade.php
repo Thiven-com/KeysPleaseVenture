@@ -1588,16 +1588,20 @@
                             FLOOR NUMBER
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                           {{-- FLOOR NUMBER --}}
+<div class="property-col-4">
+    <label class="property-form-label">
+        Floor Number
+    </label>
 
-                                <label class="property-form-label">
-                                    Floor Number
-                                </label>
-
-                                <input type="number" name="floor_number" class="property-form-control"
-                                    value="{{ old('floor_number') }}" min="0" placeholder="e.g. 3">
-
-                            </div>
+    <input
+        type="text"
+        name="floor_number"
+        class="property-form-control"
+        value="{{ old('floor_number') }}"
+        placeholder="e.g. Ground, 1 or Ground + 1"
+    >
+</div>
 
 
                             {{-- =================================================
@@ -1661,7 +1665,7 @@
                             PROPERTY CONDITION
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <!-- <div class="property-col-4">
 
                                 <label class="property-form-label">
                                     Property Condition
@@ -1691,7 +1695,7 @@
 
                                 </select>
 
-                            </div>
+                            </div> -->
 
 
                             {{-- =================================================

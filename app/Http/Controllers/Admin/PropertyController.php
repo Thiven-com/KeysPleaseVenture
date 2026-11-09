@@ -220,7 +220,7 @@ class PropertyController extends Controller
 
             'carpet_area' => 'nullable|integer|min:1',
 
-            'floor_number' => 'nullable|integer|min:0',
+            'floor_number' => 'nullable|string|max:100',
 
             'total_floors' => 'nullable|integer|min:0',
 
@@ -558,7 +558,7 @@ class PropertyController extends Controller
 
             'carpet_area' => 'nullable|integer|min:1',
 
-            'floor_number' => 'nullable|integer|min:0',
+            'floor_number' => 'nullable|string|max:100',
 
             'total_floors' => 'nullable|integer|min:0',
 

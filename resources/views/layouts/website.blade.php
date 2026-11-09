@@ -659,6 +659,7 @@
           $site = \App\Models\SiteSetting::first();
           $phone = $site->phone ?? '';
           $email = $site->email ?? '';
+          $address = $site->address ?? '';
         @endphp
 
         @if($phone)
@@ -675,9 +676,13 @@
           </a>
         @endif
 
-        <a href="#">
-          <i class="fa-solid fa-location-dot"></i> &nbsp; Bangalore, Karnataka, India
-        </a>
+        @if($address)
+          <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($address) }}" target="_blank"
+            rel="noopener noreferrer">
+            <i class="fa-solid fa-location-dot"></i>
+            &nbsp; {{ $address }}
+          </a>
+        @endif
 
 
         <!-- <h4 class="download-title">

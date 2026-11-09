@@ -836,19 +836,18 @@
 
                     {{-- Floor Number --}}
                     <div class="property-col-4">
-                        <label class="property-form-label">
-                            Floor Number
-                        </label>
+    <label class="property-form-label">
+        Floor Number
+    </label>
 
-                        <input
-                            type="number"
-                            name="floor_number"
-                            class="form-control"
-                            min="0"
-                            value="{{ old('floor_number', $property->floor_number) }}"
-                            placeholder="3"
-                        >
-                    </div>
+    <input
+        type="text"
+        name="floor_number"
+        class="form-control"
+        value="{{ old('floor_number', $property->floor_number) }}"
+        placeholder="Ground, 1, Ground + 1"
+    >
+</div>
 
 
                     {{-- Total Floors --}}

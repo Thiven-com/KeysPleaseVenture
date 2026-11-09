@@ -1665,22 +1665,16 @@
                         </div>
 
                         <div class="form-group">
+    <label class="form-label">Floor Number</label>
 
-                            <label class="form-label">Floor Number</label>
-
-                            <input
-
-                                type="text"
-
-                                name="floor_number"
-
-                                class="form-control"
-
-                                value="{{ old('floor_number', $property->floor_number) }}"
-
-                            >
-
-                        </div>
+    <input
+        type="text"
+        name="floor_number"
+        class="form-control"
+        value="{{ old('floor_number', $property->floor_number) }}"
+        placeholder="e.g. Ground, 1, Ground + 1"
+    >
+</div>
 
                         <div class="form-group">
 
