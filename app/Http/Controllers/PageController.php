@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\City;
 use App\Models\PropertyType;
+use App\Models\SiteSetting;
 
 class PageController extends Controller
 {
@@ -213,10 +214,12 @@ class PageController extends Controller
         return view('website.about');
     }
 
-    public function contact()
-    {
-        return view('website.contact');
-    }
+   public function contact()
+{
+    $site = SiteSetting::first();
+
+    return view('website.contact', compact('site'));
+}
 
 
 

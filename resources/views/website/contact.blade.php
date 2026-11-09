@@ -220,11 +220,216 @@
 
     </section>
 
-    <section class="contact-info-section">
+
+
+    
+@php
+    $phone = $site->phone ?? '';
+    $whatsapp = $site->customer_care_no ?: $phone;
+    $email = $site->email ?? '';
+    $company = $site->company ?? '';
+    $address = $site->address ?? '';
+
+    $phoneNumber = preg_replace('/\D/', '', $phone);
+    $whatsappNumber = preg_replace('/\D/', '', $whatsapp);
+    $mapQuery = urlencode($address);
+@endphp
+
+<section class="contact-info-section">
+
+    <div class="contact-info-container">
+
+        {{-- Section Heading --}}
+        <div class="contact-info-header">
+            <span class="contact-info-label">
+                GET IN TOUCH
+            </span>
+
+            <h2>
+                Multiple Ways to Connect
+            </h2>
+
+            <p>
+                Choose the best way to reach us. We're always here for you.
+            </p>
+        </div>
+
+        {{-- Main Content --}}
+        <div class="contact-info-grid">
+
+            <div class="contact-methods">
+
+                {{-- Call --}}
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div class="contact-method-content">
+                        <h3>Call Us</h3>
+
+                        <strong>
+                            @if($phone)
+                                <a href="tel:{{ $phoneNumber }}">
+                                    {{ $phone }}
+                                </a>
+                            @else
+                                Phone number not available
+                            @endif
+                        </strong>
+
+                        <p>
+                            Mon - Sat: 9:00 AM - 7:00 PM
+                        </p>
+                    </div>
+                </div>
+
+                {{-- WhatsApp --}}
+                <div class="contact-method-card whatsapp">
+                    <div class="contact-method-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+
+                    <div class="contact-method-content">
+                        <h3>WhatsApp</h3>
+
+                        <strong>
+                            @if($whatsappNumber)
+                                <a href="https://wa.me/{{ $whatsappNumber }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    {{ $whatsapp }}
+                                </a>
+                            @else
+                                WhatsApp not available
+                            @endif
+                        </strong>
+
+                        <p>
+                            Chat with us on WhatsApp
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Email --}}
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div class="contact-method-content">
+                        <h3>Email Us</h3>
+
+                        <strong>
+                            @if($email)
+                                <a href="mailto:{{ $email }}">
+                                    {{ $email }}
+                                </a>
+                            @else
+                                Email not available
+                            @endif
+                        </strong>
+
+                        <p>
+                            We reply within 24 hours
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Working Hours - Static --}}
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                    <div class="contact-method-content">
+                        <h3>Working Hours</h3>
+
+                        <strong>
+                            Mon - Sat: 9:00 AM - 7:00 PM
+                        </strong>
+
+                        <p>
+                            Sunday: Closed
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- Office Information --}}
+            <div class="office-card">
+
+                <div class="office-title">
+                    <span class="office-title-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+
+                    <h3>
+                        Visit Our Office
+                    </h3>
+                </div>
+
+                <strong>
+                    {{ $company ?: 'Company name not available' }}
+                </strong>
+
+                <p>
+                    @if($address)
+                        {!! nl2br(e($address)) !!}
+                    @else
+                        Office address not available.
+                    @endif
+                </p>
+
+                @if($address)
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ $mapQuery }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="directions-btn">
+
+                        Get Directions
+
+                        <span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </a>
+                @endif
+
+            </div>
+
+            {{-- Google Map --}}
+            <div class="contact-map">
+
+                @if($address)
+                    <iframe
+                        src="https://www.google.com/maps?q={{ $mapQuery }}&z=15&output=embed"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                @else
+                    <div class="map-placeholder">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <p>Office location not available</p>
+                    </div>
+                @endif
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- <section class="contact-info-section">
 
         <div class="contact-info-container">
 
-            <!-- Section Heading -->
+            
 
             <div class="contact-info-header">
 
@@ -248,13 +453,12 @@
 
             </div>
 
-            <!-- Main Content -->
 
             <div class="contact-info-grid">
 
                 <div class="contact-methods">
 
-                    <!-- Call -->
+                  
 
                     <div class="contact-method-card">
 
@@ -284,7 +488,7 @@
 
                     </div>
 
-                    <!-- WhatsApp -->
+                   
 
                     <div class="contact-method-card whatsapp">
 
@@ -314,7 +518,6 @@
 
                     </div>
 
-                    <!-- Email -->
 
                     <div class="contact-method-card">
 
@@ -344,7 +547,6 @@
 
                     </div>
 
-                    <!-- Working Hours -->
 
                     <div class="contact-method-card">
 
@@ -442,7 +644,7 @@
 
         </div>
 
-    </section>
+    </section> -->
 
     <section class="partner-section">
 

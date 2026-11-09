@@ -236,14 +236,8 @@ Route::group(['middleware' => 'admin'], function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/site-settings', [SiteSettingController::class, 'index'])
-        ->name('site.settings.company');
-
-    Route::get('/site-settings/edit', [SiteSettingController::class, 'edit'])
-        ->name('site.settings.edit');
-
-    Route::put('/site-settings', [SiteSettingController::class, 'update'])
-        ->name('site.settings.update');
+    Route::get('settings/company', 'SiteSettingController@site')->name('admin.settings.company');
+    Route::post('setting/company/update', 'SiteSettingController@company_setting_update')->name('admin.settings.company.update');
 
 
     /*

@@ -129,8 +129,8 @@
       cursor: pointer;
     }
   </style>
-  
-  
+
+
 
 </head>
 
@@ -144,18 +144,10 @@
       <!-- Logo -->
       <a class="logo" href="{{ route('home') }}">
         {{-- Desktop logo --}}
-    <img
-        src="{{ asset('website/images/keys10.png') }}"
-        alt="Keys Please Venture"
-        class="desktop-logo"
-    >
+        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture" class="desktop-logo">
 
-    {{-- Mobile logo --}}
-    <img
-        src="{{ asset('website/images/keys9.png') }}"
-        alt="Keys Please Venture"
-        class="mobile-logo"
-    >
+        {{-- Mobile logo --}}
+        <img src="{{ asset('website/images/keys9.png') }}" alt="Keys Please Venture" class="mobile-logo">
       </a>
 
       <!-- City -->
@@ -593,7 +585,8 @@
 
 
         <div class="footer-copy" style="font-size:13px;">
-          Bangalore's trusted platform for properties. Find verified listings, connect with owners, and move into your dream home.
+          Bangalore's trusted platform for properties. Find verified listings, connect with owners, and move into your
+          dream home.
         </div>
 
         <!-- <div class="footer-copy">
@@ -662,13 +655,25 @@
 
         <h4>Contact Us</h4>
 
-        <a href="tel:+918012345678">
-          <i class="fa-solid fa-phone"></i> &nbsp; +91 80 1234 5678
-        </a>
+        @php
+          $site = \App\Models\SiteSetting::first();
+          $phone = $site->phone ?? '';
+          $email = $site->email ?? '';
+        @endphp
 
-        <a href="mailto:info@keyspleaseventure.com">
-          <i class="fa-solid fa-envelope"></i> &nbsp; info@keyspleaseventure.com
-        </a>
+        @if($phone)
+          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">
+            <i class="fa-solid fa-phone"></i>
+            &nbsp; {{ $phone }}
+          </a>
+        @endif
+
+        @if($email)
+          <a href="mailto:{{ $email }}">
+            <i class="fa-solid fa-envelope"></i>
+            &nbsp; {{ $email }}
+          </a>
+        @endif
 
         <a href="#">
           <i class="fa-solid fa-location-dot"></i> &nbsp; Bangalore, Karnataka, India

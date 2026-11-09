@@ -5727,3 +5727,248 @@ body {
         overflow-wrap: break-word;
     }
 }
+
+
+
+
+
+/* =====================================================
+   CONTACT INFORMATION - FINAL ALIGNMENT FIX
+   Desktop / Laptop / Tablet / Mobile
+===================================================== */
+
+/* DESKTOP - 1200px and above */
+
+@media (min-width: 1200px) {
+
+    .contact-info-container {
+        width: calc(100% - 60px) !important;
+        max-width: 1280px !important;
+        margin: 0 auto;
+    }
+
+    .contact-info-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+        align-items: stretch;
+    }
+
+    /* Contact cards occupy two columns */
+    .contact-methods {
+        grid-column: span 2 !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+        min-width: 0;
+    }
+
+    .contact-method-card {
+        width: 100%;
+        min-width: 0;
+        min-height: 118px;
+        padding: 18px !important;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .contact-method-icon {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 48px;
+    }
+
+    .contact-method-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .contact-method-content h3 {
+        font-size: 14px;
+        line-height: 1.4;
+        white-space: normal;
+        word-break: normal;
+    }
+
+    .contact-method-content strong {
+        font-size: 11px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .contact-method-content p {
+        font-size: 11px;
+        line-height: 1.5;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: normal;
+    }
+
+    /* Office */
+    .office-card {
+        grid-column: span 1;
+        min-width: 0;
+        min-height: 250px;
+        padding: 22px;
+    }
+
+    .office-card strong {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .office-card p {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    /* Map */
+    .contact-map {
+        grid-column: span 1;
+        min-width: 0;
+        min-height: 250px;
+        height: 100%;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 250px;
+        display: block;
+    }
+}
+
+
+/* LAPTOP - 992px to 1199px */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .contact-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px;
+    }
+
+    .contact-methods {
+        grid-column: 1 / -1 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .office-card,
+    .contact-map {
+        grid-column: span 1;
+        min-width: 0;
+    }
+
+    .contact-method-content {
+        min-width: 0;
+    }
+
+    .contact-method-content h3 {
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .contact-method-content strong {
+        font-size: 11px;
+    }
+
+    .contact-method-content p {
+        font-size: 11px;
+        white-space: normal;
+    }
+}
+
+
+/* TABLET - 768px to 991px */
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .contact-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .contact-methods {
+        grid-column: 1 / -1 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .contact-method-content {
+        min-width: 0;
+    }
+
+    .contact-method-content h3 {
+        font-size: 13px;
+    }
+
+    .contact-method-content strong,
+    .contact-method-content p {
+        font-size: 11px;
+        white-space: normal;
+    }
+}
+
+
+/* MOBILE - Below 768px */
+
+@media (max-width: 767px) {
+
+    .contact-info-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px;
+    }
+
+    .contact-methods {
+        grid-column: 1 / -1 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+
+    .contact-method-card {
+        width: 100%;
+        min-width: 0;
+        padding: 14px !important;
+    }
+
+    .contact-method-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .contact-method-content h3 {
+        font-size: 12px;
+        white-space: normal;
+    }
+
+    .contact-method-content strong {
+        font-size: 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .contact-method-content p {
+        font-size: 10px;
+        white-space: normal;
+        overflow-wrap: normal;
+    }
+
+    .office-card,
+    .contact-map {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+
+/* SMALL MOBILE - Below 400px */
+
+@media (max-width: 399px) {
+
+    .contact-methods {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .contact-method-card {
+        min-height: 88px;
+    }
+}
+

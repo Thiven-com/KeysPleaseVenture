@@ -122,7 +122,7 @@
                                                         </a>
                                                 </li> -->
 
-                                               
+
                                                 {{-- Customer Management --}}
                                                 <li class="{{ Request::is('admin/customers*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.customers.index') }}">
@@ -130,7 +130,7 @@
                                                                 <span>Customers</span>
                                                         </a>
                                                 </li>
-                                                
+
 
                                                 {{-- Rental Requirements Enquiries --}}
                                                 <li
@@ -214,12 +214,12 @@
                                                                         Settings</span><span
                                                                         class="menu-arr ow"></span></a>
                                                 </li> --}}
-                                                <!-- <li class="{{ Request::is('admin/site-settings') ? 'active' : '' }}"><a
-                                                                href="{{ route('site.settings.company') }}"><i
+                                                <li class="{{ Request::is('admin/settings/company') ? 'active' : '' }}">
+                                                        <a href="{{route('admin.settings.company')}}"><i
                                                                         class="ti ti-world fs-16 me-2"></i><span>Company
-                                                                        Settings</span>
-                                                        </a>
-                                                </li> -->
+                                                                        Settings</span><span
+                                                                        class="menu-arr ow"></span></a>
+                                                </li>
 
                                                 <li>
                                                         <a href="{{ route('admin.logout') }}"
