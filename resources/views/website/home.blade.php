@@ -231,7 +231,7 @@
                 </h1>
 
                 <p>
-                    <b> Find verified listings, connect with trusted,<br>
+                    <b> Find verified listings, connect with owners,<br>
                         and move into your dream home.</b>
                 </p>
 
