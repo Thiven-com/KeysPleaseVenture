@@ -125,12 +125,30 @@ class BrokerController extends Controller
         $property->slug = $slug;
 
         foreach ([
-            'country', 'state', 'district', 'pincode', 'landmark',
-            'address', 'google_map_url', 'latitude', 'longitude',
-            'bhk', 'bathrooms', 'balconies', 'area_sqft', 'built_up_area',
-            'carpet_area', 'floor_number', 'total_floors', 'property_age',
-            'property_condition', 'facing', 'road_width', 'car_parking',
-            'possession_status', 'description',
+            'country',
+            'state',
+            'district',
+            'pincode',
+            'landmark',
+            'address',
+            'google_map_url',
+            'latitude',
+            'longitude',
+            'bhk',
+            'bathrooms',
+            'balconies',
+            'area_sqft',
+            'built_up_area',
+            'carpet_area',
+            'floor_number',
+            'total_floors',
+            'property_age',
+            'property_condition',
+            'facing',
+            'road_width',
+            'car_parking',
+            'possession_status',
+            'description',
         ] as $field) {
             $property->{$field} = $validated[$field] ?? null;
         }
@@ -270,9 +288,11 @@ class BrokerController extends Controller
             $slug = $baseSlug;
             $count = 1;
 
-            while (Property::where('slug', $slug)
-                ->where('id', '!=', $property->id)
-                ->exists()) {
+            while (
+                Property::where('slug', $slug)
+                    ->where('id', '!=', $property->id)
+                    ->exists()
+            ) {
                 $slug = $baseSlug . '-' . $count++;
             }
 
@@ -280,12 +300,32 @@ class BrokerController extends Controller
         }
 
         $propertyFields = [
-            'country', 'state', 'district', 'locality', 'pincode',
-            'landmark', 'address', 'google_map_url', 'latitude',
-            'longitude', 'bhk', 'bathrooms', 'balconies', 'area_sqft',
-            'built_up_area', 'carpet_area', 'floor_number', 'total_floors',
-            'property_age', 'property_condition', 'facing', 'road_width',
-            'car_parking', 'possession_status', 'furnishing', 'description',
+            'country',
+            'state',
+            'district',
+            'locality',
+            'pincode',
+            'landmark',
+            'address',
+            'google_map_url',
+            'latitude',
+            'longitude',
+            'bhk',
+            'bathrooms',
+            'balconies',
+            'area_sqft',
+            'built_up_area',
+            'carpet_area',
+            'floor_number',
+            'total_floors',
+            'property_age',
+            'property_condition',
+            'facing',
+            'road_width',
+            'car_parking',
+            'possession_status',
+            'furnishing',
+            'description',
         ];
 
         foreach ($propertyFields as $field) {
@@ -413,7 +453,11 @@ class BrokerController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'mobile' => 'nullable|string|max:20',
+            'mobile' => [
+                'required',
+                'digits:10',
+                'regex:/^[6-9][0-9]{9}$/'
+            ],
             'broker_type' => 'nullable|string|max:100',
             'agency_name' => 'nullable|string|max:255',
             'license_number' => 'nullable|string|max:255',

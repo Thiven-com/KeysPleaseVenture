@@ -4248,7 +4248,7 @@ header.scrolled {
         line-height:
             1.25;
 
-            margin-right: 30px;
+            /* margin-right: 30px; */
     }
 
     .view {
@@ -5638,7 +5638,7 @@ iframe {
 
     .section-head h2 {
         font-size: 20px;
-        margin-right: 30px;
+        /* margin-right: 30px; */
     }
 
     .view {

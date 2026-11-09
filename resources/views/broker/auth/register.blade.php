@@ -84,6 +84,26 @@
         .location-suggestions .suggestion-item:hover {
             background: #f3f6fb;
         }
+
+        #mobile.is-invalid {
+            border-color: #dc3545 !important;
+            background-image: none;
+        }
+
+        #mobile.is-valid {
+            border-color: #198754 !important;
+            background-image: none;
+        }
+
+        #mobileError {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        #mobileSuccess {
+            font-size: 12px;
+            font-weight: 500;
+        }
     </style>
 
     <div class="account-content">
@@ -214,6 +234,7 @@
 
 
                             {{-- Mobile --}}
+                            {{-- Mobile Number --}}
                             <div class="mb-3">
 
                                 <label class="form-label">
@@ -224,14 +245,24 @@
 
                                     <input type="tel" name="mobile" id="mobile" class="form-control border-end-0"
                                         value="{{ old('mobile') }}" placeholder="Enter 10-digit mobile number"
-                                        inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}"
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" required>
+                                        inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel"
+                                        required title="Please enter a valid 10-digit mobile number Mandatory field">
 
                                     <span class="input-group-text border-start-0">
                                         <i class="ti ti-phone"></i>
                                     </span>
 
                                 </div>
+
+                                <small id="mobileError" class="text-danger mt-1 d-block">
+                                    @error('mobile')
+                                        {{ $message }}
+                                    @enderror
+                                </small>
+
+                                <small id="mobileSuccess" class="text-success mt-1 d-none">
+                                    Valid mobile number
+                                </small>
 
                             </div>
 
@@ -303,22 +334,22 @@
                             {{-- License --}}
                             <!-- <div class="mb-3">
 
-                                                <label class="form-label">
-                                                    License Number
-                                                </label>
+                                                            <label class="form-label">
+                                                                License Number
+                                                            </label>
 
-                                                <div class="input-group">
+                                                            <div class="input-group">
 
-                                                    <input type="text" name="license_number" class="form-control border-end-0"
-                                                        value="{{ old('license_number') }}" placeholder="Enter license number">
+                                                                <input type="text" name="license_number" class="form-control border-end-0"
+                                                                    value="{{ old('license_number') }}" placeholder="Enter license number">
 
-                                                    <span class="input-group-text border-start-0">
-                                                        <i class="ti ti-certificate"></i>
-                                                    </span>
+                                                                <span class="input-group-text border-start-0">
+                                                                    <i class="ti ti-certificate"></i>
+                                                                </span>
 
-                                                </div>
+                                                            </div>
 
-                                            </div> -->
+                                                        </div> -->
 
 
                             {{-- Aadhaar Card --}}
@@ -491,20 +522,20 @@
                             {{-- Login --}}
                             <!-- <div class="signinform">
 
-                                                            <h4>
+                                                                        <h4>
 
-                                                                Already have an account?
+                                                                            Already have an account?
 
-                                                                <a
-                                                                    href="{{ route('broker.login') }}"
-                                                                    class="hover-a"
-                                                                >
-                                                                    Sign In
-                                                                </a>
+                                                                            <a
+                                                                                href="{{ route('broker.login') }}"
+                                                                                class="hover-a"
+                                                                            >
+                                                                                Sign In
+                                                                            </a>
 
-                                                            </h4>
+                                                                        </h4>
 
-                                                        </div> -->
+                                                                    </div> -->
 
                         </div>
 
@@ -671,5 +702,77 @@
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocalityAutocomplete">
         </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const mobileInput = document.getElementById('mobile');
+    const mobileError = document.getElementById('mobileError');
+    const mobileSuccess = document.getElementById('mobileSuccess');
+
+    if (!mobileInput) return;
+
+    const form = mobileInput.closest('form');
+
+    function validateMobile() {
+
+        let mobile = mobileInput.value.replace(/\D/g, '').slice(0, 10);
+
+        mobileInput.value = mobile;
+
+        mobileInput.classList.remove('is-valid', 'is-invalid');
+        mobileSuccess.classList.add('d-none');
+
+        if (mobile.length === 0) {
+
+            mobileError.textContent = 'Mobile number is mandatory.';
+            mobileInput.classList.add('is-invalid');
+            return false;
+
+        }
+
+        if (mobile.length !== 10) {
+
+            mobileError.textContent = 'Please enter exactly 10 digits.';
+            mobileInput.classList.add('is-invalid');
+            return false;
+
+        }
+
+        if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+
+            mobileError.textContent = 'Please enter a valid Indian mobile number.';
+            mobileInput.classList.add('is-invalid');
+            return false;
+
+        }
+
+        mobileError.textContent = '';
+        mobileInput.classList.add('is-valid');
+        mobileSuccess.classList.remove('d-none');
+
+        return true;
+    }
+
+    mobileInput.addEventListener('input', function () {
+        validateMobile();
+    });
+
+    mobileInput.addEventListener('blur', function () {
+        validateMobile();
+    });
+
+    form.addEventListener('submit', function (e) {
+
+        if (!validateMobile()) {
+
+            e.preventDefault();
+            mobileInput.focus();
+
+        }
+
+    });
+
+});
+</script>
 
 @endsection

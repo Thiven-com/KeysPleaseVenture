@@ -175,15 +175,43 @@
 
 
         .trust {
-            display: flex;
-            width: 100%;
-        }
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+}
 
-        .trust-item {
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
+.trust-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .trust {
+        gap: 10px;
+    }
+
+    .trust-item {
+        flex: 1 1 45%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .trust {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .trust-item {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
     </style>
 
     <section class="hero">
@@ -203,8 +231,8 @@
                 </h1>
 
                 <p>
-                    <b> Find verified listings, connect with trusted owners,<br>
-                        and move into your dream rental home.</b>
+                    <b> Find verified listings, connect with trusted,<br>
+                        and move into your dream home.</b>
                 </p>
 
             </div>
@@ -1000,7 +1028,7 @@
                     </h2>
 
                     <p>
-                        List your rental properties and connect with genuine tenants.
+                        List your properties and connect with genuine tenants.
                         <br>
                         Grow your business with Keys Please Venture.
                     </p>
