@@ -102,13 +102,7 @@
                                                                         Settings</span><span
                                                                         class="menu-arr ow"></span></a>
                                                 </li> --}}
-                                                <!-- <li class="{{ Request::is('admin/site-settings') ? 'active' : '' }}"><a
-                                                                href="{{ route('site.settings.company') }}"><i
-                                                                        class="ti ti-world fs-16 me-2"></i><span>Company
-                                                                        Settings</span>
-                                                        </a>
-                                                </li> -->
-
+                                              
                                                 <li>
                                                         <a class="dropdown-item d-flex align-items-center"
                                                                 href="{{ route('broker.logout') }}" style="color: red;">
