@@ -46,6 +46,7 @@ class Property extends Model
         'property_condition',
         'facing',
         'road_width',
+        'bike_parking',
         'car_parking',
         'possession_status',
 

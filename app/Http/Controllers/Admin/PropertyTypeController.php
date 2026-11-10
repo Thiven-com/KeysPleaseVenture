@@ -9,14 +9,15 @@ use Illuminate\Support\Str;
 
 class PropertyTypeController extends Controller
 {
-    public function index()
-    {
-        $propertyTypes = PropertyType::orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+   public function index()
+{
+    $propertyTypes = PropertyType::orderBy('sort_order')
+        ->orderBy('name')
+        ->paginate(10)
+        ->withQueryString();
 
-        return view('admin.property-types.all', compact('propertyTypes'));
-    }
+    return view('admin.property-types.all', compact('propertyTypes'));
+}
 
     public function create()
     {

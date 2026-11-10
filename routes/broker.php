@@ -77,6 +77,8 @@ Route::name('broker.')->group(function () {
 
         Route::get('/schedule', [BrokerController::class, 'schedule'])
             ->name('schedule');
+            Route::get('/reports', [BrokerController::class, 'reports'])
+    ->name('reports');
 
         Route::get('/profile', [BrokerController::class, 'profile'])
             ->name('profile');

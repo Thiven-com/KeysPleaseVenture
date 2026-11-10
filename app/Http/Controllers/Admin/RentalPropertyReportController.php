@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\RentalPropertyReport;
-use Illuminate\Http\Request;
 
 class RentalPropertyReportController extends Controller
 {
@@ -13,9 +12,17 @@ class RentalPropertyReportController extends Controller
      */
     public function index()
     {
-        $reports = RentalPropertyReport::latest()->get();
+        $reports = RentalPropertyReport::with([
+            'propertyDetails.user'
+        ])
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('admin.rentalpropertyreports.all', compact('reports'));
+        return view(
+            'admin.rentalpropertyreports.all',
+            compact('reports')
+        );
     }
 
     /**

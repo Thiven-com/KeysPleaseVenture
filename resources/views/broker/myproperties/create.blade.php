@@ -1634,6 +1634,46 @@
                             </div>
 
                             {{-- =================================================
+BIKE PARKING
+================================================= --}}
+
+<div class="property-col-4">
+
+    <label class="property-form-label">
+        Bike Parking
+    </label>
+
+    <select name="bike_parking" class="property-form-select">
+
+        <option value="">
+            Select Bike Parking
+        </option>
+
+        <option value="0" {{ old('bike_parking') == '0' ? 'selected' : '' }}>
+            No Bikes
+        </option>
+
+        <option value="1" {{ old('bike_parking') == '1' ? 'selected' : '' }}>
+            1 Bike
+        </option>
+
+        <option value="2" {{ old('bike_parking') == '2' ? 'selected' : '' }}>
+            2 Bikes
+        </option>
+
+        <option value="3" {{ old('bike_parking') == '3' ? 'selected' : '' }}>
+            3 Bikes
+        </option>
+
+        <option value="4+" {{ old('bike_parking') == '4+' ? 'selected' : '' }}>
+            4+ Bikes
+        </option>
+
+    </select>
+
+</div>
+
+                            {{-- =================================================
                             CAR PARKING
                             ================================================== --}}
 

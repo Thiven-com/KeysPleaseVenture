@@ -186,6 +186,7 @@
     min-width: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -224,7 +225,7 @@
                                             BENGALURU'S TRUSTED RENTAL PLATFORM
                                         </div> -->
 
-                <h1>
+                <h1 style="letter-spacing: 1px;">
                     Bangalore's Trusted<br>
                     Platform for<br>
                     <strong>Properties</strong>
@@ -3182,4 +3183,25 @@
             transition-duration: .01ms !important;
         }
     }
+
+
+
+    /* REMOVE ALL TRUST ITEM SEPARATOR LINES */
+.trust .trust-item,
+.trust .trust-item:nth-child(2n),
+.trust .trust-item:nth-last-child(-n + 2),
+.trust .trust-item:last-child {
+    border: 0 !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+    box-shadow: none !important;
+}
+
+.trust .trust-item::before,
+.trust .trust-item::after {
+    display: none !important;
+    content: none !important;
+}
 </style>

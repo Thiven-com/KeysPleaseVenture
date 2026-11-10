@@ -1782,6 +1782,48 @@
 
                         </div>
 
+                        {{-- BIKE PARKING --}}
+<div class="form-group">
+
+    <label class="form-label">Bike Parking</label>
+
+    <select name="bike_parking" class="form-select">
+
+        <option value="">Select Bike Parking</option>
+
+        <option value="0"
+            {{ old('bike_parking', $property->bike_parking) == '0' ? 'selected' : '' }}>
+            No Bikes
+        </option>
+
+        <option value="1"
+            {{ old('bike_parking', $property->bike_parking) == '1' ? 'selected' : '' }}>
+            1 Bike
+        </option>
+
+        <option value="2"
+            {{ old('bike_parking', $property->bike_parking) == '2' ? 'selected' : '' }}>
+            2 Bikes
+        </option>
+
+        <option value="3"
+            {{ old('bike_parking', $property->bike_parking) == '3' ? 'selected' : '' }}>
+            3 Bikes
+        </option>
+
+        <option value="4+"
+            {{ old('bike_parking', $property->bike_parking) == '4+' ? 'selected' : '' }}>
+            4+ Bikes
+        </option>
+
+    </select>
+
+    @error('bike_parking')
+        <div class="field-error">{{ $message }}</div>
+    @enderror
+
+</div>
+
                         <div class="form-group">
 
                             <label class="form-label">Car Parking</label>

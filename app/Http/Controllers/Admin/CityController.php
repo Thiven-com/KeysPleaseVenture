@@ -9,14 +9,17 @@ use Illuminate\Support\Str;
 
 class CityController extends Controller
 {
-    public function index()
-    {
-        $cities = City::orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+   
+public function index()
+{
+    $cities = City::orderBy('sort_order')
+        ->orderBy('name')
+        ->paginate(10)
+        ->withQueryString();
 
-        return view('admin.cities.all', compact('cities'));
-    }
+    return view('admin.cities.all', compact('cities'));
+}
+
 
     public function create()
     {

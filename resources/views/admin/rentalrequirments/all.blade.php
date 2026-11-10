@@ -501,6 +501,82 @@
 
     }
 
+
+    /* RENTAL REQUIREMENTS PAGINATION */
+.rental-requirements-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 20px;
+    background: #fff;
+    border-top: 1px solid #edf0f4;
+}
+
+.rental-requirements-pagination-info {
+    color: #687389;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.rental-requirements-pagination-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rental-requirements-pagination-list li a,
+.rental-requirements-pagination-list li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e0e6ee;
+    border-radius: 7px;
+    background: #fff;
+    color: #071b3d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.rental-requirements-pagination-list li.active a {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #fff;
+}
+
+.rental-requirements-pagination-list li a:hover {
+    background: #eef3ff;
+    border-color: #3157a6;
+}
+
+.rental-requirements-pagination-list li.disabled span {
+    background: #f5f7fa;
+    color: #a0a9b7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .rental-requirements-pagination {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .rental-requirements-pagination-list {
+        justify-content: center;
+    }
+}
+
 </style>
 
 
@@ -520,7 +596,7 @@
         </div>
 
         <div class="rental-requirements-count">
-            {{ $enquiries->count() }}
+            {{ $enquiries->total() }}
             {{ $enquiries->count() == 1 ? 'Enquiry' : 'Enquiries' }}
         </div>
     </div>
@@ -825,6 +901,51 @@
                 </p>
             </div>
 
+                @endif
+
+        {{-- PAGINATION --}}
+        @if($enquiries->total() > 0)
+            <div class="rental-requirements-pagination">
+
+                <div class="rental-requirements-pagination-info">
+                    Showing {{ $enquiries->firstItem() }}
+                    to {{ $enquiries->lastItem() }}
+                    of {{ $enquiries->total() }} enquiries
+                </div>
+
+                @if($enquiries->hasPages())
+                    <nav aria-label="Rental enquiries pagination">
+                        <ul class="rental-requirements-pagination-list">
+
+                            <li class="{{ $enquiries->onFirstPage() ? 'disabled' : '' }}">
+                                @if($enquiries->onFirstPage())
+                                    <span>Previous</span>
+                                @else
+                                    <a href="{{ $enquiries->previousPageUrl() }}">Previous</a>
+                                @endif
+                            </li>
+
+                            @for($page = 1; $page <= $enquiries->lastPage(); $page++)
+                                <li class="{{ $enquiries->currentPage() == $page ? 'active' : '' }}">
+                                    <a href="{{ $enquiries->url($page) }}">
+                                        {{ $page }}
+                                    </a>
+                                </li>
+                            @endfor
+
+                            <li class="{{ !$enquiries->hasMorePages() ? 'disabled' : '' }}">
+                                @if(!$enquiries->hasMorePages())
+                                    <span>Next</span>
+                                @else
+                                    <a href="{{ $enquiries->nextPageUrl() }}">Next</a>
+                                @endif
+                            </li>
+
+                        </ul>
+                    </nav>
+                @endif
+
+            </div>
         @endif
 
     </div>

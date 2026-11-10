@@ -4,9 +4,9 @@
 
     <style>
         /* =========================================================
-           CONTACT ENQUIRY PAGE
-           Same layout/UI structure as Schedule Visit Enquiries
-        ========================================================= */
+               CONTACT ENQUIRY PAGE
+               Same layout/UI structure as Schedule Visit Enquiries
+            ========================================================= */
 
         .contact-enquiry-page {
             position: relative;
@@ -26,8 +26,8 @@
 
 
         /* =========================================================
-           MAIN
-        ========================================================= */
+               MAIN
+            ========================================================= */
 
         .contact-enquiry-main {
             width: 100%;
@@ -47,8 +47,8 @@
 
 
         /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+               PAGE HEADER
+            ========================================================= */
 
         .contact-enquiry-header {
             width: 100%;
@@ -83,8 +83,8 @@
 
 
         /* =========================================================
-           SUCCESS
-        ========================================================= */
+               SUCCESS
+            ========================================================= */
 
         .contact-enquiry-success {
             display: flex;
@@ -111,8 +111,8 @@
 
 
         /* =========================================================
-           CARD
-        ========================================================= */
+               CARD
+            ========================================================= */
 
         .contact-enquiry-card {
             width: 100%;
@@ -139,8 +139,8 @@
 
 
         /* =========================================================
-           TABLE SCROLL
-        ========================================================= */
+               TABLE SCROLL
+            ========================================================= */
 
         .contact-enquiry-table-scroll {
             width: 100%;
@@ -165,8 +165,8 @@
 
 
         /* =========================================================
-           SCROLLBAR
-        ========================================================= */
+               SCROLLBAR
+            ========================================================= */
 
         .contact-enquiry-table-scroll::-webkit-scrollbar {
             width: 8px;
@@ -189,8 +189,8 @@
 
 
         /* =========================================================
-           TABLE
-        ========================================================= */
+               TABLE
+            ========================================================= */
 
         .contact-enquiry-table {
             width: 100%;
@@ -211,8 +211,8 @@
 
 
         /* =========================================================
-           TABLE HEADER
-        ========================================================= */
+               TABLE HEADER
+            ========================================================= */
 
         .contact-enquiry-table thead {
             background: #f3f6fa;
@@ -250,8 +250,8 @@
 
 
         /* =========================================================
-           CENTER COLUMNS
-        ========================================================= */
+               CENTER COLUMNS
+            ========================================================= */
 
         .contact-enquiry-table thead th:nth-child(1),
         .contact-enquiry-table thead th:nth-child(7),
@@ -262,8 +262,8 @@
 
 
         /* =========================================================
-           BODY
-        ========================================================= */
+               BODY
+            ========================================================= */
 
         .contact-enquiry-table tbody tr {
             background: #ffffff;
@@ -307,8 +307,8 @@
 
 
         /* =========================================================
-           COLUMN WIDTHS
-        ========================================================= */
+               COLUMN WIDTHS
+            ========================================================= */
 
         .contact-enquiry-table th:nth-child(1),
         .contact-enquiry-table td:nth-child(1) {
@@ -361,8 +361,8 @@
 
 
         /* =========================================================
-           NUMBER
-        ========================================================= */
+               NUMBER
+            ========================================================= */
 
         .contact-enquiry-number {
             display: inline-flex;
@@ -385,8 +385,8 @@
 
 
         /* =========================================================
-           NAME
-        ========================================================= */
+               NAME
+            ========================================================= */
 
         .contact-enquiry-name {
             margin: 0;
@@ -401,8 +401,8 @@
 
 
         /* =========================================================
-           EMAIL
-        ========================================================= */
+               EMAIL
+            ========================================================= */
 
         .contact-enquiry-email {
             color: #344158 !important;
@@ -427,8 +427,8 @@
 
 
         /* =========================================================
-           PHONE
-        ========================================================= */
+               PHONE
+            ========================================================= */
 
         .contact-enquiry-phone {
             color: #344158 !important;
@@ -447,8 +447,8 @@
 
 
         /* =========================================================
-           SUBJECT
-        ========================================================= */
+               SUBJECT
+            ========================================================= */
 
         .contact-enquiry-subject {
             color: #071b3d !important;
@@ -463,8 +463,8 @@
 
 
         /* =========================================================
-           MESSAGE
-        ========================================================= */
+               MESSAGE
+            ========================================================= */
 
         .contact-enquiry-message {
             color: #4f5d72;
@@ -495,8 +495,8 @@
 
 
         /* =========================================================
-           STATUS
-        ========================================================= */
+               STATUS
+            ========================================================= */
 
         .contact-enquiry-status {
             display: inline-flex;
@@ -543,8 +543,8 @@
 
 
         /* =========================================================
-           CREATED DATE
-        ========================================================= */
+               CREATED DATE
+            ========================================================= */
 
         .contact-enquiry-created-date {
             color: #687389 !important;
@@ -556,8 +556,8 @@
 
 
         /* =========================================================
-           DELETE BUTTON
-        ========================================================= */
+               DELETE BUTTON
+            ========================================================= */
 
         .contact-enquiry-delete-form {
             display: inline-block;
@@ -603,8 +603,8 @@
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================= */
+               EMPTY STATE
+            ========================================================= */
 
         .contact-enquiry-empty {
             height: 180px;
@@ -633,8 +633,8 @@
 
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+               TABLET
+            ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -650,8 +650,8 @@
 
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+               MOBILE
+            ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -672,6 +672,82 @@
             }
 
         }
+
+
+        /* CONTACT ENQUIRY PAGINATION */
+.contact-enquiry-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-top: 1px solid #edf0f4;
+}
+
+.contact-enquiry-pagination-info {
+    color: #687389;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.contact-enquiry-pagination-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.contact-enquiry-pagination-list li a,
+.contact-enquiry-pagination-list li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e1e7ef;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #071b3d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contact-enquiry-pagination-list li.active a {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #ffffff;
+}
+
+.contact-enquiry-pagination-list li a:hover {
+    background: #eef3ff;
+    border-color: #3157a6;
+}
+
+.contact-enquiry-pagination-list li.disabled span {
+    background: #f5f7fa;
+    color: #a0a9b7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .contact-enquiry-pagination {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .contact-enquiry-pagination-list {
+        justify-content: center;
+    }
+}
     </style>
 
 
@@ -759,250 +835,229 @@
 
                             @forelse($enquiries as $enquiry)
 
-                                <tr>
+                                                    <tr>
 
 
-                                    {{-- =================================================
-                                    NUMBER
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        NUMBER
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <span class="contact-enquiry-number">
+                                                            <span class="contact-enquiry-number">
 
-                                            {{ $loop->iteration }}
+                                                                {{ $enquiries->firstItem() + $loop->index }}
 
-                                        </span>
+                                                            </span>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    NAME
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        NAME
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <div class="contact-enquiry-name">
+                                                            <div class="contact-enquiry-name">
 
-                                            {{ $enquiry->name ?: '-' }}
+                                                                {{ $enquiry->name ?: '-' }}
 
-                                        </div>
+                                                            </div>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    EMAIL
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        EMAIL
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        @if($enquiry->email)
+                                                            @if($enquiry->email)
 
-                                            <a
-                                                href="mailto:{{ $enquiry->email }}"
-                                                class="contact-enquiry-email-link"
-                                            >
+                                                                <a href="mailto:{{ $enquiry->email }}" class="contact-enquiry-email-link">
 
-                                                <span class="contact-enquiry-email">
+                                                                    <span class="contact-enquiry-email">
 
-                                                    {{ $enquiry->email }}
+                                                                        {{ $enquiry->email }}
 
-                                                </span>
+                                                                    </span>
 
-                                            </a>
+                                                                </a>
 
-                                        @else
+                                                            @else
 
-                                            <span class="contact-enquiry-email">
-                                                -
-                                            </span>
+                                                                <span class="contact-enquiry-email">
+                                                                    -
+                                                                </span>
 
-                                        @endif
+                                                            @endif
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    PHONE
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        PHONE
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        @if($enquiry->phone)
+                                                            @if($enquiry->phone)
 
-                                            <a
-                                                href="tel:{{ $enquiry->phone }}"
-                                                class="contact-enquiry-phone-link"
-                                            >
+                                                                <a href="tel:{{ $enquiry->phone }}" class="contact-enquiry-phone-link">
 
-                                                <span class="contact-enquiry-phone">
+                                                                    <span class="contact-enquiry-phone">
 
-                                                    {{ $enquiry->phone }}
+                                                                        {{ $enquiry->phone }}
 
-                                                </span>
+                                                                    </span>
 
-                                            </a>
+                                                                </a>
 
-                                        @else
+                                                            @else
 
-                                            <span class="contact-enquiry-phone">
-                                                -
-                                            </span>
+                                                                <span class="contact-enquiry-phone">
+                                                                    -
+                                                                </span>
 
-                                        @endif
+                                                            @endif
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    SUBJECT
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        SUBJECT
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <div
-                                            class="contact-enquiry-subject"
-                                            title="{{ $enquiry->subject }}"
-                                        >
+                                                            <div class="contact-enquiry-subject" title="{{ $enquiry->subject }}">
 
-                                            {{ $enquiry->subject ?: '-' }}
+                                                                {{ $enquiry->subject ?: '-' }}
 
-                                        </div>
+                                                            </div>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    MESSAGE
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        MESSAGE
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <div class="contact-enquiry-message">
+                                                            <div class="contact-enquiry-message">
 
-                                            @if($enquiry->message)
+                                                                @if($enquiry->message)
 
-                                                <span
-                                                    class="contact-enquiry-message-text"
-                                                    title="{{ $enquiry->message }}"
-                                                >
+                                                                    <span class="contact-enquiry-message-text" title="{{ $enquiry->message }}">
 
-                                                    {{ $enquiry->message }}
+                                                                        {{ $enquiry->message }}
 
-                                                </span>
+                                                                    </span>
 
-                                            @else
+                                                                @else
 
-                                                <span class="contact-enquiry-message-empty">
+                                                                    <span class="contact-enquiry-message-empty">
 
-                                                    No message provided
+                                                                        No message provided
 
-                                                </span>
+                                                                    </span>
 
-                                            @endif
+                                                                @endif
 
-                                        </div>
+                                                            </div>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    STATUS
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        STATUS
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        @php
+                                                            @php
 
-                                            $status = strtolower(
-                                                trim($enquiry->status ?? 'new')
-                                            );
+                                                                $status = strtolower(
+                                                                    trim($enquiry->status ?? 'new')
+                                                                );
 
-                                            $statusClass = match ($status) {
+                                                                $statusClass = match ($status) {
 
-                                                'new' =>
-                                                'contact-enquiry-status-new',
+                                                                    'new' =>
+                                                                        'contact-enquiry-status-new',
 
-                                                'contacted' =>
-                                                'contact-enquiry-status-contacted',
+                                                                    'contacted' =>
+                                                                        'contact-enquiry-status-contacted',
 
-                                                'closed' =>
-                                                'contact-enquiry-status-closed',
+                                                                    'closed' =>
+                                                                        'contact-enquiry-status-closed',
 
-                                                default =>
-                                                'contact-enquiry-status-default',
+                                                                    default =>
+                                                                        'contact-enquiry-status-default',
 
-                                            };
+                                                                };
 
-                                        @endphp
+                                                            @endphp
 
 
-                                        <span class="contact-enquiry-status {{ $statusClass }}">
+                                                            <span class="contact-enquiry-status {{ $statusClass }}">
 
-                                            {{ ucfirst($status) }}
+                                                                {{ ucfirst($status) }}
 
-                                        </span>
+                                                            </span>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    CREATED DATE
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        CREATED DATE
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <span class="contact-enquiry-created-date">
+                                                            <span class="contact-enquiry-created-date">
 
-                                            {{ $enquiry->created_at
-                                                ? $enquiry->created_at->format('d M Y, h:i A')
-                                                : '-'
-                                            }}
+                                                                {{ $enquiry->created_at
+                                    ? $enquiry->created_at->format('d M Y, h:i A')
+                                    : '-'
+                                                                        }}
 
-                                        </span>
+                                                            </span>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    ACTION
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        ACTION
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <form
-                                            class="contact-enquiry-delete-form"
-                                            action="{{ route(
-                                                'admin.contact.enquiries.destroy',
-                                                $enquiry->id
-                                            ) }}"
-                                            method="POST"
-                                            onsubmit="return confirmDeleteContact(this);"
-                                        >
+                                                            <form class="contact-enquiry-delete-form" action="{{ route(
+                                    'admin.contact.enquiries.destroy',
+                                    $enquiry->id
+                                ) }}" method="POST" onsubmit="return confirmDeleteContact(this);">
 
-                                            @csrf
+                                                                @csrf
 
-                                            @method('DELETE')
+                                                                @method('DELETE')
 
 
-                                            <button
-                                                type="submit"
-                                                class="contact-enquiry-delete"
-                                                title="Delete Enquiry"
-                                                aria-label="Delete Enquiry"
-                                            >
+                                                                <button type="submit" class="contact-enquiry-delete" title="Delete Enquiry"
+                                                                    aria-label="Delete Enquiry">
 
-                                                <i class="ti ti-trash"></i>
+                                                                    <i class="ti ti-trash"></i>
 
-                                            </button>
+                                                                </button>
 
-                                        </form>
+                                                            </form>
 
-                                    </td>
+                                                        </td>
 
-                                </tr>
+                                                    </tr>
 
 
                             @empty
@@ -1014,10 +1069,7 @@
 
                                 <tr>
 
-                                    <td
-                                        colspan="9"
-                                        class="contact-enquiry-empty"
-                                    >
+                                    <td colspan="9" class="contact-enquiry-empty">
 
                                         <h5 class="contact-enquiry-empty-title">
 
@@ -1042,8 +1094,44 @@
                         </tbody>
 
                     </table>
-
                 </div>
+
+                {{-- CONTACT ENQUIRY PAGINATION --}}
+                @if($enquiries->hasPages())
+                    <div class="contact-enquiry-pagination">
+                        <div class="contact-enquiry-pagination-info">
+                            Showing {{ $enquiries->firstItem() }} to
+                            {{ $enquiries->lastItem() }} of
+                            {{ $enquiries->total() }} enquiries
+                        </div>
+
+                        <nav aria-label="Contact enquiry pagination">
+                            <ul class="contact-enquiry-pagination-list">
+                                <li class="{{ $enquiries->onFirstPage() ? 'disabled' : '' }}">
+                                    @if($enquiries->onFirstPage())
+                                        <span>Previous</span>
+                                    @else
+                                        <a href="{{ $enquiries->previousPageUrl() }}">Previous</a>
+                                    @endif
+                                </li>
+
+                                @for($page = 1; $page <= $enquiries->lastPage(); $page++)
+                                    <li class="{{ $enquiries->currentPage() == $page ? 'active' : '' }}">
+                                        <a href="{{ $enquiries->url($page) }}">{{ $page }}</a>
+                                    </li>
+                                @endfor
+
+                                <li class="{{ !$enquiries->hasMorePages() ? 'disabled' : '' }}">
+                                    @if(!$enquiries->hasMorePages())
+                                        <span>Next</span>
+                                    @else
+                                        <a href="{{ $enquiries->nextPageUrl() }}">Next</a>
+                                    @endif
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                @endif
 
             </div>
 

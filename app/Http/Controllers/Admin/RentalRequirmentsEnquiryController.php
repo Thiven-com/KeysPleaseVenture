@@ -10,20 +10,21 @@ class RentalRequirmentsEnquiryController extends Controller
     /**
      * Display all rental requirements enquiries.
      */
-    public function index()
-    {
-        $enquiries = RentalRequirmentsEnquiry::with([
-            'property.broker',
-            'property.user',
-        ])
-        ->latest()
-        ->get();
+   public function index()
+{
+    $enquiries = RentalRequirmentsEnquiry::with([
+        'property.broker',
+        'property.user',
+    ])
+    ->latest()
+    ->paginate(10)
+    ->withQueryString();
 
-        return view(
-            'admin.rentalrequirments.all',
-            compact('enquiries')
-        );
-    }
+    return view(
+        'admin.rentalrequirments.all',
+        compact('enquiries')
+    );
+}
 
     /**
      * Delete rental requirements enquiry.

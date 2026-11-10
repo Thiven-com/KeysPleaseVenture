@@ -4,9 +4,9 @@
 
     <style>
         /* =========================================================
-           PROPERTY REPORT PAGE
-           Same layout/UI structure as Schedule Visit Enquiries
-        ========================================================= */
+                       PROPERTY REPORT PAGE
+                       Same layout/UI structure as Schedule Visit Enquiries
+                    ========================================================= */
 
         .property-report-page {
             position: relative;
@@ -26,8 +26,8 @@
 
 
         /* =========================================================
-           MAIN
-        ========================================================= */
+                       MAIN
+                    ========================================================= */
 
         .property-report-main {
             width: 100%;
@@ -47,8 +47,8 @@
 
 
         /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+                       PAGE HEADER
+                    ========================================================= */
 
         .property-report-header {
             width: 100%;
@@ -83,8 +83,8 @@
 
 
         /* =========================================================
-           SUCCESS
-        ========================================================= */
+                       SUCCESS
+                    ========================================================= */
 
         .property-report-success {
             display: flex;
@@ -111,8 +111,8 @@
 
 
         /* =========================================================
-           CARD
-        ========================================================= */
+                       CARD
+                    ========================================================= */
 
         .property-report-card {
             width: 100%;
@@ -139,8 +139,8 @@
 
 
         /* =========================================================
-           TABLE SCROLL
-        ========================================================= */
+                       TABLE SCROLL
+                    ========================================================= */
 
         .property-report-table-scroll {
             width: 100%;
@@ -165,8 +165,8 @@
 
 
         /* =========================================================
-           SCROLLBAR
-        ========================================================= */
+                       SCROLLBAR
+                    ========================================================= */
 
         .property-report-table-scroll::-webkit-scrollbar {
             width: 8px;
@@ -189,8 +189,8 @@
 
 
         /* =========================================================
-           TABLE
-        ========================================================= */
+                       TABLE
+                    ========================================================= */
 
         .property-report-table {
             width: 100%;
@@ -211,8 +211,8 @@
 
 
         /* =========================================================
-           TABLE HEADER
-        ========================================================= */
+                       TABLE HEADER
+                    ========================================================= */
 
         .property-report-table thead {
             background: #f3f6fa;
@@ -250,8 +250,8 @@
 
 
         /* =========================================================
-           CENTER COLUMNS
-        ========================================================= */
+                       CENTER COLUMNS
+                    ========================================================= */
 
         .property-report-table thead th:nth-child(1),
         .property-report-table thead th:nth-child(5),
@@ -262,8 +262,8 @@
 
 
         /* =========================================================
-           BODY
-        ========================================================= */
+                       BODY
+                    ========================================================= */
 
         .property-report-table tbody tr {
             background: #ffffff;
@@ -307,8 +307,8 @@
 
 
         /* =========================================================
-           COLUMN WIDTHS
-        ========================================================= */
+                       COLUMN WIDTHS
+                    ========================================================= */
 
         .property-report-table th:nth-child(1),
         .property-report-table td:nth-child(1) {
@@ -351,8 +351,8 @@
 
 
         /* =========================================================
-           NUMBER
-        ========================================================= */
+                       NUMBER
+                    ========================================================= */
 
         .property-report-number {
             display: inline-flex;
@@ -375,8 +375,8 @@
 
 
         /* =========================================================
-           PROPERTY
-        ========================================================= */
+                       PROPERTY
+                    ========================================================= */
 
         .property-report-property {
             margin: 0;
@@ -391,8 +391,8 @@
 
 
         /* =========================================================
-           REASON
-        ========================================================= */
+                       REASON
+                    ========================================================= */
 
         .property-report-reason {
             display: inline-flex;
@@ -418,8 +418,8 @@
 
 
         /* =========================================================
-           MESSAGE
-        ========================================================= */
+                       MESSAGE
+                    ========================================================= */
 
         .property-report-message {
             color: #4f5d72;
@@ -450,8 +450,8 @@
 
 
         /* =========================================================
-           STATUS
-        ========================================================= */
+                       STATUS
+                    ========================================================= */
 
         .property-report-status {
             display: inline-flex;
@@ -498,8 +498,8 @@
 
 
         /* =========================================================
-           CREATED DATE
-        ========================================================= */
+                       CREATED DATE
+                    ========================================================= */
 
         .property-report-created-date {
             color: #687389 !important;
@@ -511,8 +511,8 @@
 
 
         /* =========================================================
-           DELETE BUTTON
-        ========================================================= */
+                       DELETE BUTTON
+                    ========================================================= */
 
         .property-report-delete-form {
             display: inline-block;
@@ -558,8 +558,8 @@
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================= */
+                       EMPTY STATE
+                    ========================================================= */
 
         .property-report-empty {
             height: 180px;
@@ -588,8 +588,8 @@
 
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+                       TABLET
+                    ========================================================= */
 
         @media (max-width: 991px) {
 
@@ -605,8 +605,8 @@
 
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+                       MOBILE
+                    ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -626,6 +626,84 @@
                 min-width: 1100px;
             }
 
+        }
+
+
+        /* PROPERTY REPORT PAGINATION */
+        .property-report-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-top: 1px solid #edf0f4;
+        }
+
+        .property-report-pagination-info {
+            color: #687389;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .property-report-pagination-list {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .property-report-pagination-list li a,
+        .property-report-pagination-list li span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 12px;
+            box-sizing: border-box;
+            border: 1px solid #e0e6ee;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #071b3d;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+
+        .property-report-pagination-list li.active a {
+            background: #071b3d;
+            border-color: #071b3d;
+            color: #ffffff;
+        }
+
+        .property-report-pagination-list li a:hover {
+            background: #eef3ff;
+            border-color: #3157a6;
+            color: #071b3d;
+        }
+
+        .property-report-pagination-list li.disabled span {
+            background: #f5f7fa;
+            color: #a0a9b7;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 576px) {
+            .property-report-pagination {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .property-report-pagination-list {
+                justify-content: center;
+            }
         }
     </style>
 
@@ -690,6 +768,8 @@
                                 <th>S.No</th>
 
                                 <th>Property</th>
+                                <th>Property Owner</th>
+                                <th>Owner Contact</th>
 
                                 <th>Reason</th>
 
@@ -710,202 +790,199 @@
 
                             @forelse($reports as $report)
 
-                                <tr>
+                                                    <tr>
 
 
-                                    {{-- =================================================
-                                    NUMBER
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        NUMBER
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <span class="property-report-number">
+                                                            <span class="property-report-number">
 
-                                            {{ $loop->iteration }}
+                                                                {{ $reports->firstItem() + $loop->index }}
 
-                                        </span>
+                                                            </span>
 
-                                    </td>
+                                                        </td>
 
 
-                                    {{-- =================================================
-                                    PROPERTY
-                                    ================================================== --}}
+                                                        {{-- =================================================
+                                                        PROPERTY
+                                                        ================================================== --}}
 
-                                    <td>
+                                                        <td>
 
-                                        <div
-                                            class="property-report-property"
-                                            title="{{ $report->property }}"
-                                        >
+                                                            <div class="property-report-property" title="{{ $report->property }}">
 
-                                            {{ $report->property ?: '-' }}
+                                                                {{ $report->property ?: '-' }}
 
-                                        </div>
+                                                            </div>
 
-                                    </td>
+                                                        </td>
 
+                                                        <td>
+                                                            {{ $report->propertyDetails?->owner_name
+                                    ?? $report->propertyDetails?->user?->name
+                                    ?? 'N/A' }}
+                                                        </td>
 
-                                    {{-- =================================================
-                                    REASON
-                                    ================================================== --}}
+                                                        <td>
+                                                            {{ $report->propertyDetails?->owner_phone
+                                    ?? $report->propertyDetails?->user?->phone
+                                    ?? 'N/A' }}
+                                                        </td>
 
-                                    <td>
 
-                                        @if($report->reason)
+                                                        {{-- =================================================
+                                                        REASON
+                                                        ================================================== --}}
 
-                                            <span class="property-report-reason">
+                                                        <td>
 
-                                                {{ ucwords(
-                                                    str_replace(
-                                                        '_',
-                                                        ' ',
-                                                        $report->reason
-                                                    )
-                                                ) }}
+                                                            @if($report->reason)
 
-                                            </span>
+                                                                                        <span class="property-report-reason">
 
-                                        @else
+                                                                                            {{ ucwords(
+                                                                    str_replace(
+                                                                        '_',
+                                                                        ' ',
+                                                                        $report->reason
+                                                                    )
+                                                                ) }}
 
-                                            <span>
-                                                -
-                                            </span>
+                                                                                        </span>
 
-                                        @endif
+                                                            @else
 
-                                    </td>
+                                                                <span>
+                                                                    -
+                                                                </span>
 
+                                                            @endif
 
-                                    {{-- =================================================
-                                    MESSAGE
-                                    ================================================== --}}
+                                                        </td>
 
-                                    <td>
 
-                                        <div class="property-report-message">
+                                                        {{-- =================================================
+                                                        MESSAGE
+                                                        ================================================== --}}
 
-                                            @if($report->message)
+                                                        <td>
 
-                                                <span
-                                                    class="property-report-message-text"
-                                                    title="{{ $report->message }}"
-                                                >
+                                                            <div class="property-report-message">
 
-                                                    {{ $report->message }}
+                                                                @if($report->message)
 
-                                                </span>
+                                                                    <span class="property-report-message-text" title="{{ $report->message }}">
 
-                                            @else
+                                                                        {{ $report->message }}
 
-                                                <span class="property-report-message-empty">
+                                                                    </span>
 
-                                                    No additional details
+                                                                @else
 
-                                                </span>
+                                                                    <span class="property-report-message-empty">
 
-                                            @endif
+                                                                        No additional details
 
-                                        </div>
+                                                                    </span>
 
-                                    </td>
+                                                                @endif
 
+                                                            </div>
 
-                                    {{-- =================================================
-                                    STATUS
-                                    ================================================== --}}
+                                                        </td>
 
-                                    <td>
 
-                                        @php
+                                                        {{-- =================================================
+                                                        STATUS
+                                                        ================================================== --}}
 
-                                            $status = strtolower(
-                                                trim($report->status ?? 'new')
-                                            );
+                                                        <td>
 
-                                            $statusClass = match ($status) {
+                                                            @php
 
-                                                'new' =>
-                                                'property-report-status-new',
+                                                                $status = strtolower(
+                                                                    trim($report->status ?? 'new')
+                                                                );
 
-                                                'contacted' =>
-                                                'property-report-status-contacted',
+                                                                $statusClass = match ($status) {
 
-                                                'closed' =>
-                                                'property-report-status-closed',
+                                                                    'new' =>
+                                                                        'property-report-status-new',
 
-                                                default =>
-                                                'property-report-status-default',
+                                                                    'contacted' =>
+                                                                        'property-report-status-contacted',
 
-                                            };
+                                                                    'closed' =>
+                                                                        'property-report-status-closed',
 
-                                        @endphp
+                                                                    default =>
+                                                                        'property-report-status-default',
 
+                                                                };
 
-                                        <span class="property-report-status {{ $statusClass }}">
+                                                            @endphp
 
-                                            {{ ucfirst($status) }}
 
-                                        </span>
+                                                            <span class="property-report-status {{ $statusClass }}">
 
-                                    </td>
+                                                                {{ ucfirst($status) }}
 
+                                                            </span>
 
-                                    {{-- =================================================
-                                    CREATED DATE
-                                    ================================================== --}}
+                                                        </td>
 
-                                    <td>
 
-                                        <span class="property-report-created-date">
+                                                        {{-- =================================================
+                                                        CREATED DATE
+                                                        ================================================== --}}
 
-                                            {{ $report->created_at
-                                                ? $report->created_at->format('d M Y, h:i A')
-                                                : '-'
-                                            }}
+                                                        <td>
 
-                                        </span>
+                                                            <span class="property-report-created-date">
 
-                                    </td>
+                                                                {{ $report->created_at
+                                    ? $report->created_at->format('d M Y, h:i A')
+                                    : '-'
+                                                                                                                                }}
 
+                                                            </span>
 
-                                    {{-- =================================================
-                                    ACTION
-                                    ================================================== --}}
+                                                        </td>
 
-                                    <td>
 
-                                        <form
-                                            class="property-report-delete-form"
-                                            action="{{ route(
-                                                'admin.rental.property.reports.destroy',
-                                                $report->id
-                                            ) }}"
-                                            method="POST"
-                                            onsubmit="return confirmDeletePropertyReport(this);"
-                                        >
+                                                        {{-- =================================================
+                                                        ACTION
+                                                        ================================================== --}}
 
-                                            @csrf
+                                                        <td>
 
-                                            @method('DELETE')
+                                                            <form class="property-report-delete-form" action="{{ route(
+                                    'admin.rental.property.reports.destroy',
+                                    $report->id
+                                ) }}" method="POST" onsubmit="return confirmDeletePropertyReport(this);">
 
+                                                                @csrf
 
-                                            <button
-                                                type="submit"
-                                                class="property-report-delete"
-                                                title="Delete Report"
-                                                aria-label="Delete Report"
-                                            >
+                                                                @method('DELETE')
 
-                                                <i class="ti ti-trash"></i>
 
-                                            </button>
+                                                                <button type="submit" class="property-report-delete" title="Delete Report"
+                                                                    aria-label="Delete Report">
 
-                                        </form>
+                                                                    <i class="ti ti-trash"></i>
 
-                                    </td>
+                                                                </button>
 
-                                </tr>
+                                                            </form>
+
+                                                        </td>
+
+                                                    </tr>
 
 
                             @empty
@@ -917,10 +994,7 @@
 
                                 <tr>
 
-                                    <td
-                                        colspan="7"
-                                        class="property-report-empty"
-                                    >
+                                    <td colspan="7" class="property-report-empty">
 
                                         <h5 class="property-report-empty-title">
 
@@ -943,10 +1017,56 @@
                             @endforelse
 
                         </tbody>
-
                     </table>
-
                 </div>
+
+                {{-- PROPERTY REPORT PAGINATION --}}
+                @if($reports->total() > 0)
+                    <div class="property-report-pagination">
+
+                        <div class="property-report-pagination-info">
+                            Showing {{ $reports->firstItem() }}
+                            to {{ $reports->lastItem() }}
+                            of {{ $reports->total() }} reports
+                        </div>
+
+                        @if($reports->hasPages())
+                            <nav aria-label="Property report pagination">
+                                <ul class="property-report-pagination-list">
+
+                                    {{-- PREVIOUS --}}
+                                    <li class="{{ $reports->onFirstPage() ? 'disabled' : '' }}">
+                                        @if($reports->onFirstPage())
+                                            <span>Previous</span>
+                                        @else
+                                            <a href="{{ $reports->previousPageUrl() }}">Previous</a>
+                                        @endif
+                                    </li>
+
+                                    {{-- PAGE NUMBERS --}}
+                                    @for($page = 1; $page <= $reports->lastPage(); $page++)
+                                        <li class="{{ $reports->currentPage() == $page ? 'active' : '' }}">
+                                            <a href="{{ $reports->url($page) }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                    @endfor
+
+                                    {{-- NEXT --}}
+                                    <li class="{{ !$reports->hasMorePages() ? 'disabled' : '' }}">
+                                        @if(!$reports->hasMorePages())
+                                            <span>Next</span>
+                                        @else
+                                            <a href="{{ $reports->nextPageUrl() }}">Next</a>
+                                        @endif
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        @endif
+
+                    </div>
+                @endif
 
             </div>
 

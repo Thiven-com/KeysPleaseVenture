@@ -129,9 +129,22 @@
                         </table>
                     </div>
 
-                    <div class="mt-3">
-                        {{ $amenities->links() }}
-                    </div>
+                   {{-- AMENITIES PAGINATION --}}
+@if($amenities->hasPages())
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-3 gap-3">
+
+        <div class="text-muted small">
+            Showing {{ $amenities->firstItem() }} to
+            {{ $amenities->lastItem() }} of
+            {{ $amenities->total() }} amenities
+        </div>
+
+        <div>
+            {{ $amenities->onEachSide(1)->links('pagination::bootstrap-5') }}
+        </div>
+
+    </div>
+@endif
 
                 </div>
             </div>
@@ -139,4 +152,88 @@
         </div>
     </div>
 
+    
+    <style>
+    /* AMENITIES PAGINATION */
+    .amenities-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 18px 0 5px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .amenities-pagination-info {
+        color: #687389;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .amenities-pagination nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .amenities-pagination .pagination {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .amenities-pagination .page-item {
+        list-style: none;
+    }
+
+    .amenities-pagination .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 11px;
+        border: 1px solid #e2e7ef;
+        border-radius: 7px !important;
+        background: #ffffff;
+        color: #071b3d;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: none;
+    }
+
+    .amenities-pagination .page-item.active .page-link {
+        background: #071b3d;
+        border-color: #071b3d;
+        color: #ffffff;
+    }
+
+    .amenities-pagination .page-link:hover {
+        background: #eef3ff;
+        border-color: #3157a6;
+        color: #071b3d;
+    }
+
+    .amenities-pagination .page-item.disabled .page-link {
+        background: #f5f7fa;
+        color: #a0a9b7;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 576px) {
+        .amenities-pagination {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .amenities-pagination .pagination {
+            justify-content: center;
+        }
+    }
+</style>
 @endsection

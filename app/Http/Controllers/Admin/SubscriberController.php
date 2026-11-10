@@ -8,11 +8,13 @@ use App\Models\Subscriber;
 class SubscriberController extends Controller
 {
     public function index()
-    {
-        $subscribers = Subscriber::latest()->get();
+{
+    $subscribers = Subscriber::latest()
+        ->paginate(10)
+        ->withQueryString();
 
-        return view('admin.subscribers.all', compact('subscribers'));
-    }
+    return view('admin.subscribers.all', compact('subscribers'));
+}
 
     public function destroy($id)
     {

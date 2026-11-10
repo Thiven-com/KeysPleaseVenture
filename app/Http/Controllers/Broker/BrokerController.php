@@ -11,20 +11,22 @@ use App\Models\RentalRequirmentsEnquiry;
 use App\Models\ScheduleVisitEnquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\RentalPropertyReport;
 
 class BrokerController extends Controller
 {
-    public function properties()
-    {
-        $broker = auth('broker')->user();
+   public function properties()
+{
+    $broker = auth('broker')->user();
 
-        $properties = Property::with(['images', 'cityRelation'])
-            ->where('broker_id', $broker->id)
-            ->latest()
-            ->get();
+    $properties = Property::with(['images', 'cityRelation'])
+        ->where('broker_id', $broker->id)
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
 
-        return view('broker.myproperties.all', compact('properties'));
-    }
+    return view('broker.myproperties.all', compact('properties'));
+}
 
     public function createProperty()
     {
@@ -84,6 +86,7 @@ class BrokerController extends Controller
             'property_condition' => 'nullable|string|max:100',
             'facing' => 'nullable|string|max:100',
             'road_width' => 'nullable|numeric|min:0',
+            'bike_parking' => 'nullable|string|max:100',
             'car_parking' => 'nullable|string|max:100',
             'possession_status' => 'nullable|string|max:100',
 
@@ -146,6 +149,7 @@ class BrokerController extends Controller
             'property_condition',
             'facing',
             'road_width',
+            'bike_parking',
             'car_parking',
             'possession_status',
             'description',
@@ -256,6 +260,7 @@ class BrokerController extends Controller
             'property_condition' => 'nullable|string|max:100',
             'facing' => 'nullable|string|max:100',
             'road_width' => 'nullable|numeric|min:0',
+            'bike_parking' => 'nullable|string|max:100',
             'car_parking' => 'nullable|string|max:100',
             'possession_status' => 'nullable|string|max:100',
 
@@ -322,6 +327,7 @@ class BrokerController extends Controller
             'property_condition',
             'facing',
             'road_width',
+            'bike_parking',
             'car_parking',
             'possession_status',
             'furnishing',
@@ -519,4 +525,29 @@ class BrokerController extends Controller
             ->route('broker.properties')
             ->with('success', 'Property reposted successfully and sent for admin approval.');
     }
+
+
+    public function reports()
+{
+    $broker = auth('broker')->user();
+
+    $propertyIds = $broker->properties()->select('properties.id');
+
+    $reports = RentalPropertyReport::with('propertyDetails')
+        ->whereIn('property_id', $propertyIds)
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    $reportsCount = RentalPropertyReport::whereIn(
+        'property_id',
+        $propertyIds
+    )->count();
+
+    return view('broker.reports', compact(
+        'broker',
+        'reports',
+        'reportsCount'
+    ));
+}
 }

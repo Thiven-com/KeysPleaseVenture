@@ -12,7 +12,7 @@ class AmenityController extends Controller
     {
         $amenities = Amenity::orderBy('sort_order')
             ->orderBy('name')
-            ->paginate(20);
+            ->paginate(10);
 
         return view('admin.amenities.all', compact('amenities'));
     }

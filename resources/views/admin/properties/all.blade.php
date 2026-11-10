@@ -11,6 +11,7 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
+
         .properties-main {
             width: 100%;
             max-width: 100%;
@@ -21,6 +22,7 @@
             overflow-x: hidden;
             margin-top: 50px;
         }
+
         .properties-header {
             width: 100%;
             margin: 0 0 24px;
@@ -31,6 +33,7 @@
             justify-content: space-between;
             gap: 20px;
         }
+
         .properties-title {
             margin: 0 0 6px;
             color: #071b3d !important;
@@ -38,6 +41,7 @@
             font-weight: 700 !important;
             line-height: 1.3 !important;
         }
+
         .properties-subtitle {
             margin: 0;
             color: #687389 !important;
@@ -45,6 +49,7 @@
             font-weight: 400 !important;
             line-height: 1.5 !important;
         }
+
         .add-property-btn {
             display: inline-flex;
             align-items: center;
@@ -60,11 +65,13 @@
             white-space: nowrap;
             transition: all .2s ease;
         }
+
         .add-property-btn:hover {
             background: #0d2c60;
             color: #ffffff !important;
             transform: translateY(-1px);
         }
+
         .properties-alert {
             display: flex;
             align-items: center;
@@ -77,16 +84,19 @@
             font-size: 13px;
             font-weight: 600;
         }
+
         .properties-alert-success {
             background: #ecfdf3;
             border: 1px solid #b7ebc6;
             color: #18794e;
         }
+
         .properties-alert-error {
             background: #fff1f2;
             border: 1px solid #fecdd3;
             color: #e52229;
         }
+
         .properties-card {
             width: 100%;
             max-width: 100%;
@@ -102,6 +112,7 @@
                 0 4px 15px rgba(7, 27, 61, 0.04),
                 0 12px 35px rgba(7, 27, 61, 0.04);
         }
+
         .properties-table-scroll {
             width: 100%;
             max-width: 100%;
@@ -115,20 +126,25 @@
             scrollbar-width: thin;
             -webkit-overflow-scrolling: touch;
         }
+
         .properties-table-scroll::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
+
         .properties-table-scroll::-webkit-scrollbar-track {
             background: #f3f5f8;
         }
+
         .properties-table-scroll::-webkit-scrollbar-thumb {
             background: #c3cbd7;
             border-radius: 20px;
         }
+
         .properties-table-scroll::-webkit-scrollbar-thumb:hover {
             background: #9fa9b8;
         }
+
         .properties-table {
             width: 100%;
             min-width: 1250px;
@@ -140,9 +156,11 @@
             table-layout: fixed;
             background: #ffffff;
         }
+
         .properties-table thead {
             background: #f3f6fa;
         }
+
         .properties-table thead th {
             height: 52px;
             padding: 0 14px;
@@ -160,21 +178,26 @@
             border-bottom: 1px solid #e0e6ee;
             vertical-align: middle;
         }
+
         .properties-table thead th:nth-child(1),
         .properties-table thead th:nth-child(7),
         .properties-table thead th:nth-child(8) {
             text-align: center;
         }
+
         .properties-table tbody tr {
             background: #ffffff;
             transition: background-color .2s ease;
         }
+
         .properties-table tbody tr:hover {
             background: #fafbfd;
         }
+
         .properties-table tbody tr:hover td {
             background: #fafbfd;
         }
+
         .properties-table tbody td {
             height: 78px;
             padding: 12px 14px;
@@ -188,44 +211,54 @@
             vertical-align: middle;
             word-break: break-word;
         }
+
         .properties-table tbody tr:last-child td {
             border-bottom: 0;
         }
+
         .properties-table th:nth-child(1),
         .properties-table td:nth-child(1) {
             width: 65px;
             text-align: center;
         }
+
         .properties-table th:nth-child(2),
         .properties-table td:nth-child(2) {
             width: 240px;
         }
+
         .properties-table th:nth-child(3),
         .properties-table td:nth-child(3) {
             width: 220px;
         }
+
         .properties-table th:nth-child(4),
         .properties-table td:nth-child(4) {
             width: 145px;
         }
+
         .properties-table th:nth-child(5),
         .properties-table td:nth-child(5) {
             width: 160px;
         }
+
         .properties-table th:nth-child(6),
         .properties-table td:nth-child(6) {
             width: 160px;
         }
+
         .properties-table th:nth-child(7),
         .properties-table td:nth-child(7) {
             width: 120px;
             text-align: center;
         }
+
         .properties-table th:nth-child(8),
         .properties-table td:nth-child(8) {
             width: 220px;
             text-align: center;
         }
+
         .property-number {
             display: inline-flex;
             align-items: center;
@@ -238,12 +271,14 @@
             font-size: 11px;
             font-weight: 600;
         }
+
         .property-wrapper {
             display: flex;
             align-items: center;
             gap: 10px;
             min-width: 0;
         }
+
         .property-image {
             width: 58px;
             height: 46px;
@@ -252,6 +287,7 @@
             object-fit: cover;
             background: #f3f5f8;
         }
+
         .property-image-empty {
             width: 58px;
             height: 46px;
@@ -264,9 +300,11 @@
             color: #8a94a6;
             font-size: 18px;
         }
+
         .property-info {
             min-width: 0;
         }
+
         .property-name {
             margin: 0;
             color: #071b3d !important;
@@ -274,54 +312,64 @@
             font-weight: 700;
             line-height: 1.35;
         }
+
         .property-type {
             margin-top: 3px;
             color: #8a94a6;
             font-size: 10px;
             line-height: 1.4;
         }
+
         .property-location {
             color: #687389 !important;
             font-size: 11px;
             line-height: 1.5;
         }
+
         .property-address {
             margin-top: 3px;
             color: #8a94a6;
             font-size: 10px;
             line-height: 1.4;
         }
+
         .property-rent {
             color: #071b3d !important;
             font-size: 13px;
             font-weight: 700;
             white-space: nowrap;
         }
+
         .property-rent-period {
             margin-top: 3px;
             color: #8a94a6;
             font-size: 10px;
         }
+
         .property-details {
             color: #687389;
             font-size: 11px;
             line-height: 1.8;
         }
+
         .property-details strong {
             color: #071b3d;
         }
+
         .posted-name {
             display: block;
             color: #071b3d !important;
             font-size: 12px;
             font-weight: 700;
         }
+
         .posted-type {
             display: block;
             margin-top: 3px;
             color: #8a94a6;
             font-size: 10px;
         }
+
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -334,26 +382,32 @@
             font-weight: 700;
             white-space: nowrap;
         }
+
         .status-approved {
             background: #ecfdf3;
             color: #18794e !important;
         }
+
         .status-pending {
             background: #fff7e6;
             color: #b7791f !important;
         }
+
         .status-rejected {
             background: #fff1f2;
             color: #e52229 !important;
         }
+
         .status-rented {
             background: #eef3ff;
             color: #3157a6 !important;
         }
+
         .status-inactive {
             background: #f1f3f5;
             color: #687389 !important;
         }
+
         .property-actions {
             display: flex;
             align-items: center;
@@ -361,6 +415,7 @@
             gap: 6px;
             flex-wrap: wrap;
         }
+
         .property-action {
             display: inline-flex;
             align-items: center;
@@ -376,99 +431,123 @@
             font-size: 15px;
             transition: all .2s ease;
         }
+
         .property-action:hover {
             transform: translateY(-1px);
         }
+
         .property-view {
             color: #3157a6 !important;
             background: #eef3ff;
         }
+
         .property-view:hover {
             background: #3157a6;
             color: #ffffff !important;
         }
+
         .property-edit {
             color: #b7791f !important;
             background: #fff7e6;
         }
+
         .property-edit:hover {
             background: #b7791f;
             color: #ffffff !important;
         }
+
         .property-approve {
             color: #18794e !important;
             background: #ecfdf3;
         }
+
         .property-approve:hover {
             background: #18794e;
             color: #ffffff !important;
         }
+
         .property-reject {
             color: #e52229 !important;
             background: #fff1f2;
         }
+
         .property-reject:hover {
             background: #e52229;
             color: #ffffff !important;
         }
+
         .property-delete {
             color: #e52229 !important;
             background: #fff1f2;
         }
+
         .property-delete:hover {
             background: #e52229;
             color: #ffffff !important;
         }
+
         .property-action-form {
             display: inline-block;
             margin: 0;
             padding: 0;
         }
+
         .properties-empty {
             height: 180px;
             text-align: center !important;
             vertical-align: middle !important;
             color: #8a94a6 !important;
         }
+
         .properties-empty-title {
             margin: 10px 0 6px;
             color: #687389;
             font-size: 14px;
             font-weight: 600;
         }
+
         .properties-empty-text {
             margin: 0;
             color: #8a94a6;
             font-size: 11px;
         }
+
         .properties-pagination {
             padding: 18px;
             border-top: 1px solid #edf0f4;
         }
+
         @media (max-width: 991px) {
             .properties-main {
                 padding: 20px 15px 30px;
             }
+
             .properties-table-scroll {
                 max-height: calc(100vh - 180px);
             }
         }
+
         @media (max-width: 576px) {
             .properties-main {
                 padding: 16px 10px 25px;
             }
+
             .properties-title {
                 font-size: 20px !important;
             }
+
             .properties-subtitle {
                 font-size: 11px !important;
             }
+
             .properties-header {
                 flex-direction: column;
             }
+
             .add-property-btn {
                 width: 100%;
             }
+
             .properties-table {
                 min-width: 1250px;
             }
@@ -486,6 +565,7 @@
             border: 1px solid #e5eaf1;
             border-radius: 12px;
         }
+
         .property-filters input,
         .property-filters select {
             width: 100%;
@@ -498,6 +578,7 @@
             border-radius: 8px;
             outline: none;
         }
+
         .property-filter-btn,
         .property-reset-btn {
             display: inline-flex;
@@ -512,36 +593,133 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         .property-filter-btn {
             color: #fff;
             background: #071b3d;
             border: 1px solid #071b3d;
         }
+
         .property-reset-btn {
             color: #071b3d;
             background: #f3f6fa;
             border: 1px solid #dce3ed;
         }
+
         @media (max-width: 900px) {
             .property-filters {
                 grid-template-columns: 1fr 1fr;
             }
+
             .property-filters input {
                 grid-column: 1 / -1;
             }
         }
+
         @media (max-width: 480px) {
             .property-filters {
                 grid-template-columns: 1fr;
             }
+
             .property-filters input {
                 grid-column: auto;
             }
         }
+
         .status-expired {
             background: #fff1f2;
             color: #e52229 !important;
         }
+
+
+
+
+/* PROPERTY PAGINATION */
+.properties-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    padding: 18px 22px;
+    background: #ffffff;
+    border-top: 1px solid #edf0f4;
+    box-sizing: border-box;
+}
+
+.pagination-info {
+    color: #687389;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pagination-links {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-links .pagination {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.pagination-links .page-item {
+    margin: 0 !important;
+}
+
+.pagination-links .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e1e7ef;
+    border-radius: 7px !important;
+    background: #ffffff;
+    color: #071b3d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: none !important;
+}
+
+.pagination-links .page-item.active .page-link {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #ffffff;
+}
+
+.pagination-links .page-item.disabled .page-link {
+    background: #f5f7fa;
+    color: #a0a9b7;
+    cursor: not-allowed;
+}
+
+.pagination-links .page-link:hover:not(.disabled) {
+    background: #eef3ff;
+    border-color: #3157a6;
+    color: #071b3d;
+}
+
+@media (max-width: 576px) {
+    .properties-pagination {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination-links .pagination {
+        justify-content: center;
+    }
+}
+
     </style>
     <div class="properties-page">
         <div class="properties-main">
@@ -701,7 +879,7 @@
                                         $property->area_sqft
                                     )
                                     : '-'
-                                                                                                                                                            }}
+                                                                                                                                                                                        }}
                                                                 </strong>
                                                                 Sq.Ft
                                                             </div>
@@ -770,8 +948,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                    'Approve this property?'
-                                                                                                                                                                                                                                                                                                );">
+                                                                                                                                                                                                                                                                                                                                                                'Approve this property?'
+                                                                                                                                                                                                                                                                                                                                                            );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action property-approve"
                                                                                                         title="Approve Property" aria-label="Approve Property">
@@ -798,8 +976,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                    'Mark this property as rented?'
-                                                                                                                                                                                                                                                                                                );">
+                                                                                                                                                                                                                                                                                                                                                                'Mark this property as rented?'
+                                                                                                                                                                                                                                                                                                                                                            );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action" title="Mark Rented"
                                                                                                         aria-label="Mark Rented">
@@ -812,8 +990,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                    'Disable this property?'
-                                                                                                                                                                                                                                                                                                );">
+                                                                                                                                                                                                                                                                                                                                                                'Disable this property?'
+                                                                                                                                                                                                                                                                                                                                                            );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action" title="Disable Property"
                                                                                                         aria-label="Disable Property">
@@ -831,8 +1009,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                    'Enable this property?'
-                                                                                                                                                                                                                                                                                                );">
+                                                                                                                                                                                                                                                                                                                                                                'Enable this property?'
+                                                                                                                                                                                                                                                                                                                                                            );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action property-approve"
                                                                                                         title="Enable Property" aria-label="Enable Property">
@@ -870,11 +1048,59 @@
                         </tbody>
                     </table>
                 </div>
-                @if($properties->hasPages())
-                    <div class="properties-pagination">
-                        {{ $properties->links() }}
-                    </div>
-                @endif
+               
+@if($properties->hasPages())
+    <div class="properties-pagination">
+
+        <div class="pagination-info">
+            Showing {{ $properties->firstItem() }} to
+            {{ $properties->lastItem() }} of
+            {{ $properties->total() }} properties
+        </div>
+
+        <nav class="pagination-links" aria-label="Property pagination">
+            <ul class="pagination">
+
+                {{-- Previous --}}
+                <li class="page-item {{ $properties->onFirstPage() ? 'disabled' : '' }}">
+                    @if($properties->onFirstPage())
+                        <span class="page-link">Previous</span>
+                    @else
+                        <a class="page-link"
+                           href="{{ $properties->previousPageUrl() }}">
+                            Previous
+                        </a>
+                    @endif
+                </li>
+
+                {{-- Page Numbers --}}
+                @for($page = 1; $page <= $properties->lastPage(); $page++)
+                    <li class="page-item {{ $properties->currentPage() == $page ? 'active' : '' }}">
+                        <a class="page-link"
+                           href="{{ $properties->url($page) }}">
+                            {{ $page }}
+                        </a>
+                    </li>
+                @endfor
+
+                {{-- Next --}}
+                <li class="page-item {{ !$properties->hasMorePages() ? 'disabled' : '' }}">
+                    @if(!$properties->hasMorePages())
+                        <span class="page-link">Next</span>
+                    @else
+                        <a class="page-link"
+                           href="{{ $properties->nextPageUrl() }}">
+                            Next
+                        </a>
+                    @endif
+                </li>
+
+            </ul>
+        </nav>
+
+    </div>
+@endif
+
             </div>
         </div>
     </div>

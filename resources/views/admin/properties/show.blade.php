@@ -285,6 +285,27 @@
                                         </strong>
                                     </div>
                                 </div>
+
+                                {{-- Bike Parking --}}
+<div class="col-md-4 mb-4">
+    <div class="detail-box">
+        <span>Bike Parking</span>
+        <strong>
+            @if($property->bike_parking !== null && $property->bike_parking !== '')
+                @if($property->bike_parking == '0')
+                    No Bikes
+                @elseif($property->bike_parking == '4+')
+                    4+ Bikes
+                @else
+                    {{ $property->bike_parking }}
+                    {{ $property->bike_parking == '1' ? 'Bike' : 'Bikes' }}
+                @endif
+            @else
+                N/A
+            @endif
+        </strong>
+    </div>
+</div>
                                 {{-- Car Parking --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">

@@ -136,6 +136,91 @@
 
 <body>
 
+
+<style>
+
+/* MOBILE NAVBAR FIX */
+@media (max-width: 480px) {
+
+    header {
+        width: 100%;
+        height: 72px !important;
+        min-height: 72px;
+        padding: 0;
+        z-index: 9999;
+    }
+
+    header .nav {
+        width: calc(100% - 28px);
+        height: 72px !important;
+        min-height: 72px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    header .logo {
+        width: 145px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+        overflow: hidden;
+    }
+
+    header .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    header .logo .desktop-logo {
+        display: none;
+    }
+
+    header .logo .mobile-logo {
+        display: block;
+    }
+
+    header .mobile-menu-btn {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        padding: 0;
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: none;
+        border-radius: 12px;
+        background: #ffffff;
+        cursor: pointer;
+        flex: 0 0 auto;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    header .mobile-menu-btn span {
+        display: block;
+        width: 23px;
+        height: 3px;
+        border-radius: 3px;
+        background: #080d80;
+    }
+
+    header .city,
+    header .menu,
+    header .nav-actions {
+        display: none !important;
+    }
+}
+
+</style>
+
   <!-- ================= HEADER ================= -->
 
   <header>

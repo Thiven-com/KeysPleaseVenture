@@ -11,11 +11,13 @@ class ContactController extends Controller
      * Display all contact enquiries.
      */
     public function index()
-    {
-        $enquiries = Contact::latest()->get();
+{
+    $enquiries = Contact::latest()
+        ->paginate(10)
+        ->withQueryString();
 
-        return view('admin.contacts.all', compact('enquiries'));
-    }
+    return view('admin.contacts.all', compact('enquiries'));
+}
 
     /**
      * Delete contact enquiry.

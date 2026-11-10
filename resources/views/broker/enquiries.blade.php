@@ -619,7 +619,7 @@
                     </small>
 
                     <div>
-                        {{ $enquiries->appends(request()->query())->links() }}
+                        {{ $enquiries->appends(request()->query())->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             @endif

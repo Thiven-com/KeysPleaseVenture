@@ -430,6 +430,81 @@
             background: #fdecec;
             color: #c53c3c;
         }
+
+        /* PROPERTY PAGINATION */
+.property-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 20px;
+    background: #fff;
+    border-top: 1px solid #e9edf3;
+}
+
+.property-pagination-info {
+    color: #687385;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.property-pagination-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.property-pagination-list li a,
+.property-pagination-list li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e0e5eb;
+    border-radius: 7px;
+    background: #fff;
+    color: #071b3d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.property-pagination-list li.active a {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #fff;
+}
+
+.property-pagination-list li a:hover {
+    background: #eef3ff;
+    border-color: #3157a6;
+}
+
+.property-pagination-list li.disabled span {
+    background: #f5f7fa;
+    color: #a0a9b7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .property-pagination {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .property-pagination-list {
+        justify-content: center;
+    }
+}
     </style>
 
     <div class="broker-properties-page">
@@ -726,14 +801,14 @@
                                             <div class="property-actions">
 
                                                 <!-- @if($property->slug)
-                                                                                                                        <a
-                                                                                                                            href="{{ route('propertydetails', $property->slug) }}"
-                                                                                                                            class="action-btn"
-                                                                                                                            title="View"
-                                                                                                                        >
-                                                                                                                            <i class="fa-regular fa-eye"></i>
-                                                                                                                        </a>
-                                                                                                                    @endif -->
+                                                                                                                                    <a
+                                                                                                                                        href="{{ route('propertydetails', $property->slug) }}"
+                                                                                                                                        class="action-btn"
+                                                                                                                                        title="View"
+                                                                                                                                    >
+                                                                                                                                        <i class="fa-regular fa-eye"></i>
+                                                                                                                                    </a>
+                                                                                                                                @endif -->
 
                                                 <a href="{{ route('broker.properties.edit', $property->id) }}" class="action-btn"
                                                     title="Edit">
@@ -757,13 +832,13 @@
 
 
                                                 <!-- <button
-                                                                                                                        type="button"
-                                                                                                                        class="action-btn delete"
-                                                                                                                        title="Delete"
-                                                                                                                        onclick="deleteProperty({{ $property->id }})"
-                                                                                                                    >
-                                                                                                                        <i class="fa-regular fa-trash-can"></i>
-                                                                                                                    </button> -->
+                                                                                                                                    type="button"
+                                                                                                                                    class="action-btn delete"
+                                                                                                                                    title="Delete"
+                                                                                                                                    onclick="deleteProperty({{ $property->id }})"
+                                                                                                                                >
+                                                                                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                                                                                </button> -->
 
                                             </div>
 
@@ -803,6 +878,49 @@
                 @endif
 
             </div>
+
+            {{-- PROPERTY PAGINATION --}}
+            @if($properties->total() > 0)
+                <div class="property-pagination">
+
+                    <div class="property-pagination-info">
+                        Showing {{ $properties->firstItem() }}
+                        to {{ $properties->lastItem() }}
+                        of {{ $properties->total() }} properties
+                    </div>
+
+                    @if($properties->hasPages())
+                        <nav aria-label="Property pagination">
+                            <ul class="property-pagination-list">
+
+                                <li class="{{ $properties->onFirstPage() ? 'disabled' : '' }}">
+                                    @if($properties->onFirstPage())
+                                        <span>Previous</span>
+                                    @else
+                                        <a href="{{ $properties->previousPageUrl() }}">Previous</a>
+                                    @endif
+                                </li>
+
+                                @for($page = 1; $page <= $properties->lastPage(); $page++)
+                                    <li class="{{ $properties->currentPage() == $page ? 'active' : '' }}">
+                                        <a href="{{ $properties->url($page) }}">{{ $page }}</a>
+                                    </li>
+                                @endfor
+
+                                <li class="{{ !$properties->hasMorePages() ? 'disabled' : '' }}">
+                                    @if(!$properties->hasMorePages())
+                                        <span>Next</span>
+                                    @else
+                                        <a href="{{ $properties->nextPageUrl() }}">Next</a>
+                                    @endif
+                                </li>
+
+                            </ul>
+                        </nav>
+                    @endif
+
+                </div>
+            @endif
 
         </div>
 

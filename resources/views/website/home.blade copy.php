@@ -1,0 +1,3186 @@
+@extends('layouts.website')
+@section('content')
+    <style>
+        /* =========================================================
+                                                                                                                                                                                                                           INFINITE LOCALITY CAROUSEL
+                                                                                                                                                                                                                        ========================================================= */
+
+        .locality-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .locality-grid {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            gap: 20px;
+            width: max-content;
+            overflow: visible !important;
+            padding: 5px 2px 15px;
+
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .locality-grid .locality {
+            flex: 0 0 calc((100vw - 160px) / 4);
+            width: calc((100vw - 160px) / 4);
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                           ARROWS
+                                                                                                                                                                                                                        ========================================================= */
+
+        .locality-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .locality-arrows {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .locality-arrow {
+            width: 40px;
+            height: 40px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #dfe5ed;
+            border-radius: 50%;
+
+            background: #fff;
+            color: #071b3d;
+
+            cursor: pointer;
+
+            transition: all .25s ease;
+        }
+
+        .locality-arrow:hover {
+            background: #071b3d;
+            color: #fff;
+            border-color: #071b3d;
+            transform: translateY(-2px);
+        }
+
+        .locality-arrow:active {
+            transform: scale(.94);
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                           TABLET
+                                                                                                                                                                                                                        ========================================================= */
+
+        @media (max-width: 991px) {
+
+            .locality-grid {
+                gap: 18px;
+            }
+
+            .locality-grid .locality {
+                flex: 0 0 calc((100vw - 90px) / 2);
+                width: calc((100vw - 90px) / 2);
+            }
+
+        }
+
+
+        /* =========================================================
+                                                                                                                                                                                                                           MOBILE
+                                                                                                                                                                                                                        ========================================================= */
+
+        @media (max-width: 576px) {
+
+            .locality-controls .view {
+                display: none;
+            }
+
+            .locality-grid {
+                gap: 14px;
+            }
+
+            .locality-grid .locality {
+                flex: 0 0 82vw;
+                width: 82vw;
+            }
+
+            .locality-arrow {
+                width: 36px;
+                height: 36px;
+            }
+
+        }
+
+
+        /* Remove the inner input focus border */
+        #rpfLocationControl input,
+        #rpfLocationControl input:focus,
+        #rpfLocationControl input:focus-visible {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+
+
+
+
+        /* =========================================
+                           GLOBAL INPUT BORDER FIX
+                           Location fields + Newsletter Subscribe
+                        ========================================= */
+
+        /* Location inputs across website */
+        #rpfLocationControl input,
+        #mobileFilterModal input[placeholder*="Locality"],
+        input[placeholder*="Locality"],
+        input[placeholder*="locality"],
+        input[placeholder*="Landmark"],
+        input[placeholder*="landmark"] {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+
+        /* Newsletter subscribe email input */
+        .subscribe input,
+        .subscribe input[type="email"],
+        .subscribe input:focus,
+        .subscribe input:focus-visible {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+
+        /* Keep newsletter outer container */
+        .subscribe {
+            box-sizing: border-box;
+        }
+
+        /* Prevent unwanted browser focus outline */
+        .subscribe input:focus-visible {
+            outline: none !important;
+        }
+
+
+        .trust {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.trust-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .trust {
+        gap: 10px;
+    }
+
+    .trust-item {
+        flex: 1 1 45%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .trust {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .trust-item {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
+    </style>
+
+    <section class="hero">
+        <div class="container hero-inner">
+
+            <!-- Hero Content -->
+            <div class="hero-copy">
+
+                <!-- <div class="eyebrow">
+                                            BENGALURU'S TRUSTED RENTAL PLATFORM
+                                        </div> -->
+
+                <h1 style="letter-spacing: 1px;">
+                    Bangalore's Trusted<br>
+                    Platform for<br>
+                    <strong>Properties</strong>
+                </h1>
+
+                <p>
+                    <b> Find verified listings, connect with owners,<br>
+                        and move into your dream home.</b>
+                </p>
+
+            </div>
+
+
+            <!-- Search Card -->
+            <!-- Search Card -->
+            <div class="rpf-search-card">
+
+                <!-- <div class="rpf-tabs">
+                                                                                                                                                                                                <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent">
+                                                                                                                                                                                                    <i class="fa-solid fa-house"></i> Rent
+                                                                                                                                                                                                </button>
+
+                                                                                                                                                                                                <button class="rpf-tab" type="button" data-mode="locality">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i> By Locality
+                                                                                                                                                                                                </button>
+                                                                                                                                                                                            </div> -->
+
+                <!-- <div class="rpf-tabs">
+                                                                                <button class="rpf-tab rpf-tab-active" type="button">
+                                                                                    <i class="fa-solid fa-house"></i>
+                                                                                    Rent
+                                                                                    <span class="rpf-tab-divider">|</span>
+                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                    By Locality
+                                                                                </button>
+                                                                            </div> -->
+
+
+                <div class="rpf-tabs">
+                    <button class="rpf-tab rpf-tab-active" type="button" data-mode="rent" onclick="rpfSetMode('rent')">
+
+                        <i class="fa-solid fa-house"></i>
+                        Rent
+                    </button>
+
+                    <button class="rpf-tab" type="button" data-mode="sell" onclick="rpfSetMode('sell')">
+
+                        <i class="fa-solid fa-tag"></i>
+                        Sell
+                    </button>
+                </div>
+
+
+                <div class="rpf-form-grid">
+
+                    <!-- Location -->
+                    <!-- <div class="rpf-field">
+                                                                                                <label for="rpfLocation">Location</label>
+
+                                                                                                <div class="rpf-control" id="rpfLocationControl">
+                                                                                                    <i class="fa-solid fa-location-dot"></i>
+
+                                                                                                    <input type="text" id="rpfLocation" name="rpfLocation"
+                                                                                                        placeholder="Search Locality, Area or Landmark" autocomplete="off">
+
+                                                                                                    <span class="rpf-control-icon rpf-clear-icon" id="rpfLocationClear" style="display:none;">
+                                                                                                        <i class="fa-solid fa-xmark"></i>
+                                                                                                    </span>
+
+                                                                                                    <div class="rpf-dropdown" id="rpfLocationDropdown">
+
+                                                                                                        @foreach($searchLocations as $location)
+
+                                                                                                            <button type="button" data-value="{{ $location }}">
+                                                                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                                                                {{ $location }}
+                                                                                                            </button>
+
+                                                                                                        @endforeach
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div> -->
+
+
+                    <div class="rpf-field">
+                        <label for="rpfLocation">Location</label>
+
+                        <div class="rpf-control" id="rpfLocationControl">
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <input type="text" id="rpfLocation" name="rpfLocation"
+                                placeholder="Search Locality, Area or Landmark" autocomplete="off">
+
+                            <span class="rpf-control-icon rpf-clear-icon" id="rpfLocationClear" style="display:none;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+
+                            <div class="rpf-dropdown" id="rpfLocationDropdown"></div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Property Type -->
+                    <div class="rpf-field">
+                        <label for="rpfPropertyType">Property Type</label>
+
+                        <div class="rpf-control" id="rpfPropertyTypeControl" data-target="rpfPropertyTypeDropdown">
+                            <span class="rpf-control-value" id="rpfPropertyTypeValue">Any Type</span>
+                            <span class="rpf-control-icon">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                            <div class="rpf-dropdown" id="rpfPropertyTypeDropdown">
+
+                                <button type="button" data-value="Any Type">
+                                    Any Type
+                                </button>
+
+                                @foreach($searchPropertyTypes as $type)
+
+                                    <button type="button" data-value="{{ $type }}">
+                                        {{ $type }}
+                                    </button>
+
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BHK -->
+                    <div class="rpf-field">
+                        <label for="rpfBhk">BHK</label>
+
+                        <div class="rpf-control" id="rpfBhkControl" data-target="rpfBhkDropdown">
+                            <span class="rpf-control-value" id="rpfBhkValue">Any</span>
+                            <span class="rpf-control-icon">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                            <div class="rpf-dropdown" id="rpfBhkDropdown">
+
+                                <button type="button" data-value="Any">
+                                    Any
+                                </button>
+
+                                @foreach($searchBhks as $bhk)
+
+                                    <button type="button" data-value="{{ $bhk }} BHK">
+                                        {{ $bhk }} BHK
+                                    </button>
+
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rent Range -->
+
+                    <!-- Rent Range -->
+                    <div class="rpf-field">
+
+                        <label for="rpfRentRange">
+                            Rent Range
+                        </label>
+
+                        <div class="rpf-control" id="rpfRentRangeControl" data-target="rpfRentRangeDropdown">
+
+                            <span class="rpf-control-value" id="rpfRentRangeValue">
+                                Any Range
+                            </span>
+
+                            <span class="rpf-control-icon">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+
+                            <div class="rpf-dropdown" id="rpfRentRangeDropdown">
+
+                                <button type="button" data-value="Any Range" data-min="" data-max="">
+                                    Any Range
+                                </button>
+
+
+                                @php
+                                    $rentRanges = [
+                                        ['label' => '₹10,000 - ₹25,000', 'min' => 10000, 'max' => 25000],
+                                        ['label' => '₹25,000 - ₹50,000', 'min' => 25000, 'max' => 50000],
+                                        ['label' => '₹50,000 - ₹75,000', 'min' => 50000, 'max' => 75000],
+                                        ['label' => '₹75,000 - ₹1,00,000', 'min' => 75000, 'max' => 100000],
+                                        ['label' => '₹1,00,000 - ₹1,50,000', 'min' => 100000, 'max' => 150000],
+                                        ['label' => '₹1,50,000 - ₹2,00,000', 'min' => 150000, 'max' => 200000],
+                                        ['label' => '₹2,00,000 - ₹2,50,000', 'min' => 200000, 'max' => 250000],
+                                        ['label' => '₹2,50,000 - ₹3,00,000', 'min' => 250000, 'max' => 300000],
+                                        ['label' => '₹3,00,000 - ₹3,50,000', 'min' => 300000, 'max' => 350000],
+                                        ['label' => '₹3,50,000 - ₹4,00,000', 'min' => 350000, 'max' => 400000],
+                                        ['label' => '₹4,00,000 - ₹5,00,000', 'min' => 400000, 'max' => 500000],
+                                        ['label' => '₹5,00,000+ (5 Lakhs & Above)', 'min' => 500000, 'max' => 999999999],
+                                    ];
+                                @endphp
+
+
+                                @foreach($rentRanges as $range)
+
+                                    <button type="button" data-value="{{ $range['label'] }}" data-min="{{ $range['min'] }}"
+                                        data-max="{{ $range['max'] }}">
+
+                                        {{ $range['label'] }}
+
+                                    </button>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- Selected rent values --}}
+                        <input type="hidden" id="rpfMinRent" value="">
+
+                        <input type="hidden" id="rpfMaxRent" value="">
+
+                    </div>
+
+
+                    <!-- Rent -->
+                    <!-- <div class="rpf-field">
+                                                                                            <label for="rpfRent">Budget</label>
+
+                                                                                            <div class="rpf-control" id="rpfRentControl">
+
+                                                                                                <span class="rpf-rent-symbol">₹</span>
+
+                                                                                                <input type="number" id="rpfRent" name="rpfRent" placeholder="Enter maximum rent" min="0">
+
+                                                                                            </div>
+                                                                                        </div> -->
+
+                </div>
+
+                <button class="rpf-search-btn" type="button" onclick="rpfSearchProperties()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search Properties
+                </button>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <div class="container">
+        <div class="trust">
+
+            <!-- Verified Properties -->
+            <div class="trust-item">
+                <div class="trust-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="trust-content">
+                    <div class="trust-title">Verified Properties</div>
+                    <div class="trust-sub">All listings are verified</div>
+                </div>
+            </div>
+
+            <!-- Secure Enquiries -->
+            <div class="trust-item">
+                <div class="trust-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="trust-content">
+                    <div class="trust-title">Secure Enquiries</div>
+                    <div class="trust-sub">Your data is safe with us</div>
+                </div>
+            </div>
+
+            <!-- No Hidden Charges -->
+            <div class="trust-item">
+                <div class="trust-icon">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <div class="trust-content">
+                    <div class="trust-title">No Hidden Charges</div>
+                    <div class="trust-sub">100% transparent process</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <section id="localities" class="reveal">
+
+        <div class="container">
+
+            <div class="section-head">
+                <h2>Popular Localities in Bengaluru</h2>
+
+                <div class="locality-controls">
+                    <a class="view" href="#">
+                        View all localities
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <div class="locality-arrows">
+                        <button type="button" class="locality-arrow" id="localityPrev" aria-label="Previous localities">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+
+                        <button type="button" class="locality-arrow" id="localityNext" aria-label="Next localities">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="locality-carousel">
+
+                <div class="locality-grid stagger" id="localityGrid">
+
+                    <!-- <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Whitefield">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Whitefield
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">1,250+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Koramangala">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Koramangala
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">980+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Indiranagar">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Indiranagar
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">850+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="HSR Layout">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    HSR Layout
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">760+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Marathahalli">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Marathahalli
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">680+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Bellandur">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Bellandur
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">540+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="JP Nagar">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    JP Nagar
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">620+ Properties</div>
+                                                                                                                                                                                            </a>
+
+
+                                                                                                                                                                                            <a class="locality" href="#">
+                                                                                                                                                                                                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80"
+                                                                                                                                                                                                    alt="Electronic City">
+                                                                                                                                                                                                <div class="name">
+                                                                                                                                                                                                    <i class="fa-solid fa-location-dot"></i>
+                                                                                                                                                                                                    Electronic City
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="count">1,100+ Properties</div>
+                                                                                                                                                                                            </a> -->
+
+
+
+
+                    @php
+                        $localityImages = [
+                            'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=500&q=80',
+                            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80',
+                        ];
+                    @endphp
+
+                    @foreach($popularLocalities as $index => $locality)
+
+                        <a class="locality" href="{{ route('rent') }}?location={{ urlencode($locality->locality) }}">
+
+                            <img src="{{ $localityImages[$index] }}" alt="{{ $locality->locality }}">
+
+                            <div class="name">
+                                <i class="fa-solid fa-location-dot"></i>
+                                {{ $locality->locality }}
+                            </div>
+
+                            <div class="count">
+                                {{ number_format($locality->property_count) }}+ Properties
+                            </div>
+
+                        </a>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="properties" class="reveal">
+        <div class="container">
+
+            <div class="section-head">
+                <h2>Featured Properties</h2>
+
+                <a class="view" href="{{ route('rent') }}">
+                    View all properties
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="property-grid stagger">
+
+                @forelse($featuredProperties as $property)
+
+                        @php
+                            $image = $property->images->first();
+
+                            $bhkLabel = trim($property->bhk ?? '');
+
+                            $bhkLabel = preg_replace('/\s*BHK\s*/i', '', $bhkLabel);
+
+                            $displayPropertyType = trim(
+                                preg_replace('/\s*BHK\s*/i', ' ', $property->property_type ?? '')
+                            );
+
+                            $fallbackImage = 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85';
+
+                            $imageUrl = $image && $image->image_path
+                                ? asset($image->image_path)
+                                : $fallbackImage;
+
+                            $cityName = $property->cityRelation->name
+                                ?? $property->city
+                                ?? '';
+
+                            $brokerName = $property->user->name
+                                ?? $property->owner_name
+                                ?? 'Property Owner';
+
+                            $brokerInitials = collect(
+                                preg_split('/\s+/', trim($brokerName))
+                            )
+                                ->filter()
+                                ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                                ->take(2)
+                                ->implode('');
+
+                            $listingBadge = match ($property->listing_for) {
+                                'Rent' => 'FOR RENT',
+                                'Sell' => 'FOR SALE',
+                                'Lease' => 'FOR LEASE',
+                                'PG' => 'PG',
+                                default => 'FEATURED',
+                            };
+                        @endphp
+
+                        <a href="{{ !empty($property->slug) ? route('propertydetails', ['slug' => $property->slug]) : '#' }}"
+                            class="card">
+
+                            <div class="card-image">
+
+                                <img src="{{ $imageUrl }}"
+                                    alt="{{ $property->property_title ?? $property->property_type ?? 'Property' }}" loading="lazy"
+                                    onerror="this.onerror=null;this.src='{{ $fallbackImage }}';">
+
+                                <span class="badge">
+                                    {{ $listingBadge }}
+                                </span>
+
+                                <span class="location">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    {{ $property->locality }}
+
+                                    @if($cityName)
+                                        , {{ $cityName }}
+                                    @endif
+                                </span>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="price">
+                                    ₹ {{ number_format((float) $property->price) }}
+
+                                    @if(in_array($property->listing_for, ['Rent', 'PG']))
+                                        <span>/month</span>
+                                    @elseif($property->listing_for === 'Lease')
+                                        <span>/lease</span>
+                                    @endif
+                                </div>
+
+                                <div class="title">
+                                    @if($bhkLabel !== '')
+                                        {{ $bhkLabel }} BHK
+                                    @endif
+
+                                    {{ $displayPropertyType }}
+                                </div>
+
+                                <div class="place">
+                                    {{ $property->locality }}
+
+                                    @if($cityName)
+                                        , {{ $cityName }}
+                                    @endif
+                                </div>
+
+                                <div class="meta">
+                                    <span>
+                                        <i class="fa-solid fa-bed"></i>
+                                        {{ !empty($property->bhk)
+                    ? trim(preg_replace('/\s*BHK\s*/i', '', $property->bhk)) . ' BHK'
+                    : '-' }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-bath"></i>
+                                        {{ $property->bathrooms ?? '-' }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-ruler-combined"></i>
+                                        {{ $property->area_sqft
+                    ? number_format($property->area_sqft) . ' sq.ft'
+                    : '-' }}
+                                    </span>
+                                </div>
+
+                                @if($property->furnishing)
+                                    <span class="tag">
+                                        {{ ucwords(str_replace('-', ' ', $property->furnishing)) }}
+                                    </span>
+                                @endif
+
+                                <!-- <div class="broker">
+                                                                                                                                                                                                                                                <div class="avatar">
+                                                                                                                                                                                                                                                    {{ $brokerInitials ?: 'PO' }}
+                                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                                <div class="broker-info">
+                                                                                                                                                                                                                                                    <div class="broker-name">
+                                                                                                                                                                                                                                                        {{ $brokerName }}
+                                                                                                                                                                                                                                                    </div>
+
+                                                                                                                                                                                                                                                    <div class="verified">
+                                                                                                                                                                                                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                                                                                                                                                                                                        {{ $property->user
+                                                                                                                                                                                                                                ? 'Verified'
+                                                                                                                                                                                                                                : 'Property Owner' }}
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                            </div> -->
+
+                            </div>
+
+                        </a>
+
+                @empty
+
+                    <p>No featured properties are available right now.</p>
+
+                @endforelse
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="types" class="reveal">
+
+        <div class="container">
+
+            <div class="section-head">
+                <h2>Browse Properties by Type</h2>
+            </div>
+
+ <div class="type-grid stagger">
+
+    @forelse($propertyTypes as $type)
+
+        @php
+            $typeName = trim($type->name ?? '');
+
+            $typeKey = strtolower($typeName);
+
+            $typeIcon = match (true) {
+                str_contains($typeKey, 'villa') => 'fa-house',
+                str_contains($typeKey, 'apartment') => 'fa-layer-group',
+                str_contains($typeKey, 'individual') => 'fa-building',
+                str_contains($typeKey, 'house') => 'fa-house-chimney',
+                str_contains($typeKey, 'plot'),
+                str_contains($typeKey, 'land') => 'fa-map',
+                str_contains($typeKey, 'commercial') => 'fa-city',
+                str_contains($typeKey, 'office') => 'fa-briefcase',
+                str_contains($typeKey, 'shop') => 'fa-shop',
+                str_contains($typeKey, 'pg') => 'fa-people-roof',
+                default => 'fa-building',
+            };
+
+            $typeCount = $propertyTypeCounts[$typeName] ?? 0;
+        @endphp
+
+        <a class="type"
+           href="{{ route('rent') }}?type={{ urlencode($typeName) }}">
+
+            <div class="type-icon">
+                <i class="fa-solid {{ $typeIcon }}"></i>
+            </div>
+
+            <div class="type-name">
+                {{ $typeName }}
+            </div>
+
+            <div class="type-count">
+                {{ number_format($typeCount) }} Properties
+            </div>
+
+        </a>
+
+    @empty
+
+        <p>No property types available right now.</p>
+
+    @endforelse
+
+</div>
+
+        </div>
+
+    </section>
+
+
+    <section id="about" class="reveal">
+        <div class="container">
+
+            <div class="section-head">
+                <h2>Why Choose Keys Please Venture?</h2>
+            </div>
+
+            <div class="why-grid stagger">
+
+                <!-- Why 1 -->
+                <!-- Why 1 -->
+                <div class="why">
+                    <div class="why-icon"><i class="fa-solid fa-circle-check"></i></div>
+
+                    <h3>Only Verified Listings</h3>
+
+                    <p>
+                        All properties are verified for your safety.
+                    </p>
+                </div>
+
+
+                <!-- Why 2 -->
+                <div class="why">
+                    <div class="why-icon"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+
+                    <h3>Easy Area-wise Search</h3>
+
+                    <p>
+                        Find properties in your preferred localities.
+                    </p>
+                </div>
+
+
+                <!-- Why 3 -->
+                <div class="why">
+                    <div class="why-icon"><i class="fa-solid fa-lock"></i></div>
+
+                    <h3>Secure &amp; Transparent</h3>
+
+                    <p>
+                        100% transparent process with no hidden charges.
+                    </p>
+                </div>
+
+
+                <!-- Why 4 -->
+                <div class="why">
+                    <div class="why-icon"><i class="fa-solid fa-bolt"></i></div>
+
+                    <h3>Quick Enquiry</h3>
+
+                    <p>
+                        Get quick response from owners.
+                    </p>
+                </div>
+
+
+                <!-- Why 5 -->
+                <div class="why">
+                    <div class="why-icon"><i class="fa-solid fa-people-group"></i></div>
+
+                    <h3>Trusted by Thousands</h3>
+
+                    <p>
+                        Helping 1000+ families find homes.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <div class="container">
+
+        <div class="cta-row">
+
+            <!-- Brokerage Policy -->
+            <div class="policy">
+
+                <div class="policy-icon">
+                    <i class="fa-solid fa-percent"></i>
+                </div>
+
+                <div class="policy-content">
+
+                    <h3>Brokerage Policy</h3>
+
+                    <p>
+                        One month's rent will be applicable as brokerage
+                        upon successful closure of the rental agreement / deal.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Owner / Broker CTA -->
+            <div class="cta" id="brokers">
+
+                <div class="cta-content">
+
+                    <h2>
+                        Are you a Property Owner?
+                    </h2>
+
+                    <p>
+                        List your properties and connect with genuine tenants.
+                        <br>
+                        Grow your business with Keys Please Venture.
+                    </p>
+
+                    <button type="button">
+                        <a href="{{ route('broker.register') }}"> List Your Property Now</a>
+                        <span><i class="fa-solid fa-arrow-right"></i></span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+                                                                                                                                                                                                                                                                                                                         NEWSLETTER
+                                                                                                                                                                                                                                                                                                                         ========================================================= -->
+
+    <div class="newsletter">
+
+        <div class="container news-inner">
+
+            <div class="news-content">
+
+                <div class="news-title">
+                    Stay Updated
+                </div>
+
+                <div class="news-sub">
+                    Subscribe to get the latest properties in Bengaluru.
+                </div>
+
+            </div>
+
+
+            <form class="subscribe" id="subscribeForm" action="{{ route('subscribe.store') }}" method="POST">
+                @csrf
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <input id="email" type="email" name="email" placeholder="Enter your email address" autocomplete="email"
+                    required>
+
+                <button type="submit">
+                    Subscribe
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+
+    <script>
+        (function () {
+            'use strict';
+
+            // =========================
+            // RENT / SELL MODE
+            // =========================
+
+            var rpfMode = 'rent';
+
+            var rpfTabs = document.querySelectorAll('.rpf-tab');
+
+            var rpfMinRent = document.getElementById('rpfMinRent');
+            var rpfMaxRent = document.getElementById('rpfMaxRent');
+
+            var rpfRentRangeValue = document.getElementById('rpfRentRangeValue');
+            var rpfRentRangeDropdown = document.getElementById('rpfRentRangeDropdown');
+
+
+            // =========================
+            // PRICE RANGE DATA
+            // =========================
+
+            var rentRanges = [
+                { label: '₹10,000 - ₹25,000', min: 10000, max: 25000 },
+                { label: '₹25,000 - ₹50,000', min: 25000, max: 50000 },
+                { label: '₹50,000 - ₹75,000', min: 50000, max: 75000 },
+                { label: '₹75,000 - ₹1,00,000', min: 75000, max: 100000 },
+                { label: '₹1,00,000 - ₹1,50,000', min: 100000, max: 150000 },
+                { label: '₹1,50,000 - ₹2,00,000', min: 150000, max: 200000 },
+                { label: '₹2,00,000 - ₹2,50,000', min: 200000, max: 250000 },
+                { label: '₹2,50,000 - ₹3,00,000', min: 250000, max: 300000 },
+                { label: '₹3,00,000 - ₹3,50,000', min: 300000, max: 350000 },
+                { label: '₹3,50,000 - ₹4,00,000', min: 350000, max: 400000 },
+                { label: '₹4,00,000 - ₹5,00,000', min: 400000, max: 500000 },
+                { label: '₹5,00,000+ (5 Lakhs & Above)', min: 500000, max: 999999999 }
+            ];
+
+            var sellRanges = [
+                { label: '₹20L - ₹50L', min: 2000000, max: 5000000 },
+                { label: '₹50L - ₹1Cr', min: 5000000, max: 10000000 },
+                { label: '₹1Cr - ₹5Cr', min: 10000000, max: 50000000 },
+                { label: '₹5Cr - ₹10Cr+', min: 50000000, max: 100000000 }
+            ];
+
+
+            // =========================
+            // CLOSE DROPDOWNS
+            // =========================
+
+            function rpfCloseAllDropdowns(except) {
+
+                document.querySelectorAll('.rpf-dropdown').forEach(function (dropdown) {
+
+                    if (dropdown !== except) {
+                        dropdown.classList.remove('rpf-dropdown-open');
+                    }
+
+                });
+
+                document.querySelectorAll('.rpf-control').forEach(function (control) {
+
+                    var dropdown = control.querySelector('.rpf-dropdown');
+
+                    if (!dropdown || dropdown !== except) {
+                        control.classList.remove('rpf-control-open');
+                    }
+
+                });
+
+            }
+
+
+            // =========================
+            // UPDATE PRICE DROPDOWN
+            // =========================
+
+            function rpfUpdatePriceDropdown() {
+
+                if (!rpfRentRangeDropdown) return;
+
+                rpfRentRangeDropdown.innerHTML = '';
+
+                var ranges = rpfMode === 'sell'
+                    ? sellRanges
+                    : rentRanges;
+
+
+                // Any Range button
+
+                var anyButton = document.createElement('button');
+
+                anyButton.type = 'button';
+
+                anyButton.setAttribute('data-value', 'Any Range');
+                anyButton.setAttribute('data-min', '');
+                anyButton.setAttribute('data-max', '');
+
+                anyButton.textContent = 'Any Range';
+
+                rpfRentRangeDropdown.appendChild(anyButton);
+
+
+                // Add price range buttons
+
+                ranges.forEach(function (range) {
+
+                    var button = document.createElement('button');
+
+                    button.type = 'button';
+
+                    button.setAttribute('data-value', range.label);
+                    button.setAttribute('data-min', range.min);
+                    button.setAttribute('data-max', range.max);
+
+                    button.textContent = range.label;
+
+                    rpfRentRangeDropdown.appendChild(button);
+
+                });
+
+            }
+
+
+            // =========================
+            // SET RENT / SELL MODE
+            // =========================
+
+            function rpfSetMode(mode) {
+
+                if (mode !== 'rent' && mode !== 'sell') {
+                    mode = 'rent';
+                }
+
+                rpfMode = mode;
+
+                rpfTabs.forEach(function (tab) {
+
+                    tab.classList.remove('rpf-tab-active');
+
+                    if (tab.getAttribute('data-mode') === mode) {
+                        tab.classList.add('rpf-tab-active');
+                    }
+
+                });
+
+
+                // Reset selected price range
+
+                if (rpfMinRent) {
+                    rpfMinRent.value = '';
+                }
+
+                if (rpfMaxRent) {
+                    rpfMaxRent.value = '';
+                }
+
+                if (rpfRentRangeValue) {
+                    rpfRentRangeValue.textContent = 'Any Range';
+                }
+
+
+                // Close dropdowns
+
+                rpfCloseAllDropdowns();
+
+
+                // Update available price ranges
+
+                rpfUpdatePriceDropdown();
+
+            }
+
+
+            // Support existing inline onclick buttons
+
+            window.rpfSetMode = rpfSetMode;
+
+
+            // =========================
+            // RENT / SELL TAB CLICK
+            // =========================
+
+            rpfTabs.forEach(function (tab) {
+
+                tab.addEventListener('click', function (e) {
+
+                    e.stopPropagation();
+
+                    var mode = tab.getAttribute('data-mode') || 'rent';
+
+                    rpfSetMode(mode);
+
+                });
+
+            });
+
+
+            // =========================
+            // GENERIC DROPDOWNS
+            // PROPERTY TYPE / BHK / PRICE
+            // =========================
+
+            var rpfControls = document.querySelectorAll(
+                '.rpf-control[data-target]'
+            );
+
+            rpfControls.forEach(function (control) {
+
+                var dropdownId = control.getAttribute('data-target');
+
+                var dropdown = document.getElementById(dropdownId);
+
+                var valueEl = control.querySelector('.rpf-control-value');
+
+                if (!dropdown || !valueEl) return;
+
+
+                // Open / close dropdown
+
+                control.addEventListener('click', function (e) {
+
+                    e.stopPropagation();
+
+                    var isOpen = dropdown.classList.contains(
+                        'rpf-dropdown-open'
+                    );
+
+                    rpfCloseAllDropdowns();
+
+                    if (!isOpen) {
+
+                        dropdown.classList.add('rpf-dropdown-open');
+
+                        control.classList.add('rpf-control-open');
+
+                    }
+
+                });
+
+
+                // Dropdown option click
+                // Event delegation supports dynamic price buttons
+
+                dropdown.addEventListener('click', function (e) {
+
+                    var btn = e.target.closest('button');
+
+                    if (!btn || !dropdown.contains(btn)) return;
+
+                    e.stopPropagation();
+
+
+                    // Update displayed value
+
+                    valueEl.textContent =
+                        btn.getAttribute('data-value') || '';
+
+
+                    // Price range selection
+
+                    if (dropdownId === 'rpfRentRangeDropdown') {
+
+                        var minPrice =
+                            btn.getAttribute('data-min') || '';
+
+                        var maxPrice =
+                            btn.getAttribute('data-max') || '';
+
+
+                        if (rpfMinRent) {
+                            rpfMinRent.value = minPrice;
+                        }
+
+                        if (rpfMaxRent) {
+                            rpfMaxRent.value = maxPrice;
+                        }
+
+                    }
+
+
+                    // Close dropdown
+
+                    dropdown.classList.remove('rpf-dropdown-open');
+
+                    control.classList.remove('rpf-control-open');
+
+                });
+
+            });
+
+
+            // =========================
+            // LOCATION INPUT
+            // =========================
+
+            var rpfLocationControl =
+                document.getElementById('rpfLocationControl');
+
+            var rpfLocationInput =
+                document.getElementById('rpfLocation');
+
+            var rpfLocationDropdown =
+                document.getElementById('rpfLocationDropdown');
+
+            var rpfLocationClear =
+                document.getElementById('rpfLocationClear');
+
+
+            if (
+                rpfLocationControl &&
+                rpfLocationInput &&
+                rpfLocationDropdown
+            ) {
+
+
+                // Location input focus
+
+                rpfLocationInput.addEventListener('focus', function () {
+
+                    rpfCloseAllDropdowns(rpfLocationDropdown);
+
+                    rpfLocationDropdown.classList.add(
+                        'rpf-dropdown-open'
+                    );
+
+                    rpfLocationControl.classList.add(
+                        'rpf-control-open'
+                    );
+
+                });
+
+
+                // Location search
+
+                rpfLocationInput.addEventListener('input', function () {
+
+                    var searchText = rpfLocationInput.value
+                        .toLowerCase()
+                        .trim();
+
+
+                    // Show / hide clear button
+
+                    if (rpfLocationClear) {
+
+                        rpfLocationClear.style.display =
+                            searchText ? 'flex' : 'none';
+
+                    }
+
+
+                    // Filter location options
+
+                    var locationButtons =
+                        rpfLocationDropdown.querySelectorAll('button');
+
+                    locationButtons.forEach(function (btn) {
+
+                        var locationName = (
+                            btn.getAttribute('data-value') || ''
+                        ).toLowerCase();
+
+
+                        if (
+                            searchText === '' ||
+                            locationName.includes(searchText)
+                        ) {
+
+                            btn.style.display = 'flex';
+
+                        } else {
+
+                            btn.style.display = 'none';
+
+                        }
+
+                    });
+
+
+                    // Keep dropdown open while searching
+
+                    rpfLocationDropdown.classList.add(
+                        'rpf-dropdown-open'
+                    );
+
+                    rpfLocationControl.classList.add(
+                        'rpf-control-open'
+                    );
+
+                });
+
+
+                // Clear location
+
+                if (rpfLocationClear) {
+
+                    rpfLocationClear.addEventListener('click', function (e) {
+
+                        e.stopPropagation();
+
+                        rpfLocationInput.value = '';
+
+                        rpfLocationClear.style.display = 'none';
+
+
+                        // Reset location options
+
+                        var locationButtons =
+                            rpfLocationDropdown.querySelectorAll('button');
+
+                        locationButtons.forEach(function (btn) {
+
+                            btn.style.display = 'flex';
+
+                        });
+
+
+                        // Keep location dropdown open
+
+                        rpfLocationInput.focus();
+
+                    });
+
+                }
+
+
+                // Location option selection
+
+                rpfLocationDropdown.addEventListener('click', function (e) {
+
+                    var btn = e.target.closest('button');
+
+                    if (!btn || !rpfLocationDropdown.contains(btn)) {
+                        return;
+                    }
+
+                    e.stopPropagation();
+
+
+                    // Set selected location
+
+                    rpfLocationInput.value =
+                        btn.getAttribute('data-value') || '';
+
+
+                    // Show clear button
+
+                    if (rpfLocationClear) {
+                        rpfLocationClear.style.display = 'flex';
+                    }
+
+
+                    // Reset location options
+
+                    var locationButtons =
+                        rpfLocationDropdown.querySelectorAll('button');
+
+                    locationButtons.forEach(function (locationButton) {
+
+                        locationButton.style.display = 'flex';
+
+                    });
+
+
+                    // Close dropdown
+
+                    rpfLocationDropdown.classList.remove(
+                        'rpf-dropdown-open'
+                    );
+
+                    rpfLocationControl.classList.remove(
+                        'rpf-control-open'
+                    );
+
+                });
+
+            }
+
+
+            // =========================
+            // CLOSE WHEN CLICKING OUTSIDE
+            // =========================
+
+            document.addEventListener('click', function () {
+
+                rpfCloseAllDropdowns();
+
+            });
+
+
+            // =========================
+            // INITIALIZE
+            // =========================
+
+            var initialActiveTab = document.querySelector(
+                '.rpf-tab.rpf-tab-active'
+            );
+
+            if (initialActiveTab) {
+
+                rpfMode = initialActiveTab.getAttribute('data-mode') || 'rent';
+
+            }
+
+
+            // Generate initial price options
+
+            rpfUpdatePriceDropdown();
+
+
+        })();
+
+
+        // =========================
+        // SEARCH PROPERTIES
+        // =========================
+
+        function rpfSearchProperties() {
+
+            // =========================
+            // LOCATION
+            // =========================
+
+            var locationInput = document.getElementById('rpfLocation');
+
+            var location = locationInput
+                ? locationInput.value.trim()
+                : '';
+
+
+            // =========================
+            // PROPERTY TYPE
+            // =========================
+
+            var propertyTypeEl = document.getElementById(
+                'rpfPropertyTypeValue'
+            );
+
+            var propertyType = propertyTypeEl
+                ? propertyTypeEl.textContent.trim()
+                : '';
+
+
+            // =========================
+            // BHK
+            // =========================
+
+            var bhkEl = document.getElementById('rpfBhkValue');
+
+            var bhk = bhkEl
+                ? bhkEl.textContent.trim()
+                : '';
+
+
+            // =========================
+            // PRICE
+            // =========================
+
+            var minPriceEl = document.getElementById('rpfMinRent');
+
+            var maxPriceEl = document.getElementById('rpfMaxRent');
+
+            var minPrice = minPriceEl
+                ? minPriceEl.value
+                : '';
+
+            var maxPrice = maxPriceEl
+                ? maxPriceEl.value
+                : '';
+
+
+            // =========================
+            // SELECTED MODE
+            // =========================
+
+            var activeTab = document.querySelector(
+                '.rpf-tab.rpf-tab-active'
+            );
+
+            var mode = activeTab
+                ? activeTab.getAttribute('data-mode')
+                : 'rent';
+
+
+            // Validate mode
+
+            if (mode !== 'rent' && mode !== 'sell') {
+                mode = 'rent';
+            }
+
+
+            // =========================
+            // URL PARAMETERS
+            // =========================
+
+            var params = new URLSearchParams();
+
+
+            // IMPORTANT:
+            // Send mode to Laravel controller
+
+            params.set('mode', mode);
+
+
+            // =========================
+            // LOCATION
+            // =========================
+
+            if (location) {
+
+                params.set('location', location);
+
+            }
+
+
+            // =========================
+            // PROPERTY TYPE
+            // =========================
+
+            if (propertyType && propertyType !== 'Any Type') {
+
+                params.set('type', propertyType);
+
+            }
+
+
+            // =========================
+            // BHK
+            // =========================
+
+            if (bhk && bhk !== 'Any') {
+
+                params.set(
+                    'bhk',
+                    bhk.replace(' BHK', '')
+                );
+
+            }
+
+
+            // =========================
+            // PRICE FILTERS
+            // =========================
+
+            if (minPrice !== '') {
+
+                params.set(
+                    mode === 'sell' ? 'min_price' : 'min_rent',
+                    minPrice
+                );
+
+            }
+
+
+            if (maxPrice !== '') {
+
+                params.set(
+                    mode === 'sell' ? 'max_price' : 'max_rent',
+                    maxPrice
+                );
+
+            }
+
+
+            // =========================
+            // REDIRECT
+            // =========================
+
+            // Rent and Sell both use the same listing page
+
+            // =========================
+            // REDIRECT TO RENT / SELL
+            // =========================
+
+            var url = mode === 'sell' ? '/sell' : '/rent';
+
+            var query = params.toString();
+
+            if (query) {
+                url += '?' + query;
+            }
+
+            // Redirect
+            window.location.href = url;
+
+        }
+    </script>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const subscribeForm = document.getElementById('subscribeForm');
+
+            if (!subscribeForm) return;
+
+            subscribeForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const button = subscribeForm.querySelector('button[type="submit"]');
+                const originalText = button.innerHTML;
+
+                button.disabled = true;
+                button.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Subscribing...';
+
+                try {
+                    const formData = new FormData(subscribeForm);
+
+                    const response = await fetch(subscribeForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        const firstError = result.errors
+                            ? Object.values(result.errors).flat()[0]
+                            : result.message;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Subscription Failed',
+                            text: firstError || 'Unable to subscribe. Please try again.',
+                            confirmButtonColor: '#071b3d'
+                        });
+
+                        return;
+                    }
+
+                    if (result.success) {
+
+                        subscribeForm.reset();
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Subscribed!',
+                            text: result.message || 'You have subscribed successfully.',
+                            confirmButtonColor: '#071b3d'
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Subscription Failed',
+                            text: result.message || 'Unable to subscribe. Please try again.',
+                            confirmButtonColor: '#071b3d'
+                        });
+                    }
+
+                } catch (error) {
+
+                    console.error('Subscription error:', error);
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something Went Wrong',
+                        text: 'Unable to subscribe. Please try again.',
+                        confirmButtonColor: '#071b3d'
+                    });
+
+                } finally {
+
+                    button.disabled = false;
+                    button.innerHTML = originalText;
+
+                }
+            });
+
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const localityGrid = document.getElementById('localityGrid');
+            const localityPrev = document.getElementById('localityPrev');
+            const localityNext = document.getElementById('localityNext');
+
+            if (!localityGrid) return;
+
+
+            /* =========================================================
+               ORIGINAL CARDS
+            ========================================================= */
+
+            const originalCards = Array.from(
+                localityGrid.querySelectorAll('.locality')
+            );
+
+            if (!originalCards.length) return;
+
+
+            /* =========================================================
+               CLONE THE COMPLETE SET
+            ========================================================= */
+
+            originalCards.forEach(function (card) {
+
+                const clone = card.cloneNode(true);
+
+                clone.classList.add('locality-clone');
+
+                localityGrid.appendChild(clone);
+
+            });
+
+
+            let position = 0;
+            let lastTime = performance.now();
+
+            let isPaused = false;
+
+            let direction = 1;
+
+            const speed = 45; // pixels per second
+
+
+            /* =========================================================
+               GET ONE COMPLETE SET WIDTH
+            ========================================================= */
+
+            function getSetWidth() {
+
+                const originalCount = originalCards.length;
+
+                const allCards =
+                    localityGrid.querySelectorAll('.locality');
+
+                if (!allCards[originalCount - 1]) {
+                    return 0;
+                }
+
+                const firstCard =
+                    allCards[0].getBoundingClientRect();
+
+                const lastOriginalCard =
+                    allCards[originalCount - 1].getBoundingClientRect();
+
+                const gap =
+                    parseFloat(
+                        window.getComputedStyle(localityGrid).gap
+                    ) || 0;
+
+                return (
+                    lastOriginalCard.right -
+                    firstCard.left +
+                    gap
+                );
+            }
+
+
+            /* =========================================================
+               CONTINUOUS ANIMATION
+            ========================================================= */
+
+            function animate(currentTime) {
+
+                const delta =
+                    (currentTime - lastTime) / 1000;
+
+                lastTime = currentTime;
+
+
+                if (!isPaused) {
+
+                    position += speed * delta * direction;
+
+                    const setWidth = getSetWidth();
+
+
+                    /*
+                     * Moving forward:
+                     *
+                     * After one complete set has passed,
+                     * reset by exactly one set width.
+                     *
+                     * Because the second set is identical,
+                     * there is NO visible jump.
+                     */
+
+                    if (direction === 1 && position >= setWidth) {
+
+                        position -= setWidth;
+
+                    }
+
+
+                    /*
+                     * Moving backward.
+                     */
+
+                    if (direction === -1 && position <= 0) {
+
+                        position += setWidth;
+
+                    }
+
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                }
+
+
+                requestAnimationFrame(animate);
+
+            }
+
+
+            /* =========================================================
+               NEXT BUTTON
+            ========================================================= */
+
+            if (localityNext) {
+
+                localityNext.addEventListener('click', function () {
+
+                    direction = 1;
+
+                    /*
+                     * Move forward faster when clicked.
+                     */
+
+                    position += getSetWidth() / originalCards.length;
+
+                    const setWidth = getSetWidth();
+
+                    if (position >= setWidth) {
+                        position -= setWidth;
+                    }
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                });
+
+            }
+
+
+            /* =========================================================
+               PREVIOUS BUTTON
+            ========================================================= */
+
+            if (localityPrev) {
+
+                localityPrev.addEventListener('click', function () {
+
+                    direction = -1;
+
+                    /*
+                     * Move one card backward.
+                     */
+
+                    position -= getSetWidth() / originalCards.length;
+
+                    const setWidth = getSetWidth();
+
+                    if (position < 0) {
+                        position += setWidth;
+                    }
+
+                    localityGrid.style.transform =
+                        `translate3d(${-position}px, 0, 0)`;
+
+                });
+
+            }
+
+
+            /* =========================================================
+               PAUSE ON HOVER
+            ========================================================= */
+
+            localityGrid.addEventListener('mouseenter', function () {
+
+                isPaused = true;
+
+            });
+
+
+            localityGrid.addEventListener('mouseleave', function () {
+
+                isPaused = false;
+
+                lastTime = performance.now();
+
+            });
+
+
+            /* =========================================================
+               TOUCH
+            ========================================================= */
+
+            localityGrid.addEventListener('touchstart', function () {
+
+                isPaused = true;
+
+            }, {
+                passive: true
+            });
+
+
+            localityGrid.addEventListener('touchend', function () {
+
+                setTimeout(function () {
+
+                    isPaused = false;
+
+                    lastTime = performance.now();
+
+                }, 1000);
+
+            }, {
+                passive: true
+            });
+
+
+            /* =========================================================
+               RESIZE
+            ========================================================= */
+
+            window.addEventListener('resize', function () {
+
+                const setWidth = getSetWidth();
+
+                if (setWidth > 0 && position >= setWidth) {
+
+                    position %= setWidth;
+
+                }
+
+            });
+
+
+            /* =========================================================
+               START
+            ========================================================= */
+
+            requestAnimationFrame(animate);
+
+        });
+    </script>
+
+
+
+
+
+    <script>
+
+
+        let rpfAutocomplete;
+
+        function initRpfLocationAutocomplete() {
+            const input = document.getElementById("rpfLocation");
+            const dropdown = document.getElementById("rpfLocationDropdown");
+            const clear = document.getElementById("rpfLocationClear");
+
+            if (!input || !dropdown || !window.google?.maps?.places) return;
+
+            const bengaluruBounds = new google.maps.LatLngBounds(
+                { lat: 12.7343, lng: 77.3790 },
+                { lat: 13.1737, lng: 77.8827 }
+            );
+
+            rpfAutocomplete = new google.maps.places.Autocomplete(input, {
+                bounds: bengaluruBounds,
+                strictBounds: true,
+                componentRestrictions: { country: "in" },
+                fields: ["formatted_address", "name", "geometry"],
+                types: ["geocode"]
+            });
+
+            rpfAutocomplete.addListener("place_changed", function () {
+                const place = rpfAutocomplete.getPlace();
+
+                if (!place.geometry?.location) {
+                    input.value = "";
+                    alert("Please select a location within Bengaluru.");
+                    return;
+                }
+
+                const location = place.geometry.location;
+
+                if (!bengaluruBounds.contains(location)) {
+                    input.value = "";
+                    alert("Please select a location within Bengaluru.");
+                    return;
+                }
+
+                input.value = place.name || place.formatted_address || "";
+                dropdown.style.display = "none";
+
+                if (clear) {
+                    clear.style.display = input.value ? "inline-flex" : "none";
+                }
+            });
+
+            input.addEventListener("input", function () {
+                dropdown.style.display = "none";
+
+                if (clear) {
+                    clear.style.display = input.value ? "inline-flex" : "none";
+                }
+            });
+
+            if (clear) {
+                clear.addEventListener("click", function () {
+                    input.value = "";
+                    clear.style.display = "none";
+                    input.focus();
+                });
+            }
+        }
+
+
+    </script>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initRpfLocationAutocomplete">
+        </script>
+
+
+
+@endsection
+
+
+<style id="keys-please-responsive-final">
+    /* =========================================================
+   KEYS PLEASE — FINAL RESPONSIVE SYSTEM
+   Existing HTML, routes, JS, API calls and business logic
+   are intentionally untouched.
+========================================================= */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    img,
+    svg,
+    video,
+    iframe,
+    canvas {
+        display: block;
+        max-width: 100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    .container {
+        width: min(100% - 40px, 1600px);
+        margin-inline: auto;
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+        width: 100%;
+        min-height: clamp(460px, 42vw, 550px);
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        width: 100%;
+        max-width: 1600px;
+        min-width: 0;
+    }
+
+    .hero-copy,
+    .search-card,
+    .rpf-search-card {
+        min-width: 0;
+    }
+
+    .hero h1,
+    .hero p,
+    .eyebrow {
+        max-width: 100%;
+    }
+
+    .hero p br {
+        display: none;
+    }
+
+    /* ---------- SEARCH ---------- */
+
+    .search-card,
+    .rpf-search-card {
+        max-width: 100%;
+    }
+
+    .search-tabs,
+    .rpf-tabs {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .form-grid,
+    .rpf-form-grid {
+        min-width: 0;
+    }
+
+    .field,
+    .rpf-field {
+        min-width: 0;
+    }
+
+    .control,
+    .rpf-control {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .control input,
+    .rpf-control input {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .control-dropdown,
+    .rpf-dropdown {
+        max-width: 100%;
+        z-index: 1000;
+    }
+
+    .search-btn,
+    .rpf-search-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* ---------- TRUST ---------- */
+
+    .trust {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .trust-item,
+    .trust-content {
+        min-width: 0;
+    }
+
+    .trust-title,
+    .trust-sub {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* ---------- SECTIONS ---------- */
+
+    section {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .section-head {
+        min-width: 0;
+        gap: 16px;
+    }
+
+    .section-head h2 {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .view {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    /* ---------- GRIDS ---------- */
+
+    .locality-grid,
+    .property-grid,
+    .type-grid,
+    .why-grid {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .locality,
+    .card,
+    .type,
+    .why {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .locality img,
+    .card-image,
+    .card-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-image img,
+    .locality img {
+        object-fit: cover;
+    }
+
+    .card-body,
+    .broker,
+    .broker-info {
+        min-width: 0;
+    }
+
+    .place,
+    .broker-name,
+    .type-name {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    /* Keep metadata usable on narrow cards */
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+    .meta span {
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    /* ---------- CTA / NEWSLETTER ---------- */
+
+    .cta-row {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .policy,
+    .cta,
+    .policy-content,
+    .cta-content,
+    .news-inner,
+    .news-content,
+    .subscribe {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .cta p,
+    .policy p,
+    .news-sub {
+        overflow-wrap: anywhere;
+    }
+
+    .subscribe {
+        display: flex;
+    }
+
+    .subscribe input {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .subscribe button {
+        flex: 0 0 auto;
+    }
+
+    /* =========================================================
+   LARGE DESKTOP — 1441px+
+========================================================= */
+
+    @media (min-width: 1441px) {
+        .container {
+            width: min(100% - 64px, 1600px);
+        }
+
+        .hero-inner {
+            gap: 56px;
+        }
+
+        .hero-copy {
+            width: min(52%, 680px);
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 3vw, 48px);
+        }
+
+        .search-card,
+        .rpf-search-card {
+            width: min(480px, 42vw);
+        }
+
+        .locality-grid {
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+        }
+
+        .property-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .type-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        .why-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+    }
+
+    /* =========================================================
+   DESKTOP — 1025px–1440px
+========================================================= */
+
+    @media (min-width: 1025px) and (max-width: 1440px) {
+        .container {
+            width: calc(100% - 48px);
+            max-width: 1360px;
+        }
+
+        .hero-inner {
+            gap: clamp(24px, 3vw, 42px);
+        }
+
+        .hero-copy {
+            width: min(50%, 620px);
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 3vw, 42px);
+        }
+
+        .search-card,
+        .rpf-search-card {
+            width: min(450px, 44vw);
+        }
+
+        .locality-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .property-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .type-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .why-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    /* =========================================================
+   SMALL LAPTOP — 769px–1024px
+========================================================= */
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .container {
+            width: calc(100% - 32px);
+            max-width: 960px;
+        }
+
+        .hero {
+            min-height: auto;
+        }
+
+        .hero-inner {
+            min-height: 0;
+            padding: 40px 0 55px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+            gap: 28px;
+            align-items: center;
+        }
+
+        .hero-copy {
+            width: auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 4vw, 40px);
+        }
+
+        .hero p {
+            max-width: 420px;
+        }
+
+        .search-card,
+        .rpf-search-card {
+            width: 100%;
+        }
+
+        .locality-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .property-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .type-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .why-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .cta-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .news-inner {
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .subscribe {
+            width: min(100%, 440px);
+        }
+    }
+
+    /* =========================================================
+   TABLET — 481px–768px
+========================================================= */
+
+    @media (min-width: 481px) and (max-width: 768px) {
+        .container {
+            width: calc(100% - 28px);
+        }
+
+        .hero {
+            min-height: auto;
+        }
+
+        .hero-inner {
+            min-height: 0;
+            padding: 34px 0 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 24px;
+        }
+
+        .hero-copy {
+            width: 100%;
+            text-align: center;
+            padding-top: 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 7vw, 38px);
+            line-height: 1.12;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin-inline: auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .search-card,
+        .rpf-search-card {
+            width: 100%;
+            padding: 18px;
+        }
+
+        .form-grid,
+        .rpf-form-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .field.full,
+        .rpf-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .locality-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .property-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .type-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .why-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .cta-row {
+            grid-template-columns: 1fr;
+        }
+
+        .news-inner {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            padding: 24px 0;
+        }
+
+        .subscribe {
+            width: 100%;
+        }
+    }
+
+    /* =========================================================
+   MOBILE — 320px–480px
+========================================================= */
+
+    @media (min-width: 320px) and (max-width: 480px) {
+        .container {
+            width: calc(100% - 20px);
+        }
+
+        .hero {
+            min-height: auto;
+        }
+
+        .hero-inner {
+            min-height: 0;
+            padding: 28px 0 42px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-copy {
+            width: 100%;
+            padding: 0;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-size: clamp(10px, 3vw, 13px);
+            line-height: 1.35;
+            margin-bottom: 9px;
+        }
+
+        .hero h1 {
+            font-size: clamp(27px, 8vw, 34px);
+            line-height: 1.12;
+            letter-spacing: -.8px;
+        }
+
+        .hero p {
+            max-width: 100%;
+            margin-top: 11px;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .search-card,
+        .rpf-search-card {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .search-tabs,
+        .rpf-tabs {
+            gap: 7px;
+        }
+
+        .tab,
+        .rpf-tab {
+            flex: 1 1 0;
+            min-width: 0;
+            padding-inline: 8px;
+        }
+
+        .form-grid,
+        .rpf-form-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .field.full,
+        .rpf-field.full {
+            grid-column: auto;
+        }
+
+        .control,
+        .rpf-control {
+            min-height: 40px;
+            height: auto;
+        }
+
+        .control input,
+        .rpf-control input {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .control-dropdown,
+        .rpf-dropdown {
+            width: 100%;
+            min-width: 0;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .search-btn,
+        .rpf-search-btn {
+            min-height: 42px;
+            height: auto;
+        }
+
+        .trust {
+            grid-template-columns: 1fr 1fr;
+            margin-top: -18px;
+        }
+
+        .trust-item {
+            padding: 12px 10px;
+            gap: 8px;
+            border-right: 1px solid rgba(255, 255, 255, .18);
+            border-bottom: 1px solid rgba(255, 255, 255, .18);
+        }
+
+        .trust-item:nth-child(2n) {
+            border-right: 0;
+        }
+
+        .trust-item:nth-last-child(-n + 2) {
+            border-bottom: 0;
+        }
+
+        .trust-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 18px;
+        }
+
+        .trust-title {
+            font-size: 11px;
+            line-height: 1.25;
+        }
+
+        .trust-sub {
+            font-size: 9px;
+            line-height: 1.35;
+        }
+
+        section {
+            padding-top: 28px;
+        }
+
+        .section-head {
+            align-items: flex-end;
+            margin-bottom: 14px;
+            gap: 8px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(17px, 5vw, 21px);
+            line-height: 1.2;
+        }
+
+        .view {
+            font-size: 9px;
+        }
+
+        .locality-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .locality img {
+            height: clamp(90px, 25vw, 120px);
+        }
+
+        .locality .name {
+            font-size: 11px;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .locality .count {
+            font-size: 8px;
+            white-space: normal;
+        }
+
+        .property-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .card-image {
+            height: clamp(190px, 58vw, 260px);
+        }
+
+        .card-body {
+            padding: 13px;
+        }
+
+        .price {
+            font-size: 18px;
+        }
+
+        .title {
+            font-size: 13px;
+        }
+
+        .place {
+            font-size: 10px;
+            white-space: normal;
+        }
+
+        .meta {
+            gap: 10px;
+            row-gap: 7px;
+            font-size: 9px;
+        }
+
+        .tag {
+            font-size: 8px;
+        }
+
+        .type-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .type {
+            height: 125px;
+            padding: 12px 7px;
+        }
+
+        .type-icon {
+            width: 43px;
+            height: 43px;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .type-name {
+            font-size: 10px;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .type-count {
+            font-size: 8px;
+        }
+
+        .why-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .why {
+            min-height: 0;
+            padding: 18px 15px;
+        }
+
+        .why h3 {
+            font-size: 13px;
+        }
+
+        .why p {
+            max-width: 100%;
+            font-size: 10px;
+        }
+
+        .cta-row {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .policy,
+        .cta {
+            min-height: 0;
+            padding: 18px 15px;
+        }
+
+        .policy-content,
+        .cta-content {
+            min-width: 0;
+        }
+
+        .policy h3,
+        .cta h2 {
+            font-size: 18px;
+            line-height: 1.25;
+        }
+
+        .policy p,
+        .cta p {
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        .cta button {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .news-inner {
+            min-height: auto;
+            padding: 22px 0;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 14px;
+        }
+
+        .news-title {
+            font-size: 19px;
+        }
+
+        .news-sub {
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .subscribe {
+            width: 100%;
+            height: auto;
+            min-height: 44px;
+        }
+
+        .subscribe input {
+            min-width: 0;
+            font-size: 11px;
+        }
+
+        .subscribe button {
+            width: 88px;
+            min-width: 78px;
+            height: 36px;
+            font-size: 10px;
+        }
+
+        /* Any modal/dropdown that is wider than the viewport is contained */
+        .modal,
+        .overlay,
+        .dialog,
+        [role="dialog"] {
+            max-width: calc(100vw - 16px);
+        }
+
+        table {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        a,
+        span,
+        label,
+        button,
+        td,
+        th {
+            overflow-wrap: anywhere;
+        }
+    }
+
+    /* =========================================================
+   BELOW 320px — overflow safety only
+========================================================= */
+
+    @media (max-width: 319px) {
+        .container {
+            width: calc(100% - 14px);
+        }
+
+        .hero h1 {
+            font-size: 26px;
+        }
+
+        .search-card,
+        .rpf-search-card {
+            padding: 11px;
+        }
+
+        .locality-grid,
+        .type-grid {
+            gap: 8px;
+        }
+
+        .property-grid {
+            gap: 12px;
+        }
+
+        .trust {
+            grid-template-columns: 1fr;
+        }
+
+        .trust-item,
+        .trust-item:nth-child(2n),
+        .trust-item:nth-last-child(-n + 2) {
+            border-right: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .18);
+        }
+
+        .trust-item:last-child {
+            border-bottom: 0;
+        }
+
+        .subscribe button {
+            width: 78px;
+        }
+    }
+
+    /* ---------- touch devices ---------- */
+
+    @media (hover: none) and (pointer: coarse) {
+
+        .locality:hover,
+        .card:hover,
+        .type:hover,
+        .why:hover,
+        .policy:hover,
+        .cta:hover,
+        .search-card:hover,
+        .rpf-search-card:hover {
+            transform: none;
+        }
+
+        .locality:hover img,
+        .card:hover .card-image img,
+        .type:hover .type-icon {
+            transform: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+    }
+
+    /* ---------- accessibility ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: .01ms !important;
+        }
+    }
+</style>

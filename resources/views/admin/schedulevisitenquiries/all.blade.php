@@ -3,7 +3,6 @@
 @section('content')
 
     <style>
-
         .schedule-visit-enquiry-page {
 
             position: relative;
@@ -321,23 +320,31 @@
 
         }
 
-                .schedule-visit-enquiry-table th:nth-child(1),
+        .schedule-visit-enquiry-table th:nth-child(1),
         .schedule-visit-enquiry-table td:nth-child(1) {
             width: 65px;
             text-align: center;
         }
 
         .schedule-visit-enquiry-table th:nth-child(2),
-        .schedule-visit-enquiry-table td:nth-child(2) { width: 220px; }
+        .schedule-visit-enquiry-table td:nth-child(2) {
+            width: 220px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(3),
-        .schedule-visit-enquiry-table td:nth-child(3) { width: 190px; }
+        .schedule-visit-enquiry-table td:nth-child(3) {
+            width: 190px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(4),
-        .schedule-visit-enquiry-table td:nth-child(4) { width: 150px; }
+        .schedule-visit-enquiry-table td:nth-child(4) {
+            width: 150px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(5),
-        .schedule-visit-enquiry-table td:nth-child(5) { width: 135px; }
+        .schedule-visit-enquiry-table td:nth-child(5) {
+            width: 135px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(6),
         .schedule-visit-enquiry-table td:nth-child(6) {
@@ -352,7 +359,9 @@
         }
 
         .schedule-visit-enquiry-table th:nth-child(8),
-        .schedule-visit-enquiry-table td:nth-child(8) { width: 155px; }
+        .schedule-visit-enquiry-table td:nth-child(8) {
+            width: 155px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(9),
         .schedule-visit-enquiry-table td:nth-child(9) {
@@ -361,7 +370,9 @@
         }
 
         .schedule-visit-enquiry-table th:nth-child(10),
-        .schedule-visit-enquiry-table td:nth-child(10) { width: 250px; }
+        .schedule-visit-enquiry-table td:nth-child(10) {
+            width: 250px;
+        }
 
         .schedule-visit-enquiry-table th:nth-child(11),
         .schedule-visit-enquiry-table td:nth-child(11) {
@@ -375,7 +386,7 @@
             text-align: center;
         }
 
-.schedule-visit-enquiry-number {
+        .schedule-visit-enquiry-number {
 
             display: inline-flex;
 
@@ -751,13 +762,88 @@
 
         }
 
+
+        /* SCHEDULE VISIT PAGINATION */
+.schedule-visit-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 20px;
+    background: #fff;
+    border-top: 1px solid #e5eaf1;
+}
+
+.schedule-visit-pagination-info {
+    color: #687389;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.schedule-visit-pagination-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.schedule-visit-pagination-list li a,
+.schedule-visit-pagination-list li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e0e6ee;
+    border-radius: 7px;
+    background: #fff;
+    color: #071b3d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.schedule-visit-pagination-list li.active a {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #fff;
+}
+
+.schedule-visit-pagination-list li a:hover {
+    background: #eef3ff;
+    border-color: #3157a6;
+}
+
+.schedule-visit-pagination-list li.disabled span {
+    background: #f5f7fa;
+    color: #a0a9b7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .schedule-visit-pagination {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .schedule-visit-pagination-list {
+        justify-content: center;
+    }
+}
     </style>
 
     <div class="schedule-visit-enquiry-page">
 
         <div class="schedule-visit-enquiry-main">
 
-            
+
 
             <div class="schedule-visit-enquiry-header">
 
@@ -775,7 +861,7 @@
 
             </div>
 
-           
+
 
             @if(session('success'))
 
@@ -789,7 +875,7 @@
 
             @endif
 
-            
+
 
             <div class="schedule-visit-enquiry-card">
 
@@ -835,13 +921,13 @@
 
                                                     <tr>
 
-                                                        
+
 
                                                         <td>
 
                                                             <span class="schedule-visit-enquiry-number">
 
-                                                                {{ $loop->iteration }}
+                                                                {{ $enquiries->firstItem() + $loop->index }}
 
                                                             </span>
 
@@ -904,7 +990,6 @@
                                                                                     @if($enquiry->property->owner_phone)
 
                                                                                         <a href="tel:{{ $enquiry->property->owner_phone }}"
-
                                                                                             class="schedule-visit-enquiry-phone-link">
 
                                                                                             {{ $enquiry->property->owner_phone }}
@@ -925,7 +1010,7 @@
 
                                                         </td>
 
-                                                       
+
                                                         <td>
 
                                                             <div class="schedule-visit-enquiry-name">
@@ -936,7 +1021,7 @@
 
                                                         </td>
 
-                                                        
+
 
                                                         <td>
 
@@ -964,7 +1049,7 @@
 
                                                         </td>
 
-                                                       
+
 
                                                         <td>
 
@@ -976,7 +1061,7 @@
 
                                     : '-'
 
-                                                                                                    }}
+                                                                                                                                }}
 
                                                             </span>
 
@@ -1042,7 +1127,7 @@
 
                                                         </td>
 
-                                                        
+
 
                                                         <td>
 
@@ -1078,7 +1163,7 @@
 
                                                         </td>
 
-                                                       
+
 
                                                         <td>
 
@@ -1156,7 +1241,6 @@
                                     $enquiry->id
 
                                 ) }}" method="POST"
-
                                                                 onsubmit="return confirm('Are you sure you want to delete this enquiry?');">
 
                                                                 @csrf
@@ -1164,7 +1248,6 @@
                                                                 @method('DELETE')
 
                                                                 <button type="submit" class="schedule-visit-enquiry-delete" title="Delete Enquiry"
-
                                                                     aria-label="Delete Enquiry">
 
                                                                     <i class="ti ti-trash"></i>
@@ -1179,7 +1262,7 @@
 
                             @empty
 
-                               
+
 
                                 <tr>
 
@@ -1210,6 +1293,54 @@
                     </table>
 
                 </div>
+
+                {{-- SCHEDULE VISIT PAGINATION --}}
+                @if($enquiries->total() > 0)
+                    <div class="schedule-visit-pagination">
+
+                        <div class="schedule-visit-pagination-info">
+                            Showing {{ $enquiries->firstItem() }}
+                            to {{ $enquiries->lastItem() }}
+                            of {{ $enquiries->total() }} enquiries
+                        </div>
+
+                        @if($enquiries->hasPages())
+                            <nav aria-label="Schedule visit enquiries pagination">
+                                <ul class="schedule-visit-pagination-list">
+
+                                    {{-- PREVIOUS --}}
+                                    <li class="{{ $enquiries->onFirstPage() ? 'disabled' : '' }}">
+                                        @if($enquiries->onFirstPage())
+                                            <span>Previous</span>
+                                        @else
+                                            <a href="{{ $enquiries->previousPageUrl() }}">Previous</a>
+                                        @endif
+                                    </li>
+
+                                    {{-- PAGE NUMBERS --}}
+                                    @for($page = 1; $page <= $enquiries->lastPage(); $page++)
+                                        <li class="{{ $enquiries->currentPage() == $page ? 'active' : '' }}">
+                                            <a href="{{ $enquiries->url($page) }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                    @endfor
+
+                                    {{-- NEXT --}}
+                                    <li class="{{ !$enquiries->hasMorePages() ? 'disabled' : '' }}">
+                                        @if(!$enquiries->hasMorePages())
+                                            <span>Next</span>
+                                        @else
+                                            <a href="{{ $enquiries->nextPageUrl() }}">Next</a>
+                                        @endif
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        @endif
+
+                    </div>
+                @endif
 
             </div>
 

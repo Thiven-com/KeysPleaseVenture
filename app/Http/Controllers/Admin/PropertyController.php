@@ -111,7 +111,7 @@ class PropertyController extends Controller
 
         $properties = $query
             ->latest()
-            ->paginate(20)
+            ->paginate(10)
             ->withQueryString();
 
         return view(
@@ -232,6 +232,7 @@ class PropertyController extends Controller
 
             'road_width' => 'nullable|numeric|min:0',
 
+            'bike_parking' => 'nullable|string|max:100',
             'car_parking' => 'nullable|string|max:100',
 
             'possession_status' => 'nullable|string|max:100',
@@ -341,6 +342,7 @@ class PropertyController extends Controller
             $property->property_condition = $validated['property_condition'] ?? null;
             $property->facing = $validated['facing'] ?? null;
             $property->road_width = $validated['road_width'] ?? null;
+            $property->bike_parking = $validated['bike_parking'] ?? null;
             $property->car_parking = $validated['car_parking'] ?? null;
             $property->possession_status = $validated['possession_status'] ?? null;
 
@@ -570,6 +572,7 @@ class PropertyController extends Controller
 
             'road_width' => 'nullable|numeric|min:0',
 
+            'bike_parking' => 'nullable|string|max:100',
             'car_parking' => 'nullable|string|max:100',
 
             'possession_status' => 'nullable|string|max:100',
@@ -711,6 +714,7 @@ class PropertyController extends Controller
 
                 'road_width' => $validated['road_width'] ?? null,
 
+                'bike_parking' => $validated['bike_parking'] ?? null,
                 'car_parking' => $validated['car_parking'] ?? null,
 
                 'possession_status' => $validated['possession_status'] ?? null,
@@ -719,17 +723,17 @@ class PropertyController extends Controller
 
                 // PRICE AND PROPERTY DETAILS
 
-'price' => $validated['price'],
+                'price' => $validated['price'],
 
-'security_deposit' => $isRental
-    ? ($validated['security_deposit'] ?? null)
-    : null,
+                'security_deposit' => $isRental
+                    ? ($validated['security_deposit'] ?? null)
+                    : null,
 
-'furnishing' => $validated['furnishing'],
+                'furnishing' => $validated['furnishing'],
 
-'available_from' => $isRental
-    ? ($validated['available_from'] ?? null)
-    : null,
+                'available_from' => $isRental
+                    ? ($validated['available_from'] ?? null)
+                    : null,
 
                 // DESCRIPTION
 

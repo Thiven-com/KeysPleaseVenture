@@ -92,35 +92,35 @@
                     <div class="mb-4">
 
                         <a href="{{ route('admin.brokers.index') }}" class="btn btn-sm
-                                            {{ !request('status') || request('status') === 'all'
+                                                {{ !request('status') || request('status') === 'all'
         ? 'btn-primary'
         : 'btn-outline-primary' }} me-1">
                             All
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'pending']) }}" class="btn btn-sm
-                                            {{ request('status') === 'pending'
+                                                {{ request('status') === 'pending'
         ? 'btn-warning'
         : 'btn-outline-warning' }} me-1">
                             Pending
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'approved']) }}" class="btn btn-sm
-                                            {{ request('status') === 'approved'
+                                                {{ request('status') === 'approved'
         ? 'btn-success'
         : 'btn-outline-success' }} me-1">
                             Approved
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'rejected']) }}" class="btn btn-sm
-                                            {{ request('status') === 'rejected'
+                                                {{ request('status') === 'rejected'
         ? 'btn-danger'
         : 'btn-outline-danger' }} me-1">
                             Rejected
                         </a>
 
                         <a href="{{ route('admin.brokers.index', ['status' => 'inactive']) }}" class="btn btn-sm
-                                            {{ request('status') === 'inactive'
+                                                {{ request('status') === 'inactive'
         ? 'btn-secondary'
         : 'btn-outline-secondary' }}">
                             Inactive
@@ -299,14 +299,141 @@
 
 
                     {{-- Pagination --}}
-                    <div class="mt-3">
-                        {{ $brokers->links() }}
-                    </div>
+
+                    {{-- CUSTOM BROKER PAGINATION --}}
+                    @if($brokers->hasPages())
+                        <div class="broker-pagination">
+
+                            <div class="broker-pagination-info">
+                                Showing {{ $brokers->firstItem() }} to
+                                {{ $brokers->lastItem() }} of
+                                {{ $brokers->total() }} brokers
+                            </div>
+
+                            <nav aria-label="Broker pagination">
+                                <ul class="broker-pagination-list">
+
+                                    {{-- Previous --}}
+                                    <li class="{{ $brokers->onFirstPage() ? 'disabled' : '' }}">
+                                        @if($brokers->onFirstPage())
+                                            <span>Previous</span>
+                                        @else
+                                            <a href="{{ $brokers->appends(request()->query())->previousPageUrl() }}">
+                                                Previous
+                                            </a>
+                                        @endif
+                                    </li>
+
+                                    {{-- Page Numbers --}}
+                                    @for($page = 1; $page <= $brokers->lastPage(); $page++)
+                                        <li class="{{ $brokers->currentPage() == $page ? 'active' : '' }}">
+                                            <a href="{{ $brokers->appends(request()->query())->url($page) }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                    @endfor
+
+                                    {{-- Next --}}
+                                    <li class="{{ !$brokers->hasMorePages() ? 'disabled' : '' }}">
+                                        @if(!$brokers->hasMorePages())
+                                            <span>Next</span>
+                                        @else
+                                            <a href="{{ $brokers->appends(request()->query())->nextPageUrl() }}">
+                                                Next
+                                            </a>
+                                        @endif
+                                    </li>
+
+                                </ul>
+                            </nav>
+
+                        </div>
+                    @endif
+
 
                 </div>
             </div>
 
         </div>
     </div>
+<style>
 
+
+/* BROKER PAGINATION */
+.broker-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px 5px 5px;
+    margin-top: 15px;
+    border-top: 1px solid #e9edf3;
+}
+
+.broker-pagination-info {
+    color: #687389;
+    font-size: 13px;
+}
+
+.broker-pagination-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.broker-pagination-list li a,
+.broker-pagination-list li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #e1e7ef;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #071b3d;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.broker-pagination-list li.active a {
+    background: #071b3d;
+    border-color: #071b3d;
+    color: #ffffff;
+}
+
+.broker-pagination-list li a:hover {
+    background: #eef3ff;
+    border-color: #3157a6;
+}
+
+.broker-pagination-list li.disabled span {
+    color: #a0a9b7;
+    background: #f5f7fa;
+    cursor: not-allowed;
+}
+
+@media(max-width: 576px) {
+    .broker-pagination {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .broker-pagination-info {
+        text-align: center;
+    }
+
+    .broker-pagination-list {
+        justify-content: center;
+    }
+}
+
+</style>
 @endsection

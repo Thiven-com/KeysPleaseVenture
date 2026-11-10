@@ -186,14 +186,108 @@
 
                 </div>
 
-                <div class="mt-3">
-                    {{ $brokers->links() }}
-                </div>
+               {{-- BROKER TRASH PAGINATION --}}
+@if($brokers->hasPages())
+    <div class="broker-trash-pagination">
 
+        <div class="broker-trash-pagination-info">
+            Showing {{ $brokers->firstItem() }} to
+            {{ $brokers->lastItem() }} of
+            {{ $brokers->total() }} deleted brokers
+        </div>
+
+        {{ $brokers->onEachSide(1)->links('pagination::bootstrap-5') }}
+
+    </div>
+@endif
             </div>
         </div>
 
     </div>
 </div>
 
+
+<style>
+    /* BROKER TRASH PAGINATION */
+    .broker-trash-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 18px 0 5px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .broker-trash-pagination-info {
+        color: #687389;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .broker-trash-pagination nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .broker-trash-pagination .pagination {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .broker-trash-pagination .page-item {
+        list-style: none;
+    }
+
+    .broker-trash-pagination .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 11px;
+        border: 1px solid #e2e7ef;
+        border-radius: 7px !important;
+        background: #ffffff;
+        color: #071b3d;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: none;
+    }
+
+    .broker-trash-pagination .page-item.active .page-link {
+        background: #071b3d;
+        border-color: #071b3d;
+        color: #ffffff;
+    }
+
+    .broker-trash-pagination .page-link:hover {
+        background: #eef3ff;
+        border-color: #3157a6;
+        color: #071b3d;
+    }
+
+    .broker-trash-pagination .page-item.disabled .page-link {
+        background: #f5f7fa;
+        color: #a0a9b7;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 576px) {
+        .broker-trash-pagination {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .broker-trash-pagination .pagination {
+            justify-content: center;
+        }
+    }
+</style>
 @endsection

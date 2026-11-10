@@ -65,6 +65,13 @@
                                                                 <span>Scheduled Visits</span>
                                                         </a>
                                                 </li>
+
+                                                <li class="{{ Request::is('broker/reports*') ? 'active' : '' }}">
+                                                        <a href="{{ route('broker.reports') }}">
+                                                                <i class="ti ti-flag fs-16 me-2"></i>
+                                                                <span>Property Reports</span>
+                                                        </a>
+                                                </li>
                                         </ul>
                                 </li>
 
@@ -102,7 +109,7 @@
                                                                         Settings</span><span
                                                                         class="menu-arr ow"></span></a>
                                                 </li> --}}
-                                              
+
                                                 <li>
                                                         <a class="dropdown-item d-flex align-items-center"
                                                                 href="{{ route('broker.logout') }}" style="color: red;">

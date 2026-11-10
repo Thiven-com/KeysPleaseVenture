@@ -604,7 +604,7 @@
                         </small>
 
                         <div>
-                            {{ $scheduledVisits->appends(request()->query())->links() }}
+                            {{ $scheduledVisits->appends(request()->query())->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 @endif

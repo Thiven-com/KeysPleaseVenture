@@ -10,17 +10,18 @@ class ScheduleVisitEnquiryController extends Controller
     /**
      * Display all schedule visit enquiries.
      */
-    public function index()
-    {
-        $enquiries = ScheduleVisitEnquiry::with('property')
-            ->latest()
-            ->get();
+   public function index()
+{
+    $enquiries = ScheduleVisitEnquiry::with('property')
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
 
-        return view(
-            'admin.schedulevisitenquiries.all',
-            compact('enquiries')
-        );
-    }
+    return view(
+        'admin.schedulevisitenquiries.all',
+        compact('enquiries')
+    );
+}
 
     /**
      * Delete schedule visit enquiry.
