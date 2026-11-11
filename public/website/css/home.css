@@ -7437,3 +7437,31 @@ section.reveal-left {
         max-width: 100%;
     }
 }
+
+
+
+/* Popular Localities - visibility and mobile carousel fix */
+
+#localities .locality-grid.stagger > .locality {
+    opacity: 1;
+    animation: none;
+    transform: none;
+}
+
+#localities .locality-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+}
+
+#localities .locality-carousel {
+    width: 100%;
+    overflow: hidden !important;
+}
+
+@media (max-width: 576px) {
+    #localities .locality-grid > .locality {
+        flex: 0 0 82vw !important;
+        width: 82vw !important;
+    }
+}
