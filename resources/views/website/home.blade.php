@@ -350,9 +350,9 @@
 
                             <div class="rpf-dropdown" id="rpfPropertyTypeDropdown">
 
-                                <button type="button" data-value="Any Type">
+                                <!-- <button type="button" data-value="Any Type">
                                     Any Type
-                                </button>
+                                </button> -->
 
                                 @foreach($searchPropertyTypes as $type)
 
@@ -378,9 +378,9 @@
 
                             <div class="rpf-dropdown" id="rpfBhkDropdown">
 
-                                <button type="button" data-value="Any">
+                                <!-- <button type="button" data-value="Any">
                                     Any
-                                </button>
+                                </button> -->
 
                                 @foreach($searchBhks as $bhk)
 
@@ -416,9 +416,9 @@
 
                             <div class="rpf-dropdown" id="rpfRentRangeDropdown">
 
-                                <button type="button" data-value="Any Range" data-min="" data-max="">
+                                <!-- <button type="button" data-value="Any Range" data-min="" data-max="">
                                     Any Range
-                                </button>
+                                </button> -->
 
 
                                 @php
@@ -1186,17 +1186,17 @@
 
                 // Any Range button
 
-                var anyButton = document.createElement('button');
+                // var anyButton = document.createElement('button');
 
-                anyButton.type = 'button';
+                // anyButton.type = 'button';
 
-                anyButton.setAttribute('data-value', 'Any Range');
-                anyButton.setAttribute('data-min', '');
-                anyButton.setAttribute('data-max', '');
+                // anyButton.setAttribute('data-value', 'Any Range');
+                // anyButton.setAttribute('data-min', '');
+                // anyButton.setAttribute('data-max', '');
 
-                anyButton.textContent = 'Any Range';
+                // anyButton.textContent = 'Any Range';
 
-                rpfRentRangeDropdown.appendChild(anyButton);
+                // rpfRentRangeDropdown.appendChild(anyButton);
 
 
                 // Add price range buttons
