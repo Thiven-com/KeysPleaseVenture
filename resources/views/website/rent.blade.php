@@ -607,9 +607,9 @@
 
                     <div class="select-menu" id="propertyTypeMenu">
 
-                        <button type="button" data-value="Any Type">
+                        <!-- <button type="button" data-value="Any Type">
                             Any Type
-                        </button>
+                        </button> -->
 
                         @foreach($propertyTypes as $propertyType)
 
@@ -662,9 +662,9 @@
 
                     <div class="select-menu" id="bhkMenu">
 
-                        <button type="button" data-value="Any">
+                        <!-- <button type="button" data-value="Any">
                             Any
-                        </button>
+                        </button> -->
 
                         @foreach($bhkOptions as $bhkNumber)
 
