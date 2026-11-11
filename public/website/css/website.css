@@ -5093,7 +5093,7 @@ footer::after {
     header {
         height: 70px !important;
         min-height: 70px;
-        background: #01068a;
+        /* background: #01068a; */
     }
 
     header .container.nav {
@@ -5176,7 +5176,7 @@ footer::after {
 
     header .container.nav > a.logo img {
         width: 100%;
-        height: 108px;
+        height: 85px;
     }
 }
 

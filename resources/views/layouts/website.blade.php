@@ -147,7 +147,10 @@
         height: 72px !important;
         min-height: 72px;
         padding: 0;
+        background: #F8FAFC !important;
         z-index: 9999;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid #EAEFF5;
     }
 
     header .nav {
@@ -159,6 +162,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        background: transparent;
     }
 
     header .logo {
@@ -196,12 +200,12 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-        border: none;
+        border: 1px solid #E5EAF2;
         border-radius: 12px;
-        background: #ffffff;
+        background: #FFFFFF;
         cursor: pointer;
         flex: 0 0 auto;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     header .mobile-menu-btn span {
@@ -209,7 +213,7 @@
         width: 23px;
         height: 3px;
         border-radius: 3px;
-        background: #080d80;
+        background: #080D80;
     }
 
     header .city,
@@ -218,7 +222,6 @@
         display: none !important;
     }
 }
-
 </style>
 
   <!-- ================= HEADER ================= -->
@@ -232,7 +235,7 @@
         <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture" class="desktop-logo">
 
         {{-- Mobile logo --}}
-        <img src="{{ asset('website/images/keys9.png') }}" alt="Keys Please Venture" class="mobile-logo">
+        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture" class="mobile-logo">
       </a>
 
       <!-- City -->
