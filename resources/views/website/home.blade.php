@@ -1006,7 +1006,7 @@
         <div class="cta-row">
 
             <!-- Brokerage Policy -->
-            <div class="policy">
+            <!-- <div class="policy">
 
                 <div class="policy-icon">
                     <i class="fa-solid fa-percent"></i>
@@ -1023,7 +1023,7 @@
 
                 </div>
 
-            </div>
+            </div> -->
 
 
             <!-- Owner / Broker CTA -->

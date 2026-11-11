@@ -380,7 +380,7 @@
                             <div class="broker-form-group">
 
                                 <label class="broker-form-label">
-                                    Broker Type
+                                    Owner Type
                                 </label>
 
                                 <input type="text" name="broker_type" class="broker-form-input"
@@ -398,7 +398,7 @@
                             <div class="broker-form-group">
 
                                 <label class="broker-form-label">
-                                    Agency Name
+                                   Agency / Company Name
                                 </label>
 
                                 <input type="text" name="agency_name" class="broker-form-input"

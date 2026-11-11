@@ -47,6 +47,9 @@ class AuthController extends Controller
                 'state' => 'required|string|max:100',
                 'pincode' => 'required|string|max:10',
                 'password' => 'required|string|min:6|confirmed',
+
+                // Terms & Conditions
+                'terms_accepted' => ['required', 'accepted'],
             ],
             [
 

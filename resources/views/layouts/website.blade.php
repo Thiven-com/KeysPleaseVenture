@@ -430,7 +430,7 @@
 
 
         <a href="{{ route('sell') }}">
-          Sell
+          Buy
         </a>
 
 
@@ -566,7 +566,7 @@
         </a> --}}
 
         <a href="{{ route('sell') }}">
-          <span>Sell</span>
+          <span>Buy</span>
           <span>›</span>
         </a>
 
@@ -673,8 +673,7 @@
 
 
         <div class="footer-copy" style="font-size:13px;">
-          Bangalore's trusted platform for properties. Find verified listings, connect with owners, and move into your
-          dream home.
+          Bangalore's trusted platform for properties."WHERE OWNERS MEET TENANTS / BUYERS DIRECTLY."
         </div>
 
         <!-- <div class="footer-copy">

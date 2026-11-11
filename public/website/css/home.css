@@ -170,7 +170,7 @@
     margin: 0;
 
     font-size: 34px;
-    line-height: 1.05;
+    line-height: 1.15;
 
     letter-spacing: -1.6px;
 
@@ -1580,7 +1580,7 @@ section {
 .cta-row {
     display: grid;
 
-    grid-template-columns: 280px 1fr;
+    /* grid-template-columns: 280px 1fr; */
 
     gap: 18px;
 
@@ -3118,10 +3118,10 @@ header.scrolled {
             repeat(3, 1fr);
     }
 
-    .cta-row {
+    /* .cta-row {
         grid-template-columns:
             250px 1fr;
-    }
+    } */
 }
 
 
@@ -4985,9 +4985,9 @@ iframe {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .cta-row {
+    /* .cta-row {
         grid-template-columns: 250px minmax(0, 1fr);
-    }
+    } */
 
     .subscribe {
         width: min(400px, 40vw);

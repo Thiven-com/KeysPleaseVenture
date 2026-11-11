@@ -341,7 +341,7 @@
                             <div class="broker-profile-info">
 
                                 <span class="broker-profile-label">
-                                    Broker Type
+                                    Owner Type
                                 </span>
 
                                 <div class="broker-profile-value">
@@ -383,7 +383,7 @@
                             <div class="broker-profile-info">
 
                                 <span class="broker-profile-label">
-                                    Agency Name
+                                Agency / Company Name
                                 </span>
 
                                 <div class="broker-profile-value">
