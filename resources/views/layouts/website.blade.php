@@ -640,7 +640,7 @@
           <span class="btn-icon">
             <i class="fa-solid fa-user-plus"></i>
           </span>
-          <span>Owner Register</span>
+          <span>List Your Property</span>
         </button>
 
       </div>

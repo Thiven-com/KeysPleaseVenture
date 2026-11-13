@@ -283,7 +283,7 @@
                     <button class="rpf-tab" type="button" data-mode="sell" onclick="rpfSetMode('sell')">
 
                         <i class="fa-solid fa-tag"></i>
-                        Sell
+                        Buy
                     </button>
                 </div>
 
