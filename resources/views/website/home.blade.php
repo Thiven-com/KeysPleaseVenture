@@ -931,7 +931,7 @@
         <div class="container">
 
             <div class="section-head">
-                <h2>Why Choose Keys Please Venture?</h2>
+                <h2>Why Choose KeysPleasee Venture?</h2>
             </div>
 
             <div class="why-grid stagger">
@@ -1039,7 +1039,7 @@
                     <p>
                         List your properties and connect with genuine tenants.
                         <br>
-                        Grow your business with Keys Please Venture.
+                        Grow your business with KeysPleasee Venture.
                     </p>
 
                     <button type="button">
@@ -2236,7 +2236,7 @@
 
 <style id="keys-please-responsive-final">
     /* =========================================================
-   KEYS PLEASE — FINAL RESPONSIVE SYSTEM
+   KeysPleasee — FINAL RESPONSIVE SYSTEM
    Existing HTML, routes, JS, API calls and business logic
    are intentionally untouched.
 ========================================================= */

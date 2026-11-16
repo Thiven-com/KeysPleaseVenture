@@ -1387,7 +1387,7 @@ section {
 
 
 /* =========================================================
-   WHY CHOOSE KEYS PLEASE VENTURE
+   WHY CHOOSE KeysPleasee VENTURE
    ========================================================= */
 
 .why-grid {
@@ -5631,7 +5631,7 @@ iframe {
     }
 
     .section-head {
-        align-items: flex-end;
+        align-items: center;
         gap: 12px;
         margin-bottom: 13px;
     }

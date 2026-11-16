@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Terms & Conditions | Keys Please Venture')
+@section('title', 'Terms & Conditions | KeysPleasee Venture')
 
 @section('content')
 
@@ -471,7 +471,7 @@
                 <h1>Terms &amp; Conditions</h1>
 
                 <p>
-                    Welcome to Keys Please Venture. These terms explain the
+                    Welcome to KeysPleasee Venture. These terms explain the
                     rules and responsibilities that apply when you use our
                     rental property platform to explore properties, submit
                     enquiries, or publish property listings.
@@ -553,7 +553,7 @@
                 <div class="terms-intro">
                     <h2>Understanding Our Terms</h2>
                     <p>
-                        These terms apply to the use of the Keys Please Venture
+                        These terms apply to the use of the KeysPleasee Venture
                         website and its rental property services. Please read
                         each section carefully. Your rights and obligations
                         may also depend on applicable law and any separate
@@ -582,7 +582,7 @@
                     </h2>
 
                     <p>
-                        Keys Please Venture provides a platform to help tenants
+                        KeysPleasee Venture provides a platform to help tenants
                         discover rental properties and allows owners and
                         brokers to publish property information and receive
                         enquiries.
@@ -707,7 +707,7 @@
                     </p>
 
                     <p>
-                        To the extent permitted by applicable law, Keys Please
+                        To the extent permitted by applicable law, KeysPleasee
                         Venture is not responsible for inaccurate third-party
                         listings, property disputes, or agreements made
                         directly between users and property providers.
@@ -771,7 +771,7 @@
                             <h3>Need clarification?</h3>
                             <p>
                                 Contact our team if you have questions about
-                                using the Keys Please Venture platform.
+                                using the KeysPleasee Venture platform.
                             </p>
                         </div>
 

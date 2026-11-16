@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Keys Please Venture</title>
+    <title>Login | KeysPleasee Venture</title>
 
     <meta name="description"
-        content="Login to Keys Please Venture to continue your search for rental properties in Bangalore.">
-    <meta name="author" content="Keys Please Venture">
+        content="Login to KeysPleasee Venture to continue your search for rental properties in Bangalore.">
+    <meta name="author" content="KeysPleasee Venture">
     <meta name="robots" content="noindex, nofollow">
 
     <link rel="canonical" href="{{ url()->current() }}">

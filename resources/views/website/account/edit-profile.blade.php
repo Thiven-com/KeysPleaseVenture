@@ -210,7 +210,7 @@
                 <h1>Edit Profile</h1>
                 <p>
                     Update your personal information for your
-                    Keys Please Venture account.
+                    KeysPleasee Venture account.
                 </p>
             </div>
 

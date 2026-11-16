@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rental Properties in Bangalore | Keys Please Venture</title>
+    <title>Rental Properties in Bangalore | KeysPleasee Venture</title>
 
     <meta name="description"
-        content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with Keys Please Venture.">
+        content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with KeysPleasee Venture.">
 
     <meta name="keywords"
-        content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, Keys Please Venture">
+        content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, KeysPleasee Venture">
 
-    <meta name="author" content="Keys Please Venture">
+    <meta name="author" content="KeysPleasee Venture">
 
     <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -325,7 +325,7 @@
                 </h2>
 
                 <p class="form-description">
-                    Register with Keys Please Venture
+                    Register with KeysPleasee Venture
                 </p>
 
 

@@ -9,15 +9,15 @@
      SEO META TAGS
 ========================================================= -->
 
-  <title>Rental Properties in Bangalore | Keys Please Venture</title>
+  <title>Rental Properties in Bangalore | KeysPleasee Venture</title>
 
   <meta name="description"
-    content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with Keys Please Venture.">
+    content="Explore verified rental properties in Bangalore including apartments, flats, villas, houses and commercial spaces. Search by location, property type and budget with KeysPleasee Venture.">
 
   <meta name="keywords"
-    content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, Keys Please Venture">
+    content="rental properties in Bangalore, properties for rent in Bangalore, apartments for rent Bangalore, flats for rent Bangalore, houses for rent Bangalore, villas for rent Bangalore, rental homes Bangalore, commercial properties for rent Bangalore, furnished flats Bangalore, semi furnished apartments Bangalore, Bangalore real estate, property rental Bangalore, KeysPleasee Venture">
 
-  <meta name="author" content="Keys Please Venture">
+  <meta name="author" content="KeysPleasee Venture">
 
   <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -232,10 +232,10 @@
       <!-- Logo -->
       <a class="logo" href="{{ route('home') }}">
         {{-- Desktop logo --}}
-        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture" class="desktop-logo">
+        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture" class="desktop-logo">
 
         {{-- Mobile logo --}}
-        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture" class="mobile-logo">
+        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture" class="mobile-logo">
       </a>
 
       <!-- City -->
@@ -514,7 +514,7 @@
     <div class="mobile-sidebar-header">
 
       <a class="mobile-sidebar-logo" href="{{ route('home') }}">
-        <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture">
+        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture">
       </a>
 
       <button class="mobile-close-btn" type="button" aria-label="Close menu">
@@ -668,7 +668,7 @@
       <div class="footer-company">
 
         <a class="logo" href="{{ route('home') }}">
-          <img src="{{ asset('website/images/keys10.png') }}" alt="Keys Please Venture">
+          <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture">
         </a>
 
 
@@ -798,7 +798,7 @@
     <div class="container copyright">
 
       <span>
-        © 2026 Keys Please Venture. All Rights Reserved.Developed By <a href="https://www.thiven.com/" target="_blank"
+        © 2026 KeysPleaseeVenture. All Rights Reserved.Developed By <a href="https://www.thiven.com/" target="_blank"
           style="text-decoration: none;color: #000;">ThiVen</a>
       </span>
 
@@ -1723,7 +1723,7 @@
 
   <style>
     /* =========================================================
-   KEYS PLEASE VENTURE — COMPLETE RESPONSIVE OVERRIDE
+   KeysPleasee VENTURE — COMPLETE RESPONSIVE OVERRIDE
    ---------------------------------------------------------
    Existing functionality/content/routes/business logic remain
    untouched. This block only improves responsive presentation.

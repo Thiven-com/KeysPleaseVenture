@@ -8,7 +8,7 @@
 
 <style>
     
-/* KEYS PLEASE VENTURE - LAUNCHING SOON */
+/* KeysPleasee VENTURE - LAUNCHING SOON */
 
 .kp-launch-page {
     --launch-blue: #00068a;
@@ -331,7 +331,7 @@
 
         <div class="kp-launch-logo">
             <span class="kp-logo-mark">KP</span>
-            <span>KEYS PLEASE <strong>VENTURE</strong></span>
+            <span>KeysPleasee <strong>VENTURE</strong></span>
         </div>
 
         <div class="kp-launch-badge">
@@ -364,7 +364,7 @@
         <p class="kp-launch-description">
             We're building something special to help property owners
             showcase their properties, reach more customers, and grow
-            with Keys Please Venture.
+            with KeysPleasee Venture.
         </p>
 
         <div class="kp-launch-progress">
@@ -397,7 +397,7 @@
         <div class="container">
 
             <span class="subscription-label">
-                KEYS PLEASE VENTURE
+                KeysPleasee VENTURE
             </span>
 
             <h1>Choose Your Subscription Plan</h1>
@@ -703,7 +703,7 @@
 
             <div class="subscription-info-content">
 
-                <h2>Why Choose Keys Please Venture?</h2>
+                <h2>Why Choose KeysPleasee Venture?</h2>
 
                 <p>
                     Choose a subscription plan based on the number of

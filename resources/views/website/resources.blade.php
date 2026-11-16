@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Resources | Keys Please Venture')
+@section('title', 'Resources | KeysPleasee Venture')
 
 @section('content')
 

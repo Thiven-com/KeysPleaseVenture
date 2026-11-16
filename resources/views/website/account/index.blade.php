@@ -1163,7 +1163,7 @@
 
                 <h1>My Account</h1>
                 <p>
-                    Manage your Keys Please Venture account and stay updated
+                    Manage your KeysPleasee Venture account and stay updated
                     with your property journey.
                 </p>
             </div>

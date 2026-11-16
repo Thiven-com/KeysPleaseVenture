@@ -668,7 +668,7 @@
     </div>
 
     <div class="kp-dashboard-footer">
-        Keys Please Venture &middot; Admin Dashboard
+        KeysPleasee Venture &middot; Admin Dashboard
     </div>
 
 </div>

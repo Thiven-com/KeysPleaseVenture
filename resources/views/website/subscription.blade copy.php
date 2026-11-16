@@ -10,7 +10,7 @@
     {{-- PAGE HEADER --}}
     <section class="subscription-header">
         <div class="container">
-            <span class="subscription-label">KEYS PLEASE VENTURE</span>
+            <span class="subscription-label">KeysPleasee VENTURE</span>
 
             <h1>Choose Your Subscription Plan</h1>
 
@@ -381,7 +381,7 @@
 
             <div class="subscription-info-content">
 
-                <h2>Why Choose Keys Please Venture?</h2>
+                <h2>Why Choose KeysPleasee Venture?</h2>
 
                 <p>
                     Choose a subscription plan based on the number of

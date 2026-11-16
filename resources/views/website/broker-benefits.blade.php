@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Broker Benefits | Keys Please Venture')
+@section('title', 'Broker Benefits | KeysPleasee Venture')
 
 @section('content')
 
@@ -636,7 +636,7 @@
                     <p class="bb-hero-description">
                         Showcase rental properties, help prospective tenants
                         discover suitable homes, and create a professional
-                        online presence with Keys Please Venture.
+                        online presence with KeysPleasee Venture.
                     </p>
 
                     <div class="bb-hero-actions">

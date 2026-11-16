@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Partner With Us | Keys Please Venture')
+@section('title', 'Partner With Us | KeysPleasee Venture')
 
 @section('content')
 
@@ -722,7 +722,7 @@
                     </h1>
 
                     <p class="partner-hero-description">
-                        Join Keys Please Venture to showcase your rental
+                        Join KeysPleasee Venture to showcase your rental
                         properties, connect with prospective tenants, and
                         build meaningful relationships in the rental market.
                     </p>
@@ -763,7 +763,7 @@
 
                         <div class="partner-visual-card-top">
                             <div>
-                                <h3>Grow With Keys Please Venture</h3>
+                                <h3>Grow With KeysPleasee Venture</h3>
                                 <p>A place to showcase your property business</p>
                             </div>
 
@@ -931,7 +931,7 @@
                     <h2>Let's Build Something Together.</h2>
 
                     <p>
-                        Interested in partnering with Keys Please Venture?
+                        Interested in partnering with KeysPleasee Venture?
                         Tell us a little about your business and what you
                         would like to achieve.
                     </p>
@@ -1112,7 +1112,7 @@
             <h2>Ready to Explore a Partnership?</h2>
 
             <p>
-                Take the first step towards working with Keys Please Venture.
+                Take the first step towards working with KeysPleasee Venture.
                 Share your details and tell us how you would like to collaborate.
             </p>
 

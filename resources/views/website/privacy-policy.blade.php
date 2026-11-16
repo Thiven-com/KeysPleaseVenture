@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Privacy Policy | Keys Please Venture')
+@section('title', 'Privacy Policy | KeysPleasee Venture')
 
 @section('content')
 
@@ -479,7 +479,7 @@
                 <h1>Privacy Policy</h1>
 
                 <p>
-                    At Keys Please Venture, we understand the importance of
+                    At KeysPleasee Venture, we understand the importance of
                     your personal information. Learn how information may be
                     collected, used, and protected when you explore rental
                     properties or connect with property owners. 
@@ -564,7 +564,7 @@
                         This policy describes our intended privacy practices
                         for tenants, property owners, brokers, and website
                         visitors. The final policy should reflect the actual
-                        data collected and services used by Keys Please Venture.
+                        data collected and services used by KeysPleasee Venture.
                     </p>
                 </div>
 
@@ -575,7 +575,7 @@
                     </h2>
 
                     <p>
-                        Keys Please Venture provides a platform to explore
+                        KeysPleasee Venture provides a platform to explore
                         rental properties and connect with property owners
                         and brokers. This Privacy Policy explains how
                         information may be handled when you visit our website,
