@@ -12,7 +12,7 @@
     <meta name="author" content="KeysPleaseVenture">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>{{ $site->site_name ?? 'Broker Panel' }}</title>
+    <title>{{ $site->site_name ?? 'Owner Panel' }}</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys10.png') }}">

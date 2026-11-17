@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
             Route::middleware('web')->namespace($this->broker_namespace)
-                ->prefix('broker')
+                ->prefix('owner')
                 ->group(base_path('routes/broker.php'));
         });
     }
