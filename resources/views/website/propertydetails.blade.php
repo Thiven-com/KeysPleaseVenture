@@ -4783,7 +4783,7 @@
                                                                     </div> -->
 
 
-            @if($isRentalListing)
+            <!-- @if($isRentalListing)
 
                 <div class="policy">
 
@@ -4802,7 +4802,7 @@
 
                 </div>
 
-            @endif
+            @endif -->
 
 
             <div class="location-card">

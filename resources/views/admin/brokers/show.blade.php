@@ -11,11 +11,11 @@
 
                     <div class="col">
                         <h4 class="page-title">
-                            Broker Details
+                            Owner Details
                         </h4>
 
                         <p class="text-muted mb-0">
-                            View broker information
+                            View Owner information
                         </p>
                     </div>
 
@@ -25,7 +25,7 @@
                         @if($broker->status === 'pending')
 
                             <form action="{{ route('admin.brokers.approve', $broker->id) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Are you sure you want to approve this broker?');">
+                                onsubmit="return confirm('Are you sure you want to approve this Owner?');">
                                 @csrf
                                 @method('PATCH')
 
@@ -48,7 +48,7 @@
                         @if($broker->status === 'approved')
 
                             <form action="{{ route('admin.brokers.deactivate', $broker->id) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Are you sure you want to deactivate this broker?');">
+                                onsubmit="return confirm('Are you sure you want to deactivate this Owner?');">
                                 @csrf
                                 @method('PATCH')
 
@@ -65,7 +65,7 @@
                         @if($broker->status === 'inactive')
 
                             <form action="{{ route('admin.brokers.activate', $broker->id) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Are you sure you want to activate this broker?');">
+                                onsubmit="return confirm('Are you sure you want to activate this Owner?');">
                                 @csrf
                                 @method('PATCH')
 
@@ -93,7 +93,7 @@
                         </button>
                         {{-- Delete --}}
                         <form action="{{ route('admin.brokers.destroy', $broker->id) }}" method="POST" class="d-inline"
-                            onsubmit="return confirm('Are you sure you want to permanently delete this broker? This action cannot be undone.');">
+                            onsubmit="return confirm('Are you sure you want to permanently delete this Owner? This action cannot be undone.');">
                             @csrf
                             @method('DELETE')
 
@@ -218,7 +218,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <strong>Broker Type</strong>
+                                    <strong>Owner Type</strong>
                                     <p class="mb-0">
                                         {{ $broker->broker_type ?: '-' }}
                                     </p>
@@ -373,7 +373,7 @@
                 <div class="modal-header">
 
                     <h5 class="modal-title">
-                        Reject Broker
+                        Reject Owner
                     </h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -396,7 +396,7 @@
                             </label>
 
                             <textarea name="rejection_reason" class="form-control" rows="4"
-                                placeholder="Enter reason for rejecting this broker..." required></textarea>
+                                placeholder="Enter reason for rejecting this Owner..." required></textarea>
 
                         </div>
 
@@ -410,7 +410,7 @@
                         </button>
 
                         <button type="submit" class="btn btn-danger">
-                            Reject Broker
+                            Reject Owner
                         </button>
 
                     </div>
@@ -433,7 +433,7 @@
                 <div class="modal-header">
 
                     <h5 class="modal-title">
-                        Change Broker Password
+                        Change Owner Password
                     </h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

@@ -12,21 +12,23 @@ use App\Models\ScheduleVisitEnquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\RentalPropertyReport;
+use App\Models\PropertyImage;
+use Illuminate\Support\Facades\Storage;
 
 class BrokerController extends Controller
 {
-   public function properties()
-{
-    $broker = auth('broker')->user();
+    public function properties()
+    {
+        $broker = auth('broker')->user();
 
-    $properties = Property::with(['images', 'cityRelation'])
-        ->where('broker_id', $broker->id)
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+        $properties = Property::with(['images', 'cityRelation'])
+            ->where('broker_id', $broker->id)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('broker.myproperties.all', compact('properties'));
-}
+        return view('broker.myproperties.all', compact('properties'));
+    }
 
     public function createProperty()
     {
@@ -100,8 +102,13 @@ class BrokerController extends Controller
             'amenities.*' => 'exists:amenities,id',
             'owner_name' => 'required|string|max:255',
             'owner_phone' => 'required|string|max:20',
-            'photos' => 'nullable|array|max:10',
-            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'photos' => 'required|array|min:4|max:10',
+            'photos.*' => [
+                'required',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ]);
 
         $isSale = $validated['listing_for'] === 'Sell';
@@ -229,6 +236,27 @@ class BrokerController extends Controller
             ->where('broker_id', $broker->id)
             ->firstOrFail();
 
+        // Validate total property images (existing + newly uploaded)
+        $existingImageCount = $property->images()->count();
+        $newImageCount = count($request->file('photos', []));
+        $totalImageCount = $existingImageCount + $newImageCount;
+
+        if ($totalImageCount < 4) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'photos' => 'A property must have at least 4 images.',
+                ]);
+        }
+
+        if ($totalImageCount > 10) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'photos' => 'A property can have a maximum of 10 images.',
+                ]);
+        }
+
         $validated = $request->validate([
             'property_title' => 'required|string|max:255',
             'property_type' => 'required|string|max:255',
@@ -275,8 +303,12 @@ class BrokerController extends Controller
             'amenities.*' => 'exists:amenities,id',
             'owner_name' => 'nullable|string|max:255',
             'owner_phone' => 'nullable|string|max:20',
-            'photos' => 'nullable|array|max:10',
-            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'photos' => 'nullable|array',
+            'photos.*' => [
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ]);
 
         $isSale = $validated['listing_for'] === 'Sell';
@@ -528,26 +560,61 @@ class BrokerController extends Controller
 
 
     public function reports()
+    {
+        $broker = auth('broker')->user();
+
+        $propertyIds = $broker->properties()->select('properties.id');
+
+        $reports = RentalPropertyReport::with('propertyDetails')
+            ->whereIn('property_id', $propertyIds)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        $reportsCount = RentalPropertyReport::whereIn(
+            'property_id',
+            $propertyIds
+        )->count();
+
+        return view('broker.reports', compact(
+            'broker',
+            'reports',
+            'reportsCount'
+        ));
+    }
+
+
+    public function destroyPropertyImage($imageId)
 {
     $broker = auth('broker')->user();
 
-    $propertyIds = $broker->properties()->select('properties.id');
+    // Find the image only if it belongs to this broker's property
+    $image = PropertyImage::whereHas('property', function ($query) use ($broker) {
+        $query->where('broker_id', $broker->id);
+    })->findOrFail($imageId);
 
-    $reports = RentalPropertyReport::with('propertyDetails')
-        ->whereIn('property_id', $propertyIds)
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+    $property = $image->property;
 
-    $reportsCount = RentalPropertyReport::whereIn(
-        'property_id',
-        $propertyIds
-    )->count();
+    // Prevent deletion if only 4 images remain
+    if ($property->images()->count() <= 4) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Upload one replacement image first. A property must have at least 4 images.',
+        ], 422);
+    }
 
-    return view('broker.reports', compact(
-        'broker',
-        'reports',
-        'reportsCount'
-    ));
+    // Delete image from database and storage
+    $imagePath = $image->image_path;
+
+    $image->delete();
+
+    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+        Storage::disk('public')->delete($imagePath);
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Image deleted successfully.',
+    ]);
 }
 }

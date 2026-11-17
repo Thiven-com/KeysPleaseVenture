@@ -745,7 +745,7 @@
 
                         <div class="partner-trust-item">
                             <span class="partner-trust-check">✓</span>
-                            Real Estate Brokers
+                            Real Estate Owners
                         </div>
 
                         <div class="partner-trust-item">
@@ -1038,7 +1038,7 @@
                                 >
                                     <option value="">Select partner type</option>
                                     <option value="Property Owner">Property Owner</option>
-                                    <option value="Broker">Real Estate Broker</option>
+                                    <option value="Broker">Real Estate Owner</option>
                                     <option value="Builder">Builder / Developer</option>
                                     <option value="Property Manager">Property Manager</option>
                                     <option value="Other">Other</option>

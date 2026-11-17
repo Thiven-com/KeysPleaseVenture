@@ -10,11 +10,11 @@
 
                 <div class="col">
                     <h4 class="page-title">
-                        Edit Broker
+                        Edit Owner
                     </h4>
 
                     <p class="text-muted mb-0">
-                        Update broker information
+                        Update Owner information
                     </p>
                 </div>
 
@@ -127,7 +127,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">
-                                Broker Type
+                                Owner Type
                             </label>
 
                             <select
@@ -137,7 +137,7 @@
                             >
 
                                 <option value="">
-                                    Select Broker Type
+                                    Select Owner Type
                                 </option>
 
                                 <option
@@ -393,7 +393,7 @@
                             class="btn btn-primary"
                         >
                             <i class="fa fa-save me-1"></i>
-                            Update Broker
+                            Update Owner
                         </button>
 
                         <a

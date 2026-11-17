@@ -9,9 +9,9 @@
             <div class="row align-items-center">
 
                 <div class="col">
-                    <h4 class="page-title">Broker Trash</h4>
+                    <h4 class="page-title">Owner Trash</h4>
                     <p class="text-muted mb-0">
-                        Deleted brokers
+                        Deleted Owners
                     </p>
                 </div>
 
@@ -19,7 +19,7 @@
                     <a href="{{ route('admin.brokers.index') }}"
                        class="btn btn-secondary">
                         <i class="fa fa-arrow-left me-1"></i>
-                        Back to Brokers
+                        Back to Owners
                     </a>
                 </div>
 
@@ -48,7 +48,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Broker</th>
+                                <th>Owner</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Agency</th>
@@ -123,7 +123,7 @@
                                             action="{{ route('admin.brokers.restore', $broker->id) }}"
                                             method="POST"
                                             class="d-inline"
-                                            onsubmit="return confirm('Restore this broker?');">
+                                            onsubmit="return confirm('Restore this Owner?');">
 
                                             @csrf
                                             @method('PATCH')
@@ -144,7 +144,7 @@
                                             action="{{ route('admin.brokers.forceDelete', $broker->id) }}"
                                             method="POST"
                                             class="d-inline"
-                                            onsubmit="return confirm('WARNING: This broker will be permanently deleted and cannot be restored. Are you sure?');">
+                                            onsubmit="return confirm('WARNING: This Owner will be permanently deleted and cannot be restored. Are you sure?');">
 
                                             @csrf
                                             @method('DELETE')
@@ -193,7 +193,7 @@
         <div class="broker-trash-pagination-info">
             Showing {{ $brokers->firstItem() }} to
             {{ $brokers->lastItem() }} of
-            {{ $brokers->total() }} deleted brokers
+            {{ $brokers->total() }} deleted Owners
         </div>
 
         {{ $brokers->onEachSide(1)->links('pagination::bootstrap-5') }}

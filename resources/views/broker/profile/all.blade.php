@@ -293,7 +293,7 @@
                         <h3>Personal Information</h3>
 
                         <p>
-                            Your registered broker information
+                            Your registered Owner information
                         </p>
 
 

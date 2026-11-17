@@ -756,7 +756,7 @@
                     {{ old('listing_for') === 'Sell' ? 'Add Sale Property' : 'Add Rent Property' }}
                 </h3>
                 <p class="property-create-subtitle" id="propertyPageSubtitle">
-                    {{ old('listing_for') === 'Sell' ? 'Publish a sale property directly from your broker portal.' : 'Publish a rental property directly from your broker portal.' }}
+                    {{ old('listing_for') === 'Sell' ? 'Publish a sale property directly from your Owner portal.' : 'Publish a rental property directly from your Owner portal.' }}
                 </p>
 
             </div>
@@ -991,43 +991,34 @@
 
                             {{-- BHK --}}
 
-                            <div class="property-col-4">
+                        
+<div class="property-col-4">
+    <label class="property-form-label">
+        Bedrooms / BHK
+    </label>
 
-                                <label class="property-form-label">
+    <select name="bhk" class="property-form-select">
+        <option value="">Select BHK</option>
 
-                                    Bedrooms / BHK
+        @foreach([
+            '1 RK',
+            '1 BHK',
+            '2 BHK',
+            '3 BHK',
+            '4 BHK',
+            '5 BHK',
+            '5+ BHK'
+        ] as $bhk)
 
-                                </label>
+            <option value="{{ $bhk }}"
+                {{ old('bhk') == $bhk ? 'selected' : '' }}>
+                {{ $bhk }}
+            </option>
 
-                                <select name="bhk" class="property-form-select">
+        @endforeach
+    </select>
+</div>
 
-                                    <option value="">
-                                        Select BHK
-                                    </option>
-
-                                    @foreach(
-                                            [
-                                                '1 BHK',
-                                                '2 BHK',
-                                                '3 BHK',
-                                                '4 BHK',
-                                                '5 BHK',
-                                                '6+ BHK'
-                                            ]
-                                            as $bhk
-                                        )
-
-                                        <option value="{{ $bhk }}" {{ old('bhk') == $bhk ? 'selected' : '' }}>
-
-                                            {{ $bhk }}
-
-                                        </option>
-
-                                    @endforeach
-
-                                </select>
-
-                            </div>
 
                             {{-- BATHROOMS --}}
 
@@ -1534,7 +1525,7 @@
                             PROPERTY CONDITION
                             ================================================== --}}
 
-                            <div class="property-col-4">
+                            <!-- <div class="property-col-4">
 
                                 <label class="property-form-label">
                                     Property Condition
@@ -1564,7 +1555,7 @@
 
                                 </select>
 
-                            </div>
+                            </div> -->
 
                             {{-- =================================================
                             FACING
@@ -1900,16 +1891,19 @@ BIKE PARKING
 
                             </p>
 
-                            <p class="property-image-upload-text">
-
-                                JPG, JPEG, PNG or WEBP — Maximum 10 images, 2MB each
-
-                            </p>
+                           <p class="property-image-upload-text">
+    JPG, JPEG, PNG or WEBP — Minimum 4 and maximum 10 images, 2MB each
+</p>
 
                             <input type="file" name="photos[]" class="property-image-input" accept=".jpg,.jpeg,.png,.webp"
                                 multiple>
 
                         </div>
+
+                        <p id="broker-image-count-message"
+   style="color: #dc3545; font-size: 13px; margin-top: 10px;">
+    Please upload at least 4 property images.
+</p>
 
                     </div>
 
@@ -1931,8 +1925,7 @@ BIKE PARKING
 
                                 <h5 class="property-form-section-title">
 
-                                    Owner / Broker Contact Details
-
+                                    Owner Contact Details
                                 </h5>
 
                                 <p class="property-form-section-subtitle">
@@ -1953,14 +1946,14 @@ BIKE PARKING
 
                                 <label class="property-form-label">
 
-                                    Owner / Broker Name
+                                    Owner Name
 
                                     <span class="property-form-required">*</span>
 
                                 </label>
 
                                 <input type="text" name="owner_name" class="property-form-control"
-                                    value="{{ old('owner_name') }}" placeholder="Enter owner or broker name" required>
+                                    value="{{ old('owner_name') }}" placeholder="Enter owner or Owner name" required>
 
                             </div>
 
@@ -2176,8 +2169,8 @@ BIKE PARKING
                     : 'Add rental price, property size, furnishing and property specifications.';
                 if (pageTitle) pageTitle.textContent = isSale ? 'Add Sale Property' : 'Add Rent Property';
                 if (pageSubtitle) pageSubtitle.textContent = isSale
-                    ? 'Publish a sale property directly from your broker portal.'
-                    : 'Publish a rental property directly from your broker portal.';
+                    ? 'Publish a sale property directly from your Owner portal.'
+                    : 'Publish a rental property directly from your Owner portal.';
                 if (publishText) publishText.textContent = isSale ? 'Publish Sale Property' : 'Publish Rent Property';
                 if (priceInput) priceInput.placeholder = isSale ? '₹ 75,00,000' : '₹ 45,000';
             }
@@ -2266,6 +2259,114 @@ BIKE PARKING
 <script
     async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initLocalityAutocomplete">
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const imageInput = document.querySelector('.property-image-input');
+    const imageMessage = document.getElementById('broker-image-count-message');
+    const propertyForm = imageInput?.closest('form');
+
+    if (!imageInput || !imageMessage || !propertyForm) return;
+
+    let selectedImages = [];
+
+    imageInput.addEventListener('change', function () {
+
+        const newImages = Array.from(this.files);
+
+        newImages.forEach(file => {
+
+            const alreadySelected = selectedImages.some(img =>
+                img.name === file.name &&
+                img.size === file.size &&
+                img.lastModified === file.lastModified
+            );
+
+            if (alreadySelected) return;
+
+            if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                imageMessage.style.color = '#dc3545';
+                imageMessage.textContent =
+                    'Only JPG, JPEG, PNG and WEBP images are allowed.';
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                imageMessage.style.color = '#dc3545';
+                imageMessage.textContent =
+                    file.name + ' exceeds the 2MB limit.';
+                return;
+            }
+
+            if (selectedImages.length >= 10) {
+                imageMessage.style.color = '#dc3545';
+                imageMessage.textContent =
+                    'Maximum 10 images allowed.';
+                return;
+            }
+
+            selectedImages.push(file);
+        });
+
+        updateImageInput();
+        updateImageMessage();
+    });
+
+    function updateImageInput() {
+
+        const dataTransfer = new DataTransfer();
+
+        selectedImages.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        imageInput.files = dataTransfer.files;
+    }
+
+    function updateImageMessage() {
+
+        const count = selectedImages.length;
+
+        if (count < 4) {
+            imageMessage.style.color = '#dc3545';
+            imageMessage.textContent =
+                `Please select at least 4 images. Selected: ${count}`;
+        } else {
+            imageMessage.style.color = '#16a34a';
+            imageMessage.textContent =
+                `✓ ${count} images selected successfully.`;
+        }
+    }
+
+    propertyForm.addEventListener('submit', function (event) {
+
+        if (selectedImages.length < 4) {
+            event.preventDefault();
+
+            imageMessage.style.color = '#dc3545';
+            imageMessage.textContent =
+                `Please upload at least 4 images. Selected: ${selectedImages.length}`;
+
+            imageInput.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            return;
+        }
+
+        if (selectedImages.length > 10) {
+            event.preventDefault();
+            imageMessage.textContent = 'Maximum 10 images allowed.';
+        }
+    });
+
+    updateImageMessage();
+
+});
 </script>
 
 @endsection

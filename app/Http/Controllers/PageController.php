@@ -91,6 +91,7 @@ class PageController extends Controller
                     });
             })
             ->get();
+            $propertiesCount = $approvedProperties->count();
 
 
         /*
@@ -206,7 +207,8 @@ class PageController extends Controller
             'popularLocalities',
             'featuredProperties',
             'propertyTypes',
-            'propertyTypeCounts'
+            'propertyTypeCounts',
+            'propertiesCount'
         ));
     }
     public function about()
@@ -273,21 +275,42 @@ class PageController extends Controller
         }
 
         // BHK filter
+       
+        // BHK filter
         if ($request->filled('bhk')) {
-            $bhk = (int) $request->query('bhk');
 
-            if ($bhk >= 4) {
+            $bhk = trim($request->query('bhk'));
+
+            if ($bhk === '1 RK') {
+
                 $query->whereRaw(
-                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
-                    [4]
+                    'LOWER(TRIM(bhk)) = ?',
+                    ['1 rk']
                 );
-            } elseif ($bhk > 0) {
+
+            } elseif ($bhk === '5+ BHK') {
+
                 $query->whereRaw(
-                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
-                    [$bhk]
+                    "CAST(SUBSTRING_INDEX(TRIM(bhk), ' ', 1) AS UNSIGNED) >= ?",
+                    [5]
                 );
+
+            } elseif (in_array($bhk, [
+                '1 BHK',
+                '2 BHK',
+                '3 BHK',
+                '4 BHK',
+                '5 BHK'
+            ])) {
+
+                $query->whereRaw(
+                    'LOWER(TRIM(bhk)) = ?',
+                    [strtolower($bhk)]
+                );
+
             }
         }
+
 
         // Minimum rent
         if ($request->filled('min_rent')) {
@@ -364,19 +387,39 @@ class PageController extends Controller
         }
 
         // BHK filter
+        
+        // BHK filter
         if ($request->filled('bhk')) {
-            $bhk = (int) $request->query('bhk');
 
-            if ($bhk >= 4) {
+            $bhk = trim($request->query('bhk'));
+
+            if ($bhk === '1 RK') {
+
                 $query->whereRaw(
-                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) >= ?",
-                    [4]
+                    'LOWER(TRIM(bhk)) = ?',
+                    ['1 rk']
                 );
-            } elseif ($bhk > 0) {
+
+            } elseif ($bhk === '5+ BHK') {
+
                 $query->whereRaw(
-                    "CAST(SUBSTRING_INDEX(bhk, ' ', 1) AS UNSIGNED) = ?",
-                    [$bhk]
+                    "CAST(SUBSTRING_INDEX(TRIM(bhk), ' ', 1) AS UNSIGNED) >= ?",
+                    [5]
                 );
+
+            } elseif (in_array($bhk, [
+                '1 BHK',
+                '2 BHK',
+                '3 BHK',
+                '4 BHK',
+                '5 BHK'
+            ])) {
+
+                $query->whereRaw(
+                    'LOWER(TRIM(bhk)) = ?',
+                    [strtolower($bhk)]
+                );
+
             }
         }
 

@@ -734,7 +734,7 @@
 
                                                     <div class="property-subtitle">
                                                         @if($property->bhk)
-                                                            {{ $property->bhk }} BHK
+                                                            {{ $property->bhk }} 
                                                         @endif
 
                                                         @if($property->locality)

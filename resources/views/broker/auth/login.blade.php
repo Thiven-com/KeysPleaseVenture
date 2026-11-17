@@ -86,7 +86,7 @@
 
                             <div class="signinform">
                                 <h4>
-                                    New Broker?
+                                    New Owner?
                                     <a href="{{ route('broker.register') }}" class="hover-a">
                                         Register Now
                                     </a>

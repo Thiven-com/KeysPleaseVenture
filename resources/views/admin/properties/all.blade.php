@@ -634,92 +634,91 @@
 
 
 
-/* PROPERTY PAGINATION */
-.properties-pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 15px;
-    width: 100%;
-    padding: 18px 22px;
-    background: #ffffff;
-    border-top: 1px solid #edf0f4;
-    box-sizing: border-box;
-}
+        /* PROPERTY PAGINATION */
+        .properties-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            width: 100%;
+            padding: 18px 22px;
+            background: #ffffff;
+            border-top: 1px solid #edf0f4;
+            box-sizing: border-box;
+        }
 
-.pagination-info {
-    color: #687389;
-    font-size: 12px;
-    font-weight: 500;
-}
+        .pagination-info {
+            color: #687389;
+            font-size: 12px;
+            font-weight: 500;
+        }
 
-.pagination-links {
-    display: flex;
-    align-items: center;
-}
+        .pagination-links {
+            display: flex;
+            align-items: center;
+        }
 
-.pagination-links .pagination {
-    display: flex !important;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-}
+        .pagination-links .pagination {
+            display: flex !important;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 0 !important;
+            padding: 0 !important;
+            list-style: none !important;
+        }
 
-.pagination-links .page-item {
-    margin: 0 !important;
-}
+        .pagination-links .page-item {
+            margin: 0 !important;
+        }
 
-.pagination-links .page-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 38px;
-    height: 36px;
-    padding: 0 12px;
-    border: 1px solid #e1e7ef;
-    border-radius: 7px !important;
-    background: #ffffff;
-    color: #071b3d;
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: none !important;
-}
+        .pagination-links .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid #e1e7ef;
+            border-radius: 7px !important;
+            background: #ffffff;
+            color: #071b3d;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
 
-.pagination-links .page-item.active .page-link {
-    background: #071b3d;
-    border-color: #071b3d;
-    color: #ffffff;
-}
+        .pagination-links .page-item.active .page-link {
+            background: #071b3d;
+            border-color: #071b3d;
+            color: #ffffff;
+        }
 
-.pagination-links .page-item.disabled .page-link {
-    background: #f5f7fa;
-    color: #a0a9b7;
-    cursor: not-allowed;
-}
+        .pagination-links .page-item.disabled .page-link {
+            background: #f5f7fa;
+            color: #a0a9b7;
+            cursor: not-allowed;
+        }
 
-.pagination-links .page-link:hover:not(.disabled) {
-    background: #eef3ff;
-    border-color: #3157a6;
-    color: #071b3d;
-}
+        .pagination-links .page-link:hover:not(.disabled) {
+            background: #eef3ff;
+            border-color: #3157a6;
+            color: #071b3d;
+        }
 
-@media (max-width: 576px) {
-    .properties-pagination {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+        @media (max-width: 576px) {
+            .properties-pagination {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-    .pagination-links .pagination {
-        justify-content: center;
-    }
-}
-
+            .pagination-links .pagination {
+                justify-content: center;
+            }
+        }
     </style>
     <div class="properties-page">
         <div class="properties-main">
@@ -740,7 +739,7 @@
             {{-- PROPERTY FILTERS --}}
             <form method="GET" action="{{ route('properties.all') }}" class="property-filters">
                 <input type="text" name="search" value="{{ request('search') }}"
-                    placeholder="Search property, location or broker..." aria-label="Search properties">
+                    placeholder="Search property, location or Owner..." aria-label="Search properties">
                 <select name="listing_for" aria-label="Filter by listing type">
                     <option value="">All Listing Types</option>
                     <option value="Rent" @selected(request('listing_for') === 'Rent')>Rent</option>
@@ -758,7 +757,7 @@
                 <select name="posted_by" aria-label="Filter by poster">
                     <option value="">All Posted By</option>
                     <option value="admin" @selected(request('posted_by') === 'admin')>Admin</option>
-                    <option value="broker" @selected(request('posted_by') === 'broker')>Broker</option>
+                    <option value="broker" @selected(request('posted_by') === 'broker')>Owner</option>
                 </select>
                 <button type="submit" class="property-filter-btn">
                     <i class="ti ti-filter"></i> Filter
@@ -879,7 +878,7 @@
                                         $property->area_sqft
                                     )
                                     : '-'
-                                                                                                                                                                                        }}
+                                                                                                                                                                                                                    }}
                                                                 </strong>
                                                                 Sq.Ft
                                                             </div>
@@ -890,7 +889,7 @@
                                                                     {{ $property->broker->name ?? 'Broker' }}
                                                                 </span>
                                                                 <span class="posted-type">
-                                                                    Broker
+                                                                    Owner
                                                                 </span>
                                                             @else
                                                                 <span class="posted-name">
@@ -903,12 +902,8 @@
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $expiryDate = $property->expires_at
-                                                                    ?? $property->created_at?->copy()->addDays(60);
-                                                                $isExpired = $expiryDate && $expiryDate->isPast();
-                                                                $status = $isExpired
-                                                                    ? 'expired'
-                                                                    : strtolower(trim($property->status ?? 'pending'));
+                                                                $status = strtolower(trim($property->status ?? 'pending'));
+
                                                                 $statusClass = match ($status) {
                                                                     'approved' => 'status-approved',
                                                                     'pending' => 'status-pending',
@@ -948,8 +943,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                                                                                'Approve this property?'
-                                                                                                                                                                                                                                                                                                                                                            );">
+                                                                                                                                                                                                                                                                                                                                                                                                                            'Approve this property?'
+                                                                                                                                                                                                                                                                                                                                                                                                                        );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action property-approve"
                                                                                                         title="Approve Property" aria-label="Approve Property">
@@ -976,8 +971,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                                                                                'Mark this property as rented?'
-                                                                                                                                                                                                                                                                                                                                                            );">
+                                                                                                                                                                                                                                                                                                                                                                                                                            'Mark this property as rented?'
+                                                                                                                                                                                                                                                                                                                                                                                                                        );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action" title="Mark Rented"
                                                                                                         aria-label="Mark Rented">
@@ -990,8 +985,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                                                                                'Disable this property?'
-                                                                                                                                                                                                                                                                                                                                                            );">
+                                                                                                                                                                                                                                                                                                                                                                                                                            'Disable this property?'
+                                                                                                                                                                                                                                                                                                                                                                                                                        );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action" title="Disable Property"
                                                                                                         aria-label="Disable Property">
@@ -1009,8 +1004,8 @@
                                                                         $property->id
                                                                     ) }}" method="POST" class="property-action-form"
                                                                                                     onsubmit="return confirm(
-                                                                                                                                                                                                                                                                                                                                                                'Enable this property?'
-                                                                                                                                                                                                                                                                                                                                                            );">
+                                                                                                                                                                                                                                                                                                                                                                                                                            'Enable this property?'
+                                                                                                                                                                                                                                                                                                                                                                                                                        );">
                                                                                                     @csrf
                                                                                                     <button type="submit" class="property-action property-approve"
                                                                                                         title="Enable Property" aria-label="Enable Property">
@@ -1048,58 +1043,55 @@
                         </tbody>
                     </table>
                 </div>
-               
-@if($properties->hasPages())
-    <div class="properties-pagination">
 
-        <div class="pagination-info">
-            Showing {{ $properties->firstItem() }} to
-            {{ $properties->lastItem() }} of
-            {{ $properties->total() }} properties
-        </div>
+                @if($properties->hasPages())
+                    <div class="properties-pagination">
 
-        <nav class="pagination-links" aria-label="Property pagination">
-            <ul class="pagination">
+                        <div class="pagination-info">
+                            Showing {{ $properties->firstItem() }} to
+                            {{ $properties->lastItem() }} of
+                            {{ $properties->total() }} properties
+                        </div>
 
-                {{-- Previous --}}
-                <li class="page-item {{ $properties->onFirstPage() ? 'disabled' : '' }}">
-                    @if($properties->onFirstPage())
-                        <span class="page-link">Previous</span>
-                    @else
-                        <a class="page-link"
-                           href="{{ $properties->previousPageUrl() }}">
-                            Previous
-                        </a>
-                    @endif
-                </li>
+                        <nav class="pagination-links" aria-label="Property pagination">
+                            <ul class="pagination">
 
-                {{-- Page Numbers --}}
-                @for($page = 1; $page <= $properties->lastPage(); $page++)
-                    <li class="page-item {{ $properties->currentPage() == $page ? 'active' : '' }}">
-                        <a class="page-link"
-                           href="{{ $properties->url($page) }}">
-                            {{ $page }}
-                        </a>
-                    </li>
-                @endfor
+                                {{-- Previous --}}
+                                <li class="page-item {{ $properties->onFirstPage() ? 'disabled' : '' }}">
+                                    @if($properties->onFirstPage())
+                                        <span class="page-link">Previous</span>
+                                    @else
+                                        <a class="page-link" href="{{ $properties->previousPageUrl() }}">
+                                            Previous
+                                        </a>
+                                    @endif
+                                </li>
 
-                {{-- Next --}}
-                <li class="page-item {{ !$properties->hasMorePages() ? 'disabled' : '' }}">
-                    @if(!$properties->hasMorePages())
-                        <span class="page-link">Next</span>
-                    @else
-                        <a class="page-link"
-                           href="{{ $properties->nextPageUrl() }}">
-                            Next
-                        </a>
-                    @endif
-                </li>
+                                {{-- Page Numbers --}}
+                                @for($page = 1; $page <= $properties->lastPage(); $page++)
+                                    <li class="page-item {{ $properties->currentPage() == $page ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $properties->url($page) }}">
+                                            {{ $page }}
+                                        </a>
+                                    </li>
+                                @endfor
 
-            </ul>
-        </nav>
+                                {{-- Next --}}
+                                <li class="page-item {{ !$properties->hasMorePages() ? 'disabled' : '' }}">
+                                    @if(!$properties->hasMorePages())
+                                        <span class="page-link">Next</span>
+                                    @else
+                                        <a class="page-link" href="{{ $properties->nextPageUrl() }}">
+                                            Next
+                                        </a>
+                                    @endif
+                                </li>
 
-    </div>
-@endif
+                            </ul>
+                        </nav>
+
+                    </div>
+                @endif
 
             </div>
         </div>

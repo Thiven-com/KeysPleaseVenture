@@ -174,7 +174,7 @@
                                 {{-- <img src="{{ asset }}" alt="Img"> --}}
                             </span>
                             <div>
-                                <p>Broker</p>
+                                <p>Owner</p>
                             </div>
                         </div>
                         {{-- <a class="dropdown-item" href="{{url('profile')}}"><i

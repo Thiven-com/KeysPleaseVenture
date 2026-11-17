@@ -779,7 +779,7 @@
 
                 <p class="property-create-subtitle">
 
-                    Publish a rental property directly from your broker portal.
+                    Publish a rental property directly from your Owner portal.
 
                 </p>
 

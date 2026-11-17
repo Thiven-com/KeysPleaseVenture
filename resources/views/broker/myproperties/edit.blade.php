@@ -410,6 +410,28 @@
 
     }
 
+    .delete-image-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-image-btn:hover {
+    background: #b91c1c;
+}
+
     .existing-image img {
 
         width: 100%;
@@ -1715,7 +1737,7 @@
                             >
 
                         </div>
-
+<!-- 
                         <div class="form-group">
 
                             <label class="form-label">Property Condition</label>
@@ -1732,7 +1754,7 @@
 
                             >
 
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
 
@@ -1984,23 +2006,25 @@
 
                             @foreach($property->images as $index => $image)
 
-                                <div class="existing-image">
+                                <div class="existing-image" id="image-{{ $image->id }}">
+    <img
+        src="{{ asset($image->image_path) }}"
+        alt="Property Image"
+    >
 
-                                    <img
+    <span class="image-label">
+        Image {{ $index + 1 }}
+    </span>
 
-                                        src="{{ asset($image->image_path) }}"
-
-                                        alt="Property Image"
-
-                                    >
-
-                                    <span class="image-label">
-
-                                        Image {{ $index + 1 }}
-
-                                    </span>
-
-                                </div>
+    <button
+        type="button"
+        class="delete-image-btn"
+        onclick="deleteBrokerPropertyImage({{ $image->id }})"
+    >
+        <i class="fa-solid fa-trash"></i>
+        Delete
+    </button>
+</div>
 
                             @endforeach
 
@@ -2033,19 +2057,29 @@
                         </p>
 
                         <input
+    type="file"
+    name="photos[]"
+    id="broker-edit-image-input"
+    class="form-control"
+    accept="image/jpeg,image/png,image/webp"
+    data-existing-count="{{ $property->images->count() }}"
+    multiple
+>
 
-                            type="file"
+<p id="broker-edit-image-message"
+   style="font-size: 13px; margin-top: 10px;">
+</p>
+@error('photos')
+    <p style="color: #dc2626; font-size: 13px; margin-top: 8px;">
+        {{ $message }}
+    </p>
+@enderror
 
-                            name="photos[]"
-
-                            class="form-control"
-
-                            accept="image/jpeg,image/png,image/webp"
-
-                            multiple
-
-                        >
-
+@error('photos.*')
+    <p style="color: #dc2626; font-size: 13px; margin-top: 8px;">
+        {{ $message }}
+    </p>
+@enderror
                     </div>
 
                 </div>
@@ -2152,7 +2186,7 @@
 
                         <div>
 
-                            <h4>Owner / Broker Details</h4>
+                            <h4>Owner Details</h4>
 
                             <p>Update the contact details associated with this property.</p>
 
@@ -2166,7 +2200,7 @@
 
                             <label class="form-label">
 
-                                Owner / Broker Name <span class="required">*</span>
+                                Owner Name <span class="required">*</span>
 
                             </label>
 
@@ -2421,6 +2455,147 @@ document.addEventListener('DOMContentLoaded', function () {
     listingSelect.addEventListener('change', updateListingFields);
     updateListingFields();
 });
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const imageInput = document.getElementById('broker-edit-image-input');
+    const imageMessage = document.getElementById('broker-edit-image-message');
+
+    if (!imageInput || !imageMessage) return;
+
+    const existingCount = parseInt(imageInput.dataset.existingCount || 0);
+    const maxNewImages = Math.max(0, 10 - existingCount);
+
+    const form = imageInput.closest('form');
+
+    let selectedImages = [];
+
+    function updateFiles() {
+        const dataTransfer = new DataTransfer();
+
+        selectedImages.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        imageInput.files = dataTransfer.files;
+    }
+
+    function updateMessage() {
+        const totalCount = existingCount + selectedImages.length;
+
+        if (totalCount < 4) {
+            imageMessage.style.color = '#dc2626';
+            imageMessage.textContent =
+                `Please maintain at least 4 images. Current total: ${totalCount}`;
+        } else {
+            imageMessage.style.color = '#16a34a';
+            imageMessage.textContent =
+                `✓ ${existingCount} existing + ${selectedImages.length} new = ${totalCount} images`;
+        }
+    }
+
+    imageInput.addEventListener('change', function () {
+
+        const newImages = Array.from(this.files);
+
+        newImages.forEach(file => {
+
+            const duplicate = selectedImages.some(img =>
+                img.name === file.name &&
+                img.size === file.size &&
+                img.lastModified === file.lastModified
+            );
+
+            if (duplicate) return;
+
+            if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+                imageMessage.style.color = '#dc2626';
+                imageMessage.textContent = 'Only JPG, JPEG, PNG and WEBP images are allowed.';
+                return;
+            }
+
+            if (file.size > 2048 * 1024) {
+                imageMessage.style.color = '#dc2626';
+                imageMessage.textContent = file.name + ' exceeds the 2MB limit.';
+                return;
+            }
+
+            if (selectedImages.length >= maxNewImages) {
+                imageMessage.style.color = '#dc2626';
+                imageMessage.textContent =
+                    `Maximum 10 total images allowed. You can add only ${maxNewImages} more.`;
+                return;
+            }
+
+            selectedImages.push(file);
+        });
+
+        updateFiles();
+        updateMessage();
+    });
+
+    if (form) {
+        form.addEventListener('submit', function (event) {
+
+            const totalCount = existingCount + selectedImages.length;
+
+            if (totalCount < 4 || totalCount > 10) {
+                event.preventDefault();
+
+                imageMessage.style.color = '#dc2626';
+                imageMessage.textContent =
+                    `Property must have 4 to 10 images. Current total: ${totalCount}`;
+
+                imageInput.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+    }
+
+    updateMessage();
+
+
+
+    
+});
+
+const deleteUrlTemplate = @json(
+    route('broker.properties.images.destroy', ['imageId' => '__IMAGE_ID__'])
+);
+
+function deleteBrokerPropertyImage(imageId) {
+    if (!confirm('Are you sure you want to delete this image?')) {
+        return;
+    }
+
+    const deleteUrl = deleteUrlTemplate.replace('__IMAGE_ID__', imageId);
+
+    fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        }
+    })
+    .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || 'Unable to delete image.');
+        }
+
+        alert(data.message);
+        window.location.reload();
+    })
+    .catch(error => {
+        alert(error.message);
+    });
+}
 </script>
 
 @endsection

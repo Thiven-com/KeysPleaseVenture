@@ -979,7 +979,7 @@
             <form method="GET" action="{{ route('properties.all') }}" class="property-filters">
 
                 <input type="text" name="search" value="{{ request('search') }}"
-                    placeholder="Search property, location or broker..." aria-label="Search properties">
+                    placeholder="Search property, location or Owner..." aria-label="Search properties">
 
                 <select name="status" aria-label="Filter by status">
                     <option value="">All Statuses</option>
@@ -994,7 +994,7 @@
                 <select name="posted_by" aria-label="Filter by poster">
                     <option value="">All Posted By</option>
                     <option value="admin" @selected(request('posted_by') === 'admin')>Admin</option>
-                    <option value="broker" @selected(request('posted_by') === 'broker')>Broker</option>
+                    <option value="broker" @selected(request('posted_by') === 'broker')>Owner</option>
                 </select>
 
                 <button type="submit" class="property-filter-btn">
@@ -1284,7 +1284,7 @@
                                                                 </span>
 
                                                                 <span class="posted-type">
-                                                                    Broker
+                                                                    Owner
                                                                 </span>
 
                                                             @else

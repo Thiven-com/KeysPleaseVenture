@@ -256,14 +256,14 @@
                                     </div>
                                 </div>
                                 {{-- Property Condition --}}
-                                <div class="col-md-4 mb-4">
+                                <!-- <div class="col-md-4 mb-4">
                                     <div class="detail-box">
                                         <span>Property Condition</span>
                                         <strong>
                                             {{ $property->property_condition ?: 'N/A' }}
                                         </strong>
                                     </div>
-                                </div>
+                                </div> -->
                                 {{-- Facing --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">
@@ -664,7 +664,7 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">
                                 <i class="ti ti-user me-1"></i>
-                                Owner / Broker Information
+                                Owner Information
                             </h5>
                         </div>
                         <div class="card-body">
@@ -673,7 +673,7 @@
                                     <i class="ti ti-user"></i>
                                 </div>
                                 <div>
-                                    <small>Owner / Broker Name</small>
+                                    <small>Owner Name</small>
                                     <strong>
                                         {{ $property->owner_name ?: 'N/A' }}
                                     </strong>

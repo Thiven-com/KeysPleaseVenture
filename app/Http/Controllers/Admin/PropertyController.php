@@ -61,6 +61,18 @@ class PropertyController extends Controller
             'posted_by' => 'nullable|in:admin,broker',
         ]);
 
+        // Admin-created properties: Approved -> Pending after 60 days
+        Property::whereNull('broker_id')
+            ->where('status', 'approved')
+            ->whereRaw(
+                'COALESCE(expires_at, DATE_ADD(created_at, INTERVAL 60 DAY)) <= ?',
+                [now()]
+            )
+            ->update([
+                'status' => 'pending',
+                'admin_remark' => 'Approval required again after 60 days.',
+            ]);
+
         $query = Property::with([
             'images',
             'user',
@@ -85,21 +97,9 @@ class PropertyController extends Controller
         }
 
         // Filter by property status and expiry.
+        // Filter by selected property status
         if ($request->filled('status')) {
-            $status = $request->status;
-
-            if ($status === 'expired') {
-                $query->whereRaw(
-                    'COALESCE(expires_at, DATE_ADD(created_at, INTERVAL 60 DAY)) <= ?',
-                    [now()]
-                );
-            } else {
-                $query->where('status', $status)
-                    ->whereRaw(
-                        'COALESCE(expires_at, DATE_ADD(created_at, INTERVAL 60 DAY)) > ?',
-                        [now()]
-                    );
-            }
+            $query->where('status', $request->status);
         }
 
         // Admin-created properties have no broker_id.
@@ -268,12 +268,13 @@ class PropertyController extends Controller
 
             // PROPERTY PHOTOS
 
-            'photos' => 'nullable|array|max:10',
+            'photos' => 'required|array|min:4|max:10',
 
             'photos.*' => [
+                'required',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120'
+                'max:2048',
             ],
         ]);
 
@@ -495,6 +496,27 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $property = Property::findOrFail($id);
+        // Validate total property images (existing + newly uploaded)
+        $existingImageCount = $property->images()->count();
+        $newImageCount = count($request->file('photos', []));
+
+        $totalImageCount = $existingImageCount + $newImageCount;
+
+        if ($totalImageCount < 4) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'photos' => 'A property must have at least 4 images.',
+                ]);
+        }
+
+        if ($totalImageCount > 10) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'photos' => 'A property can have a maximum of 10 images.',
+                ]);
+        }
 
         $validated = $request->validate([
 
@@ -617,12 +639,14 @@ class PropertyController extends Controller
 
             // PHOTOS
 
-            'photos' => 'nullable|array|max:10',
+            // PHOTOS
+
+            'photos' => 'nullable|array',
 
             'photos.*' => [
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120'
+                'max:2048',
             ],
         ]);
 
@@ -813,6 +837,7 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
 
+
         DB::beginTransaction();
 
         try {
@@ -829,6 +854,7 @@ class PropertyController extends Controller
 
             $property->status = 'approved';
             $property->admin_remark = null;
+            $property->expires_at = now()->addDays(60);
 
             $property->save();
 
@@ -1009,6 +1035,15 @@ class PropertyController extends Controller
     public function destroyImage($imageId)
     {
         $image = PropertyImage::findOrFail($imageId);
+
+        $property = $image->property;
+
+        if ($property->images()->count() <= 4) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload one replacement image first. A property must have at least 4 images.',
+            ], 422);
+        }
 
         try {
             $imagePath = $image->image_path;

@@ -317,7 +317,7 @@
                         <h3>Personal Information</h3>
 
                         <p class="broker-edit-section-description">
-                            Update your basic broker information.
+                            Update your basic Owner information.
                         </p>
 
 

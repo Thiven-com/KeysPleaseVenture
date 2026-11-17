@@ -194,13 +194,13 @@
 
 
                                 <li class="submenu-open">
-                                        <h6 class="submenu-hdr">Broker Management</h6>
+                                        <h6 class="submenu-hdr">Owner Management</h6>
                                         <ul>
 
                                                 <li class="{{ Request::is('admin/brokers*') ? 'active' : '' }}">
                                                         <a href="{{ route('admin.brokers.index') }}">
                                                                 <i class="ti ti-users fs-16 me-2"></i>
-                                                                <span>Brokers</span>
+                                                                <span>Owners</span>
                                                         </a>
                                                 </li>
 

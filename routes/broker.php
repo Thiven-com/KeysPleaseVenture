@@ -66,6 +66,10 @@ Route::name('broker.')->group(function () {
             ->name('properties.edit');
         Route::put('/properties/{id}', [BrokerController::class, 'updateProperty'])
             ->name('properties.update');
+            Route::delete(
+    '/properties/images/{imageId}',
+    [BrokerController::class, 'destroyPropertyImage']
+)->name('properties.images.destroy');
 
 
         Route::post('/properties/{id}/repost', [BrokerController::class, 'repostProperty'])

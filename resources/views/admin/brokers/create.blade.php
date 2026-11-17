@@ -13,11 +13,11 @@
                     <div class="col">
 
                         <h4 class="page-title">
-                            Create Broker
+                            Create Owner
                         </h4>
 
                         <p class="text-muted mb-0">
-                            Create a new broker account
+                            Create a new Owner account
                         </p>
 
                     </div>
@@ -112,14 +112,14 @@
                             <div class="col-md-6 mb-3">
 
                                 <label class="form-label">
-                                    Broker Type
+                                    Owner Type
                                     <span class="text-danger">*</span>
                                 </label>
 
                                 <select name="broker_type" class="form-select" required>
 
                                     <option value="">
-                                        Select Broker Type
+                                        Select Owner Type
                                     </option>
 
                                     <option value="Individual" {{ old('broker_type') === 'Individual' ? 'selected' : '' }}>
@@ -325,7 +325,7 @@
                                 </select>
 
                                 <small class="text-muted">
-                                    Approved brokers can login immediately.
+                                    Approved Owners can login immediately.
                                 </small>
 
                             </div>
@@ -338,7 +338,7 @@
 
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save me-1"></i>
-                                Create Broker
+                                Create Owner
                             </button>
 
                             <a href="{{ route('admin.brokers.index') }}" class="btn btn-secondary ms-2">

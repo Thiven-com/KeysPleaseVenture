@@ -1024,43 +1024,38 @@
 
                             {{-- BHK --}}
 
-                            <div class="property-col-4">
 
-                                <label class="property-form-label">
+<div class="property-col-4">
+    <label class="property-form-label">
+        Bedrooms / BHK
+    </label>
 
-                                    Bedrooms / BHK
+    <select name="bhk" class="property-form-select">
 
-                                </label>
+        <option value="">Select BHK</option>
 
-                                <select name="bhk" class="property-form-select">
+        @foreach(
+            [
+                '1 RK',
+                '1 BHK',
+                '2 BHK',
+                '3 BHK',
+                '4 BHK',
+                '5 BHK',
+                '5+ BHK'
+            ] as $bhk
+        )
 
-                                    <option value="">
-                                        Select BHK
-                                    </option>
+            <option value="{{ $bhk }}"
+                {{ old('bhk') == $bhk ? 'selected' : '' }}>
+                {{ $bhk }}
+            </option>
 
-                                    @foreach(
-                                            [
-                                                '1 BHK',
-                                                '2 BHK',
-                                                '3 BHK',
-                                                '4 BHK',
-                                                '5 BHK',
-                                                '6+ BHK'
-                                            ]
-                                            as $bhk
-                                        )
+        @endforeach
 
-                                        <option value="{{ $bhk }}" {{ old('bhk') == $bhk ? 'selected' : '' }}>
+    </select>
+</div>
 
-                                            {{ $bhk }}
-
-                                        </option>
-
-                                    @endforeach
-
-                                </select>
-
-                            </div>
 
 
                             {{-- BATHROOMS --}}
@@ -2041,13 +2036,17 @@
 
                             <p class="property-image-upload-text">
 
-                                JPG, JPEG, PNG or WEBP — Maximum 10 images, 2MB each
+                                JPG, JPEG, PNG or WEBP — Minimum 4 and maximum 10 images, 2MB each
 
                             </p>
 
 
                             <input type="file" name="photos[]" class="property-image-input" accept=".jpg,.jpeg,.png,.webp"
                                 multiple>
+
+                                <p id="image-count-message" style="color: #dc3545; font-size: 14px; margin-top: 10px;">
+                                           Please upload at least 4 property images.
+                                </p>
 
                         </div>
 
@@ -2072,7 +2071,7 @@
 
                                 <h5 class="property-form-section-title">
 
-                                    Owner / Broker Contact Details
+                                    Owner Contact Details
 
                                 </h5>
 
@@ -2096,14 +2095,14 @@
 
                                 <label class="property-form-label">
 
-                                    Owner / Broker Name
+                                    Owner Name
 
                                     <span class="property-form-required">*</span>
 
                                 </label>
 
                                 <input type="text" name="owner_name" class="property-form-control"
-                                    value="{{ old('owner_name') }}" placeholder="Enter owner or broker name" required>
+                                    value="{{ old('owner_name') }}" placeholder="Enter owner or Owner name" required>
 
                             </div>
 
@@ -2845,6 +2844,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
     listingFor.addEventListener('change', updatePropertyForm);
     updatePropertyForm();
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const imageInput = document.querySelector('.property-image-input');
+    const imageMessage = document.getElementById('image-count-message');
+
+    if (!imageInput || !imageMessage) return;
+
+    let selectedImages = [];
+
+    imageInput.addEventListener('change', function () {
+
+        const newImages = Array.from(this.files);
+
+        newImages.forEach(file => {
+            if (!selectedImages.some(img =>
+                img.name === file.name &&
+                img.size === file.size &&
+                img.lastModified === file.lastModified
+            )) {
+                selectedImages.push(file);
+            }
+        });
+
+        const dataTransfer = new DataTransfer();
+
+        selectedImages.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        imageInput.files = dataTransfer.files;
+
+        updateMessage();
+    });
+
+    function updateMessage() {
+
+        const count = selectedImages.length;
+
+        if (count < 4) {
+            imageMessage.style.display = 'block';
+            imageMessage.style.color = '#dc3545';
+            imageMessage.textContent =
+                `Please select at least 4 images. Selected: ${count}`;
+        }
+        else if (count > 10) {
+            imageMessage.style.display = 'block';
+            imageMessage.style.color = '#dc3545';
+            imageMessage.textContent =
+                'Maximum 10 images allowed.';
+        }
+        else {
+            imageMessage.style.display = 'block';
+            imageMessage.style.color = '#16a34a';
+            imageMessage.textContent =
+                `✓ ${count} images selected successfully.`;
+        }
+    }
+
+    updateMessage();
+
 });
 </script>
 

@@ -1,7 +1,7 @@
 
 @extends('layouts.website')
 
-@section('title', 'Broker Benefits | KeysPleasee Venture')
+@section('title', 'Owner Benefits | KeysPleasee Venture')
 
 @section('content')
 
@@ -729,7 +729,7 @@
         <div class="bb-container">
 
             <div class="bb-section-heading">
-                <span class="bb-section-label">BROKER BENEFITS</span>
+                <span class="bb-section-label">OWNER BENEFITS</span>
 
                 <h2>Built Around Your Property Business</h2>
 

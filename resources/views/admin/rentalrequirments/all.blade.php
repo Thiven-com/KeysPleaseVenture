@@ -626,7 +626,7 @@
                             <th class="rental-col-email">Email</th>
                             <th class="rental-col-property">Property Type</th>
                             <th class="rental-col-property">Property Details</th>
-                            <th class="rental-col-property">Property Owner / Broker</th>
+                            <th class="rental-col-property">Property Owner</th>
                             <th class="rental-col-budget">Monthly Rent</th>
                             <th class="rental-col-date">Move-in Date</th>
                             <th class="rental-col-furnishing">Furnishing</th>
@@ -722,7 +722,7 @@
                                                 {{ $property->broker->name ?? 'Broker name unavailable' }}
                                             </div>
 
-                                            <small>Broker</small>
+                                            <small>Owner</small>
 
                                         @elseif($property->owner_name)
                                             <div class="rental-customer-name">
@@ -740,7 +740,7 @@
 
                                         @else
                                             <span class="rental-date empty">
-                                                Owner/broker unavailable
+                                                Owner unavailable
                                             </span>
                                         @endif
 
