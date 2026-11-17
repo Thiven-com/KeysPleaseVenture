@@ -205,8 +205,8 @@
 
         .signin-section {
             position: absolute;
-            top: 15px;
-            right: 10px;
+            top: 40px;
+            right: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -247,7 +247,7 @@
 
         @media (max-width: 768px) {
             .signin-section {
-                position: static;
+                /* position: static; */
                 align-items: flex-end;
                 margin: 15px 20px;
             }
@@ -258,7 +258,236 @@
                 font-size: 16px;
             }
         }
+
     </style>
+
+
+<style>
+
+/* =========================================
+   MOBILE VIEW ONLY
+========================================= */
+@media (max-width: 767.98px) {
+
+    .account-content {
+        width: 100%;
+        overflow-x: hidden;
+        padding: 12px;
+        background: #f7f8fc;
+    }
+
+    .login-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+    }
+
+    .login-wrapper > .col-lg-6 {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 !important;
+    }
+
+    .login-content {
+        position: relative;
+        width: 100%;
+        padding: 18px 15px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(20, 35, 70, 0.06);
+    }
+
+    .login-userset {
+        width: 100%;
+        padding: 0;
+    }
+
+    .final-logo {
+        margin-bottom: 14px !important;
+    }
+
+    .final-logo img {
+        width: 125px !important;
+    }
+
+    .login-userheading {
+        margin-bottom: 22px;
+    }
+
+    .login-userheading h3 {
+        font-size: 21px;
+        line-height: 1.35;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .login-userheading p {
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+
+    .login-content h5 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 14px !important;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .login-content .mb-3 {
+        margin-bottom: 14px !important;
+    }
+
+    .login-content .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #30384b;
+        margin-bottom: 6px;
+    }
+
+    .login-content .form-control,
+    .login-content .form-select {
+        min-height: 46px;
+        width: 100%;
+        font-size: 14px;
+        border: 1px solid #dfe3ec;
+        border-radius: 8px !important;
+        background-color: #fff;
+        box-shadow: none;
+    }
+
+    .login-content .input-group {
+        flex-wrap: nowrap;
+    }
+
+    .login-content .input-group .form-control {
+        min-width: 0;
+    }
+
+    .login-content .input-group-text {
+        min-width: 44px;
+        justify-content: center;
+        background: #f8f9fc;
+        border: 1px solid #dfe3ec;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .login-content .pass-group {
+        position: relative;
+    }
+
+    .login-content .pass-group .form-control {
+        padding-right: 42px;
+    }
+
+    .login-content .registration-terms-group {
+        margin: 12px 0 18px;
+    }
+
+    .registration-terms-label {
+        gap: 8px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .registration-terms-label input {
+        margin-top: 3px;
+    }
+
+    .login-content .authentication-check {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .login-content .form-login .btn-login {
+        width: 100%;
+        min-height: 47px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .signin-section {
+        /* position: static;
+        display: flex;
+        flex-direction: row;
+        justify-content: center; */
+        align-items: center;
+        gap: 8px;
+        margin: 16px 0 4px;
+    }
+
+    .signin-section > span {
+        font-size: 12px;
+        color: #687083;
+    }
+
+    .signin-btn {
+        width: auto;
+        height: auto;
+        min-height: 34px;
+        padding: 5px 13px;
+        font-size: 13px;
+        border-radius: 6px;
+        gap: 5px;
+    }
+
+    .signin-btn svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .login-img {
+        margin-top: 18px;
+        text-align: center;
+    }
+
+    .login-img img {
+        display: block;
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 12px;
+    }
+
+    .registration-terms-modal {
+        padding: 12px;
+    }
+
+    .registration-terms-content {
+        width: 100%;
+        max-height: 88vh;
+        padding: 20px 15px;
+        border-radius: 12px;
+    }
+
+    .registration-terms-content h2 {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 380px) {
+    .account-content {
+        padding: 8px;
+    }
+
+    .login-content {
+        padding: 15px 12px;
+    }
+
+    .login-userheading h3 {
+        font-size: 19px;
+    }
+
+    .signin-section {
+        flex-wrap: wrap;
+    }
+}
+
+    
+</style>
     <div class="account-content">
         <div class="row login-wrapper m-0">
             {{-- LEFT SIDE - REGISTRATION FORM --}}
@@ -300,9 +529,9 @@
                         <div class="login-userset">
                             {{-- Logo --}}
                             <div class="final-logo logo-normal mb-3">
-                                <a href="#" class="logo logo-normal d-flex align-items-center justify-content-center w-100">
+                                <a href="#" class="logo logo-normal d-flex align-items-center justify-content-start w-100">
                                     <img src="{{ asset('website') }}/images/keys10.png" alt="Logo"
-                                        style="width: 200px; max-width: 100%; height: auto;">
+                                        style="width: 150px; max-width: 100%; height: auto; display">
                                 </a>
                             </div>
                             {{-- Heading --}}
@@ -353,7 +582,7 @@
                             {{-- Mobile Number --}}
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Mobile Number <span class="text-danger">\*</span>
+                                    Mobile Number <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
                                     <input type="tel" name="mobile" id="mobile" class="form-control border-end-0"
@@ -865,7 +1094,7 @@
                     alert('Please select a location within Bengaluru.');
                     return;
                 }
-                \// Ensure the selected address belongs to Karnataka.\
+                // Ensure the selected address belongs to Karnataka.\
                 const components = place.address_components || [];
                 const isKarnataka = components.some(component =>
                     component.types.includes('administrative_area_level_1') &&
@@ -887,11 +1116,11 @@
                     dropdown.style.display = 'none';
                 }
             });
-            \// Keep focus and selection behavior consistent with the existing form.\
+            // Keep focus and selection behavior consistent with the existing form.
             input.addEventListener('focus', function () {
-                \// Google displays its own autocomplete suggestions.\
+                // Google displays its own autocomplete suggestions.
             });
-            \// Address Autocomplete\
+            // Address Autocomplete
             const addressInput = document.getElementById('address');
             if (addressInput) {
                 const addressAutocomplete = new google.maps.places.Autocomplete(

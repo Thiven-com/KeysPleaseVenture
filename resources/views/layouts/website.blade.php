@@ -2288,6 +2288,33 @@
         transition-duration: .01ms !important;
       }
     }
+
+
+
+
+
+/* FIXED HEADER */
+body > header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+    background: #F8FAFC !important;
+    margin: 0 !important;
+}
+
+/* Header while scrolling */
+body > header.scrolled {
+    background: #FFFFFF !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Prevent page content from going behind header */
+body {
+    padding-top: 80px !important;
+}
   </style>
 </body>
 

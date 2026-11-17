@@ -501,13 +501,13 @@
                     For Owners
                 </button>
 
-                <button
+                <!-- <button
                     type="button"
                     class="res-filter"
                     data-filter="broker"
                     aria-pressed="false">
                     For Brokers
-                </button>
+                </button> -->
 
                 <button
                     type="button"
@@ -629,15 +629,15 @@
                 {{-- Broker Benefits --}}
                 <article
                     class="res-card"
-                    data-category="broker"
+                    data-category="owner"
                     data-search="broker benefits real estate agent property listing leads">
 
                     <div class="res-card-top">
                         <div class="res-icon">◇</div>
-                        <span class="res-tag">Brokers</span>
+                        <span class="res-tag">Owners</span>
                     </div>
 
-                    <h3>Broker Resource Guide</h3>
+                    <h3>Owner Resource Guide</h3>
 
                     <p>
                         Explore platform benefits and learn how brokers can
@@ -647,7 +647,7 @@
                     <a
                         href="{{ route('website.broker-benefits') }}"
                         class="res-card-link">
-                        View Broker Benefits <span>→</span>
+                        View Owner Benefits <span>→</span>
                     </a>
 
                 </article>
