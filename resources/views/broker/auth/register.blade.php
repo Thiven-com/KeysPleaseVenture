@@ -5,6 +5,7 @@
         .login-content {
             position: relative;
         }
+
         .login-content>.signinform {
             position: absolute;
             top: 18px;
@@ -12,6 +13,7 @@
             z-index: 10;
             margin: 0;
         }
+
         .login-content>.signinform h4 {
             display: flex;
             flex-direction: column;
@@ -23,6 +25,7 @@
             color: #72798b;
             line-height: 1.5;
         }
+
         .login-content>.signinform a {
             display: block;
             color: #00068a;
@@ -30,15 +33,18 @@
             text-decoration: none;
             margin: 0;
         }
+
         .login-content>.signinform a:hover {
             color: #254dff;
             text-decoration: underline;
         }
+
         @media (max-width: 576px) {
             .login-content>.signinform {
                 top: 12px;
                 left: 15px;
             }
+
             .login-content>.signinform h4 {
                 font-size: 12px;
             }
@@ -59,6 +65,7 @@
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(7, 27, 61, 0.12);
         }
+
         .location-suggestions .suggestion-item {
             display: block;
             width: 100%;
@@ -69,128 +76,208 @@
             text-align: left;
             cursor: pointer;
         }
+
         .location-suggestions .suggestion-item:hover {
             background: #f3f6fb;
         }
+
         #mobile.is-invalid {
             border-color: #dc3545 !important;
             background-image: none;
         }
+
         #mobile.is-valid {
             border-color: #198754 !important;
             background-image: none;
         }
+
         #mobileError {
             font-size: 12px;
             font-weight: 500;
         }
+
         #mobileSuccess {
             font-size: 12px;
             font-weight: 500;
         }
     </style>
-<style>
-/* Registration Terms Checkbox */
-.registration-terms-group {
-    margin: 15px 0;
-}
-.registration-terms-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 1.6;
-    cursor: pointer;
-}
-.registration-terms-label input {
-    margin-top: 5px;
-    flex-shrink: 0;
-}
-.registration-terms-label a {
-    color: #00068a;
-    font-weight: 600;
-    text-decoration: underline;
-}
-/* Registration Terms Modal */
-.registration-terms-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 100010;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-.registration-terms-modal.active {
-    display: flex;
-}
-.registration-terms-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(8, 13, 40, 0.78);
-    backdrop-filter: blur(4px);
-}
-.registration-terms-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 700px;
-    max-height: 85vh;
-    max-height: 85dvh;
-    padding: 28px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
-}
-.registration-terms-content h2 {
-    margin: 0 40px 15px 0;
-    color: #202638;
-}
-.registration-terms-body {
-    overflow-y: auto;
-    min-height: 0;
-    line-height: 1.7;
-    color: #444;
-    overscroll-behavior: contain;
-}
-.registration-terms-body h3,
-.registration-terms-body h4 {
-    color: #202638;
-    margin-top: 18px;
-}
-.registration-terms-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    border: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 24px;
-    background: #f2f4fb;
-}
-@media (max-width: 576px) {
-    .registration-terms-content {
-        padding: 22px 18px;
-    }
-}
-</style>
+    <style>
+        /* Registration Terms Checkbox */
+        .registration-terms-group {
+            margin: 15px 0;
+        }
+
+        .registration-terms-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .registration-terms-label input {
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .registration-terms-label a {
+            color: #00068a;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* Registration Terms Modal */
+        .registration-terms-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100010;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .registration-terms-modal.active {
+            display: flex;
+        }
+
+        .registration-terms-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 13, 40, 0.78);
+            backdrop-filter: blur(4px);
+        }
+
+        .registration-terms-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            max-height: 85dvh;
+            padding: 28px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+        }
+
+        .registration-terms-content h2 {
+            margin: 0 40px 15px 0;
+            color: #202638;
+        }
+
+        .registration-terms-body {
+            overflow-y: auto;
+            min-height: 0;
+            line-height: 1.7;
+            color: #444;
+            overscroll-behavior: contain;
+        }
+
+        .registration-terms-body h3,
+        .registration-terms-body h4 {
+            color: #202638;
+            margin-top: 18px;
+        }
+
+        .registration-terms-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            background: #f2f4fb;
+        }
+
+        @media (max-width: 576px) {
+            .registration-terms-content {
+                padding: 22px 18px;
+            }
+        }
+
+
+        .signin-section {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .signin-section>span {
+            color: #10183f;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .signin-btn {
+            width: 115px;
+            height:35px;
+            border-radius: 40px;
+            background: linear-gradient(110deg, #2449e8, #071eaa);
+            color: #fff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none !important;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .signin-btn i {
+            font-size: 27px;
+        }
+
+        .signin-btn:hover {
+            background: #071a91;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 50, 180, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .signin-section {
+                position: static;
+                align-items: flex-end;
+                margin: 15px 20px;
+            }
+
+            .signin-btn {
+                width: 150px;
+                height: 48px;
+                font-size: 16px;
+            }
+        }
+    </style>
     <div class="account-content">
         <div class="row login-wrapper m-0">
             {{-- LEFT SIDE - REGISTRATION FORM --}}
             <div class="col-lg-6 p-0">
                 <div class="login-content">
                     {{-- Login link at top-left --}}
-                    <div class="signinform mb-3">
-                        <h4>
-                            Already have an account?
-                            <a href="{{ route('broker.login') }}" class="hover-a">
-                                Sign In
-                            </a>
-                        </h4>
+                    <div class="signin-section">
+                        <span>Already have an account?</span>
+
+                        <a href="{{ route('broker.login') }}" class="signin-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 17l5-5-5-5" />
+                                <path d="M15 12H3" />
+                                <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6" />
+                            </svg>
+
+                            <span>Sign In</span>
+                        </a>
                     </div>
                     <form method="POST" action="{{ route('broker.register.submit') }}">
                         @csrf
@@ -450,228 +537,284 @@
                             </div>
                             {{-- Login --}}
                             <!-- <div class="signinform">\
-\*                                                                            <h4>\
-*\*                                                                                Already have an account?\
-*\*                                                                                <a\
-*\*                                                                                    href="{{ route('broker.login') }}"\
-*\*                                                                                    class="hover-a"\
-*\*                                                                                >\
-*\*                                                                                    Sign In\
-*\*                                                                                </a>\
-*\*                                                                            </h4>\
-*\*                                                                        </div> -->
+        \*                                                                            <h4>\
+        *\*                                                                                Already have an account?\
+        *\*                                                                                <a\
+        *\*                                                                                    href="{{ route('broker.login') }}"\
+        *\*                                                                                    class="hover-a"\
+        *\*                                                                                >\
+        *\*                                                                                    Sign In\
+        *\*                                                                                </a>\
+        *\*                                                                            </h4>\
+        *\*                                                                        </div> -->
                         </div>
                     </form>
-{{-- Registration Terms & Conditions Popup --}}
-<div class="registration-terms-modal"
-     id="registrationTermsModal"
-     aria-hidden="true">
-    <div class="registration-terms-overlay"
-         onclick="closeRegistrationTerms()"></div>
-    <div class="registration-terms-content"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="registrationTermsTitle"
-         tabindex="-1">
-        <button type="button"
-                class="registration-terms-close"
-                onclick="closeRegistrationTerms()"
-                aria-label="Close Terms and Conditions">
-            &times;
-        </button>
-        <h2 id="registrationTermsTitle">Terms &amp; Conditions</h2>
-        <div class="registration-terms-body">
-            {{-- Insert the approved Terms & Conditions content here. --}}
-            <h3>KEYSPLEASEE VENTURES</h3>
-            <h4>TERMS AND CONDITIONS OF USE</h4>
-                <h4>1. Acceptance of Terms</h4>
-                <p>These Terms and Conditions (“Terms”) govern your access to and use of the KeysPleasee Ventures website,
-                    platform, services and related communication channels (“Platform”).</p>
-                <p>By accessing the Platform, creating an account, listing a property, browsing listings, requesting a
-                    viewing, unlocking property details or contacting another user, you acknowledge that you have read and
-                    agreed to these Terms.</p>
-                <p>If you do not agree with these Terms, you must discontinue using the Platform.</p>
-                <h4>2. Nature and Scope of Services</h4>
-                <p>KeysPleasee Ventures operates as a property discovery, viewing and connection platform intended to
-                    facilitate direct communication between property owners, landlords, tenants, buyers, sellers and other
-                    prospective property seekers.</p>
-                <p>The Platform may enable users to:</p>
-                <ul>
-                    <li>Discover properties available for rent, lease or sale.</li>
-                    <li>View property information, photographs, videos and other listing details.</li>
-                    <li>Request property viewings.</li>
-                    <li>Connect and communicate with property owners, landlords, tenants, buyers, sellers or their
-                        authorised representatives.</li>
-                    <li>Access property information or contact details through free or paid services, where applicable.</li>
-                </ul>
-                <p>KeysPleasee Ventures is a technology platform and is not a party to any property transaction solely by
-                    virtue of providing these services. Unless expressly agreed in a separate written agreement, the
-                    Platform does not act as the owner, landlord, tenant, buyer, seller, legal representative, escrow agent,
-                    payment intermediary or guarantor of any transaction.</p>
-                <p>Users are responsible for independently evaluating and completing their transactions.</p>
-                <h4>3. No Guarantee of Property or User Authenticity</h4>
-                <p>Property listings and related information may be submitted by users or third parties.</p>
-                <p>KeysPleasee Ventures does not guarantee that:</p>
-                <ul>
-                    <li>A person listing a property is its lawful owner or has valid authority to offer it.</li>
-                    <li>A property exists as described or is available at the stated price.</li>
-                    <li>Photographs, videos, floor plans, measurements, addresses, amenities or other property details are
-                        accurate or current.</li>
-                    <li>A property has valid title, approvals, occupancy certificates, completion certificates, sanctioned
-                        plans or other legal documentation.</li>
-                    <li>A property is free from encumbrances, litigation, disputes, defects or third-party claims.</li>
-                    <li>A user is genuine, financially capable, trustworthy or acting in good faith.</li>
-                </ul>
-                <p>Any verification, screening, moderation or document review undertaken by KeysPleasee Ventures is limited
-                    to the stated scope of that process and does not constitute a guarantee of authenticity, ownership,
-                    legal compliance or transaction safety.</p>
-                <p>Users must independently verify all relevant information before making payments, signing agreements or
-                    proceeding with a transaction.</p>
-                <h4>4. No Liability for Third-Party Fraud, Scams or Misconduct</h4>
-                <p>KeysPleasee Ventures is not responsible for fraudulent, dishonest, misleading, negligent, unlawful or
-                    unauthorised acts or omissions committed by property owners, landlords, tenants, buyers, sellers,
-                    agents, representatives or other third parties, to the extent permitted by applicable law.</p>
-                <p>Examples include:</p>
-                <ul>
-                    <li>Fake property listings or impersonation of property owners.</li>
-                    <li>False representations regarding ownership, authority, price or availability.</li>
-                    <li>Requests for advance payments to reserve or secure a property.</li>
-                    <li>Fake booking confirmations, forged documents or false identity documents.</li>
-                    <li>Rental scams, sale scams, deposit fraud or payment diversion.</li>
-                    <li>Misuse of contact information or direct communications.</li>
-                    <li>Failure to refund a deposit, advance, token amount, security deposit or other payment.</li>
-                    <li>Breach of a rental agreement, sale agreement, lease, promise or other arrangement.</li>
-                    <li>Disputes relating to possession, title, maintenance, refunds, cancellation, tenancy or completion of
-                        a transaction.</li>
-                </ul>
-                <p>Any such conduct is the responsibility of the person or entity that committed it, subject to applicable
-                    law.</p>
-                <p>KeysPleasee Ventures does not guarantee that users will not encounter fraud, scams, impersonation or
-                    other misconduct through the Platform.</p>
-                <h4>5. No Responsibility for Deposits, Advances or Other Payments</h4>
-                <p>KeysPleasee Ventures does not accept responsibility for money paid directly between users or to third
-                    parties in connection with a property transaction.</p>
-                <p>This includes, without limitation:</p>
-                <ul>
-                    <li>Rental security deposits.</li>
-                    <li>Booking amounts and token advances.</li>
-                    <li>Earnest money deposits.</li>
-                    <li>Sale consideration.</li>
-                    <li>Advance rent.</li>
-                    <li>Brokerage or service fees payable to third parties.</li>
-                    <li>Refunds, cancellation charges or forfeited amounts.</li>
-                    <li>Legal fees, documentation charges, maintenance payments and other transaction-related expenses.</li>
-                </ul>
-                <p>Users are strongly advised not to transfer money until they have independently verified the identity and
-                    authority of the recipient, inspected the property where appropriate, reviewed the relevant documents
-                    and understood the applicable contractual terms.</p>
-                <p>Payments should be made through traceable channels and against appropriate written documentation.</p>
-                <p>Where a payment is made directly to an owner, tenant, buyer, seller, agent or any other third party,
-                    KeysPleasee Ventures does not hold, control, safeguard, insure or guarantee that money and is not
-                    responsible for recovering it.</p>
-                <p>KeysPleasee Ventures is not obligated to refund, reimburse or compensate users for losses arising from
-                    such third-party payments, except where liability cannot lawfully be excluded.</p>
-                <h4>6. Independent Verification and Due Diligence</h4>
-                <p>Every user is responsible for conducting their own due diligence before entering into any
-                    property-related arrangement.</p>
-                <p>Depending on the transaction, this may include verifying:</p>
-                <ul>
-                    <li>Government-issued identity documents and the recipient’s bank account details.</li>
-                    <li>Ownership documents, title records and authority to sell or rent.</li>
-                    <li>Encumbrances, litigation, land-use restrictions and property approvals.</li>
-                    <li>Relevant RERA registration and disclosures, where applicable.</li>
-                    <li>Sanctioned plans, occupancy certificates and completion certificates, where applicable.</li>
-                    <li>The property’s physical condition, measurements, amenities and access.</li>
-                    <li>The terms of any rental, lease, sale or purchase agreement.</li>
-                </ul>
-                <p>Users should obtain independent legal, financial and technical advice wherever appropriate.</p>
-                <p>Any information displayed on the Platform is not a substitute for professional advice or independent
-                    verification.</p>
-                <h4>7. Direct Transactions Between Users</h4>
-                <p>Any negotiations, viewings, offers, agreements, payments, refunds, handovers or other dealings between
-                    users are undertaken at their own discretion and risk.</p>
-                <p>KeysPleasee Ventures is not responsible for:</p>
-                <ul>
-                    <li>The conduct or representations of either party.</li>
-                    <li>The terms negotiated or agreed between the parties.</li>
-                    <li>The validity, enforceability or performance of agreements between users.</li>
-                    <li>Disputes concerning deposits, refunds, possession, title, rent, sale consideration or contractual
-                        obligations.</li>
-                    <li>Losses arising from a party’s breach, default, misrepresentation or failure to perform.</li>
-                </ul>
-                <p>Users are encouraged to execute appropriate written agreements and retain transaction records.</p>
-                <p>Unless expressly agreed in writing, KeysPleasee Ventures does not negotiate or guarantee the commercial
-                    or legal terms of a transaction.</p>
-                <h4>8. Platform Fees and Paid Features</h4>
-                <p>KeysPleasee Ventures may provide free or paid services, including access to property details, contact
-                    information, listing packages, subscriptions or other platform features.</p>
-                <p>Unless expressly stated otherwise at the time of purchase, any fee charged by KeysPleasee Ventures is for
-                    the relevant platform service and not a guarantee that:</p>
-                <ul>
-                    <li>A property will be available.</li>
-                    <li>A viewing or meeting will take place.</li>
-                    <li>A user will respond to a communication.</li>
-                    <li>A transaction will be concluded.</li>
-                    <li>A property will be suitable for the user’s requirements.</li>
-                    <li>A user will receive a financial return or other commercial benefit.</li>
-                </ul>
-                <p>Refunds, cancellations and subscription terms will be governed by the applicable purchase terms and
-                    refund policy, subject to applicable law.</p>
-                <p>Where a user purchases access to listings or contact details, the purchase does not constitute a
-                    guarantee of the accuracy of all third-party information or of a successful transaction.</p>
-                <h4>9. User Representations and Responsibilities</h4>
-                <p>By using the Platform, you represent and agree that:</p>
-                <ul>
-                    <li>Information and documents you submit are accurate to the best of your knowledge.</li>
-                    <li>You have the authority to publish any property listing you submit.</li>
-                    <li>You will not impersonate another person or misrepresent your identity, ownership or authority.</li>
-                    <li>You will not publish fraudulent, misleading, unlawful or unauthorised listings.</li>
-                    <li>You will not use the Platform to collect money through deceptive practices.</li>
-                    <li>You will comply with applicable laws and contractual obligations.</li>
-                    <li>You will respect the privacy and rights of other users.</li>
-                    <li>You will not misuse, scrape, copy, resell or exploit Platform information except as permitted by law
-                        and the Platform’s policies.</li>
-                </ul>
-                <p>You remain responsible for your conduct and communications with other users.</p>
-                <h4>10. Reporting Fraud and Suspicious Activity</h4>
-                <p>Users who suspect fraud, impersonation, false listings or suspicious payment requests should promptly
-                    notify KeysPleasee Ventures through its designated reporting or customer support channel.</p>
-                <p>Where reasonably appropriate and legally permissible, KeysPleasee Ventures may investigate reports,
-                    request further information, restrict access to listings, suspend accounts, remove content or cooperate
-                    with competent authorities.</p>
-                <p>Reporting a user does not guarantee recovery of funds, resolution of a dispute or prevention of all
-                    future misconduct.</p>
-                <p>Users who believe they have been defrauded should also promptly contact their bank or payment provider
-                    and the appropriate law enforcement or cybercrime authorities.</p>
-                <h4>11. Suspension and Termination</h4>
-                <p>KeysPleasee Ventures may suspend, restrict or terminate access to the Platform where it reasonably
-                    believes that a user has violated these Terms, submitted misleading information, engaged in suspected
-                    fraud, misused the Platform or created a legal, security or operational risk.</p>
-                <p>Where appropriate, the Platform may remove listings or restrict contact between users.</p>
-                <p>These measures do not guarantee the prevention of fraud and do not relieve users of their own legal
-                    responsibilities.</p>
-                <h4>12. Intellectual Property</h4>
-                <p>The Platform’s software, branding, design, logos, original text and other proprietary materials are owned
-                    by or licensed to KeysPleasee Ventures, unless otherwise stated.</p>
-                <p>Users retain responsibility for the content they submit and must have the necessary rights or permissions
-                    to upload and publish it.</p>
-                <p>By submitting content, users grant KeysPleasee Ventures a non-exclusive permission to host, display,
-                    reproduce and use that content as reasonably necessary to operate, promote and improve the Platform,
-                    subject to applicable law and the Platform’s privacy policy.</p>
-                <h4>13. Privacy and Personal Information</h4>
-                <p>KeysPleasee Ventures may collect and process personal information necessary to operate the Platform,
-                    facilitate connections, provide paid services, address complaints, maintain security and comply</p>
-                <p><strong>Note:</strong> The text provided for Section 13 ends here. Add the remaining privacy terms and
-                    any subsequent sections before publishing the final Terms.</p>
-            {{-- Add all approved Terms & Conditions sections here. --}}
-        </div>
-        <button type="button"
-                class="btn btn-login mt-3"
-                onclick="closeRegistrationTerms()">
-            Close
-        </button>
-    </div>
-</div>
+                    {{-- Registration Terms & Conditions Popup --}}
+                    <div class="registration-terms-modal" id="registrationTermsModal" aria-hidden="true">
+                        <div class="registration-terms-overlay" onclick="closeRegistrationTerms()"></div>
+                        <div class="registration-terms-content" role="dialog" aria-modal="true"
+                            aria-labelledby="registrationTermsTitle" tabindex="-1">
+                            <button type="button" class="registration-terms-close" onclick="closeRegistrationTerms()"
+                                aria-label="Close Terms and Conditions">
+                                &times;
+                            </button>
+                            <h2 id="registrationTermsTitle">Terms &amp; Conditions</h2>
+                            <div class="registration-terms-body">
+                                {{-- Insert the approved Terms & Conditions content here. --}}
+                                <h3>KEYSPLEASEE VENTURES</h3>
+                                <h4>TERMS AND CONDITIONS OF USE</h4>
+                                <h4>1. Acceptance of Terms</h4>
+                                <p>These Terms and Conditions (“Terms”) govern your access to and use of the KeysPleasee
+                                    Ventures website,
+                                    platform, services and related communication channels (“Platform”).</p>
+                                <p>By accessing the Platform, creating an account, listing a property, browsing listings,
+                                    requesting a
+                                    viewing, unlocking property details or contacting another user, you acknowledge that you
+                                    have read and
+                                    agreed to these Terms.</p>
+                                <p>If you do not agree with these Terms, you must discontinue using the Platform.</p>
+                                <h4>2. Nature and Scope of Services</h4>
+                                <p>KeysPleasee Ventures operates as a property discovery, viewing and connection platform
+                                    intended to
+                                    facilitate direct communication between property owners, landlords, tenants, buyers,
+                                    sellers and other
+                                    prospective property seekers.</p>
+                                <p>The Platform may enable users to:</p>
+                                <ul>
+                                    <li>Discover properties available for rent, lease or sale.</li>
+                                    <li>View property information, photographs, videos and other listing details.</li>
+                                    <li>Request property viewings.</li>
+                                    <li>Connect and communicate with property owners, landlords, tenants, buyers, sellers or
+                                        their
+                                        authorised representatives.</li>
+                                    <li>Access property information or contact details through free or paid services, where
+                                        applicable.</li>
+                                </ul>
+                                <p>KeysPleasee Ventures is a technology platform and is not a party to any property
+                                    transaction solely by
+                                    virtue of providing these services. Unless expressly agreed in a separate written
+                                    agreement, the
+                                    Platform does not act as the owner, landlord, tenant, buyer, seller, legal
+                                    representative, escrow agent,
+                                    payment intermediary or guarantor of any transaction.</p>
+                                <p>Users are responsible for independently evaluating and completing their transactions.</p>
+                                <h4>3. No Guarantee of Property or User Authenticity</h4>
+                                <p>Property listings and related information may be submitted by users or third parties.</p>
+                                <p>KeysPleasee Ventures does not guarantee that:</p>
+                                <ul>
+                                    <li>A person listing a property is its lawful owner or has valid authority to offer it.
+                                    </li>
+                                    <li>A property exists as described or is available at the stated price.</li>
+                                    <li>Photographs, videos, floor plans, measurements, addresses, amenities or other
+                                        property details are
+                                        accurate or current.</li>
+                                    <li>A property has valid title, approvals, occupancy certificates, completion
+                                        certificates, sanctioned
+                                        plans or other legal documentation.</li>
+                                    <li>A property is free from encumbrances, litigation, disputes, defects or third-party
+                                        claims.</li>
+                                    <li>A user is genuine, financially capable, trustworthy or acting in good faith.</li>
+                                </ul>
+                                <p>Any verification, screening, moderation or document review undertaken by KeysPleasee
+                                    Ventures is limited
+                                    to the stated scope of that process and does not constitute a guarantee of authenticity,
+                                    ownership,
+                                    legal compliance or transaction safety.</p>
+                                <p>Users must independently verify all relevant information before making payments, signing
+                                    agreements or
+                                    proceeding with a transaction.</p>
+                                <h4>4. No Liability for Third-Party Fraud, Scams or Misconduct</h4>
+                                <p>KeysPleasee Ventures is not responsible for fraudulent, dishonest, misleading, negligent,
+                                    unlawful or
+                                    unauthorised acts or omissions committed by property owners, landlords, tenants, buyers,
+                                    sellers,
+                                    agents, representatives or other third parties, to the extent permitted by applicable
+                                    law.</p>
+                                <p>Examples include:</p>
+                                <ul>
+                                    <li>Fake property listings or impersonation of property owners.</li>
+                                    <li>False representations regarding ownership, authority, price or availability.</li>
+                                    <li>Requests for advance payments to reserve or secure a property.</li>
+                                    <li>Fake booking confirmations, forged documents or false identity documents.</li>
+                                    <li>Rental scams, sale scams, deposit fraud or payment diversion.</li>
+                                    <li>Misuse of contact information or direct communications.</li>
+                                    <li>Failure to refund a deposit, advance, token amount, security deposit or other
+                                        payment.</li>
+                                    <li>Breach of a rental agreement, sale agreement, lease, promise or other arrangement.
+                                    </li>
+                                    <li>Disputes relating to possession, title, maintenance, refunds, cancellation, tenancy
+                                        or completion of
+                                        a transaction.</li>
+                                </ul>
+                                <p>Any such conduct is the responsibility of the person or entity that committed it, subject
+                                    to applicable
+                                    law.</p>
+                                <p>KeysPleasee Ventures does not guarantee that users will not encounter fraud, scams,
+                                    impersonation or
+                                    other misconduct through the Platform.</p>
+                                <h4>5. No Responsibility for Deposits, Advances or Other Payments</h4>
+                                <p>KeysPleasee Ventures does not accept responsibility for money paid directly between users
+                                    or to third
+                                    parties in connection with a property transaction.</p>
+                                <p>This includes, without limitation:</p>
+                                <ul>
+                                    <li>Rental security deposits.</li>
+                                    <li>Booking amounts and token advances.</li>
+                                    <li>Earnest money deposits.</li>
+                                    <li>Sale consideration.</li>
+                                    <li>Advance rent.</li>
+                                    <li>Brokerage or service fees payable to third parties.</li>
+                                    <li>Refunds, cancellation charges or forfeited amounts.</li>
+                                    <li>Legal fees, documentation charges, maintenance payments and other
+                                        transaction-related expenses.</li>
+                                </ul>
+                                <p>Users are strongly advised not to transfer money until they have independently verified
+                                    the identity and
+                                    authority of the recipient, inspected the property where appropriate, reviewed the
+                                    relevant documents
+                                    and understood the applicable contractual terms.</p>
+                                <p>Payments should be made through traceable channels and against appropriate written
+                                    documentation.</p>
+                                <p>Where a payment is made directly to an owner, tenant, buyer, seller, agent or any other
+                                    third party,
+                                    KeysPleasee Ventures does not hold, control, safeguard, insure or guarantee that money
+                                    and is not
+                                    responsible for recovering it.</p>
+                                <p>KeysPleasee Ventures is not obligated to refund, reimburse or compensate users for losses
+                                    arising from
+                                    such third-party payments, except where liability cannot lawfully be excluded.</p>
+                                <h4>6. Independent Verification and Due Diligence</h4>
+                                <p>Every user is responsible for conducting their own due diligence before entering into any
+                                    property-related arrangement.</p>
+                                <p>Depending on the transaction, this may include verifying:</p>
+                                <ul>
+                                    <li>Government-issued identity documents and the recipient’s bank account details.</li>
+                                    <li>Ownership documents, title records and authority to sell or rent.</li>
+                                    <li>Encumbrances, litigation, land-use restrictions and property approvals.</li>
+                                    <li>Relevant RERA registration and disclosures, where applicable.</li>
+                                    <li>Sanctioned plans, occupancy certificates and completion certificates, where
+                                        applicable.</li>
+                                    <li>The property’s physical condition, measurements, amenities and access.</li>
+                                    <li>The terms of any rental, lease, sale or purchase agreement.</li>
+                                </ul>
+                                <p>Users should obtain independent legal, financial and technical advice wherever
+                                    appropriate.</p>
+                                <p>Any information displayed on the Platform is not a substitute for professional advice or
+                                    independent
+                                    verification.</p>
+                                <h4>7. Direct Transactions Between Users</h4>
+                                <p>Any negotiations, viewings, offers, agreements, payments, refunds, handovers or other
+                                    dealings between
+                                    users are undertaken at their own discretion and risk.</p>
+                                <p>KeysPleasee Ventures is not responsible for:</p>
+                                <ul>
+                                    <li>The conduct or representations of either party.</li>
+                                    <li>The terms negotiated or agreed between the parties.</li>
+                                    <li>The validity, enforceability or performance of agreements between users.</li>
+                                    <li>Disputes concerning deposits, refunds, possession, title, rent, sale consideration
+                                        or contractual
+                                        obligations.</li>
+                                    <li>Losses arising from a party’s breach, default, misrepresentation or failure to
+                                        perform.</li>
+                                </ul>
+                                <p>Users are encouraged to execute appropriate written agreements and retain transaction
+                                    records.</p>
+                                <p>Unless expressly agreed in writing, KeysPleasee Ventures does not negotiate or guarantee
+                                    the commercial
+                                    or legal terms of a transaction.</p>
+                                <h4>8. Platform Fees and Paid Features</h4>
+                                <p>KeysPleasee Ventures may provide free or paid services, including access to property
+                                    details, contact
+                                    information, listing packages, subscriptions or other platform features.</p>
+                                <p>Unless expressly stated otherwise at the time of purchase, any fee charged by KeysPleasee
+                                    Ventures is for
+                                    the relevant platform service and not a guarantee that:</p>
+                                <ul>
+                                    <li>A property will be available.</li>
+                                    <li>A viewing or meeting will take place.</li>
+                                    <li>A user will respond to a communication.</li>
+                                    <li>A transaction will be concluded.</li>
+                                    <li>A property will be suitable for the user’s requirements.</li>
+                                    <li>A user will receive a financial return or other commercial benefit.</li>
+                                </ul>
+                                <p>Refunds, cancellations and subscription terms will be governed by the applicable purchase
+                                    terms and
+                                    refund policy, subject to applicable law.</p>
+                                <p>Where a user purchases access to listings or contact details, the purchase does not
+                                    constitute a
+                                    guarantee of the accuracy of all third-party information or of a successful transaction.
+                                </p>
+                                <h4>9. User Representations and Responsibilities</h4>
+                                <p>By using the Platform, you represent and agree that:</p>
+                                <ul>
+                                    <li>Information and documents you submit are accurate to the best of your knowledge.
+                                    </li>
+                                    <li>You have the authority to publish any property listing you submit.</li>
+                                    <li>You will not impersonate another person or misrepresent your identity, ownership or
+                                        authority.</li>
+                                    <li>You will not publish fraudulent, misleading, unlawful or unauthorised listings.</li>
+                                    <li>You will not use the Platform to collect money through deceptive practices.</li>
+                                    <li>You will comply with applicable laws and contractual obligations.</li>
+                                    <li>You will respect the privacy and rights of other users.</li>
+                                    <li>You will not misuse, scrape, copy, resell or exploit Platform information except as
+                                        permitted by law
+                                        and the Platform’s policies.</li>
+                                </ul>
+                                <p>You remain responsible for your conduct and communications with other users.</p>
+                                <h4>10. Reporting Fraud and Suspicious Activity</h4>
+                                <p>Users who suspect fraud, impersonation, false listings or suspicious payment requests
+                                    should promptly
+                                    notify KeysPleasee Ventures through its designated reporting or customer support
+                                    channel.</p>
+                                <p>Where reasonably appropriate and legally permissible, KeysPleasee Ventures may
+                                    investigate reports,
+                                    request further information, restrict access to listings, suspend accounts, remove
+                                    content or cooperate
+                                    with competent authorities.</p>
+                                <p>Reporting a user does not guarantee recovery of funds, resolution of a dispute or
+                                    prevention of all
+                                    future misconduct.</p>
+                                <p>Users who believe they have been defrauded should also promptly contact their bank or
+                                    payment provider
+                                    and the appropriate law enforcement or cybercrime authorities.</p>
+                                <h4>11. Suspension and Termination</h4>
+                                <p>KeysPleasee Ventures may suspend, restrict or terminate access to the Platform where it
+                                    reasonably
+                                    believes that a user has violated these Terms, submitted misleading information, engaged
+                                    in suspected
+                                    fraud, misused the Platform or created a legal, security or operational risk.</p>
+                                <p>Where appropriate, the Platform may remove listings or restrict contact between users.
+                                </p>
+                                <p>These measures do not guarantee the prevention of fraud and do not relieve users of their
+                                    own legal
+                                    responsibilities.</p>
+                                <h4>12. Intellectual Property</h4>
+                                <p>The Platform’s software, branding, design, logos, original text and other proprietary
+                                    materials are owned
+                                    by or licensed to KeysPleasee Ventures, unless otherwise stated.</p>
+                                <p>Users retain responsibility for the content they submit and must have the necessary
+                                    rights or permissions
+                                    to upload and publish it.</p>
+                                <p>By submitting content, users grant KeysPleasee Ventures a non-exclusive permission to
+                                    host, display,
+                                    reproduce and use that content as reasonably necessary to operate, promote and improve
+                                    the Platform,
+                                    subject to applicable law and the Platform’s privacy policy.</p>
+                                <h4>13. Privacy and Personal Information</h4>
+                                <p>KeysPleasee Ventures may collect and process personal information necessary to operate
+                                    the Platform,
+                                    facilitate connections, provide paid services, address complaints, maintain security and
+                                    comply</p>
+                                <p><strong>Note:</strong> The text provided for Section 13 ends here. Add the remaining
+                                    privacy terms and
+                                    any subsequent sections before publishing the final Terms.</p>
+                                {{-- Add all approved Terms & Conditions sections here. --}}
+                            </div>
+                            <button type="button" class="btn btn-login mt-3" onclick="closeRegistrationTerms()">
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             {{-- ========================================= --}}
@@ -839,26 +982,26 @@
             });
         });
     </script>
-<script>
-window.openRegistrationTerms = function () {
-    const modal = document.getElementById('registrationTermsModal');
-    if (!modal) return;
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    modal.querySelector('.registration-terms-content')?.focus();
-};
-window.closeRegistrationTerms = function () {
-    const modal = document.getElementById('registrationTermsModal');
-    if (!modal) return;
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-};
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-        window.closeRegistrationTerms();
-    }
-});
-</script>
+    <script>
+        window.openRegistrationTerms = function () {
+            const modal = document.getElementById('registrationTermsModal');
+            if (!modal) return;
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            modal.querySelector('.registration-terms-content')?.focus();
+        };
+        window.closeRegistrationTerms = function () {
+            const modal = document.getElementById('registrationTermsModal');
+            if (!modal) return;
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        };
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                window.closeRegistrationTerms();
+            }
+        });
+    </script>
 @endsection
