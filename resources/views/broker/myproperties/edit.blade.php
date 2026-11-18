@@ -1280,29 +1280,32 @@
 
                         </div>
 
-                        <div class="form-group">
+                       
+<div class="form-group">
+    <label class="form-label">
+        State <span class="required">*</span>
+    </label>
 
-                            <label class="form-label">
+    <select name="state" class="form-select" required>
+        <option value="">Select State</option>
 
-                                State <span class="required">*</span>
+        @foreach([
+           'Karnataka'
+        ] as $state)
 
-                            </label>
+            <option value="{{ $state }}"
+                {{ old('state', $property->state) == $state ? 'selected' : '' }}>
+                {{ $state }}
+            </option>
 
-                            <input
+        @endforeach
+    </select>
 
-                                type="text"
+    @error('state')
+        <div class="field-error">{{ $message }}</div>
+    @enderror
+</div>
 
-                                name="state"
-
-                                class="form-control"
-
-                                value="{{ old('state', $property->state) }}"
-
-                                required
-
-                            >
-
-                        </div>
 
                         <div class="form-group">
 

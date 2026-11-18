@@ -320,11 +320,9 @@
                                 <option value="">Select State</option>
 
                                 @foreach([
-                                        'Andhra Pradesh',
-                                        'Telangana',
+                                        
                                         'Karnataka',
-                                        'Tamil Nadu',
-                                        'Kerala'
+                                        
                                     ] as $state)
 
                                     <option value="{{ $state }}" {{ old('state', $property->state) == $state ? 'selected' : '' }}>

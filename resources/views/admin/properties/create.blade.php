@@ -1144,25 +1144,25 @@
                                 <select name="state" class="property-form-select" required>
                                     <option value="">Select State</option>
 
-                                    <option value="Andhra Pradesh" {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>
+                                    <!-- <option value="Andhra Pradesh" {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>
                                         Andhra Pradesh
                                     </option>
 
                                     <option value="Telangana" {{ old('state') == 'Telangana' ? 'selected' : '' }}>
                                         Telangana
-                                    </option>
+                                    </option> -->
 
                                     <option value="Karnataka" {{ old('state') == 'Karnataka' ? 'selected' : '' }}>
                                         Karnataka
                                     </option>
 
-                                    <option value="Tamil Nadu" {{ old('state') == 'Tamil Nadu' ? 'selected' : '' }}>
+                                    <!-- <option value="Tamil Nadu" {{ old('state') == 'Tamil Nadu' ? 'selected' : '' }}>
                                         Tamil Nadu
                                     </option>
 
                                     <option value="Kerala" {{ old('state') == 'Kerala' ? 'selected' : '' }}>
                                         Kerala
-                                    </option>
+                                    </option> -->
 
                                 </select>
 
