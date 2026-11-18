@@ -399,7 +399,7 @@
     </div>
 
     <span class="property-count-label">
-        Live Properties in Bengaluru
+        Live Properties in Bangalore
     </span>
 
 </div>
