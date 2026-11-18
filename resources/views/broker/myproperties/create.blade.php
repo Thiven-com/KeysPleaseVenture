@@ -421,75 +421,94 @@
             grid-column: span 4;
         }
 
-        /* =========================================================
-               AMENITIES
-            ========================================================= */
+       /* =========================================================
+   AMENITIES
+========================================================= */
 
-        .property-amenities-wrapper {
-            display: flex;
+.property-amenities-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
 
-            flex-wrap: wrap;
+.property-amenity-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-            gap: 8px;
-        }
+    min-height: 48px;
+    padding: 13px 14px;
 
-        .property-amenity-item {
-            position: relative;
+    box-sizing: border-box;
 
-            display: inline-flex;
+    border: 1px solid #e1e5ec;
+    border-radius: 9px;
+    background: #ffffff;
 
-            align-items: center;
+    color: #344054;
+    font-size: 13px;
+    font-weight: 500;
 
-            gap: 7px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
-            min-height: 36px;
+.property-amenity-item:hover {
+    border-color: #405189;
+    background: #f8f9ff;
+}
 
-            padding: 0 11px;
+.property-amenity-item input {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    flex-shrink: 0;
 
-            background: #f8f9fb;
+    accent-color: #405189;
+    cursor: pointer;
+}
 
-            border: 1px solid #e2e6ec;
+.property-amenity-item i {
+    font-size: 17px;
+    color: #405189;
+    flex-shrink: 0;
+}
 
-            border-radius: 8px;
+.property-amenity-item span {
+    font-size: 13px;
+    color: #344054;
+}
 
-            color: #4f5d72;
+.property-amenity-item:has(input:checked) {
+    background: #eef3ff;
+    border-color: #405189;
+}
 
-            font-size: 10px;
+.property-amenity-item:has(input:checked) span {
+    color: #071b3d;
+    font-weight: 600;
+}
 
-            font-weight: 600;
+/* Tablet */
+@media (max-width: 1199px) {
+    .property-amenities-wrapper {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
 
-            cursor: pointer;
+/* Small tablet */
+@media (max-width: 991px) {
+    .property-amenities-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
-            transition: all .2s ease;
-        }
-
-        .property-amenity-item:hover {
-            background: #f3f6fa;
-
-            border-color: #cbd3df;
-
-            color: #071b3d;
-        }
-
-        .property-amenity-item input {
-            width: 14px;
-            height: 14px;
-
-            margin: 0;
-
-            accent-color: #071b3d;
-
-            cursor: pointer;
-        }
-
-        .property-amenity-item:has(input:checked) {
-            background: #eef3ff;
-
-            border-color: #b9c8e8;
-
-            color: #071b3d;
-        }
-
+/* Mobile */
+@media (max-width: 576px) {
+    .property-amenities-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
         /* =========================================================
                IMAGE UPLOAD
             ========================================================= */
@@ -867,6 +886,45 @@
 
                         <div class="property-form-row">
 
+
+                         {{-- LISTING FOR --}}
+
+                            <div class="property-col-4">
+
+                                <label class="property-form-label">
+
+                                    Listing For
+
+                                    <span class="property-form-required">*</span>
+
+                                </label>
+
+                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
+
+                                    <option value="">
+                                        Select Listing For
+                                    </option>
+
+                                    <option value="Rent" {{ old('listing_for') == 'Rent' ? 'selected' : '' }}>
+                                        Rent
+                                    </option>
+
+                                    <!-- <option value="Lease" {{ old('listing_for') == 'Lease' ? 'selected' : '' }}>
+                                        Lease
+                                    </option> -->
+
+                                    <option value="PG" {{ old('listing_for') == 'PG' ? 'selected' : '' }}>
+                                        PG
+                                    </option>
+
+                                    <option value="Sell" {{ old('listing_for') == 'Sell' ? 'selected' : '' }}>
+                                        Sell
+                                    </option>
+
+                                </select>
+
+                            </div>
+
                             {{-- PROPERTY TITLE --}}
 
                             <div class="property-col-8">
@@ -915,43 +973,7 @@
 
                             </div>
 
-                            {{-- LISTING FOR --}}
-
-                            <div class="property-col-4">
-
-                                <label class="property-form-label">
-
-                                    Listing For
-
-                                    <span class="property-form-required">*</span>
-
-                                </label>
-
-                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
-
-                                    <option value="">
-                                        Select Listing For
-                                    </option>
-
-                                    <option value="Rent" {{ old('listing_for') == 'Rent' ? 'selected' : '' }}>
-                                        Rent
-                                    </option>
-
-                                    <option value="Lease" {{ old('listing_for') == 'Lease' ? 'selected' : '' }}>
-                                        Lease
-                                    </option>
-
-                                    <option value="PG" {{ old('listing_for') == 'PG' ? 'selected' : '' }}>
-                                        PG
-                                    </option>
-
-                                    <option value="Sell" {{ old('listing_for') == 'Sell' ? 'selected' : '' }}>
-                                        Sell
-                                    </option>
-
-                                </select>
-
-                            </div>
+                           
 
                             {{-- TENANT PREFERENCE --}}
 
@@ -1103,32 +1125,32 @@
                                 <select name="state" class="property-form-select" required>
                                     <option value="">Select State</option>
 
-                                    <option value="Andhra Pradesh" {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>
+                                    <!-- <option value="Andhra Pradesh" {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>
                                         Andhra Pradesh
                                     </option>
 
                                     <option value="Telangana" {{ old('state') == 'Telangana' ? 'selected' : '' }}>
                                         Telangana
-                                    </option>
+                                    </option> -->
 
                                     <option value="Karnataka" {{ old('state') == 'Karnataka' ? 'selected' : '' }}>
                                         Karnataka
                                     </option>
 
-                                    <option value="Tamil Nadu" {{ old('state') == 'Tamil Nadu' ? 'selected' : '' }}>
+                                    <!-- <option value="Tamil Nadu" {{ old('state') == 'Tamil Nadu' ? 'selected' : '' }}>
                                         Tamil Nadu
                                     </option>
 
                                     <option value="Kerala" {{ old('state') == 'Kerala' ? 'selected' : '' }}>
                                         Kerala
-                                    </option>
+                                    </option> -->
 
                                 </select>
 
                             </div>
 
                             {{-- DISTRICT --}}
-                            <div class="property-col-4">
+                            <!-- <div class="property-col-4">
 
                                 <label class="property-form-label">
                                     District
@@ -1138,13 +1160,13 @@
                                 <input type="text" name="district" class="property-form-control"
                                     value="{{ old('district') }}" placeholder="e.g. Annamayya" required>
 
-                            </div>
+                            </div> -->
 
                             {{-- CITY --}}
                             <div class="property-col-4">
 
                                 <label class="property-form-label">
-                                    City
+                                    City <span class="property-form-required">*</span>
                                 </label>
 
                                 <select name="city_id" class="property-form-select" required>
@@ -1246,7 +1268,7 @@
                             </div>
 
                             {{-- LATITUDE --}}
-                            <div class="property-col-6">
+                            <!-- <div class="property-col-6">
 
                                 <label class="property-form-label">
                                     Latitude
@@ -1255,10 +1277,10 @@
                                 <input type="text" name="latitude" class="property-form-control"
                                     value="{{ old('latitude') }}" placeholder="e.g. 14.0516">
 
-                            </div>
+                            </div> -->
 
                             {{-- LONGITUDE --}}
-                            <div class="property-col-6">
+                            <!-- <div class="property-col-6">
 
                                 <label class="property-form-label">
                                     Longitude
@@ -1267,7 +1289,7 @@
                                 <input type="text" name="longitude" class="property-form-control"
                                     value="{{ old('longitude') }}" placeholder="e.g. 79.1240">
 
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>

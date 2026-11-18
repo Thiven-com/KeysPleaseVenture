@@ -124,8 +124,34 @@
 
                     <div class="property-form-row">
 
+
+                      {{-- Listing For --}}
+                        <div class="property-col-6">
+                            <label class="property-form-label">
+                                Listing For
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select name="listing_for" id="listingForSelect" class="form-select" required>
+                                <option value="">Select Listing Type</option>
+
+                                @foreach([
+                                        'Rent',
+                                        
+                                        'PG',
+                                        'Sell'
+                                    ] as $listing)
+
+                                    <option value="{{ $listing }}" {{ old('listing_for', $property->listing_for) == $listing ? 'selected' : '' }}>
+                                        {{ $listing }}
+                                    </option>
+
+                                @endforeach
+                            </select>
+                        </div>
+
                         {{-- Property Title --}}
-                        <div class="property-col-12">
+                        <div class="property-col-6">
                             <label class="property-form-label">
                                 Property Title
                                 <span class="text-danger">*</span>
@@ -163,34 +189,11 @@
                         </div>
 
 
-                        {{-- Listing For --}}
-                        <div class="property-col-6">
-                            <label class="property-form-label">
-                                Listing For
-                                <span class="text-danger">*</span>
-                            </label>
-
-                            <select name="listing_for" id="listingForSelect" class="form-select" required>
-                                <option value="">Select Listing Type</option>
-
-                                @foreach([
-                                        'Rent',
-                                        'Lease',
-                                        'PG',
-                                        'Sell'
-                                    ] as $listing)
-
-                                    <option value="{{ $listing }}" {{ old('listing_for', $property->listing_for) == $listing ? 'selected' : '' }}>
-                                        {{ $listing }}
-                                    </option>
-
-                                @endforeach
-                            </select>
-                        </div>
+                     
 
 
                         {{-- TENANT PREFERENCE --}}
-                        <div class="property-col-4" id="tenantPreferenceField"
+                        <div class="property-col-6" id="tenantPreferenceField"
                             style="{{ $isRentalListing ? '' : 'display: none;' }}">
 
                             <label class="property-form-label">
@@ -220,7 +223,7 @@
 
 
                         {{-- BHK --}}
-                        <div class="property-col-4">
+                        <div class="property-col-6">
                             <label class="property-form-label">
                                 Bedrooms / BHK
                             </label>
@@ -249,7 +252,7 @@
 
 
                         {{-- Bathrooms --}}
-                        <div class="property-col-4">
+                        <div class="property-col-6">
                             <label class="property-form-label">
                                 Bathrooms
                             </label>
@@ -260,7 +263,7 @@
 
 
                         {{-- Balconies --}}
-                        <div class="property-col-4">
+                        <div class="property-col-6">
                             <label class="property-form-label">
                                 Balconies
                             </label>
@@ -320,11 +323,9 @@
                                 <option value="">Select State</option>
 
                                 @foreach([
-                                        'Andhra Pradesh',
-                                        'Telangana',
+                                        
                                         'Karnataka',
-                                        'Tamil Nadu',
-                                        'Kerala'
+                                        
                                     ] as $state)
 
                                     <option value="{{ $state }}" {{ old('state', $property->state) == $state ? 'selected' : '' }}>
@@ -338,7 +339,7 @@
 
 
                         {{-- District --}}
-                        <div class="property-col-4">
+                        <!-- <div class="property-col-4">
                             <label class="property-form-label">
                                 District
                                 <span class="text-danger">*</span>
@@ -346,7 +347,7 @@
 
                             <input type="text" name="district" class="form-control"
                                 value="{{ old('district', $property->district) }}" placeholder="Enter district" required>
-                        </div>
+                        </div> -->
 
 
                         {{-- City --}}
@@ -372,25 +373,6 @@
                         </div>
 
 
-                        <!-- {{-- Locality --}}
-                        <div class="property-col-4">
-                            <label class="property-form-label">
-                                Area / Locality
-                                <span class="text-danger">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                name="locality"
-                                class="form-control"
-                                value="{{ old('locality', $property->locality) }}"
-                                placeholder="Enter area or locality"
-                                required
-                            >
-                        </div> -->
-
-                        {{-- LOCALITY --}}
-
                         <div class="property-col-4">
                             <label for="localityInput" class="property-form-label">
                                 Area / Locality
@@ -411,7 +393,29 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                        </div>
+                        </div> 
+
+
+                        <!-- {{-- Locality --}}
+                        <div class="property-col-4">
+                            <label class="property-form-label">
+                                Area / Locality
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="locality"
+                                class="form-control"
+                                value="{{ old('locality', $property->locality) }}"
+                                placeholder="Enter area or locality"
+                                required
+                            >
+                        </div> -->
+
+                        {{-- LOCALITY --}}
+
+                        
 
 
 
@@ -427,7 +431,7 @@
 
 
                         {{-- Landmark --}}
-                        <div class="property-col-6">
+                        <div class="property-col-4">
                             <label class="property-form-label">
                                 Landmark
                             </label>
@@ -497,11 +501,11 @@
                         {{-- LATITUDE --}}
                         <div class="property-col-6">
 
-                            <label class="property-form-label">
+                            <!-- <label class="property-form-label">
                                 Latitude
-                            </label>
+                            </label> -->
 
-                            <input type="text" name="latitude" id="latitude" class="form-control"
+                            <input type="hidden" name="latitude" id="latitude" class="form-control"
                                 value="{{ old('latitude', $property->latitude) }}" placeholder="e.g. 14.0516" readonly>
 
                         </div>
@@ -510,11 +514,11 @@
                         {{-- LONGITUDE --}}
                         <div class="property-col-6">
 
-                            <label class="property-form-label">
+                            <!-- <label class="property-form-label">
                                 Longitude
-                            </label>
+                            </label> -->
 
-                            <input type="text" name="longitude" id="longitude" class="form-control"
+                            <input type="hidden" name="longitude" id="longitude" class="form-control"
                                 value="{{ old('longitude', $property->longitude) }}" placeholder="e.g. 79.1240" readonly>
 
                         </div>
