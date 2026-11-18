@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rent_enquiries', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('property_id');
+            $table->bigInteger('property_id')->nullable();
 
             $table->string('name')->nullable();
             $table->string('phone', 20)->nullable();
