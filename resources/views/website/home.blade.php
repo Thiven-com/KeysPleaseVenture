@@ -217,6 +217,7 @@
 
     <style>
    
+
 /* Counter Description */
 
 .property-count-label {
@@ -226,7 +227,7 @@
     letter-spacing: -0.3px;
 }
 
-
+/* Main Counter Layout */
 
 .hero-property-count {
     display: flex !important;
@@ -243,60 +244,51 @@
 
 .counter-digits {
     display: flex !important;
+    align-items: center;
     gap: 8px;
 }
 
+/* Individual Number Boxes */
+
 .digit-box {
-    display: block !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
     width: 52px;
     height: 60px;
-    overflow: hidden;
     flex-shrink: 0;
-    background:#15c6fb1f;
+
+    background: #15c6fb1f;
     border-radius: 12px;
+    overflow: hidden;
 }
 
-.digit-track {
-    display: flex;
-    flex-direction: column;
-    transition: transform 1.2s cubic-bezier(.22, 1, .36, 1);
-}
-
-.digit-track span {
-    width: 52px;
-    height: 60px;
-    min-height: 60px;
-    flex-shrink: 0;
+.digit-box span {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
     color: #25a1fc;
     font-size: 30px;
     font-weight: 800;
+    line-height: 1;
 }
 
-/* =====================================
-   MOBILE RESPONSIVE PROPERTY COUNTER
-===================================== */
+/* Mobile Responsive */
 
 @media (max-width: 576px) {
 
     .hero-property-count {
-        display: flex !important;
-        align-items: center;
-        flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
         margin-top: 18px;
-        justify-content: center;
-    }
-
-    .property-counter {
-        display: inline-flex !important;
-        width: auto;
     }
 
     .counter-digits {
-        display: flex !important;
         gap: 5px;
     }
 
@@ -306,12 +298,8 @@
         border-radius: 8px;
     }
 
-    .digit-track span {
-        width: 38px;
-        height: 46px;
-        min-height: 46px;
+    .digit-box span {
         font-size: 23px;
-        line-height: 46px;
     }
 
     .property-count-label {
@@ -339,16 +327,38 @@
         border-radius: 7px;
     }
 
-    .digit-track span {
-        width: 32px;
-        height: 42px;
-        min-height: 42px;
+    .digit-box span {
         font-size: 20px;
-        line-height: 42px;
     }
 
     .property-count-label {
         font-size: 12px;
+    }
+}
+.digit-box span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #25a1fc;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.digit-box span.counting {
+    animation: digitPop 0.25s ease;
+}
+
+@keyframes digitPop {
+    0% {
+        transform: translateY(8px);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
     </style>
@@ -2394,97 +2404,85 @@
         </script>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-    function initializePropertyCounter() {
+    const counter = document.getElementById("propertyCounter");
 
-        const counter = document.getElementById("propertyCounter");
+    if (!counter) return;
 
-        if (!counter) {
-            console.error("Property counter element not found!");
-            return;
-        }
+    const target = Math.max(
+        0,
+        parseInt(counter.dataset.count, 10) || 0
+    );
 
-        const target = Math.max(
-            0,
-            parseInt(counter.dataset.count, 10) || 0
+    const digitsContainer = counter.querySelector(".counter-digits");
+
+    if (!digitsContainer) return;
+
+    const totalDigits = 4;
+    const boxes = [];
+
+    digitsContainer.innerHTML = "";
+
+    // Create four digit boxes
+    for (let i = 0; i < totalDigits; i++) {
+
+        const box = document.createElement("div");
+        box.className = "digit-box";
+
+        const number = document.createElement("span");
+        number.textContent = "0";
+
+        box.appendChild(number);
+        digitsContainer.appendChild(box);
+
+        boxes.push(number);
+    }
+
+    // Animate from zero to actual property count
+    const duration = 800;
+    const startTime = performance.now();
+
+    function animateCounter(currentTime) {
+
+        const progress = Math.min(
+            (currentTime - startTime) / duration,
+            1
         );
 
-        const digitsContainer = counter.querySelector(".counter-digits");
+        // Smooth counting animation
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
 
-        if (!digitsContainer) return;
+        const currentValue = Math.floor(target * easedProgress);
 
-        // Generate four digits
-        const digits = String(target).padStart(4, "0").slice(-4);
+        const formattedValue = String(currentValue).padStart(4, "0");
 
-        digitsContainer.innerHTML = "";
+        boxes.forEach((box, index) => {
 
-        digits.split("").forEach((digit) => {
+            const newDigit = formattedValue[index];
 
-            const box = document.createElement("div");
-            box.className = "digit-box";
+            if (box.textContent !== newDigit) {
 
-            const track = document.createElement("div");
-            track.className = "digit-track";
+                box.textContent = newDigit;
 
-            for (let i = 0; i <= 9; i++) {
+                box.classList.remove("counting");
 
-                const span = document.createElement("span");
-                span.textContent = i;
+                void box.offsetWidth;
 
-                track.appendChild(span);
+                box.classList.add("counting");
             }
 
-            box.appendChild(track);
-            digitsContainer.appendChild(box);
-
-            track.dataset.digit = digit;
-
         });
 
-        // Calculate actual digit height
-        function updateCounter() {
-
-            const tracks = digitsContainer.querySelectorAll(".digit-track");
-
-            tracks.forEach((track) => {
-
-                const height = track.parentElement.getBoundingClientRect().height;
-
-                const digit = Number(track.dataset.digit);
-
-                track.style.transform =
-                    `translateY(-${digit * height}px)`;
-
-            });
-
+        if (progress < 1) {
+            requestAnimationFrame(animateCounter);
         }
 
-        // Start animation after rendering
-        requestAnimationFrame(() => {
-            updateCounter();
-        });
-
-        // Handle responsive screen changes
-        window.addEventListener("resize", updateCounter);
-
-        if (typeof ResizeObserver !== "undefined") {
-
-            const observer = new ResizeObserver(updateCounter);
-
-            observer.observe(digitsContainer);
-        }
-
-        console.log("Property counter initialized:", target);
     }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initializePropertyCounter);
-    } else {
-        initializePropertyCounter();
-    }
+    requestAnimationFrame(animateCounter);
 
-})();
+});
 </script>
 
 @endsection
