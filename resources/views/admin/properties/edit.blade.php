@@ -874,41 +874,6 @@
 
 
                 {{-- =====================================================
-                PROPERTY DESCRIPTION
-                ====================================================== --}}
-                <div class="property-form-section">
-
-                    <div class="property-section-header">
-                        <div class="property-section-icon">
-                            <i class="ti ti-file-description"></i>
-                        </div>
-
-                        <div>
-                            <h5>Property Description</h5>
-                            <p>Describe the property and its important features.</p>
-                        </div>
-                    </div>
-
-
-                    <div class="property-form-row">
-
-                        <div class="property-col-12">
-
-                            <label class="property-form-label">
-                                Description
-                            </label>
-
-                            <textarea name="description" class="form-control" rows="6"
-                                placeholder="Enter property description">{{ old('description', $property->description) }}</textarea>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =====================================================
                 AMENITIES
                 ====================================================== --}}
                 <div class="property-form-section">
@@ -1004,6 +969,44 @@
                     </div>
 
                 </div>
+
+
+                {{-- =====================================================
+                PROPERTY DESCRIPTION
+                ====================================================== --}}
+                <div class="property-form-section">
+
+                    <div class="property-section-header">
+                        <div class="property-section-icon">
+                            <i class="ti ti-file-description"></i>
+                        </div>
+
+                        <div>
+                            <h5>Property Description</h5>
+                            <p>Describe the property and its important features.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="property-form-row">
+
+                        <div class="property-col-12">
+
+                            <label class="property-form-label">
+                                Description
+                            </label>
+
+                            <textarea name="description" class="form-control" rows="6"
+                                placeholder="Enter property description">{{ old('description', $property->description) }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+               
 
 
                 {{-- =====================================================

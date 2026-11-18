@@ -18,51 +18,34 @@ class AuthController extends Controller
         return view('broker.auth.login');
     }
 
-
     // Registration Page
     public function showRegisterForm()
     {
         return view('broker.auth.register');
     }
 
-
     // Broker Registration
     public function register(Request $request)
     {
-        $request->validate(
-            [
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:brokers,email',
-                'mobile' => [
-                    'required',
-                    'digits:10',
-                    'regex:/^[6-9][0-9]{9}$/',
-                    'unique:brokers,mobile',
-                ],
-                'broker_type' => 'required|string|max:100',
-                'agency_name' => 'nullable|string|max:255',
-                'license_number' => 'nullable|string|max:255',
-                'address' => 'nullable|string',
-                'city' => 'nullable|string|max:100',
-                'state' => 'nullable|string|max:100',
-                'pincode' => 'nullable|string|max:10',
-                'password' => 'required|string|min:6|confirmed',
-
-                // Terms & Conditions
-                'terms_accepted' => ['required', 'accepted'],
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:brokers,email',
+            'mobile' => [
+                'required',
+                'digits:10',
+                'regex:/^[6-9][0-9]{9}$/',
+                'unique:brokers,mobile',
             ],
-            [
-
-                'mobile.required' => 'Mobile number is mandatory.',
-
-                'mobile.digits' => 'Mobile number must contain exactly 10 digits.',
-
-                'mobile.regex' => 'Enter a valid Indian mobile number.',
-
-                'mobile.unique' => 'This mobile number is already registered.',
-
-            ]
-        );
+            'broker_type' => 'required|string|max:100',
+            'agency_name' => 'nullable|string|max:255',
+            'license_number' => 'nullable|string|max:255',
+            'address' => 'nullable|string',
+            'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'pincode' => 'nullable|string|max:10',
+            'password' => 'required|string|min:6|confirmed',
+            'terms_accepted' => ['required', 'accepted'],
+        ]);
 
         Broker::create([
             'name' => $request->name,
@@ -77,21 +60,16 @@ class AuthController extends Controller
             'pincode' => $request->pincode,
             'password' => Hash::make($request->password),
 
-            // New registrations require admin approval
-            'status' => 'pending',
+            // Automatically approve new brokers
+            'status' => 'approved',
 
-            // Clear rejection reason for new registration
             'rejection_reason' => null,
         ]);
 
         return redirect()
             ->route('broker.login')
-            ->with(
-                'success',
-                'Registration submitted successfully. Please wait for admin approval.'
-            );
+            ->with('success', 'Registration successful! Please log in.');
     }
-
 
     // Login
     public function login(Request $request)
@@ -101,12 +79,7 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Find Broker
-        |--------------------------------------------------------------------------
-        */
-
+        // Find Broker
         $broker = Broker::where('email', $request->email)->first();
 
         if (!$broker) {
@@ -117,13 +90,7 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Check Password
-        |--------------------------------------------------------------------------
-        */
-
+        // Check Password
         if (!Hash::check($request->password, $broker->password)) {
             return back()
                 ->withErrors([
@@ -132,30 +99,8 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Pending Broker
-        |--------------------------------------------------------------------------
-        */
-
-        if ($broker->status === 'pending') {
-            return back()
-                ->withErrors([
-                    'email' => 'Your account is waiting for admin approval.',
-                ])
-                ->withInput($request->only('email'));
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Rejected Broker
-        |--------------------------------------------------------------------------
-        */
-
+        // Check Rejected Account
         if ($broker->status === 'rejected') {
-
             $message = 'Your broker registration has been rejected.';
 
             if (!empty($broker->rejection_reason)) {
@@ -169,13 +114,7 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Inactive Broker
-        |--------------------------------------------------------------------------
-        */
-
+        // Check Inactive Account
         if ($broker->status === 'inactive') {
             return back()
                 ->withErrors([
@@ -184,13 +123,7 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Only Approved Brokers Can Login
-        |--------------------------------------------------------------------------
-        */
-
+        // Only Approved Brokers Can Login
         if ($broker->status !== 'approved') {
             return back()
                 ->withErrors([
@@ -199,20 +132,13 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Login Approved Broker
-        |--------------------------------------------------------------------------
-        */
-
+        // Login Approved Broker
         Auth::guard('broker')->login($broker);
 
         $request->session()->regenerate();
 
         return redirect()->route('broker.dashboard');
     }
-
 
     // Dashboard
     public function dashboard()
@@ -255,19 +181,16 @@ class AuthController extends Controller
         Auth::guard('broker')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()->route('broker.login');
     }
-
 
     // Forgot Password Page
     public function showForgotForm()
     {
         return view('broker.auth.forgot-password');
     }
-
 
     // Send OTP
     public function sendOtp(Request $request)
@@ -286,16 +209,13 @@ class AuthController extends Controller
                 ->withInput();
         }
 
-
         // Generate 6-digit OTP
         $otp = random_int(100000, 999999);
 
         try {
-
             // Save OTP
             $broker->otp = $otp;
             $broker->save();
-
 
             // Save broker email in session
             session([
@@ -303,30 +223,22 @@ class AuthController extends Controller
                 'broker_otp_verified' => false,
             ]);
 
-
-            // Send OTP email
+            // Send OTP Email
             Mail::raw(
                 "Hello {$broker->name},\n\n"
                 . "Your broker password reset OTP is: {$otp}\n\n"
                 . "Please use this OTP to reset your password.\n\n"
                 . "Thank you.",
-
                 function ($message) use ($broker) {
-
                     $message
                         ->to($broker->email)
                         ->subject('Broker Password Reset OTP');
-
                 }
             );
 
-
             return redirect()
                 ->route('broker.password.verifyForm')
-                ->with(
-                    'success',
-                    'OTP sent successfully to your email.'
-                );
+                ->with('success', 'OTP sent successfully to your email.');
 
         } catch (\Throwable $e) {
 
@@ -345,7 +257,6 @@ class AuthController extends Controller
         }
     }
 
-
     // Verify OTP Page
     public function showVerifyForm()
     {
@@ -356,7 +267,6 @@ class AuthController extends Controller
 
         return view('broker.auth.verify-otp');
     }
-
 
     // Verify OTP
     public function verifyOtp(Request $request)
@@ -375,7 +285,6 @@ class AuthController extends Controller
                 ]);
         }
 
-
         if ((string) $request->otp !== (string) $broker->otp) {
             return back()
                 ->withErrors([
@@ -383,19 +292,16 @@ class AuthController extends Controller
                 ]);
         }
 
-
-        // OTP verification successful
+        // OTP Verification Successful
         session([
             'broker_email' => $broker->email,
             'broker_otp_verified' => true,
         ]);
 
-
         return view('broker.auth.reset-password', [
             'email' => $broker->email,
         ]);
     }
-
 
     // Reset Password
     public function resetPassword(Request $request)
@@ -414,8 +320,10 @@ class AuthController extends Controller
                 ]);
         }
 
-
-        if (!session('broker_otp_verified')) {
+        if (
+            !session('broker_otp_verified') ||
+            session('broker_email') !== $broker->email
+        ) {
             return redirect()
                 ->route('broker.password.request')
                 ->withErrors([
@@ -423,29 +331,22 @@ class AuthController extends Controller
                 ]);
         }
 
-
-        // Update password
+        // Update Password
         $broker->password = Hash::make($request->password);
-
 
         // Clear OTP
         $broker->otp = null;
 
         $broker->save();
 
-
-        // Clear reset session
+        // Clear Reset Session
         session()->forget([
             'broker_email',
             'broker_otp_verified',
         ]);
 
-
         return redirect()
             ->route('broker.login')
-            ->with(
-                'success',
-                'Password reset successfully.'
-            );
+            ->with('success', 'Password reset successfully.');
     }
 }

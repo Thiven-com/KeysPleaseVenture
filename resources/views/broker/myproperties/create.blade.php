@@ -1736,56 +1736,6 @@ BIKE PARKING
 
                     </div>
 
-                    {{-- =================================================
-                    DESCRIPTION
-                    ================================================== --}}
-
-                    <div class="property-form-section">
-
-                        <div class="property-form-section-header">
-
-                            <div class="property-form-section-icon">
-
-                                <i class="ti ti-align-left"></i>
-
-                            </div>
-
-                            <div>
-
-                                <h5 class="property-form-section-title">
-
-                                    Property Description
-
-                                </h5>
-
-                                <p class="property-form-section-subtitle">
-
-                                    Describe the property and nearby facilities.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                        <div class="property-form-row">
-
-                            <div class="property-col-12">
-
-                                <label class="property-form-label">
-
-                                    Description
-
-                                </label>
-
-                                <textarea name="description" class="property-form-control"
-                                    placeholder="Describe the property, nearby facilities, surroundings, etc.">{{ old('description') }}</textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
 
                     {{-- =================================================
                     AMENITIES
@@ -1844,6 +1794,59 @@ BIKE PARKING
                         </div>
 
                     </div>
+
+                    {{-- =================================================
+                    DESCRIPTION
+                    ================================================== --}}
+
+                    <div class="property-form-section">
+
+                        <div class="property-form-section-header">
+
+                            <div class="property-form-section-icon">
+
+                                <i class="ti ti-align-left"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5 class="property-form-section-title">
+
+                                    Property Description
+
+                                </h5>
+
+                                <p class="property-form-section-subtitle">
+
+                                    Describe the property and nearby facilities.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="property-form-row">
+
+                            <div class="property-col-12">
+
+                                <label class="property-form-label">
+
+                                    Description
+
+                                </label>
+
+                                <textarea name="description" class="property-form-control"
+                                    placeholder="Describe the property, nearby facilities, surroundings, etc.">{{ old('description') }}</textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                 
 
                     {{-- =================================================
                     PROPERTY IMAGES

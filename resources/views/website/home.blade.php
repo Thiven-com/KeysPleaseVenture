@@ -217,9 +217,46 @@
 
     <style>
    
+/* Counter Layout */
+.hero-property-count {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
 
-/* Counter Description */
+/* Single Counter Box */
+.property-counter {
+    display: inline-flex !important;
+    visibility: visible !important;
+    background: #15c6fb1f;
+    border-radius: 12px;
+    padding: 10px 16px;
+}
 
+/* All Digits Inside One Box */
+.counter-digits {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Number Styling */
+.digit-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.digit-box span {
+    color: #25a1fc;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* Label */
 .property-count-label {
     color: #172554;
     font-size: 20px;
@@ -227,106 +264,40 @@
     letter-spacing: -0.3px;
 }
 
-/* Main Counter Layout */
-
-.hero-property-count {
-    display: flex !important;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-}
-
-.property-counter {
-    display: inline-flex !important;
-    visibility: visible !important;
-}
-
-.counter-digits {
-    display: flex !important;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Individual Number Boxes */
-
-.digit-box {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-
-    width: 52px;
-    height: 60px;
-    flex-shrink: 0;
-
-    background: #15c6fb1f;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.digit-box span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-
-    color: #25a1fc;
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 1;
-}
-
-/* Mobile Responsive */
-
+/* Mobile */
 @media (max-width: 576px) {
-
     .hero-property-count {
         justify-content: center;
         gap: 10px;
-        margin-top: 18px;
+    }
+
+    .property-counter {
+        padding: 9px 12px;
+        border-radius: 9px;
+        background: #82c8fd;
     }
 
     .counter-digits {
-        gap: 5px;
-    }
-
-    .digit-box {
-        width: 38px;
-        height: 46px;
-        border-radius: 8px;
-        background: #008cffba;
+        gap: 8px;
     }
 
     .digit-box span {
         font-size: 23px;
-        color: #5ec9ff !important;
+        color: #00068a;
     }
 
     .property-count-label {
         font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0;
     }
 }
 
-/* Extra Small Mobile Screens */
-
 @media (max-width: 360px) {
-
-    .hero-property-count {
-        gap: 8px;
+    .property-counter {
+        padding: 8px 10px;
     }
 
     .counter-digits {
-        gap: 4px;
-    }
-
-    .digit-box {
-        width: 32px;
-        height: 42px;
-        border-radius: 7px;
+        gap: 6px;
     }
 
     .digit-box span {
@@ -335,32 +306,6 @@
 
     .property-count-label {
         font-size: 12px;
-    }
-}
-.digit-box span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    color: #25a1fc;
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 1;
-}
-
-.digit-box span.counting {
-    animation: digitPop 0.25s ease;
-}
-
-@keyframes digitPop {
-    0% {
-        transform: translateY(8px);
-        opacity: 0.3;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
     }
 }
     </style>
