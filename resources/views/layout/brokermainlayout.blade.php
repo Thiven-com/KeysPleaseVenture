@@ -15,7 +15,7 @@
     <title>{{ $site->site_name ?? 'Owner Panel' }}</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys10.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys11.png') }}">
 
     @include('layout.broker.brokerhead')
 </head>

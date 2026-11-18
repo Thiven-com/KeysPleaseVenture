@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="{{ asset('website/css/propertydetails.css') }}">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys10.png') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('website/images/keys11.png') }}">
 
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -232,10 +232,10 @@
       <!-- Logo -->
       <a class="logo" href="{{ route('home') }}">
         {{-- Desktop logo --}}
-        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture" class="desktop-logo">
+        <img src="{{ asset('website/images/keys11.png') }}" alt="KeysPleasee Venture" class="desktop-logo">
 
         {{-- Mobile logo --}}
-        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture" class="mobile-logo">
+        <img src="{{ asset('website/images/keys11.png') }}" alt="KeysPleasee Venture" class="mobile-logo">
       </a>
 
       <!-- City -->
@@ -514,7 +514,7 @@
     <div class="mobile-sidebar-header">
 
       <a class="mobile-sidebar-logo" href="{{ route('home') }}">
-        <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture">
+        <img src="{{ asset('website/images/keys11.png') }}" alt="KeysPleasee Venture">
       </a>
 
       <button class="mobile-close-btn" type="button" aria-label="Close menu">
@@ -668,12 +668,12 @@
       <div class="footer-company">
 
         <a class="logo" href="{{ route('home') }}">
-          <img src="{{ asset('website/images/keys10.png') }}" alt="KeysPleasee Venture">
+          <img src="{{ asset('website/images/keys11.png') }}" alt="KeysPleasee Venture">
         </a>
 
 
         <div class="footer-copy" style="font-size:13px;">
-          Bangalore's trusted platform for properties."WHERE OWNERS MEET TENANTS / BUYERS DIRECTLY."
+          Bangalore's trusted platform for properties.WHERE OWNERS MEET TENANTS / BUYERS DIRECTLY.
         </div>
 
         <!-- <div class="footer-copy">

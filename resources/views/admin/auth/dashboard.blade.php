@@ -639,7 +639,7 @@
                         <i class="ti ti-users"></i>
                     </span>
                     <span class="kp-action-text">
-                        <span class="kp-action-title">Manage Brokers</span>
+                        <span class="kp-action-title">Manage Owners</span>
                         <span class="kp-action-description">
                             View registered brokers
                         </span>

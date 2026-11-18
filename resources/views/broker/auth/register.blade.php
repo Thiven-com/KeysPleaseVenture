@@ -530,7 +530,7 @@
                             {{-- Logo --}}
                             <div class="final-logo logo-normal mb-3">
                                 <a href="#" class="logo logo-normal d-flex align-items-center justify-content-start w-100">
-                                    <img src="{{ asset('website') }}/images/keys10.png" alt="Logo"
+                                    <img src="{{ asset('website') }}/images/keys11.png" alt="Logo"
                                         style="width: 150px; max-width: 100%; height: auto; display">
                                 </a>
                             </div>
@@ -624,13 +624,13 @@
                             {{-- ========================================= --}}
                             {{-- BUSINESS DETAILS --}}
                             {{-- ========================================= --}}
-                            <div class="mb-3 mt-4">
+                            <!-- <div class="mb-3 mt-4">
                                 <h5 class="mb-3">
                                     Business Details
                                 </h5>
-                            </div>
+                            </div> -->
                             {{-- Agency --}}
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">
                                     Agency / Company Name
                                 </label>
@@ -641,10 +641,10 @@
                                         <i class="ti ti-building"></i>
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
                             {{-- License --}}
                             {{-- Aadhaar Card --}}
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">Aadhaar Card</label>
                                 <div class="input-group">
                                     <input type="text" name="aadhaar_number" class="form-control border-end-0"
@@ -655,21 +655,21 @@
                                         <i class="ti ti-id-badge"></i>
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
                             {{-- ========================================= --}}
                             {{-- ADDRESS DETAILS --}}
                             {{-- ========================================= --}}
                             {{-- Address --}}
-                            <div class="mb-3 position-relative">
+                            <!-- <div class="mb-3 position-relative">
                                 <label class="form-label">Address</label>
                                 <input type="text" name="address" id="address" class="form-control"
                                     value="{{ old('address') }}" placeholder="Search your complete address"
                                     autocomplete="off" required>
-                            </div>
+                            </div> -->
                             {{-- City --}}
                             {{-- City --}}
                             {{-- City / Bengaluru Area --}}
-                            <div class="mb-3 position-relative">
+                            <!-- <div class="mb-3 position-relative">
                                 <label class="form-label">City / Area</label>
                                 <div class="input-group">
                                     <input type="text" name="city" id="city" class="form-control border-end-0"
@@ -680,9 +680,9 @@
                                     </span>
                                 </div>
                                 <div id="citySuggestions" class="location-suggestions"></div>
-                            </div>
+                            </div> -->
                             {{-- State --}}
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">State</label>
                                 <div class="input-group">
                                     <input type="text" name="state" id="state" class="form-control border-end-0"
@@ -691,9 +691,9 @@
                                         <i class="ti ti-map"></i>
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
                             {{-- Pincode --}}
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label">
                                     Pincode
                                 </label>
@@ -704,7 +704,7 @@
                                         <i class="ti ti-map-pin"></i>
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
                             {{-- ========================================= --}}
                             {{-- LOGIN DETAILS --}}
                             {{-- ========================================= --}}

@@ -216,30 +216,140 @@
     </style>
 
     <style>
-        .hero-property-count {
+   
+/* Counter Description */
+
+.property-count-label {
+    color: #172554;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+
+
+.hero-property-count {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.property-counter {
+    display: inline-flex !important;
+    visibility: visible !important;
+}
+
+.counter-digits {
+    display: flex !important;
+    gap: 8px;
+}
+
+.digit-box {
+    display: block !important;
+    width: 52px;
+    height: 60px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background:#15c6fb1f;
+    border-radius: 12px;
+}
+
+.digit-track {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.digit-track span {
+    width: 52px;
+    height: 60px;
+    min-height: 60px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    color: #172554;
-    font-size: 17px;
-    font-weight: 500;
+    justify-content: center;
+    color: #25a1fc;
+    font-size: 30px;
+    font-weight: 800;
 }
 
-.hero-property-count i {
-    color: #22c55e;
-    font-size: 22px;
+/* =====================================
+   MOBILE RESPONSIVE PROPERTY COUNTER
+===================================== */
+
+@media (max-width: 576px) {
+
+    .hero-property-count {
+        display: flex !important;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+        justify-content: center;
+    }
+
+    .property-counter {
+        display: inline-flex !important;
+        width: auto;
+    }
+
+    .counter-digits {
+        display: flex !important;
+        gap: 5px;
+    }
+
+    .digit-box {
+        width: 38px;
+        height: 46px;
+        border-radius: 8px;
+    }
+
+    .digit-track span {
+        width: 38px;
+        height: 46px;
+        min-height: 46px;
+        font-size: 23px;
+        line-height: 46px;
+    }
+
+    .property-count-label {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
 }
 
-.hero-property-count strong {
-    color: #16a34a;
-    font-size: 26px;
-    font-weight: 700;
-}
+/* Extra Small Mobile Screens */
 
-.hero-property-count span {
-    color: #172554;
-    font-weight: 600;
+@media (max-width: 360px) {
+
+    .hero-property-count {
+        gap: 8px;
+    }
+
+    .counter-digits {
+        gap: 4px;
+    }
+
+    .digit-box {
+        width: 32px;
+        height: 42px;
+        border-radius: 7px;
+    }
+
+    .digit-track span {
+        width: 32px;
+        height: 42px;
+        min-height: 42px;
+        font-size: 20px;
+        line-height: 42px;
+    }
+
+    .property-count-label {
+        font-size: 12px;
+    }
 }
     </style>
 
@@ -272,18 +382,27 @@
                 </p>
 
                 <!-- Description -->
-                <p class="hero-description">
+                <!-- <p class="hero-description">
                     A premium property platform to list, discover and
                     connect directly with property owners. Find your next
                     home or investment without the burden of brokerage.
-                </p>
+                </p> -->
 
-                <div class="hero-property-count">
-                    <i class="fa-solid fa-house"></i>
-                    <strong>{{ number_format($propertiesCount) }}+</strong>
-                    <span>Live Properties in Bengaluru</span>
-                </div>
+              <div class="hero-property-count">
 
+    <div class="property-counter"
+         id="propertyCounter"
+         data-count="{{ (int) $propertiesCount }}">
+
+        <div class="counter-digits"></div>
+
+    </div>
+
+    <span class="property-count-label">
+        Live Properties in Bengaluru
+    </span>
+
+</div>
 
             </div>
 
@@ -2274,7 +2393,99 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbHPicLYkLGF_-HUU8TTzdU0RQKg8bNTM&loading=async&libraries=places&callback=initRpfLocationAutocomplete">
         </script>
 
+<script>
+(function () {
 
+    function initializePropertyCounter() {
+
+        const counter = document.getElementById("propertyCounter");
+
+        if (!counter) {
+            console.error("Property counter element not found!");
+            return;
+        }
+
+        const target = Math.max(
+            0,
+            parseInt(counter.dataset.count, 10) || 0
+        );
+
+        const digitsContainer = counter.querySelector(".counter-digits");
+
+        if (!digitsContainer) return;
+
+        // Generate four digits
+        const digits = String(target).padStart(4, "0").slice(-4);
+
+        digitsContainer.innerHTML = "";
+
+        digits.split("").forEach((digit) => {
+
+            const box = document.createElement("div");
+            box.className = "digit-box";
+
+            const track = document.createElement("div");
+            track.className = "digit-track";
+
+            for (let i = 0; i <= 9; i++) {
+
+                const span = document.createElement("span");
+                span.textContent = i;
+
+                track.appendChild(span);
+            }
+
+            box.appendChild(track);
+            digitsContainer.appendChild(box);
+
+            track.dataset.digit = digit;
+
+        });
+
+        // Calculate actual digit height
+        function updateCounter() {
+
+            const tracks = digitsContainer.querySelectorAll(".digit-track");
+
+            tracks.forEach((track) => {
+
+                const height = track.parentElement.getBoundingClientRect().height;
+
+                const digit = Number(track.dataset.digit);
+
+                track.style.transform =
+                    `translateY(-${digit * height}px)`;
+
+            });
+
+        }
+
+        // Start animation after rendering
+        requestAnimationFrame(() => {
+            updateCounter();
+        });
+
+        // Handle responsive screen changes
+        window.addEventListener("resize", updateCounter);
+
+        if (typeof ResizeObserver !== "undefined") {
+
+            const observer = new ResizeObserver(updateCounter);
+
+            observer.observe(digitsContainer);
+        }
+
+        console.log("Property counter initialized:", target);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePropertyCounter);
+    } else {
+        initializePropertyCounter();
+    }
+
+})();
+</script>
 
 @endsection
 

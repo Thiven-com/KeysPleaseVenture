@@ -42,10 +42,10 @@ class AuthController extends Controller
                 'broker_type' => 'required|string|max:100',
                 'agency_name' => 'nullable|string|max:255',
                 'license_number' => 'nullable|string|max:255',
-                'address' => 'required|string',
-                'city' => 'required|string|max:100',
-                'state' => 'required|string|max:100',
-                'pincode' => 'required|string|max:10',
+                'address' => 'nullable|string',
+                'city' => 'nullable|string|max:100',
+                'state' => 'nullable|string|max:100',
+                'pincode' => 'nullable|string|max:10',
                 'password' => 'required|string|min:6|confirmed',
 
                 // Terms & Conditions

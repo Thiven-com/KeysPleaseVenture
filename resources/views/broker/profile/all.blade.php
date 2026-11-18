@@ -226,7 +226,7 @@
 
                     <i class="ti ti-edit"></i>
 
-                    Edit Profile
+                    Update / Edit Profile
 
                 </a>
 
