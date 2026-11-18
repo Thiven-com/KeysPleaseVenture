@@ -1718,409 +1718,328 @@
 
     </script>
 
-    <script>
+ <script>
+    let propertyMap;
+    let propertyMarker;
+    let searchTimeout;
+    let searchRequestId = 0;
 
-        let propertyMap;
-        let propertyMarker;
+    // Default Bengaluru location
+    const defaultLatitude = 12.9716;
+    const defaultLongitude = 77.5946;
 
-        const defaultLatitude = 12.9716;
-        const defaultLongitude = 77.5946;
+    // Approximate Bengaluru boundary
+    const bengaluruBounds = L.latLngBounds(
+        [12.75, 77.35],
+        [13.20, 77.85]
+    );
 
+    document.addEventListener('DOMContentLoaded', function () {
 
-        // =========================================================
-        // INITIALIZE MAP
-        // =========================================================
+        const mapElement = document.getElementById('property-map');
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+        const googleMapInput = document.getElementById('google_map_url');
+        const searchInput = document.getElementById('property-map-search');
+        const resultBox = document.getElementById('map-search-results');
 
-        document.addEventListener('DOMContentLoaded', function () {
+        if (
+            !mapElement ||
+            !latitudeInput ||
+            !longitudeInput ||
+            !googleMapInput
+        ) {
+            return;
+        }
 
-            const mapElement =
-                document.getElementById('property-map');
+        // Load existing property coordinates
+        let latitude = parseFloat(latitudeInput.value);
+        let longitude = parseFloat(longitudeInput.value);
 
-            if (!mapElement) {
-                return;
+        if (
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude) ||
+            !bengaluruBounds.contains([latitude, longitude])
+        ) {
+            latitude = defaultLatitude;
+            longitude = defaultLongitude;
+        }
+
+        // Initialize map
+        propertyMap = L.map('property-map', {
+            maxBounds: bengaluruBounds,
+            maxBoundsViscosity: 1.0,
+            minZoom: 10
+        }).setView([latitude, longitude], 13);
+
+        // OpenStreetMap tiles
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors'
             }
+        ).addTo(propertyMap);
 
+        // Restore existing property marker
+        if (
+            latitudeInput.value &&
+            longitudeInput.value &&
+            bengaluruBounds.contains([latitude, longitude])
+        ) {
+            createPropertyMarker(latitude, longitude);
+        }
 
-            let latitude =
-                parseFloat(
-                    document.getElementById('latitude').value
-                );
-
-            let longitude =
-                parseFloat(
-                    document.getElementById('longitude').value
-                );
-
-
-            // Default Bengaluru location
-            if (isNaN(latitude) || isNaN(longitude)) {
-
-                latitude = defaultLatitude;
-                longitude = defaultLongitude;
-            }
-
-
-            // Create Leaflet map
-            propertyMap = L.map('property-map').setView(
-                [latitude, longitude],
-                13
+        // Update location when clicking map
+        propertyMap.on('click', function (event) {
+            setPropertyLocation(
+                event.latlng.lat,
+                event.latlng.lng
             );
-
-
-            // OpenStreetMap
-            L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-                    maxZoom: 19,
-                    attribution:
-                        '&copy; OpenStreetMap contributors'
-                }
-            ).addTo(propertyMap);
-
-
-            // Existing property location
-            if (
-                document.getElementById('latitude').value &&
-                document.getElementById('longitude').value
-            ) {
-
-                createPropertyMarker(
-                    latitude,
-                    longitude
-                );
-
-            }
-
-
-            // =====================================================
-            // CLICK MAP
-            // =====================================================
-
-            propertyMap.on(
-                'click',
-                function (event) {
-
-                    setPropertyLocation(
-                        event.latlng.lat,
-                        event.latlng.lng
-                    );
-
-                }
-            );
-
-
-            // =====================================================
-            // SEARCH LOCATION
-            // =====================================================
-
-            const searchInput =
-                document.getElementById(
-                    'property-map-search'
-                );
-
-            let searchTimeout;
-
-
-            searchInput.addEventListener(
-                'input',
-                function () {
-
-                    const searchText =
-                        this.value.trim();
-
-                    clearTimeout(searchTimeout);
-
-
-                    if (searchText.length < 3) {
-
-                        document.getElementById(
-                            'map-search-results'
-                        ).style.display = 'none';
-
-                        return;
-                    }
-
-
-                    searchTimeout = setTimeout(
-                        function () {
-
-                            searchLocation(searchText);
-
-                        },
-                        700
-                    );
-
-                }
-            );
-
         });
 
+        // Search location
+        if (searchInput && resultBox) {
 
-        // =========================================================
-        // CREATE MARKER
-        // =========================================================
+            searchInput.addEventListener('input', function () {
 
-        function createPropertyMarker(
-            latitude,
-            longitude
+                const searchText = this.value.trim();
+
+                clearTimeout(searchTimeout);
+
+                if (searchText.length < 3) {
+                    resultBox.style.display = 'none';
+                    return;
+                }
+
+                searchTimeout = setTimeout(function () {
+                    searchLocation(searchText);
+                }, 600);
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', function (event) {
+                if (
+                    !searchInput.contains(event.target) &&
+                    !resultBox.contains(event.target)
+                ) {
+                    resultBox.style.display = 'none';
+                }
+            });
+        }
+
+        // Fix map rendering inside hidden or delayed layouts
+        setTimeout(function () {
+            propertyMap.invalidateSize();
+        }, 300);
+    });
+
+
+    // Create or update marker
+    function createPropertyMarker(latitude, longitude) {
+
+        if (propertyMarker) {
+            propertyMap.removeLayer(propertyMarker);
+        }
+
+        propertyMarker = L.marker(
+            [latitude, longitude],
+            {
+                draggable: true
+            }
+        ).addTo(propertyMap);
+
+        // Update coordinates after dragging marker
+        propertyMarker.on('dragend', function (event) {
+
+            const position = event.target.getLatLng();
+
+            setPropertyLocation(
+                position.lat,
+                position.lng
+            );
+        });
+    }
+
+
+    // Set selected property location
+    function setPropertyLocation(latitude, longitude) {
+
+        latitude = parseFloat(latitude);
+        longitude = parseFloat(longitude);
+
+        if (
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude)
         ) {
+            return;
+        }
 
-            if (propertyMarker) {
+        // Restrict location to Bengaluru
+        if (!bengaluruBounds.contains([latitude, longitude])) {
+            alert('Please select a location within Bengaluru.');
+            return;
+        }
 
-                propertyMap.removeLayer(
-                    propertyMarker
-                );
+        document.getElementById('latitude').value =
+            latitude.toFixed(7);
 
+        document.getElementById('longitude').value =
+            longitude.toFixed(7);
+
+        // Update Google Maps URL
+        document.getElementById('google_map_url').value =
+            `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+        // Update marker
+        createPropertyMarker(latitude, longitude);
+
+        // Center map
+        propertyMap.setView(
+            [latitude, longitude],
+            17
+        );
+    }
+
+
+    // Search only within Bengaluru
+    function searchLocation(searchText) {
+
+        const currentRequestId = ++searchRequestId;
+
+        const resultBox = document.getElementById('map-search-results');
+
+        const searchUrl = new URL(
+            'https://nominatim.openstreetmap.org/search'
+        );
+
+        searchUrl.search = new URLSearchParams({
+            format: 'jsonv2',
+            addressdetails: '1',
+            limit: '10',
+            countrycodes: 'in',
+            viewbox: '77.35,13.20,77.85,12.75',
+            bounded: '1',
+            q: searchText + ', Bengaluru, Karnataka, India'
+        });
+
+        fetch(searchUrl.toString(), {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(function (response) {
+
+            if (!response.ok) {
+                throw new Error('Location search failed');
             }
 
+            return response.json();
+        })
+        .then(function (results) {
 
-            propertyMarker = L.marker(
-                [
-                    latitude,
-                    longitude
-                ],
-                {
-                    draggable: true
-                }
-            ).addTo(propertyMap);
-
-
-            // Marker drag
-            propertyMarker.on(
-                'dragend',
-                function (event) {
-
-                    const position =
-                        event.target.getLatLng();
-
-                    setPropertyLocation(
-                        position.lat,
-                        position.lng
-                    );
-
-                }
-            );
-
-        }
-
-
-        // =========================================================
-        // SET LOCATION
-        // =========================================================
-
-        function setPropertyLocation(
-            latitude,
-            longitude
-        ) {
-
-            latitude =
-                parseFloat(latitude);
-
-            longitude =
-                parseFloat(longitude);
-
-
-            // Latitude
-            document.getElementById(
-                'latitude'
-            ).value =
-                latitude.toFixed(7);
-
-
-            // Longitude
-            document.getElementById(
-                'longitude'
-            ).value =
-                longitude.toFixed(7);
-
-
-            // Google Maps URL
-            const googleMapUrl =
-                `https://www.google.com/maps?q=${latitude},${longitude}`;
-
-
-            document.getElementById(
-                'google_map_url'
-            ).value =
-                googleMapUrl;
-
-
-            // Marker
-            createPropertyMarker(
-                latitude,
-                longitude
-            );
-
-
-            // Center map
-            propertyMap.setView(
-                [
-                    latitude,
-                    longitude
-                ],
-                17
-            );
-
-        }
-
-
-        // =========================================================
-        // SEARCH LOCATION
-        // =========================================================
-
-        function searchLocation(searchText) {
-
-            const url =
-                'https://nominatim.openstreetmap.org/search?' +
-                'format=json' +
-                '&addressdetails=1' +
-                '&limit=5' +
-                '&q=' +
-                encodeURIComponent(searchText);
-
-
-            fetch(url, {
-
-                headers: {
-                    'Accept': 'application/json'
-                }
-
-            })
-                .then(function (response) {
-
-                    return response.json();
-
-                })
-                .then(function (results) {
-
-                    displaySearchResults(results);
-
-                })
-                .catch(function (error) {
-
-                    console.error(
-                        'Location search error:',
-                        error
-                    );
-
-                });
-
-        }
-
-
-        // =========================================================
-        // DISPLAY SEARCH RESULTS
-        // =========================================================
-
-        function displaySearchResults(results) {
-
-            const resultBox =
-                document.getElementById(
-                    'map-search-results'
-                );
-
-
-            resultBox.innerHTML = '';
-
-
-            if (!results.length) {
-
-                resultBox.innerHTML = `
-                    <div style="
-                        padding:12px;
-                        color:#777;
-                        font-size:12px;
-                    ">
-                        No location found.
-                    </div>
-                `;
-
-                resultBox.style.display = 'block';
-
+            // Ignore outdated search responses
+            if (currentRequestId !== searchRequestId) {
                 return;
             }
 
+            // Extra Bengaluru boundary validation
+            const filteredResults = results.filter(function (place) {
 
-            results.forEach(function (place) {
+                const lat = parseFloat(place.lat);
+                const lon = parseFloat(place.lon);
 
-                const item =
-                    document.createElement('div');
-
-
-                item.style.padding = '12px';
-                item.style.cursor = 'pointer';
-                item.style.borderBottom =
-                    '1px solid #edf0f4';
-                item.style.fontSize = '12px';
-                item.style.color = '#344158';
-
-
-                item.textContent =
-                    place.display_name;
-
-
-                item.addEventListener(
-                    'mouseenter',
-                    function () {
-
-                        item.style.background =
-                            '#f5f7fa';
-
-                    }
+                return (
+                    Number.isFinite(lat) &&
+                    Number.isFinite(lon) &&
+                    bengaluruBounds.contains([lat, lon])
                 );
-
-
-                item.addEventListener(
-                    'mouseleave',
-                    function () {
-
-                        item.style.background =
-                            '#ffffff';
-
-                    }
-                );
-
-
-                item.addEventListener(
-                    'click',
-                    function () {
-
-                        const latitude =
-                            parseFloat(place.lat);
-
-                        const longitude =
-                            parseFloat(place.lon);
-
-
-                        document.getElementById(
-                            'property-map-search'
-                        ).value =
-                            place.display_name;
-
-
-                        setPropertyLocation(
-                            latitude,
-                            longitude
-                        );
-
-
-                        resultBox.style.display =
-                            'none';
-
-                    }
-                );
-
-
-                resultBox.appendChild(item);
-
             });
 
+            displaySearchResults(filteredResults);
+        })
+        .catch(function (error) {
 
-            resultBox.style.display = 'block';
+            console.error('Location search error:', error);
 
+            if (currentRequestId === searchRequestId) {
+                resultBox.innerHTML = '';
+
+                const message = document.createElement('div');
+                message.textContent = 'Unable to search locations. Please try again.';
+                message.style.padding = '12px';
+
+                resultBox.appendChild(message);
+                resultBox.style.display = 'block';
+            }
+        });
+    }
+
+
+    // Display search results
+    function displaySearchResults(results) {
+
+        const resultBox = document.getElementById('map-search-results');
+
+        if (!resultBox) {
+            return;
         }
 
-    </script>
+        resultBox.innerHTML = '';
+
+        if (!results.length) {
+
+            const message = document.createElement('div');
+
+            message.textContent = 'No locations found within Bengaluru.';
+            message.style.padding = '12px';
+            message.style.color = '#777';
+
+            resultBox.appendChild(message);
+            resultBox.style.display = 'block';
+
+            return;
+        }
+
+        results.forEach(function (place) {
+
+            const item = document.createElement('div');
+
+            item.textContent = place.display_name;
+
+            item.style.padding = '12px';
+            item.style.cursor = 'pointer';
+            item.style.borderBottom = '1px solid #edf0f4';
+            item.style.fontSize = '12px';
+            item.style.color = '#344158';
+
+            item.addEventListener('mouseenter', function () {
+                item.style.background = '#f5f7fa';
+            });
+
+            item.addEventListener('mouseleave', function () {
+                item.style.background = '#ffffff';
+            });
+
+            item.addEventListener('click', function () {
+
+                const latitude = parseFloat(place.lat);
+                const longitude = parseFloat(place.lon);
+
+                document.getElementById('property-map-search').value =
+                    place.display_name;
+
+                setPropertyLocation(latitude, longitude);
+
+                resultBox.style.display = 'none';
+            });
+
+            resultBox.appendChild(item);
+        });
+
+        resultBox.style.display = 'block';
+    }
+</script>
 
     <script>
         let localityAutocomplete;
