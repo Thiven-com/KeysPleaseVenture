@@ -867,6 +867,45 @@
 
                         <div class="property-form-row">
 
+
+                         {{-- LISTING FOR --}}
+
+                            <div class="property-col-4">
+
+                                <label class="property-form-label">
+
+                                    Listing For
+
+                                    <span class="property-form-required">*</span>
+
+                                </label>
+
+                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
+
+                                    <option value="">
+                                        Select Listing For
+                                    </option>
+
+                                    <option value="Rent" {{ old('listing_for') == 'Rent' ? 'selected' : '' }}>
+                                        Rent
+                                    </option>
+
+                                    <!-- <option value="Lease" {{ old('listing_for') == 'Lease' ? 'selected' : '' }}>
+                                        Lease
+                                    </option> -->
+
+                                    <option value="PG" {{ old('listing_for') == 'PG' ? 'selected' : '' }}>
+                                        PG
+                                    </option>
+
+                                    <option value="Sell" {{ old('listing_for') == 'Sell' ? 'selected' : '' }}>
+                                        Sell
+                                    </option>
+
+                                </select>
+
+                            </div>
+
                             {{-- PROPERTY TITLE --}}
 
                             <div class="property-col-8">
@@ -915,43 +954,7 @@
 
                             </div>
 
-                            {{-- LISTING FOR --}}
-
-                            <div class="property-col-4">
-
-                                <label class="property-form-label">
-
-                                    Listing For
-
-                                    <span class="property-form-required">*</span>
-
-                                </label>
-
-                                <select name="listing_for" id="listingForSelect" class="property-form-select" required>
-
-                                    <option value="">
-                                        Select Listing For
-                                    </option>
-
-                                    <option value="Rent" {{ old('listing_for') == 'Rent' ? 'selected' : '' }}>
-                                        Rent
-                                    </option>
-
-                                    <option value="Lease" {{ old('listing_for') == 'Lease' ? 'selected' : '' }}>
-                                        Lease
-                                    </option>
-
-                                    <option value="PG" {{ old('listing_for') == 'PG' ? 'selected' : '' }}>
-                                        PG
-                                    </option>
-
-                                    <option value="Sell" {{ old('listing_for') == 'Sell' ? 'selected' : '' }}>
-                                        Sell
-                                    </option>
-
-                                </select>
-
-                            </div>
+                           
 
                             {{-- TENANT PREFERENCE --}}
 
@@ -1128,7 +1131,7 @@
                             </div>
 
                             {{-- DISTRICT --}}
-                            <div class="property-col-4">
+                            <!-- <div class="property-col-4">
 
                                 <label class="property-form-label">
                                     District
@@ -1138,13 +1141,13 @@
                                 <input type="text" name="district" class="property-form-control"
                                     value="{{ old('district') }}" placeholder="e.g. Annamayya" required>
 
-                            </div>
+                            </div> -->
 
                             {{-- CITY --}}
                             <div class="property-col-4">
 
                                 <label class="property-form-label">
-                                    City
+                                    City <span class="property-form-required">*</span>
                                 </label>
 
                                 <select name="city_id" class="property-form-select" required>
@@ -1246,7 +1249,7 @@
                             </div>
 
                             {{-- LATITUDE --}}
-                            <div class="property-col-6">
+                            <!-- <div class="property-col-6">
 
                                 <label class="property-form-label">
                                     Latitude
@@ -1255,10 +1258,10 @@
                                 <input type="text" name="latitude" class="property-form-control"
                                     value="{{ old('latitude') }}" placeholder="e.g. 14.0516">
 
-                            </div>
+                            </div> -->
 
                             {{-- LONGITUDE --}}
-                            <div class="property-col-6">
+                            <!-- <div class="property-col-6">
 
                                 <label class="property-form-label">
                                     Longitude
@@ -1267,7 +1270,7 @@
                                 <input type="text" name="longitude" class="property-form-control"
                                     value="{{ old('longitude') }}" placeholder="e.g. 79.1240">
 
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
