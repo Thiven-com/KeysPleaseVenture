@@ -296,10 +296,12 @@
         width: 38px;
         height: 46px;
         border-radius: 8px;
+        background: #008cffba;
     }
 
     .digit-box span {
         font-size: 23px;
+        color: #5ec9ff !important;
     }
 
     .property-count-label {
