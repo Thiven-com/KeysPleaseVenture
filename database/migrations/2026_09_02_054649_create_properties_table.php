@@ -12,10 +12,8 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
+            $table->bigInteger('user_id')
+                ->nullable();
 
             $table->string('listing_for');
             $table->string('property_type');

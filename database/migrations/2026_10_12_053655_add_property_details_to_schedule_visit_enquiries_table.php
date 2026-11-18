@@ -9,11 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('schedule_visit_enquiries', function (Blueprint $table) {
-            $table->foreignId('property_id')
+            $table->bigInteger('property_id')
                 ->nullable()
-                ->after('id')
-                ->constrained('properties')
-                ->nullOnDelete();
+                ->after('id');
 
             $table->string('property_title')->nullable()->after('property_id');
         });

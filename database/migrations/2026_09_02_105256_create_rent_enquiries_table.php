@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('rent_enquiries', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('property_id')
-                ->constrained('properties')
-                ->cascadeOnDelete();
+            $table->bigInteger('property_id');
 
             $table->string('name')->nullable();
             $table->string('phone', 20)->nullable();

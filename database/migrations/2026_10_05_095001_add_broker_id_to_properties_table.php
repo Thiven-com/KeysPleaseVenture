@@ -12,11 +12,9 @@ return new class extends Migration
     public function up()
 {
     Schema::table('properties', function (Blueprint $table) {
-        $table->foreignId('broker_id')
+        $table->bigInteger('broker_id')
             ->nullable()
-            ->after('user_id')
-            ->constrained('brokers')
-            ->nullOnDelete();
+            ->after('user_id');
     });
 }
 

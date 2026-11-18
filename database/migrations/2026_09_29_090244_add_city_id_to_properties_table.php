@@ -9,11 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->foreignId('city_id')
+            $table->bigInteger('city_id')
                 ->nullable()
-                ->after('id')
-                ->constrained('cities')
-                ->nullOnDelete();
+                ->after('id');
         });
     }
 

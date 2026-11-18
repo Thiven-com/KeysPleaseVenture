@@ -12,9 +12,7 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('property_id')
-                ->constrained('properties')
-                ->cascadeOnDelete();
+            $table->bigInteger('property_id');
 
             $table->string('image_path');
 

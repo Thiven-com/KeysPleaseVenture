@@ -11,13 +11,9 @@ return new class extends Migration
         Schema::create('property_amenities', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('property_id')
-                ->constrained('properties')
-                ->cascadeOnDelete();
+            $table->bigInteger('property_id');
 
-            $table->foreignId('amenity_id')
-                ->constrained('amenities')
-                ->cascadeOnDelete();
+            $table->bigInteger('amenity_id');
 
             $table->timestamps();
 
