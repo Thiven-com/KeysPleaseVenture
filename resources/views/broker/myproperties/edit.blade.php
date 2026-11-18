@@ -1978,6 +1978,95 @@
 
                 </div>
 
+
+                 {{-- AMENITIES --}}
+
+                <div class="form-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-icon">
+
+                            <i class="fa-solid fa-list-check"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>Amenities</h4>
+
+                            <p>Select all amenities available with this property.</p>
+
+                        </div>
+
+                    </div>
+
+                    @php
+
+                        $selectedAmenities = old(
+
+                            'amenities',
+
+                            $property->propertyAmenities
+
+                                ? $property->propertyAmenities->pluck('id')->toArray()
+
+                                : []
+
+                        );
+
+                    @endphp
+
+                    <div class="amenities-grid">
+
+                        @forelse($amenities as $amenity)
+
+                            <div class="amenity-item">
+
+                                <input
+
+                                    type="checkbox"
+
+                                    name="amenities[]"
+
+                                    value="{{ $amenity->id }}"
+
+                                    id="amenity\_{{ $amenity->id }}"
+
+                                    {{ in_array($amenity->id, $selectedAmenities) ? 'checked' : '' }}
+
+                                >
+
+                                <label
+
+                                    for="amenity\_{{ $amenity->id }}"
+
+                                    class="amenity-label"
+
+                                >
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                    {{ $amenity->name }}
+
+                                </label>
+
+                            </div>
+
+                        @empty
+
+                            <div style="color:#64748b;font-size:14px;">
+
+                                No active amenities available.
+
+                            </div>
+
+                        @endforelse
+
+                    </div>
+
+                </div>
+
                 {{-- PHOTOS --}}
 
                 <div class="form-section">
@@ -2084,93 +2173,7 @@
 
                 </div>
 
-                {{-- AMENITIES --}}
-
-                <div class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-icon">
-
-                            <i class="fa-solid fa-list-check"></i>
-
-                        </div>
-
-                        <div>
-
-                            <h4>Amenities</h4>
-
-                            <p>Select all amenities available with this property.</p>
-
-                        </div>
-
-                    </div>
-
-                    @php
-
-                        $selectedAmenities = old(
-
-                            'amenities',
-
-                            $property->propertyAmenities
-
-                                ? $property->propertyAmenities->pluck('id')->toArray()
-
-                                : []
-
-                        );
-
-                    @endphp
-
-                    <div class="amenities-grid">
-
-                        @forelse($amenities as $amenity)
-
-                            <div class="amenity-item">
-
-                                <input
-
-                                    type="checkbox"
-
-                                    name="amenities[]"
-
-                                    value="{{ $amenity->id }}"
-
-                                    id="amenity\_{{ $amenity->id }}"
-
-                                    {{ in_array($amenity->id, $selectedAmenities) ? 'checked' : '' }}
-
-                                >
-
-                                <label
-
-                                    for="amenity\_{{ $amenity->id }}"
-
-                                    class="amenity-label"
-
-                                >
-
-                                    <i class="fa-solid fa-check"></i>
-
-                                    {{ $amenity->name }}
-
-                                </label>
-
-                            </div>
-
-                        @empty
-
-                            <div style="color:#64748b;font-size:14px;">
-
-                                No active amenities available.
-
-                            </div>
-
-                        @endforelse
-
-                    </div>
-
-                </div>
+                
 
                 {{-- OWNER DETAILS --}}
 

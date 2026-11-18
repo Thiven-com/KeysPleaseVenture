@@ -1872,60 +1872,8 @@
 
                     </div>
 
-                    {{-- =================================================
-                    DESCRIPTION
-                    ================================================== --}}
 
-                    <div class="property-form-section">
-
-                        <div class="property-form-section-header">
-
-                            <div class="property-form-section-icon">
-
-                                <i class="ti ti-align-left"></i>
-
-                            </div>
-
-                            <div>
-
-                                <h5 class="property-form-section-title">
-
-                                    Property Description
-
-                                </h5>
-
-                                <p class="property-form-section-subtitle">
-
-                                    Describe the property and nearby facilities.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="property-form-row">
-
-                            <div class="property-col-12">
-
-                                <label class="property-form-label">
-
-                                    Description
-
-                                </label>
-
-                                <textarea name="description" class="property-form-control"
-                                    placeholder="Describe the property, nearby facilities, surroundings, etc.">{{ old('description') }}</textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- =================================================
+                     {{-- =================================================
                     AMENITIES
                     ================================================== --}}
 
@@ -1979,6 +1927,58 @@
                                 </div>
 
                             @endforelse
+
+                        </div>
+
+                    </div>
+
+                    {{-- =================================================
+                    DESCRIPTION
+                    ================================================== --}}
+
+                    <div class="property-form-section">
+
+                        <div class="property-form-section-header">
+
+                            <div class="property-form-section-icon">
+
+                                <i class="ti ti-align-left"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5 class="property-form-section-title">
+
+                                    Property Description
+
+                                </h5>
+
+                                <p class="property-form-section-subtitle">
+
+                                    Describe the property and nearby facilities.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="property-form-row">
+
+                            <div class="property-col-12">
+
+                                <label class="property-form-label">
+
+                                    Description
+
+                                </label>
+
+                                <textarea name="description" class="property-form-control"
+                                    placeholder="Describe the property, nearby facilities, surroundings, etc.">{{ old('description') }}</textarea>
+
+                            </div>
 
                         </div>
 
@@ -2299,14 +2299,16 @@
     </script>
 
 
-<script>
 
+<script>
     let propertyMap;
     let propertyMarker;
 
     const defaultLatitude = 12.9716;
     const defaultLongitude = 77.5946;
 
+    let searchTimeout;
+    let searchRequestId = 0;
 
     // =========================================================
     // INITIALIZE MAP
@@ -2314,120 +2316,111 @@
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        const mapElement =
-            document.getElementById('property-map');
+        const mapElement = document.getElementById('property-map');
+        const searchInput = document.getElementById('property-map-search');
+        const resultBox = document.getElementById('map-search-results');
 
-        if (!mapElement) {
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+
+        if (!mapElement || !searchInput || !resultBox) {
+            console.error('Property map elements not found.');
             return;
         }
 
+        if (typeof L === 'undefined') {
+            console.error('Leaflet library is not loaded.');
+            return;
+        }
 
-        let latitude =
-            parseFloat(
-                document.getElementById('latitude').value
-            );
+        if (mapElement._leaflet_id) {
+            return;
+        }
 
-        let longitude =
-            parseFloat(
-                document.getElementById('longitude').value
-            );
+        let latitude = parseFloat(latitudeInput?.value);
+        let longitude = parseFloat(longitudeInput?.value);
 
-
-        // Default Bengaluru location
-        if (isNaN(latitude) || isNaN(longitude)) {
-
+        if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
             latitude = defaultLatitude;
             longitude = defaultLongitude;
         }
 
-
-        propertyMap = L.map('property-map').setView(
+        // Initialize Leaflet
+        propertyMap = L.map(mapElement).setView(
             [latitude, longitude],
             13
         );
 
-
-        // OpenStreetMap
+        // OpenStreetMap tiles
         L.tileLayer(
             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             {
                 maxZoom: 19,
-                attribution:
-                    '&copy; OpenStreetMap contributors'
+                attribution: '&copy; OpenStreetMap contributors'
             }
         ).addTo(propertyMap);
 
+        // Fix map display
+        setTimeout(function () {
+            propertyMap.invalidateSize();
+        }, 300);
 
         // Existing location
         if (
-            document.getElementById('latitude').value &&
-            document.getElementById('longitude').value
+            latitudeInput?.value &&
+            longitudeInput?.value &&
+            Number.isFinite(parseFloat(latitudeInput.value)) &&
+            Number.isFinite(parseFloat(longitudeInput.value))
         ) {
-
-            createPropertyMarker(
-                latitude,
-                longitude
-            );
-
+            createPropertyMarker(latitude, longitude);
         }
 
-
         // Click map
-        propertyMap.on(
-            'click',
-            function (event) {
+        propertyMap.on('click', function (event) {
 
-                setPropertyLocation(
-                    event.latlng.lat,
-                    event.latlng.lng
-                );
-
-            }
-        );
-
-
-        // Search
-        const searchInput =
-            document.getElementById(
-                'property-map-search'
+            setPropertyLocation(
+                event.latlng.lat,
+                event.latlng.lng
             );
 
+        });
 
-        let searchTimeout;
+        // Search input
+        searchInput.addEventListener('input', function () {
 
+            const searchText = this.value.trim();
 
-        searchInput.addEventListener(
-            'input',
-            function () {
+            clearTimeout(searchTimeout);
 
-                const searchText =
-                    this.value.trim();
-
-
-                clearTimeout(searchTimeout);
-
-
-                if (searchText.length < 3) {
-
-                    document.getElementById(
-                        'map-search-results'
-                    ).style.display = 'none';
-
-                    return;
-                }
-
-
-                searchTimeout = setTimeout(
-                    function () {
-
-                        searchLocation(searchText);
-
-                    },
-                    700
-                );
-
+            if (searchText.length < 3) {
+                resultBox.style.display = 'none';
+                return;
             }
-        );
+
+            searchTimeout = setTimeout(function () {
+
+                searchLocation(searchText);
+
+            }, 600);
+
+        });
+
+        // Close results when clicking outside
+        document.addEventListener('click', function (event) {
+
+            if (
+                !searchInput.contains(event.target) &&
+                !resultBox.contains(event.target)
+            ) {
+                resultBox.style.display = 'none';
+            }
+
+        });
+
+        // Responsive map
+        window.addEventListener('resize', function () {
+            propertyMap.invalidateSize();
+        });
 
     });
 
@@ -2436,47 +2429,30 @@
     // CREATE MARKER
     // =========================================================
 
-    function createPropertyMarker(
-        latitude,
-        longitude
-    ) {
+    function createPropertyMarker(latitude, longitude) {
 
         if (propertyMarker) {
-
-            propertyMap.removeLayer(
-                propertyMarker
-            );
-
+            propertyMap.removeLayer(propertyMarker);
         }
 
-
         propertyMarker = L.marker(
-            [
-                latitude,
-                longitude
-            ],
+            [latitude, longitude],
             {
                 draggable: true
             }
         ).addTo(propertyMap);
 
-
         // Marker drag
-        propertyMarker.on(
-            'dragend',
-            function (event) {
+        propertyMarker.on('dragend', function (event) {
 
-                const position =
-                    event.target.getLatLng();
+            const position = event.target.getLatLng();
 
+            setPropertyLocation(
+                position.lat,
+                position.lng
+            );
 
-                setPropertyLocation(
-                    position.lat,
-                    position.lng
-                );
-
-            }
-        );
+        });
 
     }
 
@@ -2485,56 +2461,36 @@
     // SET LOCATION
     // =========================================================
 
-    function setPropertyLocation(
-        latitude,
-        longitude
-    ) {
+    function setPropertyLocation(latitude, longitude) {
 
-        latitude =
-            parseFloat(latitude);
+        latitude = parseFloat(latitude);
+        longitude = parseFloat(longitude);
 
-        longitude =
-            parseFloat(longitude);
+        if (
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude)
+        ) {
+            return;
+        }
 
-
-        // Latitude
-        document.getElementById(
-            'latitude'
-        ).value =
+        document.getElementById('latitude').value =
             latitude.toFixed(7);
 
-
-        // Longitude
-        document.getElementById(
-            'longitude'
-        ).value =
+        document.getElementById('longitude').value =
             longitude.toFixed(7);
 
-
-        // Google Maps URL
         const googleMapUrl =
             `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-
-        document.getElementById(
-            'google_map_url'
-        ).value =
+        document.getElementById('google_map_url').value =
             googleMapUrl;
 
-
-        // Marker
-        createPropertyMarker(
-            latitude,
-            longitude
-        );
-
+        // Update marker
+        createPropertyMarker(latitude, longitude);
 
         // Center map
         propertyMap.setView(
-            [
-                latitude,
-                longitude
-            ],
+            [latitude, longitude],
             17
         );
 
@@ -2542,43 +2498,76 @@
 
 
     // =========================================================
-    // SEARCH LOCATION
+    // SEARCH BENGALURU LOCATIONS
     // =========================================================
 
     function searchLocation(searchText) {
 
-        const url =
-            'https://nominatim.openstreetmap.org/search?' +
-            'format=json' +
-            '&addressdetails=1' +
-            '&limit=5' +
-            '&q=' +
-            encodeURIComponent(searchText);
+        const resultBox = document.getElementById('map-search-results');
 
+        const currentRequestId = ++searchRequestId;
 
-        fetch(url, {
+        resultBox.innerHTML = `
+            <div style="padding:12px;color:#777;">
+                Searching Bengaluru locations...
+            </div>
+        `;
 
+        resultBox.style.display = 'block';
+
+        const url = new URL(
+            'https://nominatim.openstreetmap.org/search'
+        );
+
+        url.search = new URLSearchParams({
+            format: 'jsonv2',
+            addressdetails: '1',
+            limit: '10',
+            countrycodes: 'in',
+            viewbox: '77.35,13.20,77.85,12.75',
+            bounded: '1',
+            q: searchText + ', Bengaluru, Karnataka, India'
+        });
+
+        fetch(url.toString(), {
             headers: {
                 'Accept': 'application/json'
             }
-
         })
         .then(function (response) {
+
+            if (!response.ok) {
+                throw new Error('Location search failed.');
+            }
 
             return response.json();
 
         })
         .then(function (results) {
 
+            // Ignore old search responses
+            if (currentRequestId !== searchRequestId) {
+                return;
+            }
+
             displaySearchResults(results);
 
         })
         .catch(function (error) {
 
-            console.error(
-                'Location search error:',
-                error
-            );
+            console.error('Location search error:', error);
+
+            if (currentRequestId !== searchRequestId) {
+                return;
+            }
+
+            resultBox.innerHTML = `
+                <div style="padding:12px;color:#dc2626;">
+                    Unable to search locations. Please try again.
+                </div>
+            `;
+
+            resultBox.style.display = 'block';
 
         });
 
@@ -2592,13 +2581,9 @@
     function displaySearchResults(results) {
 
         const resultBox =
-            document.getElementById(
-                'map-search-results'
-            );
-
+            document.getElementById('map-search-results');
 
         resultBox.innerHTML = '';
-
 
         if (!results.length) {
 
@@ -2608,7 +2593,7 @@
                     color:#777;
                     font-size:12px;
                 ">
-                    No location found.
+                    No matching Bengaluru locations found.
                 </div>
             `;
 
@@ -2617,87 +2602,50 @@
             return;
         }
 
-
         results.forEach(function (place) {
 
-            const item =
-                document.createElement('div');
-
+            const item = document.createElement('div');
 
             item.style.padding = '12px';
             item.style.cursor = 'pointer';
-            item.style.borderBottom =
-                '1px solid #edf0f4';
+            item.style.borderBottom = '1px solid #edf0f4';
             item.style.fontSize = '12px';
             item.style.color = '#344158';
 
+            item.textContent = place.display_name;
 
-            item.textContent =
-                place.display_name;
+            item.addEventListener('mouseenter', function () {
+                item.style.background = '#f5f7fa';
+            });
 
+            item.addEventListener('mouseleave', function () {
+                item.style.background = '#ffffff';
+            });
 
-            item.addEventListener(
-                'mouseenter',
-                function () {
+            item.addEventListener('click', function () {
 
-                    item.style.background =
-                        '#f5f7fa';
+                const latitude = parseFloat(place.lat);
+                const longitude = parseFloat(place.lon);
 
-                }
-            );
+                document.getElementById('property-map-search').value =
+                    place.display_name;
 
+                setPropertyLocation(latitude, longitude);
 
-            item.addEventListener(
-                'mouseleave',
-                function () {
+                resultBox.style.display = 'none';
 
-                    item.style.background =
-                        '#ffffff';
-
-                }
-            );
-
-
-            item.addEventListener(
-                'click',
-                function () {
-
-                    const latitude =
-                        parseFloat(place.lat);
-
-                    const longitude =
-                        parseFloat(place.lon);
-
-
-                    document.getElementById(
-                        'property-map-search'
-                    ).value =
-                        place.display_name;
-
-
-                    setPropertyLocation(
-                        latitude,
-                        longitude
-                    );
-
-
-                    resultBox.style.display =
-                        'none';
-
-                }
-            );
-
+            });
 
             resultBox.appendChild(item);
 
         });
-
 
         resultBox.style.display = 'block';
 
     }
 
 </script>
+
 
 
 <script>
