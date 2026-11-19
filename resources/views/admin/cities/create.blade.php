@@ -223,7 +223,7 @@
 
         color: #071b3d !important;
 
-        font-size: 15px !important;
+        font-size: 20px !important;
 
         font-weight: 700 !important;
 
@@ -252,7 +252,7 @@
 
         color: #071b3d !important;
 
-        font-size: 11px;
+        font-size: 15px;
 
         font-weight: 700;
 
@@ -291,7 +291,7 @@
 
         color: #344158;
 
-        font-size: 12px;
+        font-size: 16px;
 
         font-weight: 400;
 
@@ -387,7 +387,7 @@
 
         color: #8a94a6;
 
-        font-size: 10px;
+        font-size: 12px;
 
         line-height: 1.4;
     }
@@ -428,7 +428,7 @@
 
         color: #4f5d72;
 
-        font-size: 10px;
+        font-size: 15px;
 
         font-weight: 600;
 
@@ -790,7 +790,7 @@
 
                         {{-- CITY NAME --}}
 
-                        <div class="city-col-8">
+                        <div class="city-col-4">
 
                             <label class="city-form-label">
 
@@ -836,7 +836,7 @@
 
                         {{-- ICON --}}
 
-                        <div class="city-col-6">
+                        <div class="city-col-4">
 
                             <label class="city-form-label">
 
