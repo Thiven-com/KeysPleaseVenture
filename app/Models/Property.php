@@ -54,6 +54,7 @@ class Property extends Model
         'price',
         'security_deposit',
         'furnishing',
+        'furnishing_details',
         'available_from',
 
         // Description
@@ -80,6 +81,7 @@ class Property extends Model
 
         'price' => 'decimal:2',
         'security_deposit' => 'decimal:2',
+        'furnishing_details' => 'array',
 
         'available_from' => 'date',
         'expires_at' => 'datetime',
@@ -118,4 +120,5 @@ class Property extends Model
     {
         return $this->belongsTo(\App\Models\Broker::class, 'broker_id');
     }
+
 }

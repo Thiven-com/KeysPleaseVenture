@@ -97,6 +97,16 @@
                                                         </a>
                                                 </li>
 
+
+                                                <li
+                                                        class="{{ Request::is('admin/furnishing-features*') ? 'active' : '' }}">
+                                                        <a href="{{ route('admin.furnishing-features.index') }}">
+                                                                <i class="ti ti-armchair fs-16 me-2"></i>
+                                                                <span>Furnishing Features</span>
+                                                        </a>
+                                                </li>
+
+
                                                 <!-- <li class="{{ Request::is('admin/service') ? 'active' : '' }}"><a
                                                                 href="{{ route('service.all') }}"><i
                                                                         class="ti ti-briefcase fs-16 me-2"></i><span>Services</span></a>

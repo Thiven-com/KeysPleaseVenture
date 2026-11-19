@@ -458,7 +458,8 @@
     background: #f8f9ff;
 }
 
-.property-amenity-item input {
+/* Checkbox features */
+.property-amenity-item input[type="checkbox"] {
     width: 17px;
     height: 17px;
     margin: 0;
@@ -466,6 +467,24 @@
 
     accent-color: #405189;
     cursor: pointer;
+}
+
+/* Quantity features */
+.property-amenity-item input[type="number"] {
+    width: 75px;
+    height: 34px;
+    min-height: 34px;
+    padding: 5px 8px;
+    margin: 0;
+    flex-shrink: 0;
+
+    border: 1px solid #dfe4eb;
+    border-radius: 6px;
+    background: #ffffff;
+
+    color: #344054;
+    font-size: 12px;
+    outline: none;
 }
 
 .property-amenity-item i {
@@ -1418,7 +1437,7 @@
 
                                 </label>
 
-                                <select name="furnishing" class="property-form-select" required>
+                                <select name="furnishing" id="furnishingSelect" class="property-form-select" required>
 
                                     <option value="">
                                         Select Furnishing
@@ -1439,6 +1458,64 @@
                                 </select>
 
                             </div>
+
+
+                            {{-- FURNISHING FEATURES --}}
+
+<div class="property-col-12"
+     id="furnishingFeaturesSection"
+     style="display:none;">
+
+    <label class="property-form-label">
+        Furnishing Features
+    </label>
+
+    <div class="property-amenities-wrapper">
+
+        @forelse($furnishingFeatures as $feature)
+
+            <label class="property-amenity-item"
+                   data-furnishing-feature
+                   data-furnishing-type="{{ $feature->furnishing_type }}">
+
+                @if($feature->selection_type === 'checkbox')
+
+                    <input type="checkbox"
+                           name="furnishing_details[{{ $feature->id }}]"
+                           value="1"
+                           {{ old('furnishing_details.'.$feature->id) == '1' ? 'checked' : '' }}
+                           disabled>
+
+                @else
+
+                    <input type="number"
+                           name="furnishing_details[{{ $feature->id }}]"
+                           min="0"
+                           step="1"
+                           placeholder="Qty"
+                           value="{{ old('furnishing_details.'.$feature->id) }}"
+                           disabled>
+
+                @endif
+
+                @if($feature->icon)
+                    <i class="{{ $feature->icon }}"></i>
+                @endif
+
+                <span>{{ $feature->name }}</span>
+
+            </label>
+
+        @empty
+
+            <p class="property-form-help">
+                No active furnishing features available.
+            </p>
+
+        @endforelse
+
+    </div>
+</div>
 
                             {{-- =================================================
                             AVAILABLE FROM
@@ -2390,6 +2467,51 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     updateImageMessage();
+
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const furnishingSelect = document.getElementById('furnishingSelect');
+    const featuresSection = document.getElementById('furnishingFeaturesSection');
+    const featureItems = document.querySelectorAll('[data-furnishing-feature]');
+
+    if (!furnishingSelect || !featuresSection) return;
+
+    function updateFurnishingFeatures() {
+
+        const selectedType = furnishingSelect.value;
+        let hasFeatures = false;
+
+        featureItems.forEach(function (item) {
+
+            const featureType = item.dataset.furnishingType;
+            const inputs = item.querySelectorAll('input');
+
+            if (featureType === selectedType &&
+                selectedType !== 'Unfurnished') {
+
+                item.style.display = 'flex';
+                hasFeatures = true;
+
+                inputs.forEach(input => input.disabled = false);
+
+            } else {
+
+                item.style.display = 'none';
+
+                inputs.forEach(input => input.disabled = true);
+            }
+        });
+
+        featuresSection.style.display = hasFeatures ? 'block' : 'none';
+    }
+
+    furnishingSelect.addEventListener('change', updateFurnishingFeatures);
+
+    updateFurnishingFeatures();
 
 });
 </script>

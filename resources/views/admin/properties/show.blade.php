@@ -1,13 +1,13 @@
 @extends('layout.mainlayout')
 @section('content')
-@php
-    $isSale = strtolower(trim($property->listing_for ?? 'rent')) === 'sell';
-@endphp
+    @php
+        $isSale = strtolower(trim($property->listing_for ?? 'rent')) === 'sell';
+    @endphp
     <div class="page-wrapper">
         <div class="content">
             {{-- =========================================================
-              PAGE HEADER
-              ========================================================== --}}
+            PAGE HEADER
+            ========================================================== --}}
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="mb-1">Property Details</h4>
@@ -27,8 +27,8 @@
                 </div>
             </div>
             {{-- =========================================================
-              SUCCESS / ERROR
-              ========================================================== --}}
+            SUCCESS / ERROR
+            ========================================================== --}}
             @if(session('success'))
                 <div class="alert alert-success">
                     <i class="ti ti-check me-1"></i>
@@ -43,12 +43,12 @@
             @endif
             <div class="row">
                 {{-- =====================================================
-                  LEFT COLUMN
-                  ====================================================== --}}
+                LEFT COLUMN
+                ====================================================== --}}
                 <div class="col-lg-8">
                     {{-- =================================================
-                      PROPERTY IMAGES
-                      ================================================== --}}
+                    PROPERTY IMAGES
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -76,8 +76,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      BASIC PROPERTY INFORMATION
-                      ================================================== --}}
+                    BASIC PROPERTY INFORMATION
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -124,21 +124,21 @@
                                     </div>
                                 </div>
                                 @unless($isSale)
-                {{-- Tenant Preference --}}
-                                <div class="col-md-4 mb-4">
-                                    <div class="detail-box">
-                                        <span>Tenant Preference</span>
-                                        <strong>
-                                            @if($property->tenant_preference === 'Both')
-                                                Fam & Bac
-                                            @else
-                                                {{ $property->tenant_preference ?: 'N/A' }}
-                                            @endif
-                                        </strong>
+                                    {{-- Tenant Preference --}}
+                                    <div class="col-md-4 mb-4">
+                                        <div class="detail-box">
+                                            <span>Tenant Preference</span>
+                                            <strong>
+                                                @if($property->tenant_preference === 'Both')
+                                                    Fam & Bac
+                                                @else
+                                                    {{ $property->tenant_preference ?: 'N/A' }}
+                                                @endif
+                                            </strong>
+                                        </div>
                                     </div>
-                                </div>
                                 @endunless
-                {{-- BHK --}}
+                                {{-- BHK --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">
                                         <span>BHK</span>
@@ -177,9 +177,91 @@
                             </div>
                         </div>
                     </div>
+
+
+
+
                     {{-- =================================================
-                      PROPERTY SPECIFICATIONS
-                      ================================================== --}}
+                    FURNISHING FEATURES
+                    ================================================== --}}
+
+                    @php
+                        $savedFurnishingDetails = $property->furnishing_details ?? [];
+
+                        if (!is_array($savedFurnishingDetails)) {
+                            $savedFurnishingDetails = [];
+                        }
+
+                        $selectedFeatureIds = collect($savedFurnishingDetails)
+                            ->filter(function ($value) {
+                                return is_numeric($value) && (int) $value > 0;
+                            })
+                            ->keys()
+                            ->all();
+
+                        // Include inactive features so previously saved selections remain visible.
+                        $selectedFurnishingFeatures = \App\Models\FurnishingFeature::whereIn(
+                            'id',
+                            $selectedFeatureIds
+                        )->where('is_active', true)->get()->keyBy('id');
+                    @endphp
+
+                    @if($selectedFurnishingFeatures->isNotEmpty())
+
+                        <div class="card mb-4">
+
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="ti ti-armchair me-1"></i>
+                                    Furnishing Features
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="row">
+
+                                    @foreach($selectedFurnishingFeatures as $feature)
+
+                                        @php
+                                            $featureValue = $savedFurnishingDetails[$feature->id] ?? 1;
+                                        @endphp
+
+                                        <div class="col-md-4 col-sm-6 mb-3">
+
+                                            <div class="amenity-item">
+
+                                                @if($feature->icon)
+                                                    <i class="{{ $feature->icon }}"></i>
+                                                @else
+                                                    <i class="ti ti-circle-check"></i>
+                                                @endif
+
+                                                <span>
+                                                    {{ $feature->name }}
+
+                                                    @if($feature->selection_type === 'quantity')
+                                                        - {{ $featureValue }}
+                                                    @endif
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    @endif
+
+                    {{-- =================================================
+                    PROPERTY SPECIFICATIONS
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -197,7 +279,7 @@
                                             {{ $property->area_sqft
         ? number_format($property->area_sqft) . ' Sq.Ft'
         : 'N/A'
-                                                    }}
+                                                        }}
                                         </strong>
                                     </div>
                                 </div>
@@ -209,7 +291,7 @@
                                             {{ $property->built_up_area
         ? number_format($property->built_up_area) . ' Sq.Ft'
         : 'N/A'
-                                                    }}
+                                                        }}
                                         </strong>
                                     </div>
                                 </div>
@@ -221,7 +303,7 @@
                                             {{ $property->carpet_area
         ? number_format($property->carpet_area) . ' Sq.Ft'
         : 'N/A'
-                                                    }}
+                                                        }}
                                         </strong>
                                     </div>
                                 </div>
@@ -233,7 +315,7 @@
                                             {{ $property->floor_number !== null
         ? $property->floor_number
         : 'N/A'
-                                                    }}
+                                                        }}
                                         </strong>
                                     </div>
                                 </div>
@@ -257,13 +339,13 @@
                                 </div>
                                 {{-- Property Condition --}}
                                 <!-- <div class="col-md-4 mb-4">
-                                    <div class="detail-box">
-                                        <span>Property Condition</span>
-                                        <strong>
-                                            {{ $property->property_condition ?: 'N/A' }}
-                                        </strong>
-                                    </div>
-                                </div> -->
+                                        <div class="detail-box">
+                                            <span>Property Condition</span>
+                                            <strong>
+                                                {{ $property->property_condition ?: 'N/A' }}
+                                            </strong>
+                                        </div>
+                                    </div> -->
                                 {{-- Facing --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">
@@ -281,31 +363,31 @@
                                             {{ $property->road_width
         ? $property->road_width . ' Ft'
         : 'N/A'
-                                                    }}
+                                                        }}
                                         </strong>
                                     </div>
                                 </div>
 
                                 {{-- Bike Parking --}}
-<div class="col-md-4 mb-4">
-    <div class="detail-box">
-        <span>Bike Parking</span>
-        <strong>
-            @if($property->bike_parking !== null && $property->bike_parking !== '')
-                @if($property->bike_parking == '0')
-                    No Bikes
-                @elseif($property->bike_parking == '4+')
-                    4+ Bikes
-                @else
-                    {{ $property->bike_parking }}
-                    {{ $property->bike_parking == '1' ? 'Bike' : 'Bikes' }}
-                @endif
-            @else
-                N/A
-            @endif
-        </strong>
-    </div>
-</div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="detail-box">
+                                        <span>Bike Parking</span>
+                                        <strong>
+                                            @if($property->bike_parking !== null && $property->bike_parking !== '')
+                                                @if($property->bike_parking == '0')
+                                                    No Bikes
+                                                @elseif($property->bike_parking == '4+')
+                                                    4+ Bikes
+                                                @else
+                                                    {{ $property->bike_parking }}
+                                                    {{ $property->bike_parking == '1' ? 'Bike' : 'Bikes' }}
+                                                @endif
+                                            @else
+                                                N/A
+                                            @endif
+                                        </strong>
+                                    </div>
+                                </div>
                                 {{-- Car Parking --}}
                                 <div class="col-md-4 mb-4">
                                     <div class="detail-box">
@@ -328,8 +410,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      LOCATION DETAILS
-                      ================================================== --}}
+                    LOCATION DETAILS
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -448,61 +530,62 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      RENTAL INFORMATION
-                      ================================================== --}}
+                    RENTAL INFORMATION
+                    ================================================== --}}
                     @if($isSale)
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="card-title mb-0"><i class="ti ti-currency-rupee me-1"></i> Sale Information</h5>
-        </div>
-        <div class="card-body">
-            <div class="price-box">
-                <span>Expected Sale Price</span>
-                <h3>₹{{ number_format((float) ($property->price ?? 0)) }}</h3>
-                <small>One-time price</small>
-            </div>
-        </div>
-    </div>
-@else
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="card-title mb-0"><i class="ti ti-currency-rupee me-1"></i> Rental Information</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <div class="price-box">
-                        <span>Monthly Rent</span>
-                        <h3>₹{{ number_format((float) ($property->price ?? 0)) }}</h3>
-                        <small>Per month</small>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <div class="price-box">
-                        <span>Security Deposit</span>
-                        <h3>{{ $property->security_deposit ? '₹' . number_format((float) $property->security_deposit) : 'N/A' }}</h3>
-                        <small>Refundable deposit</small>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6 mb-3">
-                    <div class="detail-box">
-                        <span>Furnishing</span>
-                        <strong>{{ $property->furnishing ?: 'N/A' }}</strong>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <div class="detail-box">
-                        <span>Available From</span>
-                        <strong>{{ $property->available_from ? $property->available_from->format('d M Y') : 'Not specified' }}</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-<div class="card mb-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0"><i class="ti ti-currency-rupee me-1"></i> Sale Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="price-box">
+                                    <span>Expected Sale Price</span>
+                                    <h3>₹{{ number_format((float) ($property->price ?? 0)) }}</h3>
+                                    <small>One-time price</small>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0"><i class="ti ti-currency-rupee me-1"></i> Rental Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="price-box">
+                                            <span>Monthly Rent</span>
+                                            <h3>₹{{ number_format((float) ($property->price ?? 0)) }}</h3>
+                                            <small>Per month</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="price-box">
+                                            <span>Security Deposit</span>
+                                            <h3>{{ $property->security_deposit ? '₹' . number_format((float) $property->security_deposit) : 'N/A' }}
+                                            </h3>
+                                            <small>Refundable deposit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="detail-box">
+                                            <span>Furnishing</span>
+                                            <strong>{{ $property->furnishing ?: 'N/A' }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="detail-box">
+                                            <span>Available From</span>
+                                            <strong>{{ $property->available_from ? $property->available_from->format('d M Y') : 'Not specified' }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
                                 <i class="ti ti-align-left me-1"></i>
@@ -522,8 +605,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      AMENITIES
-                      ================================================== --}}
+                    AMENITIES
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -572,12 +655,12 @@
                     </div>
                 </div>
                 {{-- =====================================================
-                  RIGHT COLUMN
-                  ====================================================== --}}
+                RIGHT COLUMN
+                ====================================================== --}}
                 <div class="col-lg-4">
                     {{-- =================================================
-                      PROPERTY STATUS
-                      ================================================== --}}
+                    PROPERTY STATUS
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -601,8 +684,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      PROPERTY ACTIONS
-                      ================================================== --}}
+                    PROPERTY ACTIONS
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -658,8 +741,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      OWNER INFORMATION
-                      ================================================== --}}
+                    OWNER INFORMATION
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -693,38 +776,38 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      AVAILABILITY
-                      ================================================== --}}
+                    AVAILABILITY
+                    ================================================== --}}
                     @unless($isSale)
-<div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">
-                                <i class="ti ti-calendar me-1"></i>
-                                Availability
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="availability-box">
-                                <i class="ti ti-calendar"></i>
-                                <div>
-                                    <small>Available From</small>
-                                    <strong>
-                                        @if($property->available_from)
-                                            {{ $property->available_from->format('d M Y') }}
-                                        @else
-                                            Not specified
-                                        @endif
-                                    </strong>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="ti ti-calendar me-1"></i>
+                                    Availability
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="availability-box">
+                                    <i class="ti ti-calendar"></i>
+                                    <div>
+                                        <small>Available From</small>
+                                        <strong>
+                                            @if($property->available_from)
+                                                {{ $property->available_from->format('d M Y') }}
+                                            @else
+                                                Not specified
+                                            @endif
+                                        </strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- =================================================
-                      POSTED BY
-                      ================================================== --}}
-                    {{-- =================================================
-                      POSTED BY
-                      ================================================== --}}
+                        {{-- =================================================
+                        POSTED BY
+                        ================================================== --}}
+                        {{-- =================================================
+                        POSTED BY
+                        ================================================== --}}
                     @endunless
                     <div class="card mb-4">
                         <div class="card-header">
@@ -771,8 +854,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      ADMIN REMARK
-                      ================================================== --}}
+                    ADMIN REMARK
+                    ================================================== --}}
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">
@@ -793,8 +876,8 @@
                         </div>
                     </div>
                     {{-- =================================================
-                      DELETE
-                      ================================================== --}}
+                    DELETE
+                    ================================================== --}}
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('properties.destroy', $property->id) }}" method="POST"
@@ -813,13 +896,14 @@
         </div>
     </div>
     {{-- =============================================================
-      STYLES
-      ============================================================= --}}
+    STYLES
+    ============================================================= --}}
     <style>
         .property-title-block h3 {
             font-weight: 700;
             color: #212529;
         }
+
         .property-image {
             width: 100%;
             height: 210px;
@@ -827,6 +911,7 @@
             border-radius: 10px;
             background: #f5f6f8;
         }
+
         .property-image img {
             width: 100%;
             height: 100%;
@@ -834,9 +919,11 @@
             display: block;
             transition: transform .3s ease;
         }
+
         .property-image:hover img {
             transform: scale(1.04);
         }
+
         .detail-box {
             background: #f8f9fa;
             border-radius: 8px;
@@ -844,42 +931,50 @@
             height: 100%;
             border: 1px solid #f0f1f3;
         }
+
         .detail-box span {
             display: block;
             color: #6c757d;
             font-size: 13px;
             margin-bottom: 5px;
         }
+
         .detail-box strong {
             display: block;
             font-size: 15px;
             color: #212529;
             word-break: break-word;
         }
+
         .price-box {
             padding: 20px;
             border: 1px solid #e9ecef;
             border-radius: 10px;
             background: #fff;
         }
+
         .price-box span {
             display: block;
             color: #6c757d;
             font-size: 13px;
             margin-bottom: 5px;
         }
+
         .price-box h3 {
             margin: 0;
             font-weight: 700;
         }
+
         .price-box small {
             color: #6c757d;
         }
+
         .description-text {
             line-height: 1.8;
             color: #555;
             white-space: normal;
         }
+
         .amenity-item {
             display: flex;
             align-items: center;
@@ -890,27 +985,32 @@
             border-radius: 8px;
             border: 1px solid #f0f1f3;
         }
+
         .amenity-item i {
             font-size: 18px;
             color: #198754;
             flex-shrink: 0;
         }
+
         .amenity-item span {
             font-size: 14px;
             font-weight: 500;
             color: #343a40;
         }
+
         .status-badge {
             font-size: 14px;
             padding: 9px 18px;
             border-radius: 20px;
         }
+
         .owner-info,
         .availability-box {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .owner-icon,
         .posted-icon {
             width: 42px;
@@ -922,10 +1022,12 @@
             justify-content: center;
             flex-shrink: 0;
         }
+
         .owner-icon i,
         .posted-icon i {
             font-size: 20px;
         }
+
         .owner-info small,
         .availability-box small,
         .posted-by-box small {
@@ -934,26 +1036,31 @@
             font-size: 12px;
             margin-bottom: 2px;
         }
+
         .owner-info strong,
         .availability-box strong,
         .posted-by-box strong {
             display: block;
             font-size: 14px;
         }
+
         .availability-box i {
             font-size: 28px;
         }
+
         .posted-by-box {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .posted-by-box span {
             display: block;
             color: #6c757d;
             font-size: 12px;
             margin-top: 2px;
         }
+
         .location-link-box {
             display: flex;
             align-items: center;
@@ -963,15 +1070,18 @@
             border: 1px solid #e9ecef;
             border-radius: 8px;
         }
+
         .location-link-box span {
             display: block;
             color: #6c757d;
             font-size: 12px;
             margin-bottom: 3px;
         }
+
         .location-link-box strong {
             font-size: 14px;
         }
+
         .coordinates-box {
             display: flex;
             gap: 30px;
@@ -979,15 +1089,18 @@
             background: #f8f9fa;
             border-radius: 8px;
         }
+
         .coordinates-box span {
             display: block;
             color: #6c757d;
             font-size: 12px;
             margin-bottom: 3px;
         }
+
         .coordinates-box strong {
             font-size: 14px;
         }
+
         .remark-box {
             padding: 12px 14px;
             background: #fff8e1;
@@ -996,19 +1109,23 @@
             font-size: 14px;
             border: 1px solid #ffecb5;
         }
+
         @media (max-width: 991px) {
             .property-image {
                 height: 180px;
             }
         }
+
         @media (max-width: 575px) {
             .property-image {
                 height: 220px;
             }
+
             .location-link-box {
                 align-items: flex-start;
                 flex-direction: column;
             }
+
             .coordinates-box {
                 flex-direction: column;
                 gap: 15px;
@@ -1016,8 +1133,8 @@
         }
     </style>
     {{-- =============================================================
-      JAVASCRIPT
-      ============================================================= --}}
+    JAVASCRIPT
+    ============================================================= --}}
     <script>
         function rejectProperty(event, form) {
             event.preventDefault();

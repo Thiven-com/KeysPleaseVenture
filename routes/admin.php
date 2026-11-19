@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\BrokerController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\PropertyTypeController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\FurnishingFeatureController;
 
 
 
@@ -417,6 +418,33 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::patch('amenities/{id}/toggle-status', [AmenityController::class, 'toggleStatus'])
         ->name('admin.amenities.toggleStatus');
+
+
+
+
+    // FURNISHING FEATURES MANAGEMENT
+
+    Route::get('furnishing-features', [FurnishingFeatureController::class, 'index'])
+        ->name('admin.furnishing-features.index');
+
+    Route::get('furnishing-features/create', [FurnishingFeatureController::class, 'create'])
+        ->name('admin.furnishing-features.create');
+
+    Route::post('furnishing-features', [FurnishingFeatureController::class, 'store'])
+        ->name('admin.furnishing-features.store');
+
+    Route::get('furnishing-features/{id}/edit', [FurnishingFeatureController::class, 'edit'])
+        ->name('admin.furnishing-features.edit');
+
+    Route::put('furnishing-features/{id}', [FurnishingFeatureController::class, 'update'])
+        ->name('admin.furnishing-features.update');
+
+    Route::delete('furnishing-features/{id}', [FurnishingFeatureController::class, 'destroy'])
+        ->name('admin.furnishing-features.destroy');
+
+    Route::patch('furnishing-features/{id}/toggle-status', [FurnishingFeatureController::class, 'toggleStatus'])
+        ->name('admin.furnishing-features.toggleStatus');
+
 
 });
 

@@ -54,6 +54,59 @@
         }
     </style>
 
+
+<style>
+    .furnishing-features-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.furnishing-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    min-height: 48px;
+    border: 1px solid #e1e5ec;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.furnishing-feature-item input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #405189;
+}
+
+.furnishing-feature-item span {
+    font-size: 13px;
+    color: #344054;
+}
+
+.furnishing-feature-item input[type="number"] {
+    width: 75px;
+    min-height: 34px;
+    margin-left: auto;
+    padding: 5px;
+    border: 1px solid #dfe4eb;
+    border-radius: 6px;
+}
+
+@media (max-width: 991px) {
+    .furnishing-features-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575px) {
+    .furnishing-features-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -628,7 +681,7 @@
                                 <span class="text-danger">*</span>
                             </label>
 
-                            <select name="furnishing" class="form-select" required>
+                            <select name="furnishing" id="furnishingSelect" class="form-select" required>
                                 <option value="">Select Furnishing</option>
 
                                 @foreach([
@@ -645,6 +698,87 @@
 
                             </select>
                         </div>
+
+                        {{-- DYNAMIC FURNISHING FEATURES --}}
+
+@php
+    $savedFurnishingDetails = old(
+        'furnishing_details',
+        $property->furnishing_details ?? []
+    );
+
+    if (!is_array($savedFurnishingDetails)) {
+        $savedFurnishingDetails = [];
+    }
+@endphp
+
+<div class="property-col-12"
+     id="furnishingFeaturesSection"
+     style="display: none;">
+
+    <label class="property-form-label">
+        Select Furnishing Features
+    </label>
+
+    <div class="furnishing-features-wrapper">
+
+        @forelse($furnishingFeatures as $feature)
+
+            @php
+                $savedValue = old(
+                    'furnishing_details.'.$feature->id,
+                    $savedFurnishingDetails[$feature->id] ?? ''
+                );
+            @endphp
+
+            <label class="furnishing-feature-item"
+                   data-furnishing-feature
+                   data-furnishing-type="{{ $feature->furnishing_type }}">
+
+                @if($feature->selection_type === 'checkbox')
+
+                    <input
+                        type="checkbox"
+                        name="furnishing_details[{{ $feature->id }}]"
+                        value="1"
+                        {{ (string) $savedValue === '1' ? 'checked' : '' }}
+                        disabled
+                    >
+
+                    <span>{{ $feature->name }}</span>
+
+                @else
+
+                    <span>{{ $feature->name }}</span>
+
+                    <input
+                        type="number"
+                        name="furnishing_details[{{ $feature->id }}]"
+                        min="0"
+                        step="1"
+                        placeholder="Qty"
+                        value="{{ $savedValue }}"
+                        disabled
+                    >
+
+                @endif
+
+                @if($feature->icon)
+                    <i class="{{ $feature->icon }}"></i>
+                @endif
+
+            </label>
+
+        @empty
+
+            <p class="property-form-help">
+                No active furnishing features available.
+            </p>
+
+        @endforelse
+
+    </div>
+</div>
 
 
                         {{-- Available From --}}
@@ -2170,6 +2304,65 @@ document.addEventListener('DOMContentLoaded', function () {
             : `✓ ${count} new images selected successfully.`;
 
     });
+
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const furnishingSelect = document.getElementById('furnishingSelect');
+
+    const featuresSection = document.getElementById(
+        'furnishingFeaturesSection'
+    );
+
+    if (!furnishingSelect || !featuresSection) {
+        return;
+    }
+
+    const featureItems = document.querySelectorAll(
+        '[data-furnishing-feature]'
+    );
+
+    function updateFurnishingFeatures() {
+
+        const selectedType = furnishingSelect.value;
+
+        let visibleCount = 0;
+
+        featureItems.forEach(function (item) {
+
+            const featureType = item.dataset.furnishingType;
+
+            const inputs = item.querySelectorAll('input');
+
+            const shouldShow = selectedType === featureType;
+
+            item.style.display = shouldShow ? 'flex' : 'none';
+
+            inputs.forEach(function (input) {
+                input.disabled = !shouldShow;
+            });
+
+            if (shouldShow) {
+                visibleCount++;
+            }
+
+        });
+
+        featuresSection.style.display =
+            visibleCount > 0 ? 'block' : 'none';
+    }
+
+    furnishingSelect.addEventListener(
+        'change',
+        updateFurnishingFeatures
+    );
+
+    // Automatically load saved features when editing.
+    updateFurnishingFeatures();
 
 });
 </script>
