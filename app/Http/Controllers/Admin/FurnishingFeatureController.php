@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 class FurnishingFeatureController extends Controller
 {
     // Display all furnishing features
-    public function index()
-    {
-        $features = FurnishingFeature::latest()->get();
+   public function index()
+{
+    $features = FurnishingFeature::latest()->paginate(10);
 
-        return view('admin.furnishing-features.index', compact('features'));
-    }
+    return view('admin.furnishing-features.index', compact('features'));
+}
 
     // Show create form
     public function create()

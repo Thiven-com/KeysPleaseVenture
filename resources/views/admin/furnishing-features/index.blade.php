@@ -141,6 +141,22 @@
                     </table>
                 </div>
 
+
+                 {{-- Pagination --}}
+                <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+
+                    <div class="text-muted">
+                        Showing {{ $features->firstItem() ?? 0 }}
+                        to {{ $features->lastItem() ?? 0 }}
+                        of {{ $features->total() }} features
+                    </div>
+
+                    <div>
+                        {{ $features->links('pagination::bootstrap-5') }}
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
