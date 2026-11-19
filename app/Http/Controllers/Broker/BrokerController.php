@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Models\RentalPropertyReport;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\Storage;
+use App\Models\FurnishingFeature;
 
 class BrokerController extends Controller
 {
@@ -47,10 +48,15 @@ class BrokerController extends Controller
             ->orderBy('name')
             ->get();
 
+        $furnishingFeatures = FurnishingFeature::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
         return view('broker.myproperties.create', compact(
             'propertyTypes',
             'cities',
-            'amenities'
+            'amenities',
+            'furnishingFeatures'
         ));
     }
 
@@ -95,6 +101,8 @@ class BrokerController extends Controller
             'price' => 'required|numeric|min:0',
             'security_deposit' => 'nullable|numeric|min:0',
             'furnishing' => 'nullable|string|max:100',
+            'furnishing_details' => 'nullable|array',
+            'furnishing_details.*' => 'nullable|integer|min:0',
             'available_from' => 'nullable|date',
 
             'description' => 'nullable|string',
@@ -180,6 +188,10 @@ class BrokerController extends Controller
         $property->status = 'pending';
         $property->admin_remark = null;
         $property->expires_at = now()->addDays(60);
+        $property->furnishing_details = $this->prepareFurnishingDetails(
+            $validated['furnishing_details'] ?? [],
+            $validated['furnishing'] ?? null
+        );
         $property->save();
 
         $property->propertyAmenities()->sync($validated['amenities'] ?? []);
@@ -220,11 +232,16 @@ class BrokerController extends Controller
             ->orderBy('name')
             ->get();
 
+        $furnishingFeatures = FurnishingFeature::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
         return view('broker.myproperties.edit', compact(
             'property',
             'propertyTypes',
             'cities',
-            'amenities'
+            'amenities',
+            'furnishingFeatures'
         ));
     }
 
@@ -295,6 +312,8 @@ class BrokerController extends Controller
             'price' => 'required|numeric|min:0',
             'security_deposit' => 'nullable|numeric|min:0',
             'furnishing' => 'nullable|string|max:100',
+            'furnishing_details' => 'nullable|array',
+            'furnishing_details.*' => 'nullable|integer|min:0',
             'available_from' => 'nullable|date',
             'area' => 'nullable|string|max:100',
             'description' => 'nullable|string',
@@ -400,6 +419,11 @@ class BrokerController extends Controller
         if (array_key_exists('owner_phone', $validated)) {
             $property->owner_phone = $validated['owner_phone'];
         }
+
+        $property->furnishing_details = $this->prepareFurnishingDetails(
+            $validated['furnishing_details'] ?? [],
+            $validated['furnishing'] ?? $property->furnishing
+        );
 
         $property->save();
 
@@ -585,36 +609,70 @@ class BrokerController extends Controller
 
 
     public function destroyPropertyImage($imageId)
-{
-    $broker = auth('broker')->user();
+    {
+        $broker = auth('broker')->user();
 
-    // Find the image only if it belongs to this broker's property
-    $image = PropertyImage::whereHas('property', function ($query) use ($broker) {
-        $query->where('broker_id', $broker->id);
-    })->findOrFail($imageId);
+        // Find the image only if it belongs to this broker's property
+        $image = PropertyImage::whereHas('property', function ($query) use ($broker) {
+            $query->where('broker_id', $broker->id);
+        })->findOrFail($imageId);
 
-    $property = $image->property;
+        $property = $image->property;
 
-    // Prevent deletion if only 4 images remain
-    if ($property->images()->count() <= 4) {
+        // Prevent deletion if only 4 images remain
+        if ($property->images()->count() <= 4) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload one replacement image first. A property must have at least 4 images.',
+            ], 422);
+        }
+
+        // Delete image from database and storage
+        $imagePath = $image->image_path;
+
+        $image->delete();
+
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+
         return response()->json([
-            'success' => false,
-            'message' => 'Upload one replacement image first. A property must have at least 4 images.',
-        ], 422);
+            'success' => true,
+            'message' => 'Image deleted successfully.',
+        ]);
     }
 
-    // Delete image from database and storage
-    $imagePath = $image->image_path;
 
-    $image->delete();
-
-    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-        Storage::disk('public')->delete($imagePath);
+    private function prepareFurnishingDetails(array $submittedFeatures, ?string $furnishingType): array
+{
+    if (!in_array($furnishingType, ['Fully Furnished', 'Semi Furnished'])) {
+        return [];
     }
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Image deleted successfully.',
-    ]);
+    $activeFeatures = FurnishingFeature::where('is_active', true)
+        ->where('furnishing_type', $furnishingType)
+        ->get()
+        ->keyBy('id');
+
+    $furnishingDetails = [];
+
+    foreach ($submittedFeatures as $featureId => $value) {
+
+        $feature = $activeFeatures->get($featureId);
+
+        if (!$feature || (int) $value <= 0) {
+            continue;
+        }
+
+        if ($feature->selection_type === 'checkbox' && (int) $value === 1) {
+            $furnishingDetails[$featureId] = 1;
+        }
+
+        if ($feature->selection_type === 'quantity' && (int) $value > 0) {
+            $furnishingDetails[$featureId] = (int) $value;
+        }
+    }
+
+    return $furnishingDetails;
 }
 }

@@ -786,6 +786,60 @@
         }
     </style>
 
+    <style>
+        /* FURNISHING FEATURES */
+.furnishing-features-wrapper {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.furnishing-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    min-height: 48px;
+    border: 1px solid #e1e5ec;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.furnishing-feature-item input {
+    width: 17px;
+    height: 17px;
+    accent-color: #405189;
+}
+
+.furnishing-feature-item span {
+    font-size: 13px;
+    color: #344054;
+}
+
+.furnishing-feature-item input[type="number"] {
+    width: 75px;
+    min-height: 34px;
+    margin-left: auto;
+    padding: 5px;
+    border: 1px solid #dfe4eb;
+    border-radius: 6px;
+}
+
+@media (max-width: 991px) {
+    .furnishing-features-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575px) {
+    .furnishing-features-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+
 
     <div class="property-create-page">
 
@@ -1548,7 +1602,7 @@
 
                                 </label>
 
-                                <select name="furnishing" class="property-form-select" required>
+                                <select name="furnishing" id="furnishingSelect" class="property-form-select" required>
 
                                     <option value="">
                                         Select Furnishing
@@ -1569,6 +1623,70 @@
                                 </select>
 
                             </div>
+
+
+                            {{-- DYNAMIC FURNISHING FEATURES --}}
+<div class="property-col-12" id="furnishingFeaturesSection"
+     style="display: none;">
+
+    <label class="property-form-label">
+        Select Furnishing Features
+    </label>
+
+    <div class="furnishing-features-wrapper">
+
+        @forelse($furnishingFeatures as $feature)
+
+            <label class="furnishing-feature-item"
+                   data-furnishing-feature
+                   data-furnishing-type="{{ $feature->furnishing_type }}">
+
+                @if($feature->selection_type === 'checkbox')
+
+                    <input
+                        type="checkbox"
+                        name="furnishing_details[{{ $feature->id }}]"
+                        value="1"
+                        {{ old('furnishing_details.'.$feature->id) == 1 ? 'checked' : '' }}
+                        disabled
+                    >
+
+                @else
+
+                    <span>{{ $feature->name }}</span>
+
+                    <input
+                        type="number"
+                        name="furnishing_details[{{ $feature->id }}]"
+                        min="0"
+                        step="1"
+                        placeholder="Qty"
+                        value="{{ old('furnishing_details.'.$feature->id) }}"
+                        disabled
+                    >
+
+                @endif
+
+                @if($feature->icon)
+                    <i class="{{ $feature->icon }}"></i>
+                @endif
+
+                @if($feature->selection_type === 'checkbox')
+                    <span>{{ $feature->name }}</span>
+                @endif
+
+            </label>
+
+        @empty
+
+            <p class="property-form-help">
+                No active furnishing features available.
+            </p>
+
+        @endforelse
+
+    </div>
+</div>
 
 
                             {{-- =================================================
@@ -2879,6 +2997,57 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     updateMessage();
+
+});
+</script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const furnishingSelect = document.getElementById('furnishingSelect');
+    const featuresSection = document.getElementById('furnishingFeaturesSection');
+
+    if (!furnishingSelect || !featuresSection) {
+        return;
+    }
+
+    const featureItems = document.querySelectorAll('[data-furnishing-feature]');
+
+    function updateFurnishingFeatures() {
+
+        const selectedType = furnishingSelect.value;
+        let visibleCount = 0;
+
+        featureItems.forEach(function (item) {
+
+            const featureType = item.dataset.furnishingType;
+            const inputs = item.querySelectorAll('input');
+
+            const shouldShow = selectedType === featureType;
+
+            item.style.display = shouldShow ? 'flex' : 'none';
+
+            inputs.forEach(function (input) {
+                input.disabled = !shouldShow;
+            });
+
+            if (shouldShow) {
+                visibleCount++;
+            }
+        });
+
+        featuresSection.style.display =
+            (selectedType === 'Fully Furnished' ||
+             selectedType === 'Semi Furnished') && visibleCount > 0
+                ? 'block'
+                : 'none';
+    }
+
+    furnishingSelect.addEventListener('change', updateFurnishingFeatures);
+
+    updateFurnishingFeatures();
 
 });
 </script>

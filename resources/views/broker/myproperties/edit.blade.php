@@ -850,6 +850,49 @@
 
 </style>
 
+<style>
+
+
+.broker-furnishing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.broker-furnishing-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 55px;
+    padding: 12px;
+    border: 1px solid #d9e1ec;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.broker-furnishing-item input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #1464e8;
+}
+
+.broker-furnishing-item input[type="number"] {
+    width: 75px;
+    height: 34px;
+    padding: 5px 8px;
+    border: 1px solid #d9e1ec;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .broker-furnishing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+</style>
+
 <div class="broker-edit-page">
 
     <div class="broker-edit-container">
@@ -1629,11 +1672,11 @@
 
                             <label class="form-label">Furnishing</label>
 
-                            <select name="furnishing" class="form-select">
+                            <select name="furnishing" id="furnishingSelect" class="form-select">
 
                                 <option value="">Select Furnishing</option>
 
-                                @foreach(['Unfurnished', 'Semi-Furnished', 'Fully Furnished'] as $item)
+                                @foreach(['Unfurnished', 'Semi Furnished', 'Fully Furnished'] as $item)
 
                                     <option
 
@@ -1652,6 +1695,68 @@
                             </select>
 
                         </div>
+
+
+
+
+{{-- FURNISHING FEATURES --}}
+<div class="form-group full"
+     id="furnishingFeaturesSection"
+     style="display:none;">
+
+    <label class="form-label">Furnishing Features</label>
+
+    <div class="broker-furnishing-grid">
+
+        @forelse($furnishingFeatures as $feature)
+
+            @php
+                $savedFeatures = old(
+                    'furnishing_details',
+                    $property->furnishing_details ?? []
+                );
+
+                $savedValue = $savedFeatures[$feature->id] ?? '';
+            @endphp
+
+            <label class="broker-furnishing-item"
+                   data-furnishing-feature
+                   data-furnishing-type="{{ $feature->furnishing_type }}">
+
+                @if($feature->selection_type === 'checkbox')
+
+                    <input type="checkbox"
+                           name="furnishing_details[{{ $feature->id }}]"
+                           value="1"
+                           {{ (string) $savedValue === '1' ? 'checked' : '' }}
+                           disabled>
+
+                @else
+
+                    <input type="number"
+                           name="furnishing_details[{{ $feature->id }}]"
+                           min="0"
+                           step="1"
+                           placeholder="Qty"
+                           value="{{ $savedValue }}"
+                           disabled>
+
+                @endif
+
+                @if($feature->icon)
+                    <i class="{{ $feature->icon }}"></i>
+                @endif
+
+                <span>{{ $feature->name }}</span>
+
+            </label>
+
+        @empty
+            <p>No active furnishing features available.</p>
+        @endforelse
+
+    </div>
+</div>
 
                         <div class="form-group" id="availableFromGroup">
 
@@ -2605,5 +2710,54 @@ function deleteBrokerPropertyImage(imageId) {
     });
 }
 </script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const furnishingSelect = document.getElementById('furnishingSelect');
+    const featuresSection = document.getElementById('furnishingFeaturesSection');
+    const featureItems = document.querySelectorAll('[data-furnishing-feature]');
+
+    if (!furnishingSelect || !featuresSection) return;
+
+    function updateFurnishingFeatures() {
+
+        const selectedType = furnishingSelect.value;
+        let hasFeatures = false;
+
+        featureItems.forEach(function (item) {
+
+            const featureType = item.dataset.furnishingType;
+            const inputs = item.querySelectorAll('input');
+
+            if (featureType === selectedType &&
+                selectedType !== 'Unfurnished' &&
+                selectedType !== '') {
+
+                item.style.display = 'flex';
+                hasFeatures = true;
+
+                inputs.forEach(input => input.disabled = false);
+
+            } else {
+
+                item.style.display = 'none';
+
+                inputs.forEach(input => input.disabled = true);
+            }
+        });
+
+        featuresSection.style.display = hasFeatures ? 'block' : 'none';
+    }
+
+    furnishingSelect.addEventListener('change', updateFurnishingFeatures);
+
+    updateFurnishingFeatures();
+
+});
+</script>
+
 
 @endsection

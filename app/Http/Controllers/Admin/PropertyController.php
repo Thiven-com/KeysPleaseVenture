@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\City;
 use App\Models\Property;
+use App\Models\FurnishingFeature;
 use App\Models\PropertyImage;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
@@ -124,6 +125,7 @@ class PropertyController extends Controller
     /**
      * Show Add Property form.
      */
+
     public function create()
     {
         $propertyTypes = PropertyType::where('status', true)
@@ -141,15 +143,22 @@ class PropertyController extends Controller
             ->orderBy('name')
             ->get();
 
+        // Load active furnishing features
+        $furnishingFeatures = FurnishingFeature::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
         return view(
             'admin.properties.create',
             compact(
                 'amenities',
                 'cities',
-                'propertyTypes'
+                'propertyTypes',
+                'furnishingFeatures'
             )
         );
     }
+
 
     /**
      * Store property created directly by Admin.
@@ -245,6 +254,9 @@ class PropertyController extends Controller
 
             'furnishing' => 'required|string|max:100',
 
+            'furnishing_details' => 'nullable|array',
+            'furnishing_details.*' => 'nullable|integer|min:0',
+
             'available_from' => 'nullable|date',
 
             // DESCRIPTION
@@ -292,6 +304,36 @@ class PropertyController extends Controller
 
             $property->user_id = auth()->id();
             $property->broker_id = null;
+
+
+
+            // VALIDATE AND PREPARE FURNISHING FEATURES
+
+            $furnishingDetails = [];
+
+            $submittedFeatures = $validated['furnishing_details'] ?? [];
+
+            $activeFeatures = FurnishingFeature::where('is_active', true)
+                ->where('furnishing_type', $validated['furnishing'])
+                ->get()
+                ->keyBy('id');
+
+            foreach ($submittedFeatures as $featureId => $value) {
+
+                $feature = $activeFeatures->get($featureId);
+
+                if (!$feature || (int) $value <= 0) {
+                    continue;
+                }
+
+                if ($feature->selection_type === 'checkbox' && (int) $value === 1) {
+                    $furnishingDetails[$featureId] = 1;
+                }
+
+                if ($feature->selection_type === 'quantity' && (int) $value > 0) {
+                    $furnishingDetails[$featureId] = (int) $value;
+                }
+            }
 
             // BASIC
 
@@ -358,6 +400,8 @@ class PropertyController extends Controller
                 : null;
 
             $property->furnishing = $validated['furnishing'];
+
+            $property->furnishing_details = $furnishingDetails;
 
             $property->available_from = $isRental
                 ? ($validated['available_from'] ?? null)
@@ -479,13 +523,20 @@ class PropertyController extends Controller
             ->orderBy('name')
             ->get();
 
+
+        // Load active furnishing features
+        $furnishingFeatures = FurnishingFeature::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
         return view(
             'admin.properties.edit',
             compact(
                 'property',
                 'amenities',
                 'cities',
-                'propertyTypes'
+                'propertyTypes',
+                'furnishingFeatures'
             )
         );
     }
@@ -493,342 +544,296 @@ class PropertyController extends Controller
     /**
      * Update property.
      */
-    public function update(Request $request, $id)
-    {
-        $property = Property::findOrFail($id);
-        // Validate total property images (existing + newly uploaded)
-        $existingImageCount = $property->images()->count();
-        $newImageCount = count($request->file('photos', []));
 
-        $totalImageCount = $existingImageCount + $newImageCount;
-
-        if ($totalImageCount < 4) {
-            return back()
-                ->withInput()
-                ->withErrors([
-                    'photos' => 'A property must have at least 4 images.',
-                ]);
-        }
-
-        if ($totalImageCount > 10) {
-            return back()
-                ->withInput()
-                ->withErrors([
-                    'photos' => 'A property can have a maximum of 10 images.',
-                ]);
-        }
-
-        $validated = $request->validate([
-
-            // BASIC
-
-            'property_title' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'property_type' => [
-                'required',
-                'exists:property_types,name'
-            ],
-
-            'listing_for' => [
-                'required',
-                'in:Rent,Lease,PG,Sell'
-            ],
-
-            'tenant_preference' => [
-                'nullable',
-                'required_if:listing_for,Rent,Lease,PG',
-                'in:Family,Bachelor,Both'
-            ],
-
-            // LOCATION
-
-            'country' => 'nullable|string|max:100',
-
-            'state' => 'nullable|string|max:100',
-
-            'district' => 'nullable|string|max:100',
-
-            'city_id' => 'required|exists:cities,id',
-
-            'locality' => 'required|string|max:255',
-
-            'pincode' => 'nullable|string|max:10',
-
-            'landmark' => 'nullable|string|max:255',
-
-            'address' => 'nullable|string',
-
-            'google_map_url' => 'nullable|url|max:2048',
-
-            'latitude' => 'nullable|numeric|between:-90,90',
-
-            'longitude' => 'nullable|numeric|between:-180,180',
-
-            // PROPERTY DETAILS
-
-            'bhk' => 'nullable|string|max:50',
-
-            'bathrooms' => 'nullable|integer|min:0',
-
-            'balconies' => 'nullable|integer|min:0',
-
-            'area_sqft' => 'required|integer|min:1',
-
-            'built_up_area' => 'nullable|integer|min:1',
-
-            'carpet_area' => 'nullable|integer|min:1',
-
-            'floor_number' => 'nullable|string|max:100',
-
-            'total_floors' => 'nullable|integer|min:0',
-
-            'property_age' => 'nullable|string|max:100',
-
-            'property_condition' => 'nullable|string|max:100',
-
-            'facing' => 'nullable|string|max:50',
-
-            'road_width' => 'nullable|numeric|min:0',
-
-            'bike_parking' => 'nullable|string|max:100',
-            'car_parking' => 'nullable|string|max:100',
-
-            'possession_status' => 'nullable|string|max:100',
-
-            // RENTAL
-
-            'price' => 'required|numeric|min:0',
-
-            'security_deposit' => 'nullable|numeric|min:0',
-
-            'furnishing' => 'required|string|max:100',
-
-            'available_from' => 'nullable|date',
-
-            // DESCRIPTION
-
-            'description' => 'nullable|string',
-
-            // AMENITIES
-
-            'amenities' => 'nullable|array',
-
-            'amenities.*' => [
-                'integer',
-                'exists:amenities,id'
-            ],
-
-            // OWNER
-
-            'owner_name' => 'required|string|max:255',
-
-            'owner_phone' => 'required|string|max:20',
-
-            // STATUS
-
-            'status' => [
-                'required',
-                'in:pending,approved,rejected,rented,inactive'
-            ],
-
-            'admin_remark' => 'nullable|string|max:1000',
-
-            // PHOTOS
-
-            // PHOTOS
-
-            'photos' => 'nullable|array',
-
-            'photos.*' => [
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:2048',
-            ],
-        ]);
-
-        DB::beginTransaction();
-
-        try {
-
-            /*
-             * Generate slug only if the existing property
-             * does not already have one.
-             *
-             * This prevents changing existing URLs.
-             */
-            if (empty($property->slug)) {
-
-                $property->slug = $this->generateUniqueSlug(
-                    $validated['property_title'],
-                    $property->id
-                );
-            }
-
-            $isRental = in_array(
-                $validated['listing_for'],
-                ['Rent', 'Lease', 'PG'],
-                true
-            );
-
-            $property->update([
-
-                // BASIC
-
-                'property_title' => $validated['property_title'],
-
-                'property_type' => $validated['property_type'],
-
-                'listing_for' => $validated['listing_for'],
-
-                'tenant_preference' => $isRental
-                    ? ($validated['tenant_preference'] ?? null)
-                    : null,
-
-                // LOCATION
-
-                'country' => $validated['country'] ?? null,
-
-                'state' => $validated['state'] ?? null,
-
-                'district' => $validated['district'] ?? null,
-
-                'city_id' => $validated['city_id'],
-
-                'locality' => $validated['locality'],
-
-                'pincode' => $validated['pincode'] ?? null,
-
-                'landmark' => $validated['landmark'] ?? null,
-
-                'address' => $validated['address'] ?? null,
-
-                'google_map_url' => $validated['google_map_url'] ?? null,
-
-                'latitude' => $validated['latitude'] ?? null,
-
-                'longitude' => $validated['longitude'] ?? null,
-
-                // PROPERTY DETAILS
-
-                'bhk' => $validated['bhk'] ?? null,
-
-                'bathrooms' => $validated['bathrooms'] ?? null,
-
-                'balconies' => $validated['balconies'] ?? null,
-
-                'area_sqft' => $validated['area_sqft'] ?? null,
-
-                'built_up_area' => $validated['built_up_area'] ?? null,
-
-                'carpet_area' => $validated['carpet_area'] ?? null,
-
-                'floor_number' => $validated['floor_number'] ?? null,
-
-                'total_floors' => $validated['total_floors'] ?? null,
-
-                'property_age' => $validated['property_age'] ?? null,
-
-                'property_condition' => $validated['property_condition'] ?? null,
-
-                'facing' => $validated['facing'] ?? null,
-
-                'road_width' => $validated['road_width'] ?? null,
-
-                'bike_parking' => $validated['bike_parking'] ?? null,
-                'car_parking' => $validated['car_parking'] ?? null,
-
-                'possession_status' => $validated['possession_status'] ?? null,
-
-                // RENTAL
-
-                // PRICE AND PROPERTY DETAILS
-
-                'price' => $validated['price'],
-
-                'security_deposit' => $isRental
-                    ? ($validated['security_deposit'] ?? null)
-                    : null,
-
-                'furnishing' => $validated['furnishing'],
-
-                'available_from' => $isRental
-                    ? ($validated['available_from'] ?? null)
-                    : null,
-
-                // DESCRIPTION
-
-                'description' => $validated['description'] ?? null,
-
-                // OWNER
-
-                'owner_name' => $validated['owner_name'],
-
-                'owner_phone' => $validated['owner_phone'],
-
-                // STATUS
-
-                'status' => $validated['status'],
-
-                'admin_remark' => $validated['admin_remark'] ?? null,
-
+public function update(Request $request, $id)
+{
+    $property = Property::findOrFail($id);
+
+    // Validate total property images (existing + newly uploaded)
+    $existingImageCount = $property->images()->count();
+    $newImageCount = count($request->file('photos', []));
+    $totalImageCount = $existingImageCount + $newImageCount;
+
+    if ($totalImageCount < 4) {
+        return back()
+            ->withInput()
+            ->withErrors([
+                'photos' => 'A property must have at least 4 images.',
             ]);
+    }
 
-            /*
-             * Save slug if it was generated above.
-             */
-            if (!empty($property->slug)) {
-                $property->save();
-            }
+    if ($totalImageCount > 10) {
+        return back()
+            ->withInput()
+            ->withErrors([
+                'photos' => 'A property can have a maximum of 10 images.',
+            ]);
+    }
 
-            // UPDATE AMENITIES
+    $validated = $request->validate([
 
-            $property->propertyAmenities()->sync(
-                $validated['amenities'] ?? []
-            );
+        // BASIC
+        'property_title' => [
+            'required',
+            'string',
+            'max:255'
+        ],
 
-            // ADD NEW IMAGES
+        'property_type' => [
+            'required',
+            'exists:property_types,name'
+        ],
 
-            if ($request->hasFile('photos')) {
+        'listing_for' => [
+            'required',
+            'in:Rent,Lease,PG,Sell'
+        ],
 
-                foreach ($request->file('photos') as $photo) {
+        'tenant_preference' => [
+            'nullable',
+            'required_if:listing_for,Rent,Lease,PG',
+            'in:Family,Bachelor,Both'
+        ],
 
-                    $path = $photo->store(
-                        'properties',
-                        'public'
-                    );
+        // LOCATION
+        'country' => 'nullable|string|max:100',
+        'state' => 'nullable|string|max:100',
+        'district' => 'nullable|string|max:100',
+        'city_id' => 'required|exists:cities,id',
+        'locality' => 'required|string|max:255',
+        'pincode' => 'nullable|string|max:10',
+        'landmark' => 'nullable|string|max:255',
+        'address' => 'nullable|string',
+        'google_map_url' => 'nullable|url|max:2048',
+        'latitude' => 'nullable|numeric|between:-90,90',
+        'longitude' => 'nullable|numeric|between:-180,180',
 
-                    $property->images()->create([
-                        'image_path' => $path,
-                    ]);
-                }
-            }
+        // PROPERTY DETAILS
+        'bhk' => 'nullable|string|max:50',
+        'bathrooms' => 'nullable|integer|min:0',
+        'balconies' => 'nullable|integer|min:0',
+        'area_sqft' => 'required|integer|min:1',
+        'built_up_area' => 'nullable|integer|min:1',
+        'carpet_area' => 'nullable|integer|min:1',
+        'floor_number' => 'nullable|string|max:100',
+        'total_floors' => 'nullable|integer|min:0',
+        'property_age' => 'nullable|string|max:100',
+        'property_condition' => 'nullable|string|max:100',
+        'facing' => 'nullable|string|max:50',
+        'road_width' => 'nullable|numeric|min:0',
+        'bike_parking' => 'nullable|string|max:100',
+        'car_parking' => 'nullable|string|max:100',
+        'possession_status' => 'nullable|string|max:100',
 
-            DB::commit();
+        // RENTAL
+        'price' => 'required|numeric|min:0',
+        'security_deposit' => 'nullable|numeric|min:0',
+        'furnishing' => 'required|string|max:100',
+        'furnishing_details' => 'nullable|array',
+        'furnishing_details.*' => 'nullable|integer|min:0',
+        'available_from' => 'nullable|date',
 
-            return redirect()
-                ->route('properties.all')
-                ->with(
-                    'success',
-                    'Property updated successfully.'
-                );
+        // DESCRIPTION
+        'description' => 'nullable|string',
 
-        } catch (\Throwable $e) {
+        // AMENITIES
+        'amenities' => 'nullable|array',
+        'amenities.*' => [
+            'integer',
+            'exists:amenities,id'
+        ],
 
-            DB::rollBack();
+        // OWNER
+        'owner_name' => 'required|string|max:255',
+        'owner_phone' => 'required|string|max:20',
 
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Unable to update property: ' . $e->getMessage()
-                );
+        // STATUS
+        'status' => [
+            'required',
+            'in:pending,approved,rejected,rented,inactive'
+        ],
+
+        'admin_remark' => 'nullable|string|max:1000',
+
+        // PHOTOS
+        'photos' => 'nullable|array',
+        'photos.*' => [
+            'image',
+            'mimes:jpg,jpeg,png,webp',
+            'max:2048',
+        ],
+
+    ]);
+
+    // PREPARE FURNISHING FEATURES BEFORE PROPERTY UPDATE
+    $furnishingDetails = [];
+
+    $submittedFeatures = $validated['furnishing_details'] ?? [];
+
+    $activeFeatures = FurnishingFeature::where('is_active', true)
+        ->where('furnishing_type', $validated['furnishing'])
+        ->get()
+        ->keyBy('id');
+
+    foreach ($submittedFeatures as $featureId => $value) {
+
+        $feature = $activeFeatures->get($featureId);
+
+        if (!$feature || (int) $value <= 0) {
+            continue;
+        }
+
+        if (
+            $feature->selection_type === 'checkbox' &&
+            (int) $value === 1
+        ) {
+            $furnishingDetails[$featureId] = 1;
+        }
+
+        if (
+            $feature->selection_type === 'quantity' &&
+            (int) $value > 0
+        ) {
+            $furnishingDetails[$featureId] = (int) $value;
         }
     }
+
+    DB::beginTransaction();
+
+    try {
+
+        // Generate slug only if the existing property does not have one
+        if (empty($property->slug)) {
+            $property->slug = $this->generateUniqueSlug(
+                $validated['property_title'],
+                $property->id
+            );
+        }
+
+        $isRental = in_array(
+            $validated['listing_for'],
+            ['Rent', 'Lease', 'PG'],
+            true
+        );
+
+        // UPDATE PROPERTY
+        $property->update([
+
+            // BASIC
+            'property_title' => $validated['property_title'],
+            'property_type' => $validated['property_type'],
+            'listing_for' => $validated['listing_for'],
+
+            'tenant_preference' => $isRental
+                ? ($validated['tenant_preference'] ?? null)
+                : null,
+
+            // LOCATION
+            'country' => $validated['country'] ?? null,
+            'state' => $validated['state'] ?? null,
+            'district' => $validated['district'] ?? null,
+            'city_id' => $validated['city_id'],
+            'locality' => $validated['locality'],
+            'pincode' => $validated['pincode'] ?? null,
+            'landmark' => $validated['landmark'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'google_map_url' => $validated['google_map_url'] ?? null,
+            'latitude' => $validated['latitude'] ?? null,
+            'longitude' => $validated['longitude'] ?? null,
+
+            // PROPERTY DETAILS
+            'bhk' => $validated['bhk'] ?? null,
+            'bathrooms' => $validated['bathrooms'] ?? null,
+            'balconies' => $validated['balconies'] ?? null,
+            'area_sqft' => $validated['area_sqft'] ?? null,
+            'built_up_area' => $validated['built_up_area'] ?? null,
+            'carpet_area' => $validated['carpet_area'] ?? null,
+            'floor_number' => $validated['floor_number'] ?? null,
+            'total_floors' => $validated['total_floors'] ?? null,
+            'property_age' => $validated['property_age'] ?? null,
+            'property_condition' => $validated['property_condition'] ?? null,
+            'facing' => $validated['facing'] ?? null,
+            'road_width' => $validated['road_width'] ?? null,
+            'bike_parking' => $validated['bike_parking'] ?? null,
+            'car_parking' => $validated['car_parking'] ?? null,
+            'possession_status' => $validated['possession_status'] ?? null,
+
+            // RENTAL
+            'price' => $validated['price'],
+
+            'security_deposit' => $isRental
+                ? ($validated['security_deposit'] ?? null)
+                : null,
+
+            'furnishing' => $validated['furnishing'],
+            'furnishing_details' => $furnishingDetails,
+
+            'available_from' => $isRental
+                ? ($validated['available_from'] ?? null)
+                : null,
+
+            // DESCRIPTION
+            'description' => $validated['description'] ?? null,
+
+            // OWNER
+            'owner_name' => $validated['owner_name'],
+            'owner_phone' => $validated['owner_phone'],
+
+            // STATUS
+            'status' => $validated['status'],
+            'admin_remark' => $validated['admin_remark'] ?? null,
+
+        ]);
+
+        // SAVE SLUG IF GENERATED
+        if (!empty($property->slug)) {
+            $property->save();
+        }
+
+        // UPDATE AMENITIES
+        $property->propertyAmenities()->sync(
+            $validated['amenities'] ?? []
+        );
+
+        // ADD NEW IMAGES
+        if ($request->hasFile('photos')) {
+
+            foreach ($request->file('photos') as $photo) {
+
+                $path = $photo->store(
+                    'properties',
+                    'public'
+                );
+
+                $property->images()->create([
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+        DB::commit();
+
+        return redirect()
+            ->route('properties.all')
+            ->with(
+                'success',
+                'Property updated successfully.'
+            );
+
+    } catch (\Throwable $e) {
+
+        DB::rollBack();
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with(
+                'error',
+                'Unable to update property: ' . $e->getMessage()
+            );
+    }
+}
+
 
     /**
      * Approve property.
