@@ -200,7 +200,7 @@
                                             </div> --}}
                                         </div>
                                     </div>
-                                    <div class="border-bottom mb-3 pb-3">
+                                    <!-- <div class="border-bottom mb-3 pb-3">
                                         <div class="card-title-head">
                                             <h6 class="fs-16 fw-bold mb-2">
                                                 <span class="fs-16 me-2"><i class="ti ti-photo"></i></span>
@@ -352,7 +352,7 @@
                                                 </div>
                                             </div> --}}
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="company-address">
                                         <div class="card-title-head">
                                             <h6 class="fs-16 fw-bold mb-2">
@@ -384,13 +384,13 @@
                                                         placeholder="+91 98765 43210">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <!-- <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">GST</label>
                                                     <input type="text" class="form-control" name="gst"
                                                         value="{{ $site->gst ?? '' }}">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             {{-- <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">
