@@ -2189,9 +2189,25 @@
 
             if (!input || !window.google?.maps?.places) return;
 
+            // const bengaluruBounds = new google.maps.LatLngBounds(
+            //     { lat: 12.7343, lng: 77.3790 },
+            //     { lat: 13.1737, lng: 77.8827 }
+            // );
+
+            // const bengaluruBounds = new google.maps.LatLngBounds(
+            //     { lat: 12.0000, lng: 76.3000 }, // Southwest
+            //     { lat: 14.0000, lng: 78.0000 }  // Northeast
+            // );
+
+            // const bengaluruBounds = new google.maps.LatLngBounds(
+            //     { lat: 11.5000, lng: 75.8000 }, // Southwest
+            //     { lat: 15.0000, lng: 79.0000 }  // Northeast
+            // );
+
+
             const bengaluruBounds = new google.maps.LatLngBounds(
-                { lat: 12.7343, lng: 77.3790 },
-                { lat: 13.1737, lng: 77.8827 }
+                { lat: 12.4000, lng: 77.1000 },
+                { lat: 13.4000, lng: 77.9500 }
             );
 
             localityAutocomplete = new google.maps.places.Autocomplete(input, {

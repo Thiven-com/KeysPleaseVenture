@@ -47,6 +47,8 @@
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
   <style>
     /* =========================================================
    LIST YOUR PROPERTY - MODAL SCROLL FIX
